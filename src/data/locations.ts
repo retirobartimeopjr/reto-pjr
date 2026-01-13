@@ -8,7 +8,7 @@ export interface Location {
 export const LOCATIONS: Location[] = [
     {
         id: '1',
-        name: "Parroquia Jesucristo Redentor",
+        name: "Santuario Nino Jesus de Puente",
         center: { lat: 5.892120242899102, lng: -73.6521367558167 },
         radius: 100
     },

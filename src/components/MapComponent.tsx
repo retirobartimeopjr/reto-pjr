@@ -4,7 +4,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useState } from 'react';
 import { Circle, MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
-import { LOCATIONS, Location } from '../data/locations';
+import { getParroquias, Parroquia } from '../app/actions/getParroquias';
+import { Location, LOCATIONS } from '../data/locations';
 
 // Fix for default marker icon missing in Leaflet with Webpack/Next.js
 const iconUrl = 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png';
@@ -19,6 +20,13 @@ const customIcon = new L.Icon({
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     shadowSize: [41, 41]
+});
+
+const parroquiaIcon = new L.Icon({
+    iconUrl: '/parroquia.png',
+    iconSize: [32, 32], // Adjust size as needed
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
 });
 
 interface LocationWithDistance extends Location {
@@ -60,6 +68,15 @@ export default function MapComponent() {
     const [visitConfirmed, setVisitConfirmed] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [uploadSuccess, setUploadSuccess] = useState(false);
+    const [parroquias, setParroquias] = useState<Parroquia[]>([]);
+
+    useEffect(() => {
+        const fetchParroquias = async () => {
+            const data = await getParroquias();
+            setParroquias(data);
+        };
+        fetchParroquias();
+    }, []);
 
     useEffect(() => {
         setMounted(true);
@@ -155,10 +172,10 @@ export default function MapComponent() {
                                 onClick={handleConfirmVisit}
                                 disabled={!isInside || visitConfirmed}
                                 className={`w-full py-2 px-4 rounded font-medium transition-colors ${!isInside
-                                        ? 'bg-zinc-300 text-zinc-500 cursor-not-allowed'
-                                        : visitConfirmed
-                                            ? 'bg-green-100 text-green-700 border border-green-200'
-                                            : 'bg-green-600 text-white hover:bg-green-700'
+                                    ? 'bg-zinc-300 text-zinc-500 cursor-not-allowed'
+                                    : visitConfirmed
+                                        ? 'bg-green-100 text-green-700 border border-green-200'
+                                        : 'bg-green-600 text-white hover:bg-green-700'
                                     }`}
                             >
                                 {visitConfirmed ? 'Visit Confirmed ✓' : 'Confirm Visit'}
@@ -192,6 +209,7 @@ export default function MapComponent() {
                         </Marker>
                     )}
 
+                    {/* Display LOCATIONS (built-in) */}
                     {LOCATIONS.map(loc => (
                         <Circle
                             key={loc.id}
@@ -205,6 +223,19 @@ export default function MapComponent() {
                         >
                             <Popup>{loc.name}</Popup>
                         </Circle>
+                    ))}
+
+                    {/* Display Fetched Parroquias */}
+                    {parroquias.map(p => (
+                        <Marker
+                            key={p.id}
+                            position={p.center}
+                            icon={parroquiaIcon}
+                        >
+                            <Popup>
+                                <div className="font-bold">{p.name}</div>
+                            </Popup>
+                        </Marker>
                     ))}
                 </MapContainer>
             </div>
