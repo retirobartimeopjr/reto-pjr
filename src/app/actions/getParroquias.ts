@@ -6,14 +6,15 @@ export interface Parroquia {
     id: string;
     name: string;
     center: { lat: number; lng: number };
+    vicaria: string;
 }
 
 export async function getParroquias(): Promise<Parroquia[]> {
     try {
-        const rows = await readSheet('parroquia!A:D');
+        const rows = await readSheet('parroquia!A:F');
         // validRows filters out header or empty rows if necessary.
-        // Assuming row format: Column A=ID, Column B=Name, Column D=Location(lat, lng) (0-indexed: index 3) -- Wait, the user said Column D is Locations. 
-        // Let's verify indexes: A=0, B=1, C=2, D=3.
+        // Assuming row format: Column A=ID, Column B=Name, Column D=Location(lat, lng), Column F=Vicaria
+        // Indexes: A=0, B=1, C=2, D=3, E=4, F=5
 
         const parroquias: Parroquia[] = rows
             .filter(row => row[0] && row[1] && row[3]) // Basic validation
@@ -28,7 +29,8 @@ export async function getParroquias(): Promise<Parroquia[]> {
                     return {
                         id: row[0],
                         name: row[1],
-                        center: { lat, lng }
+                        center: { lat, lng },
+                        vicaria: row[5] || '' // Column F is index 5
                     };
                 } catch (e) {
                     console.error('Error parsing row:', row, e);

@@ -33,22 +33,62 @@ interface LocationWithDistance extends Location {
     distance: number;
 }
 
-function MapInner({ onLocationFound, triggerLocate }: {
+function MapInner({ onLocationFound, triggerLocate, isFollowing, setIsFollowing, userPosition }: {
     onLocationFound: (latlng: L.LatLng) => void,
-    triggerLocate: number
+    triggerLocate: number,
+    isFollowing: boolean,
+    setIsFollowing: (v: boolean) => void,
+    userPosition: L.LatLng | null
 }) {
     const map = useMap();
 
+    // Handle user interaction (drag) to stop following
     useEffect(() => {
-        map.locate().on("locationfound", function (e) {
+        const onDrag = () => {
+            if (isFollowing) {
+                setIsFollowing(false);
+            }
+        };
+        map.on('dragstart', onDrag);
+        return () => {
+            map.off('dragstart', onDrag);
+        };
+    }, [map, isFollowing, setIsFollowing]);
+
+    // Handle "Follow Me" behavior: Fly to user position when following is enabled or position updates
+    useEffect(() => {
+        if (isFollowing && userPosition) {
+            map.flyTo(userPosition, 17, { animate: true, duration: 1.5 });
+        }
+    }, [map, isFollowing, userPosition]);
+
+    // Location Polling
+    useEffect(() => {
+        // Initial locate
+        map.locate({ setView: false });
+
+        // Interval locate every 5 seconds
+        const interval = setInterval(() => {
+            map.locate({ setView: false });
+        }, 5000);
+
+        const onLocate = (e: L.LocationEvent) => {
             onLocationFound(e.latlng);
-            map.flyTo(e.latlng, map.getZoom());
-        });
-    }, [map]);
+            // We do NOT flyTo here anymore; the separate useEffect handles it via state change.
+            // This keeps logic clean: Data updates state -> State updates View.
+        };
+
+        map.on("locationfound", onLocate);
+
+        return () => {
+            clearInterval(interval);
+            map.off("locationfound", onLocate);
+        };
+    }, [map, onLocationFound]);
 
     useEffect(() => {
         if (triggerLocate > 0) {
-            map.locate();
+            map.locate({ setView: false });
         }
     }, [triggerLocate, map]);
 
@@ -58,10 +98,14 @@ function MapInner({ onLocationFound, triggerLocate }: {
 export default function MapComponent() {
     const [mounted, setMounted] = useState(false);
     const [userPosition, setUserPosition] = useState<L.LatLng | null>(null);
+    const [isFollowing, setIsFollowing] = useState(true); // Default to following
     const [sortedLocations, setSortedLocations] = useState<LocationWithDistance[]>([]);
     const [closestLocation, setClosestLocation] = useState<LocationWithDistance | null>(null);
     const [isInside, setIsInside] = useState(false);
     const [triggerLocate, setTriggerLocate] = useState(0);
+
+    // Mobile Data Hint
+    const [showMobileDataHint, setShowMobileDataHint] = useState(true);
 
     // UI States
     const [showConfirmPopup, setShowConfirmPopup] = useState(false);
@@ -103,7 +147,8 @@ export default function MapComponent() {
         }
     };
 
-    const handleRefresh = () => {
+    const handleRecenter = () => {
+        setIsFollowing(true);
         setTriggerLocate(prev => prev + 1);
     };
 
@@ -140,6 +185,15 @@ export default function MapComponent() {
         }
     };
 
+    const getVicariaColor = (vicaria: string | undefined): string => {
+        if (!vicaria) return 'gray';
+        const v = vicaria.toLowerCase();
+        if (v.includes('san pedro')) return 'green';
+        if (v.includes('misericordioso')) return 'blue';
+        if (v.includes('historica') || v.includes('histórica')) return 'yellow';
+        return 'gray';
+    };
+
     if (!mounted) return <p>Loading map...</p>;
 
     return (
@@ -149,10 +203,10 @@ export default function MapComponent() {
                 <h2 className="text-lg font-bold mb-4">Nearby Locations</h2>
 
                 <button
-                    onClick={handleRefresh}
-                    className="w-full mb-4 py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                    onClick={handleRecenter}
+                    className="w-full mb-4 py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
                 >
-                    Refresh Location
+                    {isFollowing ? "📍 Following You" : "◎ Recenter / Follow"}
                 </button>
 
                 {closestLocation && (
@@ -196,12 +250,29 @@ export default function MapComponent() {
 
             {/* Map Container */}
             <div className="order-1 md:order-2 flex-grow relative h-[50vh] md:h-auto">
+                {showMobileDataHint && (
+                    <div className="absolute top-2 left-1/2 -translate-x-1/2 z-[1000] bg-blue-100 text-blue-800 px-4 py-2 rounded-full shadow-lg text-xs md:text-sm font-medium flex items-center gap-2">
+                        <span>📡 Suggestion: Use Mobile Data (not WiFi) for better GPS accuracy.</span>
+                        <button
+                            onClick={() => setShowMobileDataHint(false)}
+                            className="ml-2 text-blue-600 hover:text-blue-900 font-bold"
+                        >
+                            ✕
+                        </button>
+                    </div>
+                )}
                 <MapContainer center={LOCATIONS[0].center} zoom={13} scrollWheelZoom={true} style={{ height: "100%", width: "100%" }}>
                     <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <MapInner onLocationFound={handleLocationFound} triggerLocate={triggerLocate} />
+                    <MapInner
+                        onLocationFound={handleLocationFound}
+                        triggerLocate={triggerLocate}
+                        isFollowing={isFollowing}
+                        setIsFollowing={setIsFollowing}
+                        userPosition={userPosition}
+                    />
 
                     {userPosition && (
                         <Marker position={userPosition} icon={customIcon}>
@@ -226,17 +297,31 @@ export default function MapComponent() {
                     ))}
 
                     {/* Display Fetched Parroquias */}
-                    {parroquias.map(p => (
-                        <Marker
-                            key={p.id}
-                            position={p.center}
-                            icon={parroquiaIcon}
-                        >
-                            <Popup>
-                                <div className="font-bold">{p.name}</div>
-                            </Popup>
-                        </Marker>
-                    ))}
+                    {parroquias.map(p => {
+                        const color = getVicariaColor(p.vicaria);
+                        return (
+                            <div key={p.id}>
+                                <Circle
+                                    center={p.center}
+                                    radius={30}
+                                    pathOptions={{
+                                        color: color,
+                                        fillColor: color,
+                                        fillOpacity: 0.2
+                                    }}
+                                />
+                                <Marker
+                                    position={p.center}
+                                    icon={parroquiaIcon}
+                                >
+                                    <Popup>
+                                        <div className="font-bold">{p.name}</div>
+                                        <div className="text-sm text-gray-500">{p.vicaria}</div>
+                                    </Popup>
+                                </Marker>
+                            </div>
+                        );
+                    })}
                 </MapContainer>
             </div>
 
