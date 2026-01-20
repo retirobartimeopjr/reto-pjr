@@ -9,7 +9,7 @@ import vercel from '@astrojs/vercel'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://bartimeo.app',
+  site: 'https://pjr-app-data.online',
   adapter: vercel(),
   integrations: [
     sitemap({
