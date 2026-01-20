@@ -33,12 +33,13 @@ interface LocationWithDistance extends Location {
     distance: number;
 }
 
-function MapInner({ onLocationFound, triggerLocate, isFollowing, setIsFollowing, userPosition }: {
+function MapInner({ onLocationFound, triggerLocate, isFollowing, setIsFollowing, userPosition, flyToTarget }: {
     onLocationFound: (latlng: L.LatLng) => void,
     triggerLocate: number,
     isFollowing: boolean,
     setIsFollowing: (v: boolean) => void,
-    userPosition: L.LatLng | null
+    userPosition: L.LatLng | null,
+    flyToTarget: { lat: number; lng: number } | null
 }) {
     const map = useMap();
 
@@ -58,19 +59,26 @@ function MapInner({ onLocationFound, triggerLocate, isFollowing, setIsFollowing,
     // Handle "Follow Me" behavior: Fly to user position when following is enabled or position updates
     useEffect(() => {
         if (isFollowing && userPosition) {
-            map.flyTo(userPosition, 17, { animate: true, duration: 1.5 });
+            map.flyTo(userPosition, 17, { animate: true, duration: 1.0 });
         }
     }, [map, isFollowing, userPosition]);
+
+    // Handle "Click to Fly" behavior
+    useEffect(() => {
+        if (flyToTarget) {
+            map.flyTo(flyToTarget, 18, { animate: true, duration: 1.5 });
+        }
+    }, [map, flyToTarget]);
 
     // Location Polling
     useEffect(() => {
         // Initial locate
         map.locate({ setView: false });
 
-        // Interval locate every 5 seconds
+        // Interval locate every 2 seconds (Faster)
         const interval = setInterval(() => {
             map.locate({ setView: false });
-        }, 5000);
+        }, 2000);
 
         const onLocate = (e: L.LocationEvent) => {
             onLocationFound(e.latlng);
@@ -99,6 +107,7 @@ export default function MapComponent() {
     const [mounted, setMounted] = useState(false);
     const [userPosition, setUserPosition] = useState<L.LatLng | null>(null);
     const [isFollowing, setIsFollowing] = useState(true); // Default to following
+    const [flyToTarget, setFlyToTarget] = useState<{ lat: number; lng: number } | null>(null);
     const [sortedLocations, setSortedLocations] = useState<LocationWithDistance[]>([]);
     const [closestLocation, setClosestLocation] = useState<LocationWithDistance | null>(null);
     const [isInside, setIsInside] = useState(false);
@@ -126,25 +135,61 @@ export default function MapComponent() {
         setMounted(true);
     }, []);
 
-    const handleLocationFound = (latlng: L.LatLng) => {
-        setUserPosition(latlng);
+    // Unified logic to update sorted locations whenever user position or data changes
+    useEffect(() => {
+        if (!userPosition) return;
 
-        const locationsWithDistance = LOCATIONS.map(loc => {
+        // Convert parroquias to Location format
+        const parishLocations = parroquias.map(p => ({
+            id: p.id,
+            name: p.name,
+            center: p.center,
+            radius: 30 // Default radius for parishes
+        }));
+
+        // Combine static and fetched locations
+        const allLocations = [...LOCATIONS, ...parishLocations];
+
+        const locationsWithDistance = allLocations.map(loc => {
             const locLatLng = L.latLng(loc.center.lat, loc.center.lng);
             return {
                 ...loc,
-                distance: latlng.distanceTo(locLatLng)
+                distance: userPosition.distanceTo(locLatLng)
             };
         });
 
         const sorted = locationsWithDistance.sort((a, b) => a.distance - b.distance);
-        setSortedLocations(sorted);
+
+        console.log('User Position:', userPosition);
+        console.log('Total Locations Calculation:', allLocations.length);
+        if (sorted.length > 0) {
+            console.log('Closest:', sorted[0].name, sorted[0].distance, 'meters');
+        }
+
+        // Filter: "really nearby" -> let's say within 2km (2000m)? 
+        // Or just keep all sorted? User said "just the really nearby". 
+        // Let's filter > 5km to avoid cluttering the list with far away things, 
+        // or maybe just take top 5 if they are close.
+        // Let's stick to a distance threshold for "nearby".
+        const THRESHOLD_METERS = 5000; // 5km radius
+        const filtered = sorted.filter(l => l.distance <= THRESHOLD_METERS);
+
+        console.log('Filtered Nearby (<= 5km):', filtered.length, filtered);
+
+        setSortedLocations(filtered);
 
         if (sorted.length > 0) {
             const closest = sorted[0];
+            // Only set closest if it's reasonably close (e.g. within threshold)
+            // or just always the absolute closest? Usually absolute closest is useful.
             setClosestLocation(closest);
             setIsInside(closest.distance <= closest.radius);
         }
+    }, [userPosition, parroquias]);
+
+    const handleLocationFound = (latlng: L.LatLng) => {
+        setUserPosition(latlng);
+        // Sorting logic moved to useEffect above
     };
 
     const handleRecenter = () => {
@@ -240,7 +285,14 @@ export default function MapComponent() {
 
                 <div className="space-y-2">
                     {sortedLocations.slice(1).map(loc => (
-                        <div key={loc.id} className="p-3 bg-zinc-50 dark:bg-zinc-800/50 rounded border border-zinc-100 dark:border-zinc-800">
+                        <div
+                            key={loc.id}
+                            className="p-3 bg-zinc-50 dark:bg-zinc-800/50 rounded border border-zinc-100 dark:border-zinc-800 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors"
+                            onClick={() => {
+                                setIsFollowing(false);
+                                setFlyToTarget(loc.center);
+                            }}
+                        >
                             <p className="font-medium">{loc.name}</p>
                             <p className="text-sm text-zinc-500">{Math.round(loc.distance)}m away</p>
                         </div>
@@ -272,6 +324,7 @@ export default function MapComponent() {
                         isFollowing={isFollowing}
                         setIsFollowing={setIsFollowing}
                         userPosition={userPosition}
+                        flyToTarget={flyToTarget}
                     />
 
                     {userPosition && (
