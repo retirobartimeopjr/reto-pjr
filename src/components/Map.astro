@@ -1,0 +1,508 @@
+---
+import BentoCard from '@/components/ui/BentoCard.astro'
+
+const DEFAULT_LATITUDE = '4.60971' // Bogota
+const DEFAULT_LONGITUDE = '-74.08175'
+
+// Leer la request de Astro y recuperar los headers x-vercel-ip-latitude y x-vercel-ip-longitude
+const ipLatitude = Astro.request.headers.get('cf-iplatitude') ?? DEFAULT_LATITUDE
+const ipLongitude = Astro.request.headers.get('cf-iplongitude') ?? DEFAULT_LONGITUDE
+
+// Determinar el centro del mapa
+let centerLat: number
+let centerLon: number
+let initialZoom: number
+
+if (ipLatitude && ipLongitude && Astro.request.headers.get('cf-iplatitude')) {
+  // Usar la ubicación del usuario basada en IP si está disponible
+  centerLat = parseFloat(ipLatitude)
+  centerLon = parseFloat(ipLongitude)
+  initialZoom = 13
+} else {
+  // Fallback: Bogota
+  centerLat = 4.60971
+  centerLon = -74.08175
+  initialZoom = 12
+}
+
+// Indicar si tenemos ubicación del usuario
+const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
+---
+
+<BentoCard class="col-span-3 md:col-span-3 p-4 md:p-8 h-full" style="animation-delay: 0.2s;">
+  <div id="tiendas" class="mb-4 text-center">
+    <h2 class="text-shadow-title text-2xl font-bold text-white md:text-3xl lg:text-4xl mb-2">
+      Encuentra tu Parroquia
+    </h2>
+  </div>
+
+  <section class="space-y-4 h-full" aria-labelledby="map-title">
+    <h2 id="map-title" class="sr-only">Mapa de Parroquias</h2>
+
+    <div
+      id="map"
+      class="w-full h-[500px] md:h-[600px] rounded-lg shadow-lg border-2 border-brand/30"
+      role="application"
+      aria-label="Mapa interactivo mostrando ubicaciones"
+      data-has-user-location={hasUserLocation ? 'true' : 'false'}
+      data-center-lat={centerLat}
+      data-center-lon={centerLon}
+      data-initial-zoom={initialZoom}
+    >
+    </div>
+
+    <!-- Leyenda de colores -->
+    <aside class="legend-container p-4" aria-label="Leyenda de Vicarias">
+      <h3 class="sr-only">Leyenda de Vicarias</h3>
+      <ul class="flex flex-wrap gap-3 justify-center" id="legend" role="list">
+        <!-- Leyenda items will be dynamic or static? Let's make a few static for now based on known vicarias -->
+        <li
+          class="group relative flex items-center gap-3 px-4 py-2 bg-white/95 rounded-xl text-black text-sm font-bold shadow-sm"
+        >
+          <span class="w-3 h-3 rounded-full bg-orange-500 shadow-sm"></span> San Pedro
+        </li>
+        <li
+          class="group relative flex items-center gap-3 px-4 py-2 bg-white/95 rounded-xl text-black text-sm font-bold shadow-sm"
+        >
+          <span class="w-3 h-3 rounded-full bg-blue-600 shadow-sm"></span> Misericordioso
+        </li>
+        <li
+          class="group relative flex items-center gap-3 px-4 py-2 bg-white/95 rounded-xl text-black text-sm font-bold shadow-sm"
+        >
+          <span class="w-3 h-3 rounded-full bg-yellow-500 shadow-sm"></span> Esp. Santo
+        </li>
+        <li
+          class="group relative flex items-center gap-3 px-4 py-2 bg-white/95 rounded-xl text-black text-sm font-bold shadow-sm"
+        >
+          <span class="w-3 h-3 rounded-full bg-red-500 shadow-sm"></span> Inm. Concepción
+        </li>
+      </ul>
+    </aside>
+  </section>
+</BentoCard>
+
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<!-- Leaflet MarkerCluster CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+  crossorigin=""
+/>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+  crossorigin=""
+/>
+
+<!-- Leaflet JS -->
+<script
+  is:inline
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+  crossorigin=""></script>
+
+<!-- Leaflet MarkerCluster JS -->
+<script
+  is:inline
+  src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"
+  crossorigin=""></script>
+
+<script>
+  // @ts-nocheck
+  const L = window.L
+
+  // Variables globales que se inicializan solo si el mapa existe
+  let $map = null
+  let centerLat
+  let centerLon
+  let initialZoom
+  let hasUserLocation
+
+  const colors = {
+    'san pedro': '#f97316', // Orange
+    'padre misericordioso': '#2563eb', // Blue
+    'espiritu santo': '#eab308', // Yellow
+    'inmaculada concepcion': '#ef4444', // Red
+    default: '#10b981', // Green
+  }
+
+  // Función para generar colores consistentes por vicaria
+  function getColorForVicaria(vicaria) {
+    if (!vicaria) return colors.default
+    const v = vicaria.toLowerCase()
+    for (const key in colors) {
+      if (v.includes(key)) return colors[key]
+    }
+    return colors.default
+  }
+
+  let locations = []
+
+  document.addEventListener('astro:page-load', () => {
+    // Solo inicializar si el elemento del mapa existe en la página
+    $map = document.querySelector('#map')
+    if (!$map) return
+
+    // Inicializar las variables desde el dataset del mapa
+    centerLat = $map.dataset.centerLat
+    centerLon = $map.dataset.centerLon
+    initialZoom = $map.dataset.initialZoom
+    hasUserLocation = $map.dataset.hasUserLocation === 'true'
+
+    initMap()
+  })
+
+  // Fallback for non-view-transitions setups or initial load
+  if (document.readyState === 'complete') {
+    initPage()
+  } else {
+    document.addEventListener('DOMContentLoaded', initPage)
+  }
+
+  function initPage() {
+    $map = document.querySelector('#map')
+    if ($map && !window.mapInitialized) {
+      centerLat = $map.dataset.centerLat
+      centerLon = $map.dataset.centerLon
+      initialZoom = $map.dataset.initialZoom
+      hasUserLocation = $map.dataset.hasUserLocation === 'true'
+      initMap()
+    }
+  }
+
+  // Función para inicializar el mapa
+  async function initMap() {
+    window.mapInitialized = true // Prevent double init
+
+    // fetch locations if needed
+    if (locations.length === 0) {
+      try {
+        const response = await fetch('/api/parroquias')
+        locations = await response.json()
+      } catch (e) {
+        console.error('Error fetching locations', e)
+      }
+    }
+
+    try {
+      // Inicializar el mapa con el zoom apropiado
+      const map = L.map('map').setView([centerLat, centerLon], initialZoom)
+      // quitar atribución de Leaflet
+      map.attributionControl.setPrefix('')
+
+      // Añadir capa de mapa con estilo personalizado (CartoDB Voyager - colores suaves y modernos)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        maxZoom: 20,
+      }).addTo(map)
+
+      // Si tenemos la ubicación del usuario, añadir un marcador especial
+      if (hasUserLocation) {
+        // ... (User location marker logic from example)
+        const userIcon = L.divIcon({
+          html: `
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" fill="#f8b134" stroke="#fff" stroke-width="2"/>
+              <circle cx="12" cy="12" r="4" fill="#fff"/>
+            </svg>
+          `,
+          iconSize: [24, 24],
+          iconAnchor: [12, 12],
+          className: 'user-location-marker',
+        })
+        L.marker([centerLat, centerLon], { icon: userIcon }).addTo(map)
+      } else {
+        // Try browser geolocation if header is missing
+        if ('geolocation' in navigator) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const { latitude, longitude } = position.coords
+
+            const userIcon = L.divIcon({
+              html: `
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" fill="#f8b134" stroke="#fff" stroke-width="2"/>
+                        <circle cx="12" cy="12" r="4" fill="#fff"/>
+                        </svg>
+                    `,
+              iconSize: [24, 24],
+              iconAnchor: [12, 12],
+              className: 'user-location-marker',
+            })
+            L.marker([latitude, longitude], { icon: userIcon }).addTo(map).bindPopup('¡Estás aquí!')
+            map.flyTo([latitude, longitude], 15)
+          })
+        }
+      }
+
+      // Crear el cluster group con configuración personalizada
+      const markersCluster = L.markerClusterGroup({
+        showCoverageOnHover: true,
+        zoomToBoundsOnClick: true,
+        spiderfyOnMaxZoom: true,
+        removeOutsideVisibleBounds: true,
+        animate: true,
+        animateAddingMarkers: false,
+        maxClusterRadius: 60,
+        iconCreateFunction: function (cluster) {
+          const childCount = cluster.getChildCount()
+          let size = 'small'
+          let c = 'cluster-'
+
+          if (childCount < 10) {
+            c += 'small'
+            size = 'small'
+          } else if (childCount < 50) {
+            c += 'medium'
+            size = 'medium'
+          } else {
+            c += 'large'
+            size = 'large'
+          }
+
+          const sizeMap = {
+            small: { width: 50, height: 50, fontSize: '14px' },
+            medium: { width: 60, height: 60, fontSize: '16px' },
+            large: { width: 70, height: 70, fontSize: '18px' },
+          }
+
+          const dimensions = sizeMap[size]
+
+          return L.divIcon({
+            html: `
+              <div class="cluster-icon ${c}" style="width: ${dimensions.width}px; height: ${dimensions.height}px;">
+                <div class="cluster-inner">
+                  <span style="font-size: ${dimensions.fontSize}; font-weight: bold;">${childCount}</span>
+                </div>
+              </div>
+            `,
+            className: 'marker-cluster-custom',
+            iconSize: L.point(dimensions.width, dimensions.height),
+          })
+        },
+      })
+
+      // Función para renderizar los marcadores con clustering
+      function renderMarkersWithClustering() {
+        markersCluster.clearLayers()
+
+        locations.forEach((location) => {
+          // Adapt keys: name, center.lat, center.lng, vicaria
+          const lat = location.center?.lat || location.lat
+          const lon = location.center?.lng || location.lng
+          if (!lat || !lon) return
+
+          const color = getColorForVicaria(location.vicaria || 'default')
+
+          // Use a simple church icon or similar logic.
+          // Reusing the sample SVG marker structure with slightly different content
+          // Using a CHURCH symbol SVG logic
+          const svgIcon = `
+            <div class="marker-container relative w-[45px] h-[55px]">
+              <div class="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-[30px] h-2 bg-[radial-gradient(ellipse,rgba(0,0,0,0.3)_0%,transparent_70%)]"></div>
+              <div class="absolute inset-0 rounded-lg bg-gradient-to-br from-zinc-800 to-black overflow-hidden flex items-center justify-center" style="border: 2px solid ${color};">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-6 h-6">
+                    <path d="M12 2L3 9v11a2 2 0 002 2h14a2 2 0 002-2V9l-9-7zm0 2.8l7 5.4V19h-4v-6h-6v6H5v-9.8l7-5.4z"/>
+                    <path d="M12 11h2v2h-2z"/>
+                </svg>
+              </div>
+              <div class="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/15 to-transparent rounded-t-lg pointer-events-none"></div>
+            </div>
+          `
+          const customIcon = L.divIcon({
+            html: svgIcon,
+            iconSize: [45, 55],
+            iconAnchor: [22.5, 55],
+            popupAnchor: [0, -55],
+            className: 'custom-marker',
+          })
+          const marker = L.marker([lat, lon], { icon: customIcon })
+          marker.bindPopup(
+            `
+            <div class="font-sans min-w-[200px] text-center">
+              <div class="p-2">
+                <div class="mb-2 flex flex-col items-center justify-center gap-1">
+                  <span class="text-sm font-bold text-black uppercase">${location.vicaria || 'Vicaria General'}</span>
+                  <h3 class="text-lg font-bold text-gray-900 leading-tight">${location.name}</h3>
+                </div>
+              </div>
+            </div>
+          `,
+            {
+              maxWidth: 300,
+              className: 'custom-popup',
+            }
+          )
+          markersCluster.addLayer(marker)
+        })
+
+        map.addLayer(markersCluster)
+      }
+
+      // Render inicial con clustering
+      renderMarkersWithClustering()
+    } catch (err) {
+      console.error('Error al inicializar el mapa.', err)
+    }
+  }
+</script>
+
+<style>
+  /* Use the exact CSS from the example for premium feel */
+  /* Asegurar que los controles de Leaflet sean visibles */
+  :global(.leaflet-control-zoom) {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    background: linear-gradient(
+      135deg,
+      rgba(139, 92, 246, 0.5) 0%,
+      rgba(0, 41, 107, 0.7) 100%
+    ) !important;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+  }
+
+  :global(.leaflet-control-zoom a) {
+    color: #fff !important;
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.3s ease;
+  }
+
+  :global(.leaflet-control-zoom a:hover) {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #f8b134 !important;
+  }
+
+  /* Estilo mejorado para los popups - estilo bento-card */
+  :global(.leaflet-popup-content-wrapper) {
+    border-radius: 1rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    padding: 0;
+    overflow: hidden;
+    background: white !important; /* Popups with white bg/black text for readability */
+    color: black !important;
+  }
+
+  :global(.leaflet-popup-content) {
+    margin: 0 !important;
+  }
+
+  /* Estilo para los marcadores personalizados */
+  :global(.custom-marker) {
+    background: none;
+    border: none;
+  }
+
+  :global(.custom-marker .marker-container) {
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+  }
+
+  :global(.custom-marker:hover .marker-container) {
+    transform: translateY(-8px) scale(1.08);
+  }
+
+  /* Animación de la sombra */
+  :global(.custom-marker:hover .marker-container > div:first-child) {
+    width: 35px !important;
+    opacity: 0.5;
+  }
+
+  /* Estilo para el marcador de ubicación del usuario */
+  :global(.user-location-marker) {
+    background: none;
+    border: none;
+  }
+
+  :global(.user-location-marker svg) {
+    filter: drop-shadow(0 2px 8px rgba(248, 177, 52, 0.6));
+    animation: userPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes userPulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.1);
+    }
+  }
+
+  /* Estilos personalizados para los clusters */
+  :global(.marker-cluster-custom) {
+    background: none !important;
+    border: none !important;
+  }
+
+  :global(.cluster-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  :global(.cluster-icon::before) {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(248, 177, 52, 0.3) 0%, transparent 70%);
+    animation: clusterPulse 2s ease-in-out infinite;
+  }
+
+  :global(.cluster-inner) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(0, 41, 107, 0.9) 100%);
+    border: 3px solid #f8b134;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+  }
+
+  :global(.cluster-small .cluster-inner) {
+    border-width: 2px;
+  }
+
+  :global(.marker-cluster-custom:hover .cluster-icon) {
+    transform: scale(1.15);
+  }
+
+  @keyframes clusterPulse {
+    0%,
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.5;
+      transform: scale(1.2);
+    }
+  }
+
+  /* Estilo para el polígono de cobertura cuando hover */
+  :global(.leaflet-interactive) {
+    stroke: #f8b134;
+    stroke-width: 2;
+    fill: rgba(248, 177, 52, 0.15);
+    stroke-dasharray: 5, 5;
+  }
+</style>

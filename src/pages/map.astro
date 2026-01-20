@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Map from '../components/Map.astro'
+---
+
+<Layout title="Mapa - Reto Bartimeo">
+  <div
+    class="min-h-screen bg-[#640010] text-white overflow-x-hidden font-sans flex items-center justify-center p-4"
+  >
+    {/* Snow Background */}
+    <div
+      id="snowflakes-container"
+      class="fixed inset-0 pointer-events-none z-0 opacity-50"
+      aria-hidden="true"
+    >
+    </div>
+
+    <main class="relative z-10 w-full max-w-6xl">
+      <div class="mb-4">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-white/60 hover:text-[#f8b134] transition-colors text-sm font-bold uppercase tracking-wider"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          Volver
+        </a>
+      </div>
+
+      {/* The Map Component */}
+      <Map />
+    </main>
+  </div>
+</Layout>
+
+<script>
+  // Simple Snow Effect (Reused)
+  if (typeof window !== 'undefined') {
+    const container = document.getElementById('snowflakes-container')
+    if (container && !container.hasChildNodes()) {
+      const count = window.innerWidth < 768 ? 15 : 30
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div')
+        el.className = 'snowflake'
+        el.textContent = '❄'
+        el.style.left = `${Math.random() * 100}vw`
+        el.style.animationDuration = `${5 + Math.random() * 10}s`
+        el.style.animationDelay = `${Math.random() * 5}s`
+        el.style.opacity = `${Math.random() * 0.3 + 0.1}`
+        el.style.fontSize = `${Math.random() * 0.8 + 0.4}rem`
+        container.appendChild(el)
+      }
+    }
+  }
+</script>
+
+<style>
+  .snowflake {
+    position: absolute;
+    top: -20px;
+    color: white;
+    user-select: none;
+    pointer-events: none;
+    filter: blur(1px);
+    animation: snowfall linear infinite;
+  }
+
+  @keyframes snowfall {
+    0% {
+      transform: translateY(-10vh);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
+  }
+</style>

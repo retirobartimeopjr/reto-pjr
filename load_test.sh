@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-URL="http://localhost:3000/map"
+URL="https://pjr-app-data.online/map"
 CONCURRENCY=3000
 
 echo "🚀 Starting load test: $CONCURRENCY concurrent requests to $URL"

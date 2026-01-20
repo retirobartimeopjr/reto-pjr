@@ -1,0 +1,196 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Reto Bartimeo 2026">
+  <div
+    class="min-h-screen bg-[#640010] text-white overflow-x-hidden font-sans selection:bg-brand/30"
+  >
+    {/* Snow Effect Container */}
+    <div id="snowflakes-container" class="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
+    </div>
+
+    <main
+      class="relative z-10 flex flex-col items-center justify-center w-full min-h-screen px-4 py-10"
+    >
+      {/* Container for Centered Content */}
+      <div class="w-full max-w-md flex flex-col items-center gap-8 animate-fade-in-up">
+        {/* Header / Logos */}
+        <header class="flex flex-col items-center gap-6 text-center">
+          <div class="relative group">
+            {/* Logo with Glow */}
+            <img
+              src="/bartimeo.png"
+              alt="Bartimeo"
+              class="w-48 md:w-64 object-contain drop-shadow-[0_0_35px_rgba(248,177,52,0.3)] animate-pulse-slow relative z-10"
+            />
+            {/* Flag Behind Effect */}
+            <img
+              src="/bartimeo-flag.png"
+              alt="Flag"
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] max-w-none opacity-30 blur-md -z-10 mix-blend-screen"
+            />
+          </div>
+
+          <h1
+            class="font-serif text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] text-gold-texture leading-tight"
+          >
+            Encuentra tu Fe
+          </h1>
+
+          <p class="text-white/80 text-lg font-light max-w-xs mx-auto leading-relaxed">
+            Tu camino comienza aquí. <br /> Ingresa para acceder al mapa.
+          </p>
+        </header>
+
+        {/* Login Card */}
+        <article
+          class="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-[0_20px_40px_rgba(0,0,0,0.3)] ring-1 ring-white/5 relative overflow-hidden group"
+        >
+          {/* Shine Effect */}
+          <div
+            class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+          >
+          </div>
+
+          <form class="flex flex-col gap-5 relative z-10" action="/map" method="GET">
+            <div class="space-y-1">
+              <label
+                for="email"
+                class="text-xs uppercase tracking-wider text-white/50 font-bold ml-1"
+                >Correo Electrónico</label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="usuario@ejemplo.com"
+                class="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#f8b134]/50 focus:bg-black/30 transition-all duration-300"
+                required
+              />
+            </div>
+
+            <div class="space-y-1">
+              <label
+                for="code"
+                class="text-xs uppercase tracking-wider text-white/50 font-bold ml-1"
+                >Código de Acceso</label
+              >
+              <input
+                type="text"
+                id="code"
+                name="code"
+                placeholder="••••••"
+                class="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#f8b134]/50 focus:bg-black/30 transition-all duration-300 tracking-widest text-center font-mono"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="mt-2 w-full px-6 py-4 bg-gradient-to-r from-[#f8b134] to-[#eeb045] hover:from-[#ffc45c] hover:to-[#fbd07e] text-[#640010] font-black uppercase tracking-wider rounded-xl transition-all duration-300 transform active:scale-[0.98] shadow-[0_0_20px_rgba(248,177,52,0.3)] hover:shadow-[0_0_30px_rgba(248,177,52,0.5)] flex items-center justify-center gap-2"
+            >
+              <span>Ingresar</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </form>
+
+          <div class="mt-6 text-center">
+            <a
+              href="/map"
+              class="text-xs text-white/40 hover:text-[#f8b134] transition-colors border-b border-transparent hover:border-[#f8b134]"
+            >
+              Entrar como invitado (Demo)
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <footer
+        class="absolute bottom-4 text-white/20 text-[10px] font-light uppercase tracking-widest"
+      >
+        &copy; 2026 Proyecto Bartimeo
+      </footer>
+    </main>
+  </div>
+</Layout>
+
+<script>
+  // Simple Snow Effect
+  if (typeof window !== 'undefined') {
+    const container = document.getElementById('snowflakes-container')
+    if (container && !container.hasChildNodes()) {
+      const count = window.innerWidth < 768 ? 20 : 40
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div')
+        el.className = 'snowflake'
+        el.textContent = '❄'
+        el.style.left = `${Math.random() * 100}vw`
+        el.style.animationDuration = `${5 + Math.random() * 10}s`
+        el.style.animationDelay = `${Math.random() * 5}s`
+        el.style.opacity = `${Math.random() * 0.3 + 0.1}`
+        el.style.fontSize = `${Math.random() * 0.8 + 0.4}rem`
+        container.appendChild(el)
+      }
+    }
+  }
+</script>
+
+<style>
+  .text-gold-texture {
+    background: linear-gradient(to bottom, #f8b134, #bf8418);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .snowflake {
+    position: absolute;
+    top: -20px;
+    color: white;
+    user-select: none;
+    pointer-events: none;
+    filter: blur(1px);
+    animation: snowfall linear infinite;
+  }
+
+  @keyframes snowfall {
+    0% {
+      transform: translateY(-10vh);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+</style>
