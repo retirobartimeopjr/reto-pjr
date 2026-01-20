@@ -1,14 +1,22 @@
 ---
+import Snowballs from '../components/Snowballs.astro'
 import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout title="Reto Bartimeo 2026">
   <div
-    class="min-h-screen bg-[#640010] text-white overflow-x-hidden font-sans selection:bg-brand/30"
+    class="min-h-screen text-white overflow-x-hidden font-sans selection:bg-brand/30 relative"
+    style={{
+      backgroundImage:
+        "linear-gradient(to bottom, rgba(100, 0, 16, 0.85), rgba(100, 0, 16, 0.6)), url('/foto.png')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',
+      backgroundRepeat: 'no-repeat',
+    }}
   >
-    {/* Snow Effect Container */}
-    <div id="snowflakes-container" class="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
-    </div>
+    {/* Snow Effect Component */}
+    <Snowballs />
 
     <main
       class="relative z-10 flex flex-col items-center justify-center w-full min-h-screen px-4 py-10"
@@ -22,7 +30,7 @@ import Layout from '../layouts/Layout.astro'
             <img
               src="/bartimeo.png"
               alt="Bartimeo"
-              class="w-48 md:w-64 object-contain drop-shadow-[0_0_35px_rgba(248,177,52,0.3)] animate-pulse-slow relative z-10"
+              class="w-106 md:w-135 object-contain drop-shadow-[0_0_35px_rgba(248,177,52,0.3)] animate-float relative z-10"
             />
             {/* Flag Behind Effect */}
             <img
@@ -33,19 +41,21 @@ import Layout from '../layouts/Layout.astro'
           </div>
 
           <h1
-            class="font-serif text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] text-gold-texture leading-tight"
+            class="font-serif text-3xl md:text-4xl font-bold uppercase tracking-[0.2em] text-gold-texture leading-tight whitespace-nowrap"
           >
-            Encuentra tu Fe
+            "¡Señor, que vea!"
           </h1>
 
-          <p class="text-white/80 text-lg font-light max-w-xs mx-auto leading-relaxed">
+          <p
+            class="text-white/90 text-lg font-light max-w-xs mx-auto leading-relaxed drop-shadow-md"
+          >
             Tu camino comienza aquí. <br /> Ingresa para acceder al mapa.
           </p>
         </header>
 
         {/* Login Card */}
         <article
-          class="w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-[0_20px_40px_rgba(0,0,0,0.3)] ring-1 ring-white/5 relative overflow-hidden group"
+          class="w-full bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-8 shadow-[0_20px_40px_rgba(0,0,0,0.3)] ring-1 ring-white/5 relative overflow-hidden group"
         >
           {/* Shine Effect */}
           <div
@@ -57,7 +67,7 @@ import Layout from '../layouts/Layout.astro'
             <div class="space-y-1">
               <label
                 for="email"
-                class="text-xs uppercase tracking-wider text-white/50 font-bold ml-1"
+                class="text-xs uppercase tracking-wider text-white/70 font-bold ml-1"
                 >Correo Electrónico</label
               >
               <input
@@ -65,7 +75,7 @@ import Layout from '../layouts/Layout.astro'
                 id="email"
                 name="email"
                 placeholder="usuario@ejemplo.com"
-                class="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#f8b134]/50 focus:bg-black/30 transition-all duration-300"
+                class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#f8b134]/50 focus:bg-black/50 transition-all duration-300"
                 required
               />
             </div>
@@ -73,7 +83,7 @@ import Layout from '../layouts/Layout.astro'
             <div class="space-y-1">
               <label
                 for="code"
-                class="text-xs uppercase tracking-wider text-white/50 font-bold ml-1"
+                class="text-xs uppercase tracking-wider text-white/70 font-bold ml-1"
                 >Código de Acceso</label
               >
               <input
@@ -81,7 +91,7 @@ import Layout from '../layouts/Layout.astro'
                 id="code"
                 name="code"
                 placeholder="••••••"
-                class="w-full px-4 py-3 bg-black/20 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#f8b134]/50 focus:bg-black/30 transition-all duration-300 tracking-widest text-center font-mono"
+                class="w-full px-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:border-[#f8b134]/50 focus:bg-black/50 transition-all duration-300 tracking-widest text-center font-mono"
                 required
               />
             </div>
@@ -108,7 +118,7 @@ import Layout from '../layouts/Layout.astro'
           <div class="mt-6 text-center">
             <a
               href="/map"
-              class="text-xs text-white/40 hover:text-[#f8b134] transition-colors border-b border-transparent hover:border-[#f8b134]"
+              class="text-xs text-white/50 hover:text-[#f8b134] transition-colors border-b border-transparent hover:border-[#f8b134]"
             >
               Entrar como invitado (Demo)
             </a>
@@ -117,34 +127,13 @@ import Layout from '../layouts/Layout.astro'
       </div>
 
       <footer
-        class="absolute bottom-4 text-white/20 text-[10px] font-light uppercase tracking-widest"
+        class="absolute bottom-4 text-white/30 text-[10px] font-light uppercase tracking-widest"
       >
         &copy; 2026 Proyecto Bartimeo
       </footer>
     </main>
   </div>
 </Layout>
-
-<script>
-  // Simple Snow Effect
-  if (typeof window !== 'undefined') {
-    const container = document.getElementById('snowflakes-container')
-    if (container && !container.hasChildNodes()) {
-      const count = window.innerWidth < 768 ? 20 : 40
-      for (let i = 0; i < count; i++) {
-        const el = document.createElement('div')
-        el.className = 'snowflake'
-        el.textContent = '❄'
-        el.style.left = `${Math.random() * 100}vw`
-        el.style.animationDuration = `${5 + Math.random() * 10}s`
-        el.style.animationDelay = `${Math.random() * 5}s`
-        el.style.opacity = `${Math.random() * 0.3 + 0.1}`
-        el.style.fontSize = `${Math.random() * 0.8 + 0.4}rem`
-        container.appendChild(el)
-      }
-    }
-  }
-</script>
 
 <style>
   .text-gold-texture {
@@ -155,28 +144,19 @@ import Layout from '../layouts/Layout.astro'
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   }
 
-  .snowflake {
-    position: absolute;
-    top: -20px;
-    color: white;
-    user-select: none;
-    pointer-events: none;
-    filter: blur(1px);
-    animation: snowfall linear infinite;
+  /* Floating Animation */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
   }
 
-  @keyframes snowfall {
-    0% {
-      transform: translateY(-10vh);
-      opacity: 0;
-    }
-    20% {
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(110vh);
-      opacity: 0;
-    }
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
   }
 
   @keyframes fadeInUp {
