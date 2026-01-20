@@ -1,0 +1,20 @@
+TODO:
+-Decidir cual .env se esta usando,
+-Poner lo que es la nieve callendo u otra animacion y colores.
+-Restarurar modo de visualizacion de las parroquias. incluyendo cercanas.
+E incluyendo la confirmacion por cercania y la subidad de evidencias.
+
+- Enlazar un usuario con el puntaje.
+- Nunca mantener sesiones, siempre pedir codigo de acceso. (google o cache sesion)
+- Cambio de contrasena o inicio de sesion digital por correo electronico.(solo a correos habilitados 0 cedulas 0 telefonos)
+- Entra con tu telefono, con tu codigo. (para usuarios presenciales)
+- Entra con tu correo, con tu cedula, con tu telefono. (para usuarios virtuales codigo por correo)
+
+
+Use the Image component
+This image could be replaced with the Image component to improve performance.
+
+/src/pages/index.astro:28:14
+Click to go to file
+
+Mejor un fondo con degradado el granate y atras una gran foto.
