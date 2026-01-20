@@ -41,7 +41,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
     <div
       id="map"
-      class="w-full h-[500px] md:h-[600px] rounded-lg shadow-lg border-2 border-brand/30"
+      class="w-full h-[500px] md:h-[600px] rounded-lg shadow-lg border-2 border-brand/30 relative"
       role="application"
       aria-label="Mapa interactivo mostrando ubicaciones"
       data-has-user-location={hasUserLocation ? 'true' : 'false'}
@@ -49,6 +49,141 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       data-center-lon={centerLon}
       data-initial-zoom={initialZoom}
     >
+      {/* Botones de Control de Ubicación */}
+      <div class="absolute bottom-6 right-6 z-[1000] flex flex-col gap-2">
+        <button
+          id="btn-location"
+          class="bg-white text-gray-800 p-3 rounded-full shadow-lg hover:bg-gray-100 transition-all transform active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#f8b134]"
+          title="Centrar en mi ubicación"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            ></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+        </button>
+        <button
+          id="btn-refresh"
+          class="bg-white text-gray-800 p-3 rounded-full shadow-lg hover:bg-gray-100 transition-all transform active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#f8b134]"
+          title="Actualizar ubicación"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      {/* Confirmation Modal */}
+      <div
+        id="proximity-modal"
+        class="hidden absolute inset-0 z-[2000] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+      >
+        <div
+          class="bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full animate-bounce-in text-center"
+        >
+          <div
+            class="w-16 h-16 bg-[#f8b134]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-[#d9901c]"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">¡Has llegado!</h3>
+          <p class="text-gray-600 mb-6">
+            Estás cerca de <strong id="modal-parish-name" class="text-[#640010]"
+              >nombre parroquia</strong
+            >. ¿Confirmas tu visita?
+          </p>
+          <div class="flex gap-3 justify-center">
+            <button
+              id="btn-cancel-arrival"
+              class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-600 font-semibold hover:bg-gray-50 transition-colors"
+            >
+              Cancelar
+            </button>
+            <button
+              id="btn-confirm-arrival"
+              class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#f8b134] to-[#eeb045] text-[#640010] font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+            >
+              ¡Sí, estoy aquí!
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Success Animation Overlay */}
+      <div
+        id="success-overlay"
+        class="hidden absolute inset-0 z-[2001] flex items-center justify-center bg-[#640010]/90 backdrop-blur-md"
+      >
+        <div class="text-center animate-scale-up">
+          <div class="relative w-32 h-32 mx-auto mb-6">
+            <div class="absolute inset-0 bg-[#f8b134] rounded-full animate-ping opacity-20"></div>
+            <div
+              class="relative w-32 h-32 bg-[#f8b134] rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(248,177,52,0.6)]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-16 w-16 text-[#640010]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="3"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+          </div>
+          <h2 class="text-3xl font-bold text-white mb-2 tracking-wide">¡Visita Confirmada!</h2>
+          <p class="text-white/80 text-lg">Tu fe te ha traído hasta aquí.</p>
+          <button
+            id="btn-close-success"
+            class="mt-8 text-sm text-white/60 hover:text-white underline decoration-dashed"
+            >Volver al mapa</button
+          >
+        </div>
+      </div>
     </div>
 
     <!-- Leyenda de colores -->
@@ -78,6 +213,41 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         </li>
       </ul>
     </aside>
+
+    <!-- Lista de Parroquias Cercanas -->
+    <section
+      id="nearby-section"
+      class="mt-6 hidden bg-black/20 backdrop-blur-sm rounded-xl p-6 border border-white/10"
+    >
+      <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+        <span class="bg-[#f8b134] text-[#640010] p-1 rounded-lg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            ></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+        </span>
+        Parroquias Cercanas (&lt;3km)
+      </h3>
+      <div id="nearby-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Items injected here by JS -->
+        <p class="text-white/50 italic col-span-full text-center py-4">Calculando ubicación...</p>
+      </div>
+    </section>
   </section>
 </BentoCard>
 
@@ -118,48 +288,38 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   // @ts-nocheck
   const L = window.L
 
-  // Variables globales que se inicializan solo si el mapa existe
-  let $map = null
-  let centerLat
-  let centerLon
-  let initialZoom
-  let hasUserLocation
+  // Variables globales
+  let $mapElement = null
+  let mapInstance = null
+  let userMarker = null
+  let nearbySection = null
+
+  // Data
+  let centerLat, centerLon, initialZoom, hasUserLocation
+  let locations = []
+  let userCoords = { lat: null, lon: null }
+  let watchId = null
+
+  // Constants
+  const NEARBY_RADIUS_KM = 3
+  const PROXIMITY_THRESHOLD_M = 35
+  let lastProximityCheck = 0 // timestamp
+  let confirmedParishes = new Set() // Prevent multi-trigger
 
   const colors = {
-    'san pedro': '#f97316', // Orange
-    'padre misericordioso': '#2563eb', // Blue
-    'espiritu santo': '#eab308', // Yellow
-    'inmaculada concepcion': '#ef4444', // Red
-    default: '#10b981', // Green
+    'san pedro': '#f97316',
+    'padre misericordioso': '#2563eb',
+    'espiritu santo': '#eab308',
+    'inmaculada concepcion': '#ef4444',
+    default: '#10b981',
   }
 
-  // Función para generar colores consistentes por vicaria
-  function getColorForVicaria(vicaria) {
-    if (!vicaria) return colors.default
-    const v = vicaria.toLowerCase()
-    for (const key in colors) {
-      if (v.includes(key)) return colors[key]
-    }
-    return colors.default
-  }
-
-  let locations = []
-
+  // Init logic handlers
   document.addEventListener('astro:page-load', () => {
-    // Solo inicializar si el elemento del mapa existe en la página
-    $map = document.querySelector('#map')
-    if (!$map) return
-
-    // Inicializar las variables desde el dataset del mapa
-    centerLat = $map.dataset.centerLat
-    centerLon = $map.dataset.centerLon
-    initialZoom = $map.dataset.initialZoom
-    hasUserLocation = $map.dataset.hasUserLocation === 'true'
-
-    initMap()
+    initPage()
   })
 
-  // Fallback for non-view-transitions setups or initial load
+  // Fallback for non-view-transitions
   if (document.readyState === 'complete') {
     initPage()
   } else {
@@ -167,144 +327,88 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   }
 
   function initPage() {
-    $map = document.querySelector('#map')
-    if ($map && !window.mapInitialized) {
-      centerLat = $map.dataset.centerLat
-      centerLon = $map.dataset.centerLon
-      initialZoom = $map.dataset.initialZoom
-      hasUserLocation = $map.dataset.hasUserLocation === 'true'
+    $mapElement = document.querySelector('#map')
+    nearbySection = document.querySelector('#nearby-section')
+
+    if ($mapElement && !window.mapInitialized) {
+      window.mapInitialized = true // Prevent double init
+
+      centerLat = parseFloat($mapElement.dataset.centerLat)
+      centerLon = parseFloat($mapElement.dataset.centerLon)
+      initialZoom = parseInt($mapElement.dataset.initialZoom)
+      hasUserLocation = $mapElement.dataset.hasUserLocation === 'true'
+
       initMap()
+      setupUIControls()
     }
   }
 
-  // Función para inicializar el mapa
   async function initMap() {
-    window.mapInitialized = true // Prevent double init
-
-    // fetch locations if needed
+    // 1. Fetch Data
     if (locations.length === 0) {
       try {
         const response = await fetch('/api/parroquias')
         locations = await response.json()
       } catch (e) {
         console.error('Error fetching locations', e)
+        return
       }
     }
 
-    try {
-      // Inicializar el mapa con el zoom apropiado
-      const map = L.map('map').setView([centerLat, centerLon], initialZoom)
-      // quitar atribución de Leaflet
-      map.attributionControl.setPrefix('')
+    // 2. Initialize Map
+    mapInstance = L.map('map').setView([centerLat, centerLon], initialZoom)
+    mapInstance.attributionControl.setPrefix('')
 
-      // Añadir capa de mapa con estilo personalizado (CartoDB Voyager - colores suaves y modernos)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        maxZoom: 20,
-      }).addTo(map)
+    // 3. Tile Layer
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO',
+      maxZoom: 20,
+    }).addTo(mapInstance)
 
-      // Si tenemos la ubicación del usuario, añadir un marcador especial
-      if (hasUserLocation) {
-        // ... (User location marker logic from example)
-        const userIcon = L.divIcon({
-          html: `
-            <svg width="24" height="24" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10" fill="#f8b134" stroke="#fff" stroke-width="2"/>
-              <circle cx="12" cy="12" r="4" fill="#fff"/>
-            </svg>
-          `,
-          iconSize: [24, 24],
-          iconAnchor: [12, 12],
-          className: 'user-location-marker',
-        })
-        L.marker([centerLat, centerLon], { icon: userIcon }).addTo(map)
-      } else {
-        // Try browser geolocation if header is missing
-        if ('geolocation' in navigator) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            const { latitude, longitude } = position.coords
+    // 4. Markers
+    renderMarkersWithClustering()
 
-            const userIcon = L.divIcon({
-              html: `
-                        <svg width="24" height="24" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" fill="#f8b134" stroke="#fff" stroke-width="2"/>
-                        <circle cx="12" cy="12" r="4" fill="#fff"/>
-                        </svg>
-                    `,
-              iconSize: [24, 24],
-              iconAnchor: [12, 12],
-              className: 'user-location-marker',
-            })
-            L.marker([latitude, longitude], { icon: userIcon }).addTo(map).bindPopup('¡Estás aquí!')
-            map.flyTo([latitude, longitude], 15)
-          })
+    // 5. Start Location Tracking
+    startLocationTracking()
+  }
+
+  function renderMarkersWithClustering() {
+    // Crear el cluster group
+    const markersCluster = L.markerClusterGroup({
+      showCoverageOnHover: true,
+      zoomToBoundsOnClick: true,
+      spiderfyOnMaxZoom: true,
+      removeOutsideVisibleBounds: true,
+      animate: true,
+      maxClusterRadius: 60,
+      iconCreateFunction: function (cluster) {
+        const childCount = cluster.getChildCount()
+        let size = childCount < 10 ? 'small' : childCount < 50 ? 'medium' : 'large'
+        const sizeMap = {
+          small: { width: 50, height: 50, fontSize: '14px' },
+          medium: { width: 60, height: 60, fontSize: '16px' },
+          large: { width: 70, height: 70, fontSize: '18px' },
         }
-      }
+        const dim = sizeMap[size]
+        return L.divIcon({
+          html: `<div class="cluster-icon cluster-${size}" style="width:${dim.width}px;height:${dim.height}px;">
+                    <div class="cluster-inner"><span style="font-size:${dim.fontSize};font-weight:bold;">${childCount}</span></div>
+                   </div>`,
+          className: 'marker-cluster-custom',
+          iconSize: L.point(dim.width, dim.height),
+        })
+      },
+    })
 
-      // Crear el cluster group con configuración personalizada
-      const markersCluster = L.markerClusterGroup({
-        showCoverageOnHover: true,
-        zoomToBoundsOnClick: true,
-        spiderfyOnMaxZoom: true,
-        removeOutsideVisibleBounds: true,
-        animate: true,
-        animateAddingMarkers: false,
-        maxClusterRadius: 60,
-        iconCreateFunction: function (cluster) {
-          const childCount = cluster.getChildCount()
-          let size = 'small'
-          let c = 'cluster-'
+    locations.forEach((loc) => {
+      const lat = loc.center?.lat || loc.lat
+      const lon = loc.center?.lng || loc.lng
+      if (!lat || !lon) return
 
-          if (childCount < 10) {
-            c += 'small'
-            size = 'small'
-          } else if (childCount < 50) {
-            c += 'medium'
-            size = 'medium'
-          } else {
-            c += 'large'
-            size = 'large'
-          }
+      const color = getColorForVicaria(loc.vicaria)
 
-          const sizeMap = {
-            small: { width: 50, height: 50, fontSize: '14px' },
-            medium: { width: 60, height: 60, fontSize: '16px' },
-            large: { width: 70, height: 70, fontSize: '18px' },
-          }
-
-          const dimensions = sizeMap[size]
-
-          return L.divIcon({
-            html: `
-              <div class="cluster-icon ${c}" style="width: ${dimensions.width}px; height: ${dimensions.height}px;">
-                <div class="cluster-inner">
-                  <span style="font-size: ${dimensions.fontSize}; font-weight: bold;">${childCount}</span>
-                </div>
-              </div>
-            `,
-            className: 'marker-cluster-custom',
-            iconSize: L.point(dimensions.width, dimensions.height),
-          })
-        },
-      })
-
-      // Función para renderizar los marcadores con clustering
-      function renderMarkersWithClustering() {
-        markersCluster.clearLayers()
-
-        locations.forEach((location) => {
-          // Adapt keys: name, center.lat, center.lng, vicaria
-          const lat = location.center?.lat || location.lat
-          const lon = location.center?.lng || location.lng
-          if (!lat || !lon) return
-
-          const color = getColorForVicaria(location.vicaria || 'default')
-
-          // Use a simple church icon or similar logic.
-          // Reusing the sample SVG marker structure with slightly different content
-          // Using a CHURCH symbol SVG logic
-          const svgIcon = `
+      // Custom Marker Icon
+      const svgIcon = `
             <div class="marker-container relative w-[45px] h-[55px]">
               <div class="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-[30px] h-2 bg-[radial-gradient(ellipse,rgba(0,0,0,0.3)_0%,transparent_70%)]"></div>
               <div class="absolute inset-0 rounded-lg bg-gradient-to-br from-zinc-800 to-black overflow-hidden flex items-center justify-center" style="border: 2px solid ${color};">
@@ -316,47 +420,246 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
               <div class="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/15 to-transparent rounded-t-lg pointer-events-none"></div>
             </div>
           `
-          const customIcon = L.divIcon({
-            html: svgIcon,
-            iconSize: [45, 55],
-            iconAnchor: [22.5, 55],
-            popupAnchor: [0, -55],
-            className: 'custom-marker',
-          })
-          const marker = L.marker([lat, lon], { icon: customIcon })
-          marker.bindPopup(
-            `
+      const customIcon = L.divIcon({
+        html: svgIcon,
+        iconSize: [45, 55],
+        iconAnchor: [22.5, 55],
+        popupAnchor: [0, -55],
+        className: 'custom-marker',
+      })
+
+      const marker = L.marker([lat, lon], { icon: customIcon })
+      marker.bindPopup(
+        `
             <div class="font-sans min-w-[200px] text-center">
               <div class="p-2">
-                <div class="mb-2 flex flex-col items-center justify-center gap-1">
-                  <span class="text-sm font-bold text-black uppercase">${location.vicaria || 'Vicaria General'}</span>
-                  <h3 class="text-lg font-bold text-gray-900 leading-tight">${location.name}</h3>
-                </div>
+                 <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">${loc.vicaria || 'Vicaria'}</span>
+                 <h3 class="text-lg font-bold text-gray-900 mt-1">${loc.name}</h3>
               </div>
             </div>
           `,
-            {
-              maxWidth: 300,
-              className: 'custom-popup',
-            }
-          )
-          markersCluster.addLayer(marker)
-        })
+        { className: 'custom-popup' }
+      )
 
-        map.addLayer(markersCluster)
+      markersCluster.addLayer(marker)
+    })
+
+    mapInstance.addLayer(markersCluster)
+  }
+
+  function startLocationTracking() {
+    if ('geolocation' in navigator) {
+      if (!watchId) {
+        watchId = navigator.geolocation.watchPosition(
+          (pos) => {
+            updateUserLocation(pos.coords.latitude, pos.coords.longitude)
+          },
+          (err) => console.warn('Geolocation error:', err),
+          { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+        )
+      } else {
+        // Manual single fetch for "Refresh"
+        navigator.geolocation.getCurrentPosition(
+          (pos) => updateUserLocation(pos.coords.latitude, pos.coords.longitude),
+          (err) => alert('No se pudo obtener tu ubicación. Verifica permisos y GPS.')
+        )
       }
-
-      // Render inicial con clustering
-      renderMarkersWithClustering()
-    } catch (err) {
-      console.error('Error al inicializar el mapa.', err)
+    } else {
+      console.log('Navegador no soporta geolocalización')
     }
+  }
+
+  function updateUserLocation(lat, lon) {
+    userCoords = { lat, lon }
+
+    // 1. Update Map Marker
+    if (!userMarker) {
+      const userIcon = L.divIcon({
+        html: `<svg width="24" height="24" viewBox="0 0 24 24" class="drop-shadow-md">
+                  <circle cx="12" cy="12" r="10" fill="#f8b134" stroke="#fff" stroke-width="2"/>
+                  <circle cx="12" cy="12" r="4" fill="#fff"/>
+                 </svg>`,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+        className: 'user-location-marker',
+      })
+      userMarker = L.marker([lat, lon], { icon: userIcon, zIndexOffset: 1000 }).addTo(mapInstance)
+      // Initial FlyTo only once or on explicit demand?
+      // Let's do it if it's the very first fix and user has allow it implicitly by using the app
+      if (!hasUserLocation) {
+        mapInstance.flyTo([lat, lon], 15)
+        hasUserLocation = true
+      }
+    } else {
+      userMarker.setLatLng([lat, lon])
+    }
+
+    // 2. Update Nearby List
+    updateNearbyList(lat, lon)
+
+    // 3. Check Proximity
+    checkProximity(lat, lon)
+  }
+
+  function updateNearbyList(lat, lon) {
+    if (!nearbySection) return
+
+    const nearbyList = document.getElementById('nearby-list')
+    const nearby = locations
+      .map((loc) => {
+        const d = calculateDistance(
+          lat,
+          lon,
+          loc.center?.lat || loc.lat,
+          loc.center?.lng || loc.lng
+        )
+        return { ...loc, distance: d }
+      })
+      .filter((l) => l.distance <= NEARBY_RADIUS_KM)
+      .sort((a, b) => a.distance - b.distance)
+
+    if (nearby.length > 0) {
+      nearbySection.classList.remove('hidden')
+      nearbyList.innerHTML = nearby
+        .map(
+          (loc) => `
+            <div class="bg-white/5 border border-white/5 hover:bg-white/10 transition-colors p-3 rounded-lg flex items-center justify-between group cursor-pointer" onclick="window.flyToParish(${loc.center?.lat || loc.lat}, ${loc.center?.lng || loc.lng})">
+               <div>
+                  <h4 class="font-bold text-white text-sm group-hover:text-[#f8b134] transition-colors">${loc.name}</h4>
+                  <p class="text-[10px] text-white/50 uppercase tracking-wider">${loc.vicaria || 'Parroquia'}</p>
+               </div>
+               <div class="text-right">
+                  <span class="block text-xs font-mono font-bold text-[#f8b134]">${loc.distance.toFixed(1)} km</span>
+                  <span class="text-[10px] text-white/30">ver en mapa</span>
+               </div>
+            </div>
+          `
+        )
+        .join('')
+    } else {
+      nearbySection.classList.add('hidden')
+    }
+  }
+
+  // Make helper global for onclick
+  window.flyToParish = (lat, lon) => {
+    if (mapInstance) {
+      mapInstance.flyTo([lat, lon], 16)
+      document.getElementById('map').scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  function checkProximity(lat, lon) {
+    // Limit check freq logic if needed, currently on every position update
+
+    const inRangeLocation = locations.find((loc) => {
+      if (confirmedParishes.has(loc.name)) return false // Already visited
+      const dKm = calculateDistance(
+        lat,
+        lon,
+        loc.center?.lat || loc.lat,
+        loc.center?.lng || loc.lng
+      )
+      const dMeters = dKm * 1000
+      return dMeters <= PROXIMITY_THRESHOLD_M
+    })
+
+    if (inRangeLocation) {
+      showProximityModal(inRangeLocation)
+    }
+  }
+
+  function showProximityModal(loc) {
+    const modal = document.getElementById('proximity-modal')
+    if (modal.classList.contains('hidden')) {
+      document.getElementById('modal-parish-name').textContent = loc.name
+      modal.classList.remove('hidden')
+
+      // One-off event handlers for this specific instance
+      const btnConfirm = document.getElementById('btn-confirm-arrival')
+      const btnCancel = document.getElementById('btn-cancel-arrival')
+
+      btnConfirm.onclick = () => {
+        confirmedParishes.add(loc.name)
+        modal.classList.add('hidden')
+        showSuccessAnimation()
+      }
+      btnCancel.onclick = () => {
+        modal.classList.add('hidden')
+        // Maybe mute this parish for a while?
+        // For now just add to confirmed so it doesnt spam
+        confirmedParishes.add(loc.name)
+      }
+    }
+  }
+
+  function showSuccessAnimation() {
+    const overlay = document.getElementById('success-overlay')
+    overlay.classList.remove('hidden')
+
+    // Auto close or manual close
+    document.getElementById('btn-close-success').onclick = () => {
+      overlay.classList.add('hidden')
+    }
+
+    // Optional: Auto hide after 5s
+    setTimeout(() => overlay.classList.add('hidden'), 5000)
+  }
+
+  function setupUIControls() {
+    // My Location
+    document.getElementById('btn-location').addEventListener('click', () => {
+      if (userCoords.lat) {
+        mapInstance.flyTo([userCoords.lat, userCoords.lon], 16)
+      } else {
+        startLocationTracking() // Trigger ask permission
+      }
+    })
+
+    // Refresh
+    document.getElementById('btn-refresh').addEventListener('click', () => {
+      // Force manual update
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            updateUserLocation(pos.coords.latitude, pos.coords.longitude)
+            mapInstance.flyTo([pos.coords.latitude, pos.coords.longitude], mapInstance.getZoom())
+          },
+          (err) => alert('Error al actualizar ubicación.')
+        )
+      }
+    })
+  }
+
+  // Haversine Formula
+  function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371 // Earth radius km
+    const dLat = deg2rad(lat2 - lat1)
+    const dLon = deg2rad(lon2 - lon1)
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    return R * c
+  }
+
+  function deg2rad(deg) {
+    return deg * (Math.PI / 180)
+  }
+
+  function getColorForVicaria(vicaria) {
+    if (!vicaria) return colors.default
+    const v = vicaria.toLowerCase()
+    for (const key in colors) {
+      if (v.includes(key)) return colors[key]
+    }
+    return colors.default
   }
 </script>
 
 <style>
-  /* Use the exact CSS from the example for premium feel */
-  /* Asegurar que los controles de Leaflet sean visibles */
+  /* Keep existing Leaflet overrides + new animations */
+
   :global(.leaflet-control-zoom) {
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 12px !important;
@@ -368,78 +671,53 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     backdrop-filter: blur(10px);
     overflow: hidden;
   }
-
   :global(.leaflet-control-zoom a) {
     color: #fff !important;
     background: transparent !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-    transition: all 0.3s ease;
   }
-
   :global(.leaflet-control-zoom a:hover) {
     background: rgba(255, 255, 255, 0.1) !important;
     color: #f8b134 !important;
   }
 
-  /* Estilo mejorado para los popups - estilo bento-card */
-  :global(.leaflet-popup-content-wrapper) {
-    border-radius: 1rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    padding: 0;
-    overflow: hidden;
-    background: white !important; /* Popups with white bg/black text for readability */
-    color: black !important;
-  }
-
-  :global(.leaflet-popup-content) {
-    margin: 0 !important;
-  }
-
-  /* Estilo para los marcadores personalizados */
-  :global(.custom-marker) {
-    background: none;
-    border: none;
-  }
-
-  :global(.custom-marker .marker-container) {
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-  }
-
-  :global(.custom-marker:hover .marker-container) {
-    transform: translateY(-8px) scale(1.08);
-  }
-
-  /* Animación de la sombra */
-  :global(.custom-marker:hover .marker-container > div:first-child) {
-    width: 35px !important;
-    opacity: 0.5;
-  }
-
-  /* Estilo para el marcador de ubicación del usuario */
-  :global(.user-location-marker) {
-    background: none;
-    border: none;
-  }
-
-  :global(.user-location-marker svg) {
-    filter: drop-shadow(0 2px 8px rgba(248, 177, 52, 0.6));
-    animation: userPulse 2s ease-in-out infinite;
-  }
-
-  @keyframes userPulse {
-    0%,
+  /* Animations */
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    70% {
+      transform: scale(1.05);
+    }
     100% {
       opacity: 1;
       transform: scale(1);
     }
-    50% {
-      opacity: 0.7;
-      transform: scale(1.1);
-    }
+  }
+  .animate-bounce-in {
+    animation: bounceIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   }
 
-  /* Estilos personalizados para los clusters */
+  @keyframes scaleUp {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  .animate-scale-up {
+    animation: scaleUp 0.5s ease-out forwards;
+  }
+
+  /* Map Markers & Clusters Styles */
+  :global(.custom-marker) {
+    background: none;
+    border: none;
+  }
   :global(.marker-cluster-custom) {
     background: none !important;
     border: none !important;
@@ -450,59 +728,39 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: all 0.3s ease;
     position: relative;
+    transition: transform 0.3s;
   }
-
-  :global(.cluster-icon::before) {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(248, 177, 52, 0.3) 0%, transparent 70%);
-    animation: clusterPulse 2s ease-in-out infinite;
+  :global(.cluster-icon:hover) {
+    transform: scale(1.1);
   }
-
   :global(.cluster-inner) {
     width: 100%;
     height: 100%;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(0, 41, 107, 0.9) 100%);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(0, 41, 107, 0.9));
     border: 3px solid #f8b134;
     color: white;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    position: relative;
-    z-index: 1;
   }
-
-  :global(.cluster-small .cluster-inner) {
-    border-width: 2px;
+  :global(.user-location-marker svg) {
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+    animation: userPulse 2s infinite;
   }
-
-  :global(.marker-cluster-custom:hover .cluster-icon) {
-    transform: scale(1.15);
-  }
-
-  @keyframes clusterPulse {
-    0%,
-    100% {
-      opacity: 1;
+  @keyframes userPulse {
+    0% {
       transform: scale(1);
+      opacity: 1;
     }
     50% {
-      opacity: 0.5;
-      transform: scale(1.2);
+      transform: scale(1.1);
+      opacity: 0.8;
     }
-  }
-
-  /* Estilo para el polígono de cobertura cuando hover */
-  :global(.leaflet-interactive) {
-    stroke: #f8b134;
-    stroke-width: 2;
-    fill: rgba(248, 177, 52, 0.15);
-    stroke-dasharray: 5, 5;
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
   }
 </style>
