@@ -1,0 +1,49 @@
+---
+import LoginOverlay from './LoginOverlay.astro'
+
+interface Props {
+  isLocked: boolean
+}
+
+const { isLocked } = Astro.props
+
+const achievements = [
+  { title: 'Primeros Pasos', icon: '👣', active: true },
+  { title: 'Explorador', icon: '🗺️', active: false },
+  { title: 'Peregrino', icon: '🚶', active: false },
+  { title: 'Bartimeo', icon: '👁️', active: false },
+]
+---
+
+<section class="max-w-md w-full mx-auto mt-8">
+  <div
+    class="bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-6 relative overflow-hidden h-64"
+  >
+    <h3 class="text-xl font-serif font-bold text-[#f8b134] mb-4 text-center">Mis Logros</h3>
+
+    <LoginOverlay isLocked={isLocked}>
+      <div class="grid grid-cols-2 gap-4">
+        {
+          achievements.map((ach) => (
+            <div
+              class={`flex flex-col items-center p-3 rounded-lg border ${ach.active ? 'bg-white/10 border-[#f8b134]/50' : 'bg-black/20 border-white/5 opacity-50'}`}
+            >
+              <span class="text-3xl mb-2">{ach.icon}</span>
+              <span class="text-xs font-sans text-white/90">{ach.title}</span>
+              {ach.active && (
+                <div class="mt-1 w-full h-1 bg-white/20 rounded-full overflow-hidden">
+                  <div class="h-full bg-[#f8b134] w-3/4" />
+                </div>
+              )}
+            </div>
+          ))
+        }
+      </div>
+      <div class="mt-4 text-center">
+        <p class="text-[10px] text-white/50 font-mono">
+          Puntos acumulados: <span class="text-white">1,250</span>
+        </p>
+      </div>
+    </LoginOverlay>
+  </div>
+</section>

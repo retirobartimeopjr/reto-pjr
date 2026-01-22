@@ -1,0 +1,63 @@
+---
+import LoginOverlay from './LoginOverlay.astro';
+
+interface Props {
+  isLocked: boolean;
+}
+
+const { isLocked } = Astro.props;
+
+// Mock array for tickets
+const totalTickets = 3000;
+const visualTickets = Array.from({ length: 400 }, (_, i) => i + 1);
+---
+
+<section class="max-w-4xl w-full mx-auto mt-6 mb-20 px-4">
+  <div class="bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-6 relative overflow-hidden min-h-[400px]">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+       <h3 class="text-xl font-serif font-bold text-[#f8b134]">Boletas Disponibles</h3>
+       <div class="flex gap-4 text-[10px] uppercase tracking-wider text-white/60">
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-white/20 border border-white/40"></span> Disponible</span>
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#f8b134]"></span> Seleccionado</span>
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-900/50"></span> Ocupado</span>
+       </div>
+    </div>
+
+    <LoginOverlay isLocked={isLocked} message="Inicia sesión para seleccionar tu boleta">
+      <div class="relative w-full h-80 overflow-y-auto pr-2 custom-scrollbar">
+        <p class="text-xs text-center text-white/40 mb-2 font-mono">Mostrando visualización parcial del grid...</p>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(20px,1fr))] gap-1.5">
+          {visualTickets.map((i) => (
+             <div 
+               class="aspect-square rounded-sm border border-white/20 bg-white/5 hover:bg-[#f8b134] hover:border-[#f8b134] hover:shadow-[0_0_10px_#f8b134] transition-all duration-300 cursor-pointer group/ticket relative"
+               title={`Boleta #${i}`}
+             >
+                <!-- Tooltip handled by native title or custom CSS if needed -->
+             </div>
+          ))}
+          {/* Visual indicator that there are more */}
+           <div class="col-span-full text-center py-4 text-white/30 text-xs tracking-widest uppercase">
+              ... {totalTickets - visualTickets.length} boletas más ...
+           </div>
+        </div>
+      </div>
+    </LoginOverlay>
+  </div>
+</section>
+
+<style>
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(100, 0, 16, 0.5); /* bartimeo-red */
+    border-radius: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #f8b134;
+  }
+</style>

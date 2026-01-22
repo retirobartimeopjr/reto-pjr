@@ -17,6 +17,22 @@ const { title } = Astro.props
     <link rel="icon" type="image/webp" href="/logo-rojo.webp" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <link
+      rel="preload"
+      href="/fonts/century.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/century-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link rel="preload" href="/fonts/heavy.woff2" as="font" type="font/woff2" />
   </head>
   <body class="bg-[#640010] text-white overflow-x-hidden">
     <slot />
