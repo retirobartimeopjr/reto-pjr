@@ -1,4 +1,15 @@
 TODO:
+
+ssh -i ~/.ssh/bartimeo-key.pem ubuntu@52.67.225.143
+
+
+./deploy.sh
+
+
+./load_test.sh
+
+
+
 -Restarurar modo de visualizacion de las parroquias. incluyendo cercanas.
 E incluyendo la confirmacion por cercania y la subidad de evidencias.
 
@@ -16,3 +27,4 @@ This image could be replaced with the Image component to improve performance.
 Click to go to file
 
 Mejor un fondo con degradado el granate y atras una gran foto.
+

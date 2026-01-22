@@ -41,7 +41,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
     <div
       id="map"
-      class="w-full h-[500px] md:h-[600px] rounded-lg shadow-lg border-2 border-brand/30 relative"
+      class="w-full h-[500px] md:h-[600px] rounded-lg shadow-lg border-2 border-[#f8b134]/30 relative"
       role="application"
       aria-label="Mapa interactivo mostrando ubicaciones"
       data-has-user-location={hasUserLocation ? 'true' : 'false'}
@@ -192,24 +192,28 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       <ul class="flex flex-wrap gap-3 justify-center" id="legend" role="list">
         <!-- Leyenda items will be dynamic or static? Let's make a few static for now based on known vicarias -->
         <li
-          class="group relative flex items-center gap-3 px-4 py-2 bg-white/95 rounded-xl text-black text-sm font-bold shadow-sm"
+          class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
         >
-          <span class="w-3 h-3 rounded-full bg-orange-500 shadow-sm"></span> San Pedro
+          <span class="w-3 h-3 rounded-full bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]"
+          ></span> San Pedro
         </li>
         <li
-          class="group relative flex items-center gap-3 px-4 py-2 bg-white/95 rounded-xl text-black text-sm font-bold shadow-sm"
+          class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
         >
-          <span class="w-3 h-3 rounded-full bg-blue-600 shadow-sm"></span> Misericordioso
+          <span class="w-3 h-3 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.5)]"
+          ></span> Misericordioso
         </li>
         <li
-          class="group relative flex items-center gap-3 px-4 py-2 bg-white/95 rounded-xl text-black text-sm font-bold shadow-sm"
+          class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
         >
-          <span class="w-3 h-3 rounded-full bg-yellow-500 shadow-sm"></span> Esp. Santo
+          <span class="w-3 h-3 rounded-full bg-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.5)]"
+          ></span> Esp. Santo
         </li>
         <li
-          class="group relative flex items-center gap-3 px-4 py-2 bg-white/95 rounded-xl text-black text-sm font-bold shadow-sm"
+          class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
         >
-          <span class="w-3 h-3 rounded-full bg-red-500 shadow-sm"></span> Inm. Concepción
+          <span class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"
+          ></span> Inm. Concepción
         </li>
       </ul>
     </aside>

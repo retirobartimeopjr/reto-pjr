@@ -25,6 +25,9 @@ export default defineConfig({
         '@': path.resolve('./src'),
       },
     },
+    server: {
+      allowedHosts: ['pjr-app-data.online'],
+    },
   },
   server: {
     port: 3000
