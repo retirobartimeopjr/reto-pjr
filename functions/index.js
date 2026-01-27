@@ -29,9 +29,9 @@ const removeFromCSV = (csv, value) => {
     return filtered.join(',');
 };
 
-// --------------------------------------------------------
+// ==================================================================
 // 1. PROCESAR TICKET REGISTER (onCreate)
-// --------------------------------------------------------
+// ==================================================================
 exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
@@ -95,8 +95,6 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
                 userRef = userDoc.ref;
                 userData = userDoc.data();
 
-                // [LOGICA SOLICITADA]: Si el usuario existe, usamos SU nombre actual
-                // para actualizar el ticketregister, garantizando consistencia.
                 if (userData.username) {
                     finalUsernameForRegister = userData.username;
                 }
@@ -111,6 +109,7 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
                     email: data.email || "",
                     "tickets-numbers": "",
                     "tickets-fixed": "",
+                    "parroquiasVistitadas": "", 
                     "tickets-quantity": 0,
                     "payedtickets": 0,
                     "pendingpay": 0,
@@ -132,11 +131,10 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
             // D. Perform Writes
 
             // 1. Update Registration Doc (Success)
-            // Aquí inyectamos el userId, el código fixed Y EL USERNAME CORRECTO
             transaction.update(snap.ref, {
                 userId: userRef.id,
                 fixed: fixedCode,
-                username: finalUsernameForRegister, // <--- Actualización automática con el nombre real
+                username: finalUsernameForRegister,
                 status: "SUCCESS",
                 processedAt: FieldValue.serverTimestamp()
             });
@@ -150,7 +148,6 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
 
             // 3. Update/Set User
             if (isNewUser) {
-                // Caso: Usuario Nuevo (Create)
                 transaction.set(userRef, {
                     ...userData,
                     "tickets-numbers": newTicketsStr,
@@ -161,7 +158,6 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
                     createdAt: FieldValue.serverTimestamp()
                 });
             } else {
-                // Caso: Usuario Existente (Update)
                 const updates = {
                     "tickets-numbers": newTicketsStr,
                     "tickets-fixed": newFixedStr,
@@ -171,9 +167,12 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
                     lastUpdated: FieldValue.serverTimestamp()
                 };
                 
-                // Nota: Ya no forzamos la actualización del nombre del usuario desde el ticket
-                // porque priorizamos que la fuente de verdad sea el usuario existente.
-                // Sin embargo, si quisieras actualizar otros campos (como cédula si falta), irían aquí.
+                if (inputUsername) {
+                    updates.username = inputUsername;
+                }
+                if (data.cedula) {
+                   updates.cedula = data.cedula;
+                }
 
                 transaction.update(userRef, updates);
             }
@@ -192,9 +191,9 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
 });
 
 
-// --------------------------------------------------------
+// ==================================================================
 // 2. ELIMINAR TICKET REGISTER (onDelete)
-// --------------------------------------------------------
+// ==================================================================
 exports.eliminarTicketRegister = onDocumentDeleted("ticketregister/{registerId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
@@ -275,10 +274,9 @@ exports.eliminarTicketRegister = onDocumentDeleted("ticketregister/{registerId}"
 });
 
 
-// --------------------------------------------------------
+// ==================================================================
 // 3. SINCRONIZAR DATOS DE USUARIO (onUpdate)
-// --------------------------------------------------------
-// Actualiza phone, cedula y username en todos los ticketregister asociados
+// ==================================================================
 exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (event) => {
     const userId = event.params.userId;
     const before = event.data.before.data();
@@ -295,20 +293,17 @@ exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (even
 
     console.log(`[SYNC] Updating user data for userId: ${userId}`);
 
-    // 2. Preparar el objeto de actualización
     const updates = {};
     if (usernameChanged) updates.username = after.username;
     if (phoneChanged) updates.phone = after.phone;
     if (cedulaChanged) updates.cedula = after.cedula;
 
-    // 3. Buscar todos los ticketregister de este usuario
     const registersQuery = db.collection('ticketregister').where('userId', '==', userId);
     
     try {
         const snapshot = await registersQuery.get();
         if (snapshot.empty) return;
 
-        // 4. Batch Update (Escritura por lotes)
         const batch = db.batch();
         
         snapshot.docs.forEach(doc => {
@@ -320,5 +315,129 @@ exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (even
 
     } catch (error) {
         console.error(`[ERROR] Sync failed for user ${userId}:`, error);
+    }
+});
+
+
+// ==================================================================
+// 4. PROCESAR VISITA (onCreate)
+// ==================================================================
+exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
+    const snap = event.data;
+    if (!snap) return;
+
+    const data = snap.data();
+    const userId = data.userId;
+    const parroquiaId = data.parroquiaid;
+
+    if (!userId || !parroquiaId) {
+        console.error("Missing userId or parroquiaId in visit document");
+        return;
+    }
+
+    const parroquiaRef = db.collection('parroquias').doc(String(parroquiaId)); 
+    const userRef = db.collection('user').doc(userId);
+
+    try {
+        await db.runTransaction(async (transaction) => {
+            // 1. Leer Parroquia
+            const parroquiaDoc = await transaction.get(parroquiaRef);
+            if (!parroquiaDoc.exists) {
+                throw new Error(`Parroquia ${parroquiaId} not found.`);
+            }
+
+            const parroquiaData = parroquiaDoc.data();
+            const reward = Number(parroquiaData.reward) || 0; 
+
+            // 2. Leer Usuario
+            const userDoc = await transaction.get(userRef);
+            if (!userDoc.exists) {
+                throw new Error(`User ${userId} not found.`);
+            }
+
+            const userData = userDoc.data();
+            const visitadasStr = userData.parroquiasVistitadas || "";
+            
+            const visitadasArray = visitadasStr.split(',').map(s => s.trim());
+            const yaVisitada = visitadasArray.includes(String(parroquiaId));
+
+            // 3. Preparar Actualizaciones
+            transaction.update(parroquiaRef, {
+                visits: FieldValue.increment(1)
+            });
+
+            if (!yaVisitada) {
+                const newVisitadasStr = addToCSV(visitadasStr, parroquiaId);
+                
+                transaction.update(userRef, {
+                    score: FieldValue.increment(reward),
+                    parroquiasVistitadas: newVisitadasStr
+                });
+                console.log(`[VISIT] User ${userId} First time at ${parroquiaId}. Added ${reward} points.`);
+            } else {
+                console.log(`[VISIT] User ${userId} already visited ${parroquiaId}. No points added.`);
+            }
+        });
+
+    } catch (error) {
+        console.error(`[ERROR] Visit transaction failed for ${parroquiaId}:`, error.message);
+    }
+});
+
+// ==================================================================
+// 5. LIMPIAR TICKETS DE USUARIO ELIMINADO (onDelete) - [NUEVA FUNCIÓN]
+// ==================================================================
+// Lógica: Si se borra un User, buscar sus tickets (CSV) y liberarlos en la tabla tickets.
+exports.limpiarTicketsDeUsuarioEliminado = onDocumentDeleted("user/{userId}", async (event) => {
+    const snap = event.data;
+    if (!snap) return;
+
+    const userData = snap.data();
+    const userId = event.params.userId;
+    
+    const ticketsStr = userData['tickets-numbers'];
+
+    if (!ticketsStr) {
+        console.log(`[USER DELETE] User ${userId} had no tickets to clear.`);
+        return;
+    }
+
+    // Convertir CSV a Array de IDs
+    const ticketIds = ticketsStr.split(',').map(s => s.trim()).filter(s => s.length > 0);
+
+    if (ticketIds.length === 0) {
+        return;
+    }
+
+    console.log(`[USER DELETE] Clearing ${ticketIds.length} tickets for user ${userId}`);
+
+    // Firestore Batch tiene un límite de 500 operaciones.
+    // Hacemos un "chunking" por si el usuario tenía más de 500 tickets.
+    const chunks = [];
+    const chunkSize = 500;
+    
+    for (let i = 0; i < ticketIds.length; i += chunkSize) {
+        chunks.push(ticketIds.slice(i, i + chunkSize));
+    }
+
+    try {
+        for (const chunk of chunks) {
+            const batch = db.batch();
+            
+            chunk.forEach(ticketId => {
+                const ticketRef = db.collection('tickets').doc(String(ticketId));
+                // Actualizamos a "" (string vacío) como solicitaste
+                batch.update(ticketRef, {
+                    "user-id": "",
+                    "payed": ""
+                });
+            });
+
+            await batch.commit();
+            console.log(`[SUCCESS] Released batch of ${chunk.length} tickets.`);
+        }
+        
+    } catch (error) {
+        console.error(`[ERROR] Failed to clear tickets for user ${userId}:`, error);
     }
 });

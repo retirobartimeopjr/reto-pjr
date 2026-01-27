@@ -54,6 +54,12 @@ Tenemos la siguientes tablas o tipos de coleccion:
     -referidos: int
 
 
+
+
+
+    
+
+
 -visit:
     -userId: string
     -parroquiaid: string
@@ -76,6 +82,20 @@ Tenemos la siguientes tablas o tipos de coleccion:
     -coordinates: string
     -radius:string
     -euclidean:string
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -pregunta:
     -preguntaid: string
