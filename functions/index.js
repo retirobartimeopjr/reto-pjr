@@ -275,46 +275,103 @@ exports.eliminarTicketRegister = onDocumentDeleted("ticketregister/{registerId}"
 
 
 // ==================================================================
-// 3. SINCRONIZAR DATOS DE USUARIO (onUpdate)
+// 3. SINCRONIZAR DATOS DE USUARIO + LÓGICA DE REFERIDOS (onUpdate)
 // ==================================================================
 exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (event) => {
     const userId = event.params.userId;
     const before = event.data.before.data();
     const after = event.data.after.data();
 
-    // 1. Detectar cambios en los campos clave
+    // --- PARTE A: SINCRONIZACIÓN DE DATOS EN TICKETREGISTER ---
     const usernameChanged = before.username !== after.username;
     const phoneChanged = before.phone !== after.phone;
     const cedulaChanged = before.cedula !== after.cedula;
 
-    if (!usernameChanged && !phoneChanged && !cedulaChanged) {
-        return; // No hubo cambios relevantes, salir.
+    if (usernameChanged || phoneChanged || cedulaChanged) {
+        console.log(`[SYNC] Updating ticket registers for userId: ${userId}`);
+        const updates = {};
+        if (usernameChanged) updates.username = after.username;
+        if (phoneChanged) updates.phone = after.phone;
+        if (cedulaChanged) updates.cedula = after.cedula;
+
+        const registersQuery = db.collection('ticketregister').where('userId', '==', userId);
+        
+        try {
+            const snapshot = await registersQuery.get();
+            if (!snapshot.empty) {
+                const batch = db.batch();
+                snapshot.docs.forEach(doc => batch.update(doc.ref, updates));
+                await batch.commit();
+                console.log(`[SYNC] Updated ${snapshot.size} ticket registers.`);
+            }
+        } catch (error) {
+            console.error(`[ERROR] Sync failed:`, error);
+        }
     }
 
-    console.log(`[SYNC] Updating user data for userId: ${userId}`);
+    // --- PARTE B: LÓGICA DE REFERIDOS ---
+    const oldReferencia = before.referencia || "";
+    const newReferencia = (after.referencia || "").trim();
 
-    const updates = {};
-    if (usernameChanged) updates.username = after.username;
-    if (phoneChanged) updates.phone = after.phone;
-    if (cedulaChanged) updates.cedula = after.cedula;
-
-    const registersQuery = db.collection('ticketregister').where('userId', '==', userId);
-    
-    try {
-        const snapshot = await registersQuery.get();
-        if (snapshot.empty) return;
-
-        const batch = db.batch();
+    // Solo procesamos si se intentó cambiar el campo de referencia
+    if (oldReferencia !== newReferencia) {
         
-        snapshot.docs.forEach(doc => {
-            batch.update(doc.ref, updates);
-        });
+        // CONDICIÓN 1: Un solo intento. Si ya tenía referencia, NO se puede cambiar.
+        // Revertimos el cambio forzosamente.
+        if (oldReferencia !== "") {
+            console.warn(`[REFERIDOS] User ${userId} tried to change referral from ${oldReferencia} to ${newReferencia}. Reverting.`);
+            return event.data.after.ref.update({ referencia: oldReferencia });
+        }
 
-        await batch.commit();
-        console.log(`[SYNC] Updated ${snapshot.size} ticket registers for user ${userId}`);
+        // Si el usuario intentó borrar la referencia (ponerla en blanco), permitimos o ignoramos?
+        // Asumiremos que solo nos interesa cuando AGREGA una referencia nueva (newReferencia !== "")
+        if (newReferencia === "") return;
 
-    } catch (error) {
-        console.error(`[ERROR] Sync failed for user ${userId}:`, error);
+        console.log(`[REFERIDOS] Processing new referral ${newReferencia} for user ${userId}`);
+
+        // CONDICIÓN 2: Auto-referencia prohibida
+        const userPhone = after.phone;
+        if (newReferencia === userPhone) {
+            console.warn(`[REFERIDOS] Self-referral attempt. Reverting.`);
+            return event.data.after.ref.update({ referencia: "" }); // Borramos el intento inválido
+        }
+
+        // CONDICIÓN 3: Debe tener al menos 1 ticket pagado
+        const payedTickets = after.payedtickets || 0;
+        if (payedTickets < 1) {
+            console.warn(`[REFERIDOS] User ${userId} has 0 payed tickets. Cannot add referral.`);
+            return event.data.after.ref.update({ referencia: "" }); // Borramos el intento inválido
+        }
+
+        // SI PASA TODAS LAS VALIDACIONES -> BUSCAR PADRINO Y ACTUALIZAR
+        try {
+            await db.runTransaction(async (transaction) => {
+                // Buscamos al usuario padrino por teléfono
+                const padrinoQuery = db.collection('user').where('phone', '==', newReferencia).limit(1);
+                const padrinoSnap = await transaction.get(padrinoQuery);
+
+                if (padrinoSnap.empty) {
+                    // El teléfono de referencia no existe en la base de datos.
+                    // Decisión de negocio: ¿Lo dejamos guardado por si el padrino se registra después?
+                    // O ¿Lo borramos porque es inválido?
+                    // Por ahora, lo dejaremos, pero NO sumamos puntos a nadie.
+                    console.log(`[REFERIDOS] Referral phone ${newReferencia} not found in users DB.`);
+                    return; 
+                }
+
+                const padrinoDoc = padrinoSnap.docs[0];
+                const padrinoRef = padrinoDoc.ref;
+
+                // Sumamos +1 al contador de referidos del padrino
+                transaction.update(padrinoRef, {
+                    referidos: FieldValue.increment(1)
+                });
+                
+                console.log(`[REFERIDOS] Success! Added +1 referral to user ${padrinoDoc.id}`);
+            });
+        } catch (error) {
+            console.error(`[ERROR] Referral transaction failed:`, error);
+        }
     }
 });
 
@@ -335,6 +392,7 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
         return;
     }
 
+    // Usa 'parroquias' (plural) según tu colección real
     const parroquiaRef = db.collection('parroquias').doc(String(parroquiaId)); 
     const userRef = db.collection('user').doc(userId);
 
@@ -385,59 +443,274 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
 });
 
 // ==================================================================
-// 5. LIMPIAR TICKETS DE USUARIO ELIMINADO (onDelete) - [NUEVA FUNCIÓN]
+// 5. ELIMINAR VISITA (onDelete) - [NUEVA FUNCIÓN]
 // ==================================================================
-// Lógica: Si se borra un User, buscar sus tickets (CSV) y liberarlos en la tabla tickets.
-exports.limpiarTicketsDeUsuarioEliminado = onDocumentDeleted("user/{userId}", async (event) => {
+// Lógica: Restar visits en parroquia -> Eliminar ID de user.parroquiasVistitadas -> Restar Score
+exports.eliminarVisita = onDocumentDeleted("visit/{visitId}", async (event) => {
+    const snap = event.data;
+    if (!snap) return;
+
+    const data = snap.data();
+    const userId = data.userId;
+    const parroquiaId = data.parroquiaid;
+
+    if (!userId || !parroquiaId) {
+        console.error("Missing userId or parroquiaId in deleted visit document");
+        return;
+    }
+
+    console.log(`[DELETE VISIT] Rolling back visit for User ${userId} at Parroquia ${parroquiaId}`);
+
+    const parroquiaRef = db.collection('parroquias').doc(String(parroquiaId)); 
+    const userRef = db.collection('user').doc(userId);
+
+    try {
+        await db.runTransaction(async (transaction) => {
+            const parroquiaDoc = await transaction.get(parroquiaRef);
+            const userDoc = await transaction.get(userRef);
+
+            // 1. Restar conteo global en Parroquias (si existe la parroquia)
+            if (parroquiaDoc.exists) {
+                // Usamos increment(-1) para restar de forma atómica
+                transaction.update(parroquiaRef, {
+                    visits: FieldValue.increment(-1)
+                });
+            } else {
+                console.warn(`Parroquia ${parroquiaId} not found during visit rollback.`);
+            }
+
+            // 2. Limpiar Usuario (Quitar del CSV y restar puntos)
+            if (userDoc.exists) {
+                const userData = userDoc.data();
+                const visitadasStr = userData.parroquiasVistitadas || "";
+                
+                // Usamos la función helper para quitar SOLO este ID
+                const newVisitadasStr = removeFromCSV(visitadasStr, parroquiaId);
+
+                const updates = {
+                    parroquiasVistitadas: newVisitadasStr
+                };
+
+                // También restamos los puntos para evitar fraude (si borra y vuelve a visitar)
+                // Necesitamos el reward de la parroquia para saber cuánto restar.
+                if (parroquiaDoc.exists) {
+                    const reward = Number(parroquiaDoc.data().reward) || 0;
+                    updates.score = FieldValue.increment(-reward);
+                    console.log(`Restando ${reward} puntos al usuario.`);
+                }
+
+                transaction.update(userRef, updates);
+            }
+        });
+
+        console.log(`[SUCCESS] Visit rollback completed for ${parroquiaId}`);
+
+    } catch (error) {
+        console.error(`[ERROR] Visit rollback failed:`, error);
+    }
+});
+
+
+// ==================================================================
+// 6. LIMPIAR DATOS DE USUARIO ELIMINADO (onDelete)
+//    (Libera Tickets + Resta Referido al Padrino)
+// ==================================================================
+exports.limpiarUsuarioEliminado = onDocumentDeleted("user/{userId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
 
     const userData = snap.data();
     const userId = event.params.userId;
     
+    // --- TAREA 1: LIBERAR TICKETS ---
     const ticketsStr = userData['tickets-numbers'];
-
-    if (!ticketsStr) {
-        console.log(`[USER DELETE] User ${userId} had no tickets to clear.`);
-        return;
+    if (ticketsStr) {
+        const ticketIds = ticketsStr.split(',').map(s => s.trim()).filter(s => s.length > 0);
+        if (ticketIds.length > 0) {
+            console.log(`[USER DELETE] Clearing ${ticketIds.length} tickets for user ${userId}`);
+            const chunks = [];
+            for (let i = 0; i < ticketIds.length; i += 500) {
+                chunks.push(ticketIds.slice(i, i + 500));
+            }
+            try {
+                for (const chunk of chunks) {
+                    const batch = db.batch();
+                    chunk.forEach(ticketId => {
+                        batch.update(db.collection('tickets').doc(String(ticketId)), { "user-id": "", "payed": "" });
+                    });
+                    await batch.commit();
+                }
+            } catch (error) {
+                console.error(`[ERROR] Failed to clear tickets:`, error);
+            }
+        }
     }
 
-    // Convertir CSV a Array de IDs
-    const ticketIds = ticketsStr.split(',').map(s => s.trim()).filter(s => s.length > 0);
-
-    if (ticketIds.length === 0) {
-        return;
+    // --- TAREA 2: RESTAR REFERIDO (Si tenía uno) ---
+    const referenciaPhone = userData.referencia;
+    if (referenciaPhone) {
+        console.log(`[USER DELETE] User had referral ${referenciaPhone}. Decrementing count.`);
+        try {
+            const padrinoQuery = await db.collection('user').where('phone', '==', referenciaPhone).limit(1).get();
+            if (!padrinoQuery.empty) {
+                const padrinoRef = padrinoQuery.docs[0].ref;
+                // Usamos decremento atómico
+                await padrinoRef.update({
+                    referidos: FieldValue.increment(-1)
+                });
+                console.log(`[SUCCESS] Decremented referral count for padrino.`);
+            }
+        } catch (error) {
+            console.error(`[ERROR] Failed to decrement referral:`, error);
+        }
     }
+});
 
-    console.log(`[USER DELETE] Clearing ${ticketIds.length} tickets for user ${userId}`);
 
-    // Firestore Batch tiene un límite de 500 operaciones.
-    // Hacemos un "chunking" por si el usuario tenía más de 500 tickets.
-    const chunks = [];
-    const chunkSize = 500;
+// ==================================================================
+// 7. PROCESAR RESPUESTA (onCreate)
+// ==================================================================
+// Lógica: Verificar respuesta -> Actualizar User (Score, Contadores y Lista de Vistas)
+exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (event) => {
+    const snap = event.data;
+    if (!snap) return;
+
+    const data = snap.data();
+    const userId = data.userId;
+    const preguntaId = data.preguntaid;
+    const respuestaUsuario = data.respuesta;
     
-    for (let i = 0; i < ticketIds.length; i += chunkSize) {
-        chunks.push(ticketIds.slice(i, i + chunkSize));
+    if (!userId || !preguntaId) {
+        console.error("Missing userId or preguntaid in respuesta document");
+        return;
     }
+
+    const preguntaRef = db.collection('pregunta').doc(String(preguntaId));
+    const userRef = db.collection('user').doc(userId);
 
     try {
-        for (const chunk of chunks) {
-            const batch = db.batch();
-            
-            chunk.forEach(ticketId => {
-                const ticketRef = db.collection('tickets').doc(String(ticketId));
-                // Actualizamos a "" (string vacío) como solicitaste
-                batch.update(ticketRef, {
-                    "user-id": "",
-                    "payed": ""
-                });
-            });
+        await db.runTransaction(async (transaction) => {
+            // 1. Obtener datos de la Pregunta
+            const preguntaDoc = await transaction.get(preguntaRef);
+            if (!preguntaDoc.exists) {
+                throw new Error(`Pregunta ${preguntaId} not found.`);
+            }
 
-            await batch.commit();
-            console.log(`[SUCCESS] Released batch of ${chunk.length} tickets.`);
-        }
-        
+            const preguntaData = preguntaDoc.data();
+            const reward = Number(preguntaData.reward) || 0;
+            const respuestaCorrectaOficial = preguntaData.respuestaCorrecta;
+
+            // 2. Validar si es correcta
+            const esCorrecta = (respuestaUsuario === respuestaCorrectaOficial);
+            
+            // Actualizamos el documento respuesta con la validación oficial
+            if (data.correcta !== esCorrecta) {
+                transaction.update(snap.ref, { 
+                    correcta: esCorrecta,
+                    verifiedAt: FieldValue.serverTimestamp(),
+                    snapshotReward: reward
+                });
+            } else {
+                transaction.update(snap.ref, { 
+                    snapshotReward: reward 
+                });
+            }
+
+            // 3. Obtener estado actual del usuario para manejar el CSV
+            const userDoc = await transaction.get(userRef);
+            if (!userDoc.exists) {
+                throw new Error(`User ${userId} not found.`);
+            }
+            const userData = userDoc.data();
+            const preguntasVistasStr = userData.preguntasvistas || "";
+
+            // 4. Agregar ID al CSV (si no existe ya)
+            // Usamos la función auxiliar addToCSV que ya tienes definida arriba
+            const newPreguntasVistasStr = addToCSV(preguntasVistasStr, preguntaId);
+
+            // 5. Preparar Updates para el Usuario
+            const updates = {
+                respuestasEnviadas: FieldValue.increment(1),
+                preguntasvistas: newPreguntasVistasStr // <--- Campo Nuevo con Merge implícito en update
+            };
+
+            if (esCorrecta) {
+                updates.score = FieldValue.increment(reward);
+                updates.respuestasCorrectas = FieldValue.increment(1);
+            }
+
+            transaction.update(userRef, updates);
+
+            console.log(`[RESPUESTA] User ${userId} answered Q-${preguntaId}. Correct: ${esCorrecta}.`);
+        });
+
     } catch (error) {
-        console.error(`[ERROR] Failed to clear tickets for user ${userId}:`, error);
+        console.error(`[ERROR] Processing respuesta failed for ${preguntaId}:`, error);
+    }
+});
+
+
+// ==================================================================
+// 8. ELIMINAR RESPUESTA (onDelete)
+// ==================================================================
+// Lógica: Revertir contadores, restar puntos y quitar ID de preguntasvistas
+exports.eliminarRespuesta = onDocumentDeleted("respuesta/{respuestaId}", async (event) => {
+    const snap = event.data;
+    if (!snap) return;
+
+    const data = snap.data();
+    const userId = data.userId;
+    const preguntaId = data.preguntaid;
+    const esCorrecta = data.correcta === true;
+    
+    let rewardASustraer = data.snapshotReward;
+
+    console.log(`[DELETE RESPUESTA] Rollback for User ${userId}. Was correct? ${esCorrecta}`);
+
+    if (!userId) return;
+
+    const userRef = db.collection('user').doc(userId);
+
+    try {
+        await db.runTransaction(async (transaction) => {
+            // Recuperar reward si no estaba en el snapshot
+            if (esCorrecta && (rewardASustraer === undefined || rewardASustraer === null)) {
+                const preguntaRef = db.collection('pregunta').doc(String(preguntaId));
+                const pDoc = await transaction.get(preguntaRef);
+                if (pDoc.exists) {
+                    rewardASustraer = Number(pDoc.data().reward) || 0;
+                } else {
+                    rewardASustraer = 0;
+                }
+            }
+
+            // Leer usuario para modificar el CSV
+            const userDoc = await transaction.get(userRef);
+            if (!userDoc.exists) return; // Si no existe usuario, nada que actualizar
+
+            const userData = userDoc.data();
+            const preguntasVistasStr = userData.preguntasvistas || "";
+
+            // Quitar ID del CSV
+            // Usamos la función auxiliar removeFromCSV que ya tienes definida arriba
+            const newPreguntasVistasStr = removeFromCSV(preguntasVistasStr, preguntaId);
+
+            const updates = {
+                respuestasEnviadas: FieldValue.increment(-1),
+                preguntasvistas: newPreguntasVistasStr // <--- Actualizamos el campo limpio
+            };
+
+            if (esCorrecta) {
+                updates.respuestasCorrectas = FieldValue.increment(-1);
+                updates.score = FieldValue.increment(-Number(rewardASustraer));
+            }
+
+            transaction.update(userRef, updates);
+        });
+
+        console.log(`[SUCCESS] Respuesta rollback completed.`);
+
+    } catch (error) {
+        console.error(`[ERROR] Delete respuesta failed:`, error);
     }
 });
