@@ -48,5 +48,7 @@ next-env.d.ts
 
 /TODO
 
+/serviceAccountKey.json
 
+/functions/node_modules
 

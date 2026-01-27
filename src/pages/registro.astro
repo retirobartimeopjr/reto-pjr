@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import BackToHome from '../components/BackToHome.astro'
+import HomeButton from '../components/HomeButton.astro'
 import Snowballs from '../components/Snowballs.astro'
 ---
 
@@ -16,9 +16,7 @@ import Snowballs from '../components/Snowballs.astro'
   >
     <Snowballs />
 
-    <div class="absolute top-6 left-6 z-50">
-      <BackToHome />
-    </div>
+    <HomeButton />
 
     <main class="w-full max-w-md px-6 relative z-10 flex flex-col gap-8 animate-fade-in-up">
       <header class="text-center space-y-4">
@@ -26,10 +24,13 @@ import Snowballs from '../components/Snowballs.astro'
           <img
             src="/bartimeo.png"
             alt="Bartimeo"
-            class="w-48 mx-auto drop-shadow-[0_0_20px_rgba(248,177,52,0.3)]"
+            class="w-80 md:w-96 mx-auto drop-shadow-[0_0_20px_rgba(248,177,52,0.3)]"
           />
         </div>
-        <h1 class="font-serif text-3xl font-bold text-[#f8b134]">Bienvenido de nuevo</h1>
+        <!-- Title increased 50% from text-3xl -> text-5/6xl responsive -->
+        <h1 class="font-serif text-4xl md:text-5xl font-bold text-[#f8b134] leading-tight">
+          Bienvenido de nuevo
+        </h1>
         <p class="text-white/60 text-sm">Ingresa tus datos para continuar tu camino.</p>
       </header>
 

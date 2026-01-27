@@ -1,0 +1,45 @@
+# Login Implementation Walkthrough
+
+I have successfully implemented the login flow using Google Sheets as the backend for credential verification.
+
+## Changes Made
+
+### Backend
+- **New API Endpoint**: [src/pages/api/login.ts](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/src/pages/api/login.ts)
+  - Verifies credentials against `userticket` Google Sheet (Columns A & B).
+  - Returns 200 OK on success, 401 Unauthorized on failure.
+- **Load Testing Endpoint**: [src/pages/api/test-write.ts](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/src/pages/api/test-write.ts)
+  - Writes data to `test` sheet for validating write performance.
+
+### Frontend
+- **New Component**: [src/components/LoginModule.tsx](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/src/components/LoginModule.tsx)
+  - React component managing the login form, API calls, and local storage state.
+  - Handles "Ingresar" and "Salir" states.
+  - Shows a modal with backdrop blur for login inputs.
+- **Updated Header**: [src/components/home/HomeHeader.astro](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/src/components/home/HomeHeader.astro)
+  - Replaced the static "Ingresar" button with the dynamic [LoginModule](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/src/components/LoginModule.tsx#5-190) component.
+- **Integration**: [src/pages/index.astro](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/src/pages/index.astro) and Components
+  - Existing logic in [index.astro](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/src/pages/index.astro) checks `localStorage` and removes `blur-md` classes from locked content.
+  - Validated that `LoginOverlay` component correctly applies these classes.
+
+## Verification Results
+
+### Automated Browser Verification
+I ran a browser subagent to verify the end-to-end flow:
+1.  **Login**: Successfully logged in with test credentials (`3123415728` / `CZ50`).
+2.  **Unlock**: Confirmed that "Ranking General" and other sections unlocked (blur removed).
+3.  **Logout**: Confirmed "Salir" button works and re-locks the content.
+
+### Load Testing
+I executed a load test with 1000 requests:
+- **Login (Read)**: Started seeing `429 Too Many Requests` (Quota Exceeded) errors from Google Sheets API after several hundred requests.
+- **Write**: Similarly limited by the Google Sheets quota "Read requests per minute per user" and "Write requests per minute".
+- **Conclusion**: For high-traffic scenarios (1000 concurrent users), directly hitting Google Sheets is not scalable without caching (e.g., Redis) or a database. For the "retry" scope of 3000 users, it might be fine if traffic is spread out, but burst traffic will hit limits.
+
+### Visual Proof
+Screenshot of the unlocked interface after successful login:
+![Login Success](/Users/jesus.traslavina/.gemini/antigravity/brain/64f0ed70-9b5d-4b2b-9fcc-7b0f4f137117/login_success_1769237259751.png)
+
+## Next Steps
+- Implement caching (Redis/In-memory) for the login API to avoid hitting Google Sheets on every request.
+- Populate `userticket` with real data.

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import { ClientRouter } from 'astro:transitions'
 
 interface Props {
   title: string
@@ -33,9 +34,42 @@ const { title } = Astro.props
       crossorigin="anonymous"
     />
     <link rel="preload" href="/fonts/heavy.woff2" as="font" type="font/woff2" />
+    <ClientRouter />
   </head>
   <body class="bg-[#640010] text-white overflow-x-hidden">
+    <!-- Persistent Background Music -->
+    <audio id="bg-music" src="/song.mp3" preload="auto" transition:persist loop></audio>
+
     <slot />
+
+    <script>
+      // Global Audio Control logic to run on every page navigation
+      function setupGlobalAudio() {
+        const audio = document.getElementById('bg-music') as HTMLAudioElement
+        if (audio && audio.paused) {
+          // Try to play if not already playing
+          const playPromise = audio.play()
+          if (playPromise !== undefined) {
+            playPromise.catch((error) => {
+              // Auto-play was prevented.
+              // We can retain the one-time click listener approach globally
+              document.addEventListener(
+                'click',
+                () => {
+                  audio.play()
+                  audio.volume = 0.5
+                },
+                { once: true }
+              )
+            })
+          }
+        }
+      }
+
+      document.addEventListener('astro:page-load', setupGlobalAudio)
+      // Also on initial load
+      if (document.readyState !== 'loading') setupGlobalAudio()
+    </script>
   </body>
 </html>
 

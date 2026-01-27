@@ -2,41 +2,109 @@
 
 ---
 
-<section class="w-full mt-10 mb-6">
+<div id="countdown-timer" class="w-full mt-4 mb-6">
   <div class="flex flex-col items-center gap-4">
     <h3 class="text-white/60 uppercase tracking-[0.3em] text-xs font-bold">Tiempo restante</h3>
 
-    <div class="flex gap-4 md:gap-8 text-center">
+    <div class="flex gap-2 sm:gap-4 md:gap-6 text-center">
+      <!-- Days -->
       <div class="flex flex-col items-center gap-1">
         <div
-          class="relative w-16 h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
+          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
         >
-          <span class="text-3xl md:text-4xl font-black text-[#f8b134] font-mono">04</span>
+          <span
+            id="days"
+            class="text-2xl sm:text-3xl md:text-4xl font-black text-[#f8b134] font-mono">00</span
+          >
         </div>
-        <span class="text-[10px] text-white/50 uppercase tracking-wider">Días</span>
+        <span class="text-[8px] sm:text-[10px] text-white/50 uppercase tracking-wider">Días</span>
       </div>
 
-      <div class="flex items-center text-white/20 text-2xl -mt-6">:</div>
+      <div class="flex items-center text-white/20 text-xl sm:text-2xl -mt-6">:</div>
 
+      <!-- Hours -->
       <div class="flex flex-col items-center gap-1">
         <div
-          class="relative w-16 h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
+          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
         >
-          <span class="text-3xl md:text-4xl font-black text-[#f8b134] font-mono">12</span>
+          <span
+            id="hours"
+            class="text-2xl sm:text-3xl md:text-4xl font-black text-[#f8b134] font-mono">00</span
+          >
         </div>
-        <span class="text-[10px] text-white/50 uppercase tracking-wider">Hrs</span>
+        <span class="text-[8px] sm:text-[10px] text-white/50 uppercase tracking-wider">Hrs</span>
       </div>
 
-      <div class="flex items-center text-white/20 text-2xl -mt-6">:</div>
+      <div class="flex items-center text-white/20 text-xl sm:text-2xl -mt-6">:</div>
 
+      <!-- Minutes -->
       <div class="flex flex-col items-center gap-1">
         <div
-          class="relative w-16 h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
+          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
         >
-          <span class="text-3xl md:text-4xl font-black text-[#f8b134] font-mono">35</span>
+          <span
+            id="minutes"
+            class="text-2xl sm:text-3xl md:text-4xl font-black text-[#f8b134] font-mono">00</span
+          >
         </div>
-        <span class="text-[10px] text-white/50 uppercase tracking-wider">Min</span>
+        <span class="text-[8px] sm:text-[10px] text-white/50 uppercase tracking-wider">Min</span>
+      </div>
+
+      <div class="flex items-center text-white/20 text-xl sm:text-2xl -mt-6">:</div>
+
+      <!-- Seconds -->
+      <div class="flex flex-col items-center gap-1">
+        <div
+          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
+        >
+          <span
+            id="seconds"
+            class="text-2xl sm:text-3xl md:text-4xl font-black text-[#f8b134] font-mono">00</span
+          >
+        </div>
+        <span class="text-[8px] sm:text-[10px] text-white/50 uppercase tracking-wider">Seg</span>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<script>
+  function updateCountdown() {
+    // March 20, 2026 5:00 PM (17:00)
+    // Assuming user wants next occurrence or specifically 2026?
+    // Context says "2026 Project", so 2026.
+    // Fixed Date: 2026-03-20T17:00:00
+
+    const targetDate = new Date('2026-03-20T17:00:00').getTime()
+
+    const interval = setInterval(() => {
+      const now = new Date().getTime()
+      const distance = targetDate - now
+
+      if (distance < 0) {
+        clearInterval(interval)
+        document.getElementById('countdown-timer').innerHTML =
+          "<div class='text-center text-xl text-[#f8b134] font-bold'>¡El tiempo ha llegado!</div>"
+        return
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000)
+
+      const elDays = document.getElementById('days')
+      const elHours = document.getElementById('hours')
+      const elMinutes = document.getElementById('minutes')
+      const elSeconds = document.getElementById('seconds')
+
+      if (elDays) elDays.innerText = days.toString().padStart(2, '0')
+      if (elHours) elHours.innerText = hours.toString().padStart(2, '0')
+      if (elMinutes) elMinutes.innerText = minutes.toString().padStart(2, '0')
+      if (elSeconds) elSeconds.innerText = seconds.toString().padStart(2, '0')
+    }, 1000)
+  }
+
+  updateCountdown()
+  document.addEventListener('astro:page-load', updateCountdown)
+</script>

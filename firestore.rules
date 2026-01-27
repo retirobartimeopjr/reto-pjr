@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // 1. TICKETS (Maestro)
+    // Solo lectura. Nadie puede escribir aquí excepto el Admin SDK (Cloud Functions)
+    match /tickets/{ticketId} {
+      allow read: if isSignedIn();
+      allow write: if false; 
+    }
+
+    // 2. USERS
+    // El usuario solo lee su propio perfil. NO puede editar su score/tickets.
+    match /user/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow write: if false; 
+    }
+
+    // 3. TICKET REGISTER (Entrada)
+    // Solo permitir CREAR. No editar ni borrar.
+    match /ticketregister/{docId} {
+      allow create: if isSignedIn() 
+                    && request.resource.data.userId == request.auth.uid; // Solo a su nombre
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // 4. USERTICKET
+    // Solo lectura (es el resultado de la función)
+    match /userticket/{docId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow write: if false;
+    }
+
+    // 5. PARROQUIA (Catálogo)
+    match /parroquia/{id} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
+    // 6. VISIT
+    match /visit/{id} {
+      allow create: if isSignedIn() 
+                    && request.resource.data.userId == request.auth.uid;
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // 7. PREGUNTA Y RESPUESTA
+    match /pregunta/{id} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+    match /respuesta/{id} {
+      allow create: if isSignedIn() 
+                    && request.resource.data.userId == request.auth.uid;
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

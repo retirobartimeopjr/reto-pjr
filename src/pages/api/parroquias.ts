@@ -1,23 +1,36 @@
 
 import type { APIRoute } from 'astro';
-import { readSheet } from '../../lib/googleSheets';
+import { db } from '../../services/firebase';
 
 export const GET: APIRoute = async () => {
     try {
-        const rows = await readSheet('parroquia!A:F'); // Fetch A:F to include Vicaria
-        if (!rows) {
-            return new Response(JSON.stringify([]), { status: 200, headers: { 'Content-Type': 'application/json' } });
-        }
+        const snapshot = await db.collection('parroquias').get();
 
-        // Format: A=id, B=name, C=address(ignored), D=lat,lng, E=?, F=vicaria
-        const parroquias = rows.slice(1).map(row => {
-            const coords = row[3]?.split(',').map((n: string) => parseFloat(n.trim()));
-            if (!coords || coords.length !== 2) return null;
+        const parroquias = snapshot.docs.map(doc => {
+            const data = doc.data();
+
+            // Coordinates are stored as "lat, lng" string in Firebase (from Excel)
+            // or sometimes might be separated if migration changed. 
+            // Based on migration, it's a direct copy, so it's a string "lat, ln".
+
+
+            // Check if coordinates exist (some data has 'location', some 'coordinates')
+            const rawCoords = data.coordinates || data.location;
+            if (!rawCoords) return null;
+
+            const parts = rawCoords.toString().split(',');
+            if (parts.length !== 2) return null;
+
+            const lat = parseFloat(parts[0].trim());
+            const lng = parseFloat(parts[1].trim());
+
+            if (isNaN(lat) || isNaN(lng)) return null;
+
             return {
-                id: row[0],
-                name: row[1],
-                center: { lat: coords[0], lng: coords[1] },
-                vicaria: row[5] // Column F
+                id: data.id || doc.id,
+                name: data.name,
+                center: { lat, lng },
+                vicaria: data.vicaria
             };
         }).filter(p => p !== null);
 
@@ -29,6 +42,6 @@ export const GET: APIRoute = async () => {
         });
     } catch (error) {
         console.error("API Error", error);
-        return new Response(JSON.stringify({ error: "Failed to fetch" }), { status: 500 });
+        return new Response(JSON.stringify({ error: "Failed to fetch data" }), { status: 500 });
     }
 }

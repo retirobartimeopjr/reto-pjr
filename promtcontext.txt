@@ -1,0 +1,41 @@
+# Prompt Context - Login Implementation
+
+## Overview
+We have implemented a secure login flow for the Bartimeo application. The system verifies user credentials against a Google Sheet ('userticket') and unlocks specific UI components upon successful authentication.
+
+## developed Code
+
+### 1. Backend API (`src/pages/api/login.ts`)
+Validates `phone` and `code` against columns B and A of the 'userticket' Google Sheet.
+- **Input**: JSON `{ "phone": "...", "code": "..." }`
+- **Output**: 
+  - Success: 200 `{ "success": true, "message": "Login successful" }`
+  - Failure: 401 `{ "error": "Invalid credentials" }` or 400/500 errors.
+- **Key Logic**: Fetches `userticket!A:B` using `readSheet` lib.
+
+### 2. Frontend Component (`src/components/LoginModule.tsx`)
+A React component that handles the user interaction.
+- **State**: Manages `isLoggedIn` via `localStorage.getItem('bartimeo_user_logged_in')`.
+- **UI**: 
+  - Displays "Ingresar" button when logged out.
+  - Displays "Salir" button when logged in.
+  - Opens a modal with backdrop blur for entering credentials.
+  - Shows "Validando..." spinner during API call.
+- **Actions**:
+  - `handleLogin`: Calls API, sets localStorage, reloads page.
+  - `handleLogout`: Clears localStorage, reloads page.
+
+### 3. Integration (`src/components/home/HomeHeader.astro`)
+Replaced the static HTML button with `<LoginModule client:load />`.
+
+### 4. Content Locking (`src/pages/index.astro`, `LoginOverlay.astro`)
+- Locked components (`RankingSection`, `TicketsSection`, `AchievementsSection`) are wrapped in `LoginOverlay`.
+- `LoginOverlay` applies `blur-md`, `pointer-events-none`, and shows a lock icon if `isLocked` is true.
+- `src/pages/index.astro` contains a script that runs on page load:
+  - Checks `localStorage` for `bartimeo_user_logged_in`.
+  - If true, it programmatically removes the blur classes and hides the overlay layer, effectively unlocking the content "client-side".
+
+## Verification
+Functionality verified with user `3123415728` / `CZ50` (fetched from sheet).
+- Login works: Button changes to "Salir", content unlocks.
+- Logout works: Content re-locks.
