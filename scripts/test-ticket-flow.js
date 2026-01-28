@@ -12,9 +12,9 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-const TEST_PHONE = "3123415728";
-const TEST_CEDULA = "1234";
-const TEST_TICKET_ID = "2";
+const TEST_PHONE = "31212341221";
+const TEST_CEDULA = "41421";
+const TEST_TICKET_ID = "3";
 const IS_PAYED = true;
 
 async function delay(ms) {

@@ -1,11 +1,18 @@
 ---
 import LoginModule from '../LoginModule'
+import MusicControl from '../MusicControl'
 ---
 
-<header class="absolute top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center">
-  <div class="flex items-center gap-2">
-    <!-- Optional: Small Logo or Home Icon if needed -->
+<header
+  class="absolute top-0 left-0 w-full z-50 px-6 py-4 flex justify-between items-center pointer-events-none"
+>
+  <!-- Left Side: Music Control - enable pointer events -->
+  <div class="flex items-center gap-2 pointer-events-auto">
+    <MusicControl client:load />
   </div>
 
-  <LoginModule client:load />
+  <!-- Right Side: Login - enable pointer events -->
+  <div class="pointer-events-auto">
+    <LoginModule client:load />
+  </div>
 </header>

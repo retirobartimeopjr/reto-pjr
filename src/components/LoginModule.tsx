@@ -1,28 +1,22 @@
 
+import { useStore } from '@nanostores/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { loginUser, logoutUser, userStore } from '../store/userStore';
 
 export default function LoginModule() {
     const [isOpen, setIsOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const user = useStore(userStore);
+
+    // Local form state
     const [phone, setPhone] = useState('');
     const [code, setCode] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const checkLogin = () => {
-            const loggedIn = localStorage.getItem('bartimeo_user_logged_in') === 'true';
-            setIsLoggedIn(loggedIn);
-        };
-        checkLogin();
-        // Listen for custom event if we want to sync across components, 
-        // but for now simple mount check + reload on change is safer for simple implementation
-
-        // Optional: listen to storage events if multiple tabs
-        window.addEventListener('storage', checkLogin);
-        return () => window.removeEventListener('storage', checkLogin);
-    }, []);
+    // Initial check is handled by NanoStores automatically, 
+    // but if we wanted to sync hydration we could wait. 
+    // For now simple reactive useStore is enough.
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,22 +24,15 @@ export default function LoginModule() {
         setLoading(true);
 
         try {
-            const res = await fetch('/api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ phone, code }),
-            });
+            const result = await loginUser(phone, code);
 
-            const data = await res.json();
-
-            if (res.ok && data.success) {
-                localStorage.setItem('bartimeo_user_logged_in', 'true');
-                setIsLoggedIn(true);
+            if (result.success) {
                 setIsOpen(false);
-                // Dispatch event or reload to update other parts of the UI
-                window.location.reload();
+                setPhone('');
+                setCode('');
+                window.location.reload(); // Hard reload to notify Astro islands if needed, or just let React update
             } else {
-                setError(data.error || 'Credenciales inválidas');
+                setError(result.error || 'Credenciales inválidas');
             }
         } catch (err) {
             setError('Error de conexión');
@@ -55,14 +42,13 @@ export default function LoginModule() {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('bartimeo_user_logged_in');
-        setIsLoggedIn(false);
+        logoutUser();
         window.location.reload();
     };
 
     return (
         <>
-            {!isLoggedIn ? (
+            {user.isAuthenticated !== 'true' ? (
                 <button
                     onClick={() => setIsOpen(true)}
                     className="px-5 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white text-sm font-sans font-medium transition-all duration-300 flex items-center gap-2 group cursor-pointer"
@@ -149,6 +135,7 @@ export default function LoginModule() {
                                         placeholder="••••••"
                                         className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#f8b134]/50 focus:ring-1 focus:ring-[#f8b134]/50 transition-all"
                                     />
+                                    <p className="text-[10px] text-white/30 mt-1">Ingresa uno de los códigos de tus tickets (Tickets Fixed).</p>
                                 </div>
 
                                 {error && (
@@ -164,7 +151,7 @@ export default function LoginModule() {
                                     <button
                                         type="submit"
                                         disabled={loading}
-                                        className="w-full bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:from-[#fbd07e] hover:to-[#dca336] text-black font-medium py-3 rounded-lg shadow-lg hover:shadow-[#f8b134]/20 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+                                        className="w-full bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:from-[#fbd07e] hover:to-[#dca336] text-black font-medium py-3 rounded-lg shadow-lg hover:shadow-[#f8b134]/20 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2 cursor-pointer"
                                     >
                                         {loading ? (
                                             <>

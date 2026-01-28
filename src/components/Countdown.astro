@@ -2,67 +2,70 @@
 
 ---
 
-<div id="countdown-timer" class="w-full mt-4 mb-6">
-  <div class="flex flex-col items-center gap-4">
-    <h3 class="text-white/60 uppercase tracking-[0.3em] text-xs font-bold">Tiempo restante</h3>
+<div id="countdown-timer" class="w-full my-4">
+  <div class="flex flex-col items-center gap-2">
+    <h3 class="text-white/60 uppercase tracking-[0.2em] text-[10px] font-bold text-center">
+      Tiempo restante
+    </h3>
 
-    <div class="flex gap-2 sm:gap-4 md:gap-6 text-center">
+    <div
+      class="flex flex-wrap justify-center gap-1 sm:gap-2 md:gap-3 text-center w-full max-w-[300px]"
+    >
       <!-- Days -->
       <div class="flex flex-col items-center gap-1">
         <div
-          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
+          class="relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 bg-black/30 border border-white/10 rounded-md flex items-center justify-center backdrop-blur-sm"
         >
-          <span
-            id="days"
-            class="text-2xl sm:text-3xl md:text-4xl font-black text-[#f8b134] font-mono">00</span
+          <span id="days" class="text-lg sm:text-xl md:text-2xl font-black text-[#f8b134] font-mono"
+            >00</span
           >
         </div>
-        <span class="text-[8px] sm:text-[10px] text-white/50 uppercase tracking-wider">Días</span>
+        <span class="text-[8px] text-white/50 uppercase tracking-wider">Días</span>
       </div>
 
-      <div class="flex items-center text-white/20 text-xl sm:text-2xl -mt-6">:</div>
+      <div class="flex items-center text-white/20 text-lg -mt-4">:</div>
 
       <!-- Hours -->
       <div class="flex flex-col items-center gap-1">
         <div
-          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
+          class="relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 bg-black/30 border border-white/10 rounded-md flex items-center justify-center backdrop-blur-sm"
         >
           <span
             id="hours"
-            class="text-2xl sm:text-3xl md:text-4xl font-black text-[#f8b134] font-mono">00</span
+            class="text-lg sm:text-xl md:text-2xl font-black text-[#f8b134] font-mono">00</span
           >
         </div>
-        <span class="text-[8px] sm:text-[10px] text-white/50 uppercase tracking-wider">Hrs</span>
+        <span class="text-[8px] text-white/50 uppercase tracking-wider">Hrs</span>
       </div>
 
-      <div class="flex items-center text-white/20 text-xl sm:text-2xl -mt-6">:</div>
+      <div class="flex items-center text-white/20 text-lg -mt-4">:</div>
 
       <!-- Minutes -->
       <div class="flex flex-col items-center gap-1">
         <div
-          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
+          class="relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 bg-black/30 border border-white/10 rounded-md flex items-center justify-center backdrop-blur-sm"
         >
           <span
             id="minutes"
-            class="text-2xl sm:text-3xl md:text-4xl font-black text-[#f8b134] font-mono">00</span
+            class="text-lg sm:text-xl md:text-2xl font-black text-[#f8b134] font-mono">00</span
           >
         </div>
-        <span class="text-[8px] sm:text-[10px] text-white/50 uppercase tracking-wider">Min</span>
+        <span class="text-[8px] text-white/50 uppercase tracking-wider">Min</span>
       </div>
 
-      <div class="flex items-center text-white/20 text-xl sm:text-2xl -mt-6">:</div>
+      <div class="flex items-center text-white/20 text-lg -mt-4">:</div>
 
       <!-- Seconds -->
       <div class="flex flex-col items-center gap-1">
         <div
-          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-black/30 border border-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm"
+          class="relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 bg-black/30 border border-white/10 rounded-md flex items-center justify-center backdrop-blur-sm"
         >
           <span
             id="seconds"
-            class="text-2xl sm:text-3xl md:text-4xl font-black text-[#f8b134] font-mono">00</span
+            class="text-lg sm:text-xl md:text-2xl font-black text-[#f8b134] font-mono">00</span
           >
         </div>
-        <span class="text-[8px] sm:text-[10px] text-white/50 uppercase tracking-wider">Seg</span>
+        <span class="text-[8px] text-white/50 uppercase tracking-wider">Seg</span>
       </div>
     </div>
   </div>

@@ -1,6 +1,13 @@
 
 import type { APIRoute } from 'astro';
-import { readSheet } from '../../lib/googleSheets';
+import { userCache } from '../../lib/serverUserCache';
+
+// Helper to check access key in CSV
+const hasAccessKey = (csv: string, key: string) => {
+    if (!csv) return false;
+    const codes = csv.split(',').map(s => s.trim());
+    return codes.includes(key.trim());
+};
 
 export const POST: APIRoute = async ({ request }) => {
     try {
@@ -8,40 +15,53 @@ export const POST: APIRoute = async ({ request }) => {
         const { phone, code } = body;
 
         if (!phone || !code) {
-            return new Response(JSON.stringify({ error: "Missing credentials" }), { status: 400 });
+            return new Response(JSON.stringify({
+                success: false,
+                error: 'Teléfono y código son requeridos'
+            }), { status: 400 });
         }
 
+        // Use the Cache Service
+        const user = await userCache.findUserByPhone(String(phone));
 
-        // Fetch columns A (code) and B (phone) from 'userticket' sheet
-        const rows = await readSheet('userticket!A:B');
-
-        if (!rows || rows.length === 0) {
-            return new Response(JSON.stringify({ error: "No users found" }), { status: 401 });
+        if (!user) {
+            return new Response(JSON.stringify({
+                success: false,
+                error: 'Usuario no encontrado'
+            }), { status: 404 });
         }
 
-        // Normalize inputs for comparison
-        const targetPhone = String(phone).trim();
-        const targetCode = String(code).trim();
+        // Validate Credential
+        const isValid = hasAccessKey(user.ticketsFixed, String(code));
 
-        // Check if there is a match
-        // Row format: [code, phone]
-        const isValidUser = rows.some(row => {
-            const rowCode = String(row[0] || '').trim();
-            const rowPhone = String(row[1] || '').trim();
-            return rowCode === targetCode && rowPhone === targetPhone;
-        });
-
-        if (isValidUser) {
-            return new Response(JSON.stringify({ success: true, message: "Login successful" }), {
-                status: 200,
-                headers: { 'Content-Type': 'application/json' }
-            });
-        } else {
-            return new Response(JSON.stringify({ error: "Invalid credentials" }), { status: 401 });
+        if (!isValid) {
+            return new Response(JSON.stringify({
+                success: false,
+                error: 'Código de acceso incorrecto'
+            }), { status: 401 });
         }
+
+        // Return User Data (Sanitized if needed, but here we return relevant fields)
+        return new Response(JSON.stringify({
+            success: true,
+            user: {
+                docId: user.docId,
+                phone: user.phone,
+                username: user.username,
+                ticketsFixed: user.ticketsFixed,
+                payedTickets: user.payedTickets,
+                score: user.score,
+                parroquiasVistitadas: user.parroquiasVistitadas,
+                preguntasVistas: user.preguntasVistas,
+                referencia: user.referencia
+            }
+        }), { status: 200 });
 
     } catch (error) {
-        console.error("Login API Error", error);
-        return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+        console.error("Login API Error:", error);
+        return new Response(JSON.stringify({
+            success: false,
+            error: 'Error interno del servidor'
+        }), { status: 500 });
     }
-}
+};

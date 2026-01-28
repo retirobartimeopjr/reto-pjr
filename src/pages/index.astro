@@ -7,6 +7,10 @@ import RankingSection from '../components/RankingSection.astro'
 import TicketsSection from '../components/TicketsSection.astro'
 import Countdown from '../components/Countdown.astro'
 import Map from '../components/Map.astro'
+import Leaderboard from '../components/Leaderboard'
+import Dashboard from '../components/Dashboard'
+import BartiPregunta from '../components/BartiPregunta'
+import Referidos from '../components/Referidos'
 
 const isLocked = true
 ---
@@ -36,22 +40,21 @@ const isLocked = true
       <div
         class="w-full max-w-4xl flex flex-col items-center gap-6 animate-fade-in-up mt-6 text-center"
       >
-        <div class="relative group">
+        <div class="relative group w-full flex justify-center">
           <img
             src="/bartimeo.png"
             alt="Bartimeo"
-            class="w-full max-w-[500px] md:max-w-[700px] object-contain drop-shadow-[0_0_35px_rgba(248,177,52,0.3)] animate-float relative z-10"
+            class="w-full max-w-[300px] md:max-w-[700px] object-contain drop-shadow-[0_0_35px_rgba(248,177,52,0.3)] animate-float relative z-10 mx-auto"
             style="width: 150%;"
           />
           {/* Flag Behind Effect */}
           <img
             src="/bartimeo-flag.png"
             alt="Flag"
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] max-w-none opacity-30 blur-md -z-10 mix-blend-screen"
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] max-w-none opacity-30 blur-md -z-10 mix-blend-screen pointer-events-none"
           />
         </div>
 
-        <!-- Title increased 50% from text-4xl -> text-6xl for desktop -->
         <h1
           class="font-serif text-4xl md:text-6xl font-bold uppercase tracking-[0.2em] text-gold-texture leading-tight whitespace-normal md:whitespace-nowrap px-4"
         >
@@ -65,40 +68,66 @@ const isLocked = true
         </p>
       </div>
 
+      {/* DASHBOARD SECTION (Visible only if logged in - handled by component) */}
+      <div class="w-full max-w-6xl animate-fade-in-up delay-100">
+        <Dashboard client:load />
+      </div>
+
       {/* Secondary Content Blocks - Bento Grid Layout */}
       <div class="w-full max-w-6xl animate-fade-in-up delay-100 px-2 lg:px-0 flex flex-col gap-6">
-        <!-- Grid Container -->
-        <!-- Mobile: Stacked (flex-col) -->
-        <!-- Desktop: Grid with alternating sizes as requested -->
-        <!-- Row 1: Large Left, Small Right -->
-        <!-- Row 2: Small Left, Large Right -->
-
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
-          <!-- Row 1 Left: Large (Span 2) - Mis Logros -->
-          <div id="section-achievements" class="lg:col-span-2 login-overlay-container h-full">
-            <AchievementsSection isLocked={isLocked} />
+          {/* LEADERBOARD (Public) */}
+          <div class="lg:col-span-2 h-full">
+            <Leaderboard client:load />
           </div>
 
-          <!-- Row 1 Right: Small (Span 1) - Ranking -->
-          <div id="section-ranking" class="lg:col-span-1 login-overlay-container h-full">
-            <RankingSection isLocked={isLocked} />
+          {/* COUNTDOWN & ACTIONS (Public/Private) */}
+          <div class="lg:col-span-1 flex flex-col gap-6">
+            {/* Countdown */}
+            <div
+              class="bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center"
+            >
+              <Countdown />
+            </div>
+
+            {/* GAME & REFERRALS (Interactive) */}
+            <div class="flex flex-col gap-4">
+              <BartiPregunta client:load />
+            </div>
           </div>
 
-          <!-- Row 2 Left: Small (Span 1) - Countdown & Tiempo Restante -->
-          <!-- Making Countdown fit in a small box might be tight, let's wrap it in a card style -->
-          <div
-            class="lg:col-span-1 h-full bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[300px]"
-          >
-            <Countdown />
-          </div>
-
-          <!-- Row 2 Right: Large (Span 2) - Available Rewards / Tickets -->
-          <div id="section-tickets" class="lg:col-span-2 login-overlay-container h-full">
-            <TicketsSection isLocked={isLocked} />
+          {/* REFERRAL SECTION (Full Width in Grid or separate) */}
+          <div class="lg:col-span-3">
+            <Referidos client:load />
           </div>
         </div>
 
-        {/* Map - Full Width (Alone) */}
+        {/* HIDDEN / DISABLED SECTIONS (As per user request "lo demas queda oculto") */}
+        {/* Achievements & Tickets - Wrapped in a Blur/Locked Container visually */}
+        <div
+          class="w-full opacity-50 grayscale pointer-events-none relative overflow-hidden rounded-2xl border border-white/5"
+        >
+          <div
+            class="absolute inset-0 bg-black/60 z-10 flex items-center justify-center backdrop-blur-sm"
+          >
+            <p
+              class="text-white/40 font-serif uppercase tracking-widest text-sm border border-white/20 px-4 py-2 rounded-full"
+            >
+              Próximamente
+            </p>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+            <div class="lg:col-span-2">
+              <AchievementsSection isLocked={true} />
+            </div>
+            <div class="lg:col-span-1">
+              {/* Placeholder for old ranking space */}
+              <div class="h-64 bg-white/5 rounded-xl"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Map - Full Width */}
         <section
           class="w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative mt-4"
         >
@@ -107,7 +136,6 @@ const isLocked = true
           >
             <p class="text-center text-xs text-white/70">Mapa de Parroquias</p>
           </div>
-          {/* Render Map Component directly */}
           <Map />
         </section>
       </div>
