@@ -1,8 +1,15 @@
+import { useStore } from '@nanostores/react';
+import confetti from 'canvas-confetti';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { useEffect, useState } from 'react';
 import { Circle, MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
 import { LOCATIONS } from '../data/locations'; // We will need to port this
+import { db } from '../lib/firebase.client';
+import { isLoginOpen } from '../store/uiStore';
+import { userStore } from '../store/userStore';
+
 
 // Fix for default marker icon missing in Leaflet with Webpack/Next.js/Astro
 // Use local paths or CDN. Leaflet in Astro might need explicit icon configuration.
@@ -39,6 +46,7 @@ interface Parroquia {
     name: string;
     vicaria?: string;
     center: { lat: number; lng: number };
+    reward: number;
 }
 
 interface LocationWithDistance extends Location {
@@ -127,6 +135,7 @@ function MapInner({ onLocationFound, triggerLocate, isFollowing, setIsFollowing,
 }
 
 export default function MapComponent() {
+    const user = useStore(userStore);
     const [mounted, setMounted] = useState(false);
     const [userPosition, setUserPosition] = useState<L.LatLng | null>(null);
     const [isFollowing, setIsFollowing] = useState(true);
@@ -137,9 +146,8 @@ export default function MapComponent() {
     const [triggerLocate, setTriggerLocate] = useState(0);
     const [parroquias, setParroquias] = useState<Parroquia[]>([]);
     const [showMobileDataHint, setShowMobileDataHint] = useState(true);
-    const [showConfirmPopup, setShowConfirmPopup] = useState(false);
     const [visitConfirmed, setVisitConfirmed] = useState(false);
-    const [uploading, setUploading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [uploadSuccess, setUploadSuccess] = useState(false);
 
     useEffect(() => {
@@ -167,7 +175,8 @@ export default function MapComponent() {
             id: p.id,
             name: p.name,
             center: p.center,
-            radius: 30
+            radius: 30,
+            reward: p.reward
         }));
 
         const allLocations = [...LOCATIONS, ...parishLocations];
@@ -208,9 +217,53 @@ export default function MapComponent() {
         setTriggerLocate(prev => prev + 1);
     };
 
-    const handleConfirmVisit = () => {
-        setShowConfirmPopup(true);
-        setVisitConfirmed(true);
+    const handleConfirmVisit = async () => {
+        if (user.isAuthenticated !== 'true') {
+            isLoginOpen.set(true);
+            return;
+        }
+
+        if (!closestLocation) return;
+
+        // Find the full parroquia object to get the reward, or cast closestLocation if we added it there
+        // Since we mapped parishLocations with reward, it should be in closestLocation as an extended property
+        // But Typescript might complain if we don't extend LocationWithDistance. 
+        // For now, let's treat it as any or look it up.
+        // Quickest fix: cast closestLocation to any to access reward.
+        const locationReward = (closestLocation as any).reward || 0;
+        const parroquiaId = closestLocation.id;
+
+        setLoading(true);
+
+        try {
+            await addDoc(collection(db, 'visit'), {
+                userId: user.docId,
+                parroquiaid: parroquiaId,
+                reward: locationReward,
+                timestamp: serverTimestamp(),
+                userLocation: "GPS_CONFIRMED",
+                platform: "web"
+            });
+
+            console.log("Visit sent successfully:", {
+                userId: user.docId,
+                parroquiaid: parroquiaId,
+                reward: locationReward
+            });
+
+            setVisitConfirmed(true);
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+
+        } catch (error) {
+            console.error("Error creating visit:", error);
+            alert("Hubo un error al registrar la visita. Intenta nuevamente.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     // ... file upload logic omitted for brevity in first pass, or can be ported.
@@ -243,8 +296,8 @@ export default function MapComponent() {
                     <button
                         onClick={handleRecenter}
                         className={`w-full py-3 px-4 rounded-xl font-bold transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2 ${isFollowing
-                                ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                                : "bg-brand text-black hover:bg-[#ffc857] shadow-brand/20"
+                            ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                            : "bg-brand text-black hover:bg-[#ffc857] shadow-brand/20"
                             }`}
                     >
                         {isFollowing ? "📍 Siguiéndote" : "◎ Recentrar / Seguir"}
@@ -270,15 +323,15 @@ export default function MapComponent() {
 
                             <button
                                 onClick={handleConfirmVisit}
-                                disabled={!isInside || visitConfirmed}
+                                disabled={!isInside || visitConfirmed || loading}
                                 className={`w-full py-2 px-4 rounded-lg font-bold text-sm transition-all ${visitConfirmed
-                                        ? 'bg-green-500/20 text-green-400 cursor-default'
-                                        : !isInside
-                                            ? 'bg-white/5 text-zinc-500 cursor-not-allowed'
-                                            : 'bg-green-600 hover:bg-green-500 text-white shadow-lg shadow-green-600/20 active:scale-95'
+                                    ? 'bg-green-500/20 text-green-400 cursor-default'
+                                    : !isInside
+                                        ? 'bg-white/5 text-zinc-500 cursor-not-allowed'
+                                        : 'bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:from-[#fbd07e] hover:to-[#dca336] text-black shadow-lg shadow-orange-500/20 active:scale-95'
                                     }`}
                             >
-                                {visitConfirmed ? 'Visita Confirmada ✓' : 'Confirmar Visita'}
+                                {visitConfirmed ? '¡Visita Confirmada!' : loading ? 'Registrando...' : '¡Sí, estoy aquí!'}
                             </button>
                         </div>
                     )}

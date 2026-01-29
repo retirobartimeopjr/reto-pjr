@@ -30,7 +30,8 @@ export const GET: APIRoute = async () => {
                 id: data.id || doc.id,
                 name: data.name,
                 center: { lat, lng },
-                vicaria: data.vicaria
+                vicaria: data.vicaria,
+                reward: data.reward || 0 // Ensure reward is passed, default to 0
             };
         }).filter(p => p !== null);
 

@@ -1,0 +1,9 @@
+<script>
+  import { isLoginOpen } from '../store/uiStore'
+
+  // Listen for custom event from inline scripts
+  window.addEventListener('open-login-modal', () => {
+    console.log('Opening login modal via event')
+    isLoginOpen.set(true)
+  })
+</script>

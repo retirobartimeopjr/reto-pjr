@@ -4,8 +4,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { loginUser, logoutUser, userStore } from '../store/userStore';
 
+import { isLoginOpen } from '../store/uiStore';
+
 export default function LoginModule() {
-    const [isOpen, setIsOpen] = useState(false);
+    const isOpen = useStore(isLoginOpen);
     const user = useStore(userStore);
 
     // Local form state
@@ -14,9 +16,13 @@ export default function LoginModule() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // Initial check is handled by NanoStores automatically, 
-    // but if we wanted to sync hydration we could wait. 
-    // For now simple reactive useStore is enough.
+    // Initial check is handled by NanoStores automatically.
+
+    React.useEffect(() => {
+        // Expose to global scope for non-React components (e.g. Map.astro)
+        (window as any).openLoginModule = () => isLoginOpen.set(true);
+        return () => { delete (window as any).openLoginModule; };
+    }, []);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -27,7 +33,7 @@ export default function LoginModule() {
             const result = await loginUser(phone, code);
 
             if (result.success) {
-                setIsOpen(false);
+                isLoginOpen.set(false);
                 setPhone('');
                 setCode('');
                 window.location.reload(); // Hard reload to notify Astro islands if needed, or just let React update
@@ -50,7 +56,7 @@ export default function LoginModule() {
         <>
             {user.isAuthenticated !== 'true' ? (
                 <button
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => isLoginOpen.set(true)}
                     className="px-5 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white text-sm font-sans font-medium transition-all duration-300 flex items-center gap-2 group cursor-pointer"
                 >
                     <span>Ingresar</span>
@@ -91,7 +97,7 @@ export default function LoginModule() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            onClick={() => setIsOpen(false)}
+                            onClick={() => isLoginOpen.set(false)}
                             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
                         />
 
@@ -107,7 +113,7 @@ export default function LoginModule() {
 
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="text-xl font-serif text-[#f8b134]">Iniciar Sesión</h3>
-                                <button onClick={() => setIsOpen(false)} className="text-white/50 hover:text-white transition-colors">
+                                <button onClick={() => isLoginOpen.set(false)} className="text-white/50 hover:text-white transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
