@@ -1,17 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import AchievementsSection from '../components/AchievementsSection.astro'
+import BartiPregunta from '../components/BartiPregunta'
+import Countdown from '../components/Countdown.astro'
+import Dashboard from '../components/Dashboard'
+import Leaderboard from '../components/Leaderboard'
+import Map from '../components/Map.astro'
+import Referidos from '../components/Referidos'
 import Snowballs from '../components/Snowballs.astro'
 import HomeHeader from '../components/home/HomeHeader.astro'
-import AchievementsSection from '../components/AchievementsSection.astro'
-import RankingSection from '../components/RankingSection.astro'
-import TicketsSection from '../components/TicketsSection.astro'
-import Countdown from '../components/Countdown.astro'
-import Map from '../components/Map.astro'
-import Leaderboard from '../components/Leaderboard'
-import Dashboard from '../components/Dashboard'
-import BartiPregunta from '../components/BartiPregunta'
-import Referidos from '../components/Referidos'
-import LoginEventListener from '../components/LoginEventListener.astro'
+import Layout from '../layouts/Layout.astro'
 
 const isLocked = true
 ---
@@ -192,33 +189,3 @@ const isLocked = true
     animation-fill-mode: forwards;
   }
 </style>
-
-<script>
-  function checkLoginState() {
-    const isLoggedIn = localStorage.getItem('bartimeo_user_logged_in') === 'true'
-    if (isLoggedIn) {
-      const blurContents = document.querySelectorAll('.login-blur-content')
-      const overlays = document.querySelectorAll('.login-overlay-layer')
-
-      blurContents.forEach((el) => {
-        el.classList.remove('blur-md', 'select-none', 'pointer-events-none', 'opacity-50')
-      })
-
-      overlays.forEach((el) => {
-        el.classList.add('hidden', 'pointer-events-none', 'opacity-0')
-      })
-    }
-  }
-
-  document.addEventListener('astro:page-load', () => {
-    checkLoginState()
-  })
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      checkLoginState()
-    })
-  } else {
-    checkLoginState()
-  }
-</script>

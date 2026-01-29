@@ -743,17 +743,20 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     // Execute Visit (Called after Confirmation)
     window.executeVisit = async (parroquiaId, parroquiaName) => {
       try {
-        const userStr = localStorage.getItem('bartimeo:user')
-        if (!userStr) {
-          alert('Error: No hay sesión activa.')
+        // Use central helper to get user data
+        const user = getUserData()
+
+        console.log('DEBUG: Execute Visit User:', user)
+
+        if (!user || (user.isAuthenticated !== 'true' && user.isAuthenticated !== true)) {
+          console.error('Execute Visit Failed: User not authenticated in execution context', user)
+          alert('Error: No hay sesión activa detector.')
           return
         }
 
-        const user = JSON.parse(userStr)
-
-        // Log info as requested
-        console.log('--- EXECUTING VISIT ---')
-        console.log('User:', user)
+        // Log info as requested by user
+        console.log('--- SI ESTOY AQUI CLICKED (CONFIRMED) ---')
+        console.log('User Info:', user)
         console.log('Parroquia:', parroquiaName, parroquiaId)
 
         // 1. Mark as confirmed locally (Optimistic)
@@ -910,16 +913,25 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       }
     }
 
-    function isUserLoggedIn() {
+    function getUserData() {
       try {
-        const user = userStore.get()
-        console.log('DEBUG: Map Auth Check:', user)
-        // Check for string "true" OR boolean true
-        return user.isAuthenticated === 'true' || user.isAuthenticated === true
+        if (window.bartimeoUserStore) {
+          return window.bartimeoUserStore.get()
+        }
+        // Fallback
+        if (typeof userStore !== 'undefined') {
+          return userStore.get()
+        }
+        return null
       } catch (e) {
-        console.error('Auth check error:', e)
-        return false
+        return null
       }
+    }
+
+    function isUserLoggedIn() {
+      const user = getUserData()
+      if (!user) return false
+      return user.isAuthenticated === 'true' || user.isAuthenticated === true
     }
 
     function showLoginRequiredModal() {
