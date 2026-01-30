@@ -1,5 +1,7 @@
 
+import { useStore } from '@nanostores/react';
 import { useEffect, useState } from 'react';
+import { userStore } from '../store/userStore';
 
 type UserRank = {
     username: string;
@@ -9,13 +11,28 @@ type UserRank = {
 export default function Leaderboard() {
     const [ranking, setRanking] = useState<UserRank[]>([]);
     const [loading, setLoading] = useState(true);
+    const user = useStore(userStore);
 
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
+                // Determine if we need to force refresh
                 const res = await fetch('/api/leaderboard');
                 if (!res.ok) throw new Error("Failed to fetch");
                 const data: UserRank[] = await res.json();
+
+                // OPTIMISTIC PATCH: If current user has a higher score locally than in DB (due to recent visit), patch it
+                if (user && user.username) {
+                    const currentScore = parseInt(user.score);
+                    const userInRank = data.find(u => u.username === user.username);
+
+                    if (userInRank && userInRank.score < currentScore) {
+                        userInRank.score = currentScore;
+                        // Re-sort if needed (simple sort desc)
+                        data.sort((a, b) => b.score - a.score);
+                    }
+                }
+
                 setRanking(data);
             } catch (error) {
                 console.error("Error fetching leaderboard:", error);
@@ -24,13 +41,13 @@ export default function Leaderboard() {
             }
         };
 
-        // Initial Fetch
+        // Initial Fetch and Fetch whenever user score changes (indicating a visit)
         fetchLeaderboard();
 
-        // Optional: Polling every 60s to sync with server cache
+        // Optional: Polling every 60s
         const interval = setInterval(fetchLeaderboard, 60000);
         return () => clearInterval(interval);
-    }, []);
+    }, [user.score]); // Re-run when score updates
 
     if (loading) {
         return <div className="text-center text-white/50 text-sm py-4">Cargando Clasificación...</div>;

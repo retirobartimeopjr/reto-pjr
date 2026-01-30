@@ -337,6 +337,35 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       </div>
     </div>
 
+    <!-- Points Awarded Notification -->
+    <div
+      id="points-notification"
+      class="fixed inset-0 z-[10000] flex items-center justify-center pointer-events-none hidden bg-black/60 backdrop-blur-[2px]"
+    >
+      <div
+        class="transform scale-0 transition-transform duration-500 ease-out data-[show=true]:scale-100 flex flex-col items-center gap-2"
+        id="points-container"
+      >
+        <h2
+          class="text-4xl md:text-6xl font-serif text-[#f8b134] font-bold text-center animate-bounce drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]"
+        >
+          ¡Excelente!
+        </h2>
+        <p
+          id="points-amount"
+          class="text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-[0_0_25px_rgba(248,177,52,0.8)]"
+          style="-webkit-text-stroke: 2px #f8b134;"
+        >
+          +50
+        </p>
+        <p
+          class="text-[#f8b134] text-xl md:text-2xl font-bold uppercase tracking-[0.2em] mt-4 animate-pulse"
+        >
+          Puntos Ganados
+        </p>
+      </div>
+    </div>
+
     {/* Already Visited Modal */}
     <div
       id="already-visited-modal"
@@ -478,6 +507,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   crossorigin=""></script>
 
 <script>
+  import confetti from 'canvas-confetti'
   import { isLoginOpen } from '../store/uiStore'
 
   // @ts-nocheck
@@ -832,9 +862,67 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       const result = await response.json()
 
       if (result.success) {
-        // 3. Show Success Animation
+        // 3. Show Success Animation & Confetti
         showSuccessAnimation()
-        // 4. Update User Data
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#f8b134', '#ffffff', '#bf8418'],
+          zIndex: 10000,
+        })
+
+        // Find the specific parish in local data to be absolutely sure about the reward
+        let localReward = result.pointsAwarded || 10
+        if (typeof locations !== 'undefined') {
+          const foundParish = locations.find((l) => l.id == parroquiaId)
+          if (foundParish && foundParish.reward) {
+            localReward = parseInt(foundParish.reward)
+          }
+        }
+
+        // Show Points Notification
+        const pointsModal = document.getElementById('points-notification')
+        const pointsContainer = document.getElementById('points-container')
+        const pointsText = document.getElementById('points-amount')
+
+        if (pointsModal && pointsText && pointsContainer) {
+          pointsText.textContent = `+${localReward}`
+          pointsModal.classList.remove('hidden')
+
+          // Trigger animation frame
+          requestAnimationFrame(() => {
+            pointsContainer.setAttribute('data-show', 'true')
+          })
+
+          setTimeout(() => {
+            pointsContainer.removeAttribute('data-show')
+            setTimeout(() => {
+              pointsModal.classList.add('hidden')
+            }, 300) // Wait for scale down
+          }, 3000)
+        }
+
+        // 4. Update User Data (OPTIMISTIC & Immediate)
+        const newScore = parseInt(user.score || 0) + localReward
+        const newVisited =
+          (user.parroquiasVistitadas || '') + (user.parroquiasVistitadas ? ',' : '') + parroquiaId
+
+        const optimisitcUser = {
+          ...user,
+          score: newScore.toString(),
+          parroquiasVistitadas: newVisited,
+        }
+
+        // Update global stores immediately
+        if (window.bartimeoUserStore) {
+          window.bartimeoUserStore.set(optimisitcUser)
+        }
+        import('../store/userStore').then(({ userStore }) => {
+          userStore.set(optimisitcUser)
+        })
+
+        // Still call refresh to get any server-side validation eventually
         await refreshUserData()
       } else {
         console.error('Visit API failed:', result.error)
