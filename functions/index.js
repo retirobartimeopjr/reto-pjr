@@ -568,9 +568,8 @@ exports.limpiarUsuarioEliminado = onDocumentDeleted("user/{userId}", async (even
 
 
 // ==================================================================
-// 7. PROCESAR RESPUESTA (onCreate)
+// 7. PROCESAR RESPUESTA (onCreate) - CORREGIDO
 // ==================================================================
-// Lógica: Verificar respuesta -> Actualizar User (Score, Contadores y Lista de Vistas)
 exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
@@ -581,7 +580,7 @@ exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (
     const respuestaUsuario = data.respuesta;
     
     if (!userId || !preguntaId) {
-        console.error("Missing userId or preguntaid in respuesta document");
+        console.error("Missing userId or preguntaid");
         return;
     }
 
@@ -590,20 +589,39 @@ exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (
 
     try {
         await db.runTransaction(async (transaction) => {
-            // 1. Obtener datos de la Pregunta
+            // ------------------------------------------------------
+            // PASO 1: LECTURAS (TODAS JUNTAS AL PRINCIPIO)
+            // ------------------------------------------------------
             const preguntaDoc = await transaction.get(preguntaRef);
-            if (!preguntaDoc.exists) {
-                throw new Error(`Pregunta ${preguntaId} not found.`);
-            }
+            const userDoc = await transaction.get(userRef); // <--- MOVIDO AQUÍ ARRIBA
 
+            // Validaciones de existencia
+            if (!preguntaDoc.exists) throw new Error(`Pregunta ${preguntaId} not found.`);
+            if (!userDoc.exists) throw new Error(`User ${userId} not found.`);
+
+            // ------------------------------------------------------
+            // PASO 2: LÓGICA EN MEMORIA (CÁLCULOS)
+            // ------------------------------------------------------
+            
+            // A. Datos de Pregunta
             const preguntaData = preguntaDoc.data();
             const reward = Number(preguntaData.reward) || 0;
             const respuestaCorrectaOficial = preguntaData.respuestaCorrecta;
-
-            // 2. Validar si es correcta
+            
+            // B. Validación de Respuesta
             const esCorrecta = (respuestaUsuario === respuestaCorrectaOficial);
             
-            // Actualizamos el documento respuesta con la validación oficial
+            // C. Datos de Usuario y CSV
+            const userData = userDoc.data();
+            const preguntasVistasStr = userData.preguntasvistas || "";
+            // Usamos tu función helper (Asegúrate de tenerla definida arriba en index.js)
+            const newPreguntasVistasStr = addToCSV(preguntasVistasStr, preguntaId);
+
+            // ------------------------------------------------------
+            // PASO 3: ESCRITURAS (TODAS JUNTAS AL FINAL)
+            // ------------------------------------------------------
+
+            // A. Actualizar documento 'respuesta' (Snapshot y verificación)
             if (data.correcta !== esCorrecta) {
                 transaction.update(snap.ref, { 
                     correcta: esCorrecta,
@@ -616,22 +634,10 @@ exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (
                 });
             }
 
-            // 3. Obtener estado actual del usuario para manejar el CSV
-            const userDoc = await transaction.get(userRef);
-            if (!userDoc.exists) {
-                throw new Error(`User ${userId} not found.`);
-            }
-            const userData = userDoc.data();
-            const preguntasVistasStr = userData.preguntasvistas || "";
-
-            // 4. Agregar ID al CSV (si no existe ya)
-            // Usamos la función auxiliar addToCSV que ya tienes definida arriba
-            const newPreguntasVistasStr = addToCSV(preguntasVistasStr, preguntaId);
-
-            // 5. Preparar Updates para el Usuario
+            // B. Actualizar documento 'user'
             const updates = {
                 respuestasEnviadas: FieldValue.increment(1),
-                preguntasvistas: newPreguntasVistasStr // <--- Campo Nuevo con Merge implícito en update
+                preguntasvistas: newPreguntasVistasStr
             };
 
             if (esCorrecta) {
@@ -640,12 +646,12 @@ exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (
             }
 
             transaction.update(userRef, updates);
-
-            console.log(`[RESPUESTA] User ${userId} answered Q-${preguntaId}. Correct: ${esCorrecta}.`);
         });
 
+        console.log(`[RESPUESTA] Success for User ${userId}. Correct: ${data.respuesta === (await preguntaRef.get()).data()?.respuestaCorrecta}`); // Log simplificado
+
     } catch (error) {
-        console.error(`[ERROR] Processing respuesta failed for ${preguntaId}:`, error);
+        console.error(`[ERROR] Transaction failed for Q-${preguntaId}:`, error);
     }
 });
 
