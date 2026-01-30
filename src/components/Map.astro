@@ -803,7 +803,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       const visitedIds = visitedString.split(',').map((id) => id.trim())
       const targetId = (parroquiaId || parroquiaName).toString()
 
-      if (visitedIds.includes(targetId)) {
+      if (visitedIds.includes(targetId) || confirmedParishes.has(targetId)) {
         // Show Already Visited Modal
         const modal = document.getElementById('already-visited-modal')
         if (modal) {
@@ -837,14 +837,28 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       if (result.success) {
         // 3. Show Success Animation
         showSuccessAnimation()
+        // 4. Update User Data
+        await refreshUserData()
       } else {
         console.error('Visit API failed:', result.error)
-        alert('Hubo un error registrando tu visita. Intenta de nuevo.')
+
+        if (result.code === 'DUPLICATE_VISIT') {
+          // Show Already Visited Modal
+          const modal = document.getElementById('already-visited-modal')
+          if (modal) {
+            modal.classList.remove('hidden')
+            document.getElementById('btn-close-visited').onclick = () => {
+              modal.classList.add('hidden')
+            }
+          }
+        } else {
+          alert('Hubo un error registrando tu visita. Intenta de nuevo.')
+        }
         confirmedParishes.delete(parroquiaId || parroquiaName)
       }
     } catch (e) {
       console.error('Execute Visit Error:', e)
-      alert('Error de conexión.')
+      //alert('Error de conexión - Contacta a 3123415728')
       confirmedParishes.delete(parroquiaId || parroquiaName)
     }
   }

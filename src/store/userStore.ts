@@ -91,7 +91,7 @@ export const loginUser = async (phone: string, code: string) => {
 
     } catch (error) {
         console.error("Login error:", error);
-        return { success: false, error: 'Error de conexión' };
+        return { success: false, error: 'Error de conexión - Contacta a 3123415728' };
     }
 };
 
