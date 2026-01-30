@@ -922,8 +922,8 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           userStore.set(optimisitcUser)
         })
 
-        // Still call refresh to get any server-side validation eventually
-        await refreshUserData()
+        // Still call refresh to get any server-side validation eventually (Specific User Only)
+        await fetchAndRefeshSingleUser(user.docId)
       } else {
         console.error('Visit API failed:', result.error)
 
@@ -1066,6 +1066,30 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       btnCancel.onclick = () => {
         modal.classList.add('hidden')
       }
+    }
+  }
+
+  async function fetchAndRefeshSingleUser(userId) {
+    if (!userId) return
+
+    try {
+      console.log('Fetching fresh data for user:', userId)
+      const res = await fetch(`/api/user/${userId}`)
+      if (!res.ok) throw new Error('Failed to fetch specific user')
+
+      const freshUser = await res.json()
+
+      // Update Stores
+      if (window.bartimeoUserStore) {
+        window.bartimeoUserStore.set(freshUser)
+      }
+      import('../store/userStore').then(({ userStore }) => {
+        userStore.set(freshUser)
+      })
+
+      console.log('Successfully refreshed single user data from Firestore')
+    } catch (e) {
+      console.error('Error refreshing single user:', e)
     }
   }
 
