@@ -623,13 +623,10 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       const svgIcon = `
             <div class="marker-container relative w-[45px] h-[55px]">
               <div class="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-[30px] h-2 bg-[radial-gradient(ellipse,rgba(0,0,0,0.3)_0%,transparent_70%)]"></div>
-              <div class="absolute inset-0 rounded-lg bg-gradient-to-br from-zinc-800 to-black overflow-hidden flex items-center justify-center" style="border: 2px solid ${color};">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-6 h-6">
-                    <path d="M12 2L3 9v11a2 2 0 002 2h14a2 2 0 002-2V9l-9-7zm0 2.8l7 5.4V19h-4v-6h-6v6H5v-9.8l7-5.4z"/>
-                    <path d="M12 11h2v2h-2z"/>
-                </svg>
+              <div class="absolute inset-0 rounded-lg overflow-hidden flex items-center justify-center shadow-lg" style="background-color: ${color}; border: 2px solid white;">
+                 <img src="/parroquia.png" alt="Parroquia" class="w-8 h-8 object-contain filter drop-shadow-sm" />
               </div>
-              <div class="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/15 to-transparent rounded-t-lg pointer-events-none"></div>
+              <div class="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/30 to-transparent rounded-t-lg pointer-events-none"></div>
             </div>
           `
       const customIcon = L.divIcon({
