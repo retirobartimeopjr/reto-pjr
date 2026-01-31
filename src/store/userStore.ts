@@ -34,6 +34,10 @@ const initialState: UserProfile = {
 // Persistent store to keep session alive across reloads
 export const userStore = persistentMap<UserProfile>('bartimeo:user', initialState);
 
+// UI State Atoms
+import { atom } from 'nanostores';
+export const isLoginOpen = atom(false);
+
 // GLOBAL EXPOSURE (Critical for Astro Island communication)
 if (typeof window !== 'undefined') {
     (window as any).bartimeoUserStore = userStore;

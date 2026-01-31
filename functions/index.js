@@ -37,10 +37,10 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
     if (!snap) return;
 
     const data = snap.data();
-    const ticketId = data.ticketId; 
+    const ticketId = data.ticketId;
     const phone = data.phone;
     const isPayed = data.payed === "yes" || data.payed === true;
-    
+
     // Nombre que viene en el formulario (puede ser null o incompleto)
     const inputUsername = data.username;
 
@@ -51,7 +51,7 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
     if (isNaN(ticketNum) || ticketNum < 1 || ticketNum > 3000) {
         console.error(`Invalid Ticket ID: ${ticketId}. Must be between 1 and 3000.`);
         await snap.ref.update({ status: "ERROR", error: "Ticket ID out of range" });
-        return; 
+        return;
     }
     if (!phone) {
         console.error(`Missing phone number for ticket ${ticketId}`);
@@ -85,7 +85,7 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
             let userRef;
             let userData;
             let isNewUser = false;
-            
+
             // Variable para determinar el nombre final que quedará en el ticketregister
             let finalUsernameForRegister = inputUsername || "Nuevo Usuario";
 
@@ -101,7 +101,7 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
             } else {
                 // El usuario es NUEVO
                 isNewUser = true;
-                userRef = db.collection('user').doc(); 
+                userRef = db.collection('user').doc();
                 userData = {
                     phone: String(phone),
                     username: finalUsernameForRegister, // Usamos el del input
@@ -109,7 +109,7 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
                     email: data.email || "",
                     "tickets-numbers": "",
                     "tickets-fixed": "",
-                    "parroquiasVistitadas": "", 
+                    "parroquiasVistitadas": "",
                     "tickets-quantity": 0,
                     "payedtickets": 0,
                     "pendingpay": 0,
@@ -166,12 +166,12 @@ exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}"
                     "pendingpay": newPendingCount,
                     lastUpdated: FieldValue.serverTimestamp()
                 };
-                
+
                 if (inputUsername) {
                     updates.username = inputUsername;
                 }
                 if (data.cedula) {
-                   updates.cedula = data.cedula;
+                    updates.cedula = data.cedula;
                 }
 
                 transaction.update(userRef, updates);
@@ -199,13 +199,13 @@ exports.eliminarTicketRegister = onDocumentDeleted("ticketregister/{registerId}"
     if (!snap) return;
 
     const data = snap.data();
-    
+
     // Skip rollback if it was rejected
     if (data.status === "REJECTED" || data.status === "ERROR") return;
 
     const ticketId = data.ticketId;
-    const userId = data.userId; 
-    const fixed = data.fixed;   
+    const userId = data.userId;
+    const fixed = data.fixed;
     const isPayed = data.payed === "yes" || data.payed === true;
 
     console.log(`[DELETE] Rollback Ticket ${ticketId} for User ${userId}`);
@@ -221,24 +221,24 @@ exports.eliminarTicketRegister = onDocumentDeleted("ticketregister/{registerId}"
     try {
         await db.runTransaction(async (transaction) => {
             const userDoc = await transaction.get(userRef);
-            
+
             // Safety check for owner mismatch
             const ticketCheck = await transaction.get(ticketRef);
             if (ticketCheck.exists && ticketCheck.data()['user-id'] !== userId) {
-                 console.warn("Ticket owner mismatch inside rollback. Aborting.");
-                 return;
+                console.warn("Ticket owner mismatch inside rollback. Aborting.");
+                return;
             }
 
             if (userDoc.exists) {
                 const userData = userDoc.data();
-                
+
                 // Recalculate CSVs
                 const newTicketsStr = removeFromCSV(userData['tickets-numbers'], ticketId);
                 const newFixedStr = removeFromCSV(userData['tickets-fixed'], fixed);
 
                 // Recalculate Counters (Decrease logic)
                 const newQty = Math.max(0, (userData['tickets-quantity'] || 0) - 1);
-                
+
                 let newPayedCount = userData['payedtickets'] || 0;
                 let newPendingCount = userData['pendingpay'] || 0;
 
@@ -279,13 +279,18 @@ exports.eliminarTicketRegister = onDocumentDeleted("ticketregister/{registerId}"
 // ==================================================================
 exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (event) => {
     const userId = event.params.userId;
+
+    // Validamos que existan los datos (por si acaso es un borrado parcial, aunque onUpdate implica ambos)
+    if (!event.data.before.exists || !event.data.after.exists) return;
+
     const before = event.data.before.data();
     const after = event.data.after.data();
 
     // --- PARTE A: SINCRONIZACIÓN DE DATOS EN TICKETREGISTER ---
-    const usernameChanged = before.username !== after.username;
-    const phoneChanged = before.phone !== after.phone;
-    const cedulaChanged = before.cedula !== after.cedula;
+    // Usamos Optional Chaining (?.) y valores por defecto para seguridad
+    const usernameChanged = (before.username || "") !== (after.username || "");
+    const phoneChanged = (before.phone || "") !== (after.phone || "");
+    const cedulaChanged = (before.cedula || "") !== (after.cedula || "");
 
     if (usernameChanged || phoneChanged || cedulaChanged) {
         console.log(`[SYNC] Updating ticket registers for userId: ${userId}`);
@@ -295,7 +300,7 @@ exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (even
         if (cedulaChanged) updates.cedula = after.cedula;
 
         const registersQuery = db.collection('ticketregister').where('userId', '==', userId);
-        
+
         try {
             const snapshot = await registersQuery.get();
             if (!snapshot.empty) {
@@ -310,64 +315,68 @@ exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (even
     }
 
     // --- PARTE B: LÓGICA DE REFERIDOS ---
-    const oldReferencia = before.referencia || "";
+
+    // 1. Lectura segura de los campos (Manejo de undefined/null)
+    const oldReferencia = (before.referencia || "").trim();
     const newReferencia = (after.referencia || "").trim();
 
-    // Solo procesamos si se intentó cambiar el campo de referencia
+    // Solo procesamos si hubo un cambio real
     if (oldReferencia !== newReferencia) {
-        
-        // CONDICIÓN 1: Un solo intento. Si ya tenía referencia, NO se puede cambiar.
-        // Revertimos el cambio forzosamente.
+
+        // LOOP FIX / REGLA DE ORO:
+        // Si ya EXISTÍA una referencia previa (old != ""), 
+        // simplemente IGNORAMOS cualquier cambio posterior.
+        // No revertimos (para evitar bucles infinitos donde la "mala" se vuelve "old"),
+        // ni procesamos puntos de nuevo.
         if (oldReferencia !== "") {
-            console.warn(`[REFERIDOS] User ${userId} tried to change referral from ${oldReferencia} to ${newReferencia}. Reverting.`);
-            return event.data.after.ref.update({ referencia: oldReferencia });
+            console.log(`[REFERIDOS] User ${userId} changed referral from ${oldReferencia} to ${newReferencia}. Ignoring (already set).`);
+            return;
         }
 
-        // Si el usuario intentó borrar la referencia (ponerla en blanco), permitimos o ignoramos?
-        // Asumiremos que solo nos interesa cuando AGREGA una referencia nueva (newReferencia !== "")
+        // Caso base: Si es un borrado (new == ""), y venimos de empty (por lógica arriba), nada que hacer.
         if (newReferencia === "") return;
 
-        console.log(`[REFERIDOS] Processing new referral ${newReferencia} for user ${userId}`);
+        // A PARTIR DE AQUI: Estamos seguros que es una NUEVA ASIGNACIÓN (old == "")
+        console.log(`[REFERIDOS] Processing FIRST-TIME referral: ${newReferencia} for user ${userId}`);
 
         // CONDICIÓN 2: Auto-referencia prohibida
-        const userPhone = after.phone;
+        const userPhone = (after.phone || "").trim();
         if (newReferencia === userPhone) {
-            console.warn(`[REFERIDOS] Self-referral attempt. Reverting.`);
-            return event.data.after.ref.update({ referencia: "" }); // Borramos el intento inválido
+            console.warn(`[REFERIDOS] Self-referral attempt. Reverting to empty.`);
+            // Al revertir a "", el siguiente trigger tendrá old="SELF", new="", entrará en el 'if(old!=="")' y saldrá. Loop roto.
+            return event.data.after.ref.update({ referencia: "" });
         }
 
         // CONDICIÓN 3: Debe tener al menos 1 ticket pagado
         const payedTickets = after.payedtickets || 0;
         if (payedTickets < 1) {
-            console.warn(`[REFERIDOS] User ${userId} has 0 payed tickets. Cannot add referral.`);
-            return event.data.after.ref.update({ referencia: "" }); // Borramos el intento inválido
+            console.warn(`[REFERIDOS] User ${userId} has 0 payed tickets. Reverting to empty.`);
+            return event.data.after.ref.update({ referencia: "" });
         }
 
-        // SI PASA TODAS LAS VALIDACIONES -> BUSCAR PADRINO Y ACTUALIZAR
+        // CONDICIÓN 4: VALIDAR EXISTENCIA EN LA BD
         try {
             await db.runTransaction(async (transaction) => {
-                // Buscamos al usuario padrino por teléfono
                 const padrinoQuery = db.collection('user').where('phone', '==', newReferencia).limit(1);
                 const padrinoSnap = await transaction.get(padrinoQuery);
 
                 if (padrinoSnap.empty) {
-                    // El teléfono de referencia no existe en la base de datos.
-                    // Decisión de negocio: ¿Lo dejamos guardado por si el padrino se registra después?
-                    // O ¿Lo borramos porque es inválido?
-                    // Por ahora, lo dejaremos, pero NO sumamos puntos a nadie.
-                    console.log(`[REFERIDOS] Referral phone ${newReferencia} not found in users DB.`);
-                    return; 
+                    // --- CASO: NO EXISTE EL PADRINO ---
+                    console.warn(`[REFERIDOS] Phone ${newReferencia} does NOT exist. Reverting to empty.`);
+                    transaction.update(event.data.after.ref, { referencia: "" });
+                    return;
                 }
 
+                // --- CASO: SÍ EXISTE EL PADRINO ---
                 const padrinoDoc = padrinoSnap.docs[0];
                 const padrinoRef = padrinoDoc.ref;
 
-                // Sumamos +1 al contador de referidos del padrino
+                // Sumamos +1 al contador.
                 transaction.update(padrinoRef, {
                     referidos: FieldValue.increment(1)
                 });
-                
-                console.log(`[REFERIDOS] Success! Added +1 referral to user ${padrinoDoc.id}`);
+
+                console.log(`[REFERIDOS] Success! Verified padrino ${padrinoDoc.id}. Incrementing +1.`);
             });
         } catch (error) {
             console.error(`[ERROR] Referral transaction failed:`, error);
@@ -393,7 +402,7 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
     }
 
     // Usa 'parroquias' (plural) según tu colección real
-    const parroquiaRef = db.collection('parroquias').doc(String(parroquiaId)); 
+    const parroquiaRef = db.collection('parroquias').doc(String(parroquiaId));
     const userRef = db.collection('user').doc(userId);
 
     try {
@@ -405,7 +414,7 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
             }
 
             const parroquiaData = parroquiaDoc.data();
-            const reward = Number(parroquiaData.reward) || 0; 
+            const reward = Number(parroquiaData.reward) || 0;
 
             // 2. Leer Usuario
             const userDoc = await transaction.get(userRef);
@@ -415,7 +424,7 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
 
             const userData = userDoc.data();
             const visitadasStr = userData.parroquiasVistitadas || "";
-            
+
             const visitadasArray = visitadasStr.split(',').map(s => s.trim());
             const yaVisitada = visitadasArray.includes(String(parroquiaId));
 
@@ -426,7 +435,7 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
 
             if (!yaVisitada) {
                 const newVisitadasStr = addToCSV(visitadasStr, parroquiaId);
-                
+
                 transaction.update(userRef, {
                     score: FieldValue.increment(reward),
                     parroquiasVistitadas: newVisitadasStr
@@ -461,7 +470,7 @@ exports.eliminarVisita = onDocumentDeleted("visit/{visitId}", async (event) => {
 
     console.log(`[DELETE VISIT] Rolling back visit for User ${userId} at Parroquia ${parroquiaId}`);
 
-    const parroquiaRef = db.collection('parroquias').doc(String(parroquiaId)); 
+    const parroquiaRef = db.collection('parroquias').doc(String(parroquiaId));
     const userRef = db.collection('user').doc(userId);
 
     try {
@@ -483,7 +492,7 @@ exports.eliminarVisita = onDocumentDeleted("visit/{visitId}", async (event) => {
             if (userDoc.exists) {
                 const userData = userDoc.data();
                 const visitadasStr = userData.parroquiasVistitadas || "";
-                
+
                 // Usamos la función helper para quitar SOLO este ID
                 const newVisitadasStr = removeFromCSV(visitadasStr, parroquiaId);
 
@@ -521,7 +530,7 @@ exports.limpiarUsuarioEliminado = onDocumentDeleted("user/{userId}", async (even
 
     const userData = snap.data();
     const userId = event.params.userId;
-    
+
     // --- TAREA 1: LIBERAR TICKETS ---
     const ticketsStr = userData['tickets-numbers'];
     if (ticketsStr) {
@@ -578,7 +587,7 @@ exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (
     const userId = data.userId;
     const preguntaId = data.preguntaid;
     const respuestaUsuario = data.respuesta;
-    
+
     if (!userId || !preguntaId) {
         console.error("Missing userId or preguntaid");
         return;
@@ -602,15 +611,15 @@ exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (
             // ------------------------------------------------------
             // PASO 2: LÓGICA EN MEMORIA (CÁLCULOS)
             // ------------------------------------------------------
-            
+
             // A. Datos de Pregunta
             const preguntaData = preguntaDoc.data();
             const reward = Number(preguntaData.reward) || 0;
             const respuestaCorrectaOficial = preguntaData.respuestaCorrecta;
-            
+
             // B. Validación de Respuesta
             const esCorrecta = (respuestaUsuario === respuestaCorrectaOficial);
-            
+
             // C. Datos de Usuario y CSV
             const userData = userDoc.data();
             const preguntasVistasStr = userData.preguntasvistas || "";
@@ -623,14 +632,14 @@ exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (
 
             // A. Actualizar documento 'respuesta' (Snapshot y verificación)
             if (data.correcta !== esCorrecta) {
-                transaction.update(snap.ref, { 
+                transaction.update(snap.ref, {
                     correcta: esCorrecta,
                     verifiedAt: FieldValue.serverTimestamp(),
                     snapshotReward: reward
                 });
             } else {
-                transaction.update(snap.ref, { 
-                    snapshotReward: reward 
+                transaction.update(snap.ref, {
+                    snapshotReward: reward
                 });
             }
 
@@ -668,7 +677,7 @@ exports.eliminarRespuesta = onDocumentDeleted("respuesta/{respuestaId}", async (
     const userId = data.userId;
     const preguntaId = data.preguntaid;
     const esCorrecta = data.correcta === true;
-    
+
     let rewardASustraer = data.snapshotReward;
 
     console.log(`[DELETE RESPUESTA] Rollback for User ${userId}. Was correct? ${esCorrecta}`);
