@@ -28,10 +28,24 @@ ssh -i $KEY_IDENTIFIER $REMOTE_USER@$REMOTE_IP << 'EOF'
     # Install any new dependencies
     pnpm install
     
-    # Restart the application managed by PM2
-    pm2 restart bartimeo
+    # Build the application for production
+    echo "🏗️ Building the application..."
+    pnpm run build
     
-    # Save the PM2 list just in case
+    # Copy service account key to dist folder so it can be found by the server
+    echo "🔑 Copying service account key..."
+    cp serviceAccountKey.json dist/
+    
+    # Restart the application using ecosystem config
+    echo "🚀 Restarting PM2 Cluster..."
+    # Check if process exists to decide whether to start or reload
+    if pm2 list | grep -q "bartimeo"; then
+        pm2 reload ecosystem.config.cjs
+    else
+        pm2 start ecosystem.config.cjs
+    fi
+    
+    # Save the PM2 list
     pm2 save
 EOF
 

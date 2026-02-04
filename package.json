@@ -17,7 +17,7 @@
   "dependencies": {
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "3.6.0",
-    "@astrojs/vercel": "9.0.2",
+    "@astrojs/node": "^9.0.0",
     "@floating-ui/dom": "1.7.4",
     "@midudev/tailwind-animations": "0.2.0",
     "@nanostores/persistent": "^1.2.0",

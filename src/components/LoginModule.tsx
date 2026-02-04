@@ -52,29 +52,46 @@ export default function LoginModule() {
         window.location.reload();
     };
 
+    // Register flow state
+    const [showThankYou, setShowThankYou] = useState(false);
+
+    const handleRegister = () => {
+        window.open('https://forms.gle/djtPSTRrmLouzFaZ9', '_blank');
+        setShowThankYou(true);
+    };
+
     return (
         <>
             {user.isAuthenticated !== 'true' ? (
-                <button
-                    onClick={() => isLoginOpen.set(true)}
-                    className="px-5 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white text-sm font-sans font-medium transition-all duration-300 flex items-center gap-2 group cursor-pointer"
-                >
-                    <span>Ingresar</span>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4 text-[#f8b134] group-hover:text-[#fbd07e] transition-colors"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={handleRegister}
+                        className="px-4 py-1.5 bg-[#f8b134]/10 hover:bg-[#f8b134]/20 backdrop-blur-md border border-[#f8b134]/30 rounded-full text-[#f8b134] text-xs font-sans font-medium transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.1)] hover:shadow-[0_0_20px_rgba(248,177,52,0.3)]"
                     >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                        ></path>
-                    </svg>
-                </button>
+                        <span>Registrarme Quiero Apoyar!</span>
+                    </button>
+
+                    <button
+                        onClick={() => isLoginOpen.set(true)}
+                        className="px-5 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white text-sm font-sans font-medium transition-all duration-300 flex items-center gap-2 group cursor-pointer"
+                    >
+                        <span>Ingresar</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 text-[#f8b134] group-hover:text-[#fbd07e] transition-colors"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
             ) : (
                 <button
                     onClick={handleLogout}
@@ -90,6 +107,7 @@ export default function LoginModule() {
             )}
 
             <AnimatePresence>
+                {/* Login Modal */}
                 {isOpen && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
                         {/* Backdrop */}
@@ -171,12 +189,97 @@ export default function LoginModule() {
                                             "Ingresar"
                                         )}
                                     </button>
+
+                                    {/* Botón secundario para solicitar código */}
+                                    <div className="pt-4 flex justify-center w-full">
+                                        <a
+                                            href={`https://wa.me/573123415728?text=${encodeURIComponent(
+                                                `Hola Jesus :) Quiero solicitar mi Código de Acceso Único. Muchas gracias. Este es mi numero de telefono para que puedas consultar ${phone}`
+                                            )}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(e) => {
+                                                if (!phone) {
+                                                    e.preventDefault();
+                                                    setError("Por favor ingresa tu teléfono para solicitar el código");
+                                                }
+                                            }}
+                                            className="w-full py-3 border border-[#f8b134]/30 bg-[#f8b134]/5 hover:bg-[#f8b134]/10 rounded-lg text-[#f8b134] text-sm font-medium transition-all duration-300 flex justify-center items-center gap-2 cursor-pointer group"
+                                        >
+                                            <img src="/wha.png" className="w-5 h-5 drop-shadow-md transition-transform group-hover:scale-110" alt="WhatsApp" />
+                                            Solicitar código por WhatsApp
+                                        </a>
+                                    </div>
                                 </div>
                             </form>
                         </motion.div>
                     </div>
                 )}
-            </AnimatePresence>
+
+                {/* Thank You Modal */}
+                {showThankYou && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+                        {/* Backdrop */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setShowThankYou(false)}
+                            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                        />
+
+                        {/* Modal */}
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+                            className="relative w-full max-w-md bg-[#1a1a1a] border border-[#f8b134]/30 rounded-2xl p-8 shadow-[0_0_50px_rgba(248,177,52,0.15)] text-center overflow-hidden"
+                        >
+                            {/* Decorative elements */}
+                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#f8b134] via-[#fbd07e] to-[#bf8418]" />
+                            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#f8b134]/10 rounded-full blur-2xl pointer-events-none"></div>
+                            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-[#f8b134]/5 rounded-full blur-2xl pointer-events-none"></div>
+
+                            {/* Bouncing Logo */}
+                            <div className="relative mb-6 flex justify-center">
+                                <div className="absolute inset-0 bg-[#f8b134]/20 blur-xl rounded-full scale-75 animate-pulse"></div>
+                                <img
+                                    src="/bartimeo-logo.png"
+                                    className="w-24 h-auto relative z-10 animate-bounce drop-shadow-[0_0_15px_rgba(248,177,52,0.5)]"
+                                    alt="Bartimeo"
+                                />
+                            </div>
+
+                            <h3 className="text-2xl font-serif text-[#f8b134] mb-3 leading-tight">
+                                ¡Muchas gracias por todo tu apoyo!
+                            </h3>
+
+                            <p className="text-white/80 text-sm mb-6 leading-relaxed">
+                                Cada aporte cuenta. Revisa el correo que digitaste para obtener tu código de acceso o escríbenos directamente para obtenerlo.
+                            </p>
+
+                            <a
+                                href="https://wa.me/573123415728?text=Hola%20Jesus%20%3A)%20Quiero%20solicitar%20mi%20C%C3%B3digo%20de%20Acceso%20%C3%9Anico.%20Muchas%20gracias"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-medium px-6 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-[#25D366]/30 hover:-translate-y-1 group"
+                            >
+                                <img src="/wha.png" className="w-5 h-5 drop-shadow-md" alt="WhatsApp" />
+                                <span>Escribir por WhatsApp</span>
+                            </a>
+
+                            <button
+                                onClick={() => setShowThankYou(false)}
+                                className="absolute top-4 right-4 text-white/30 hover:text-white transition-colors"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence >
         </>
     );
 }

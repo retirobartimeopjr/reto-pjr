@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-URL="https://pjr-app-data.online/map"
+URL="https://retirobartimeo.org/map"
 CONCURRENCY=3000
 
 echo "🚀 Starting load test: $CONCURRENCY concurrent requests to $URL"

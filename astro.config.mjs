@@ -4,13 +4,15 @@ import path from 'node:path'
 import sitemap from '@astrojs/sitemap'
 import { defineConfig } from 'astro/config'
 
+import node from '@astrojs/node'
 import react from '@astrojs/react'
-import vercel from '@astrojs/vercel'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://pjr-app-data.online',
-  adapter: vercel(),
+  site: 'https://retirobartimeo.org',
+  adapter: node({
+    mode: 'standalone'
+  }),
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/admin')
@@ -26,7 +28,7 @@ export default defineConfig({
       },
     },
     server: {
-      allowedHosts: ['pjr-app-data.online'],
+      allowedHosts: ['retirobartimeo.org'],
     },
   },
   server: {
