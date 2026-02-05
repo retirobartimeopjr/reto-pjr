@@ -1,6 +1,6 @@
-
 import { getApps, initializeApp, type FirebaseApp } from 'firebase/app';
 import { getFirestore, type Firestore } from 'firebase/firestore';
+import { getStorage, type FirebaseStorage } from 'firebase/storage';
 
 const firebaseConfig = {
     apiKey: import.meta.env.PUBLIC_FIREBASE_API_KEY,
@@ -13,6 +13,7 @@ const firebaseConfig = {
 
 let app: FirebaseApp;
 let db: Firestore;
+let storage: FirebaseStorage;
 
 // Prevent initializing twice (useful during HMR in dev)
 if (!getApps().length) {
@@ -22,5 +23,6 @@ if (!getApps().length) {
 }
 
 db = getFirestore(app);
+storage = getStorage(app);
 
-export { app, db };
+export { app, db, storage };

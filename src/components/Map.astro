@@ -526,7 +526,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   let watchId = null
 
   // Constants
-  const NEARBY_RADIUS_KM = 3
+  const NEARBY_RADIUS_KM = 2
   const PROXIMITY_THRESHOLD_M = 35
   let lastProximityCheck = 0 // timestamp
   let confirmedParishes = new Set() // Prevent multi-trigger
