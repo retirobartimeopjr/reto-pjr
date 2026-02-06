@@ -31,9 +31,11 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
 <BentoCard class="col-span-3 md:col-span-3 p-4 md:p-8 h-full" style="animation-delay: 0.2s;">
   <div id="tiendas" class="mb-4 text-center">
-    <h2 class="text-shadow-title text-2xl font-bold text-white md:text-3xl lg:text-4xl mb-2">
-      Encuentra tu Parroquia
-    </h2>
+    <p class="text-white/80 text-sm md:text-base font-medium max-w-2xl mx-auto leading-relaxed">
+      Cuando visites una de las parroquias del mapa, <span class="text-[#f8b134] font-bold"
+        >confirma tu Visita para ganar puntos!</span
+      >
+    </p>
   </div>
 
   <section class="space-y-4 h-full" aria-labelledby="map-title">
@@ -425,14 +427,8 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       <li
         class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
       >
-        <span class="w-3 h-3 rounded-full bg-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.5)]"
-        ></span> Esp. Santo
-      </li>
-      <li
-        class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
-      >
-        <span class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span> Inm.
-        Concepción
+        <span class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(16, 185, 129, 1)]"
+        ></span> Otros Templos
       </li>
     </ul>
   </aside>
@@ -464,7 +460,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
         </svg>
       </span>
-      Parroquias Cercanas (&lt;3km)
+      Parroquias Cercanas (&lt;2km)
     </h3>
     <div id="nearby-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <!-- Items injected here by JS -->
@@ -539,8 +535,6 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   const colors = {
     'san pedro': '#f97316',
     'padre misericordioso': '#2563eb',
-    'espiritu santo': '#eab308',
-    'inmaculada concepcion': '#ef4444',
     default: '#10b981',
   }
 
@@ -608,8 +602,8 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     // 4. Markers
     renderMarkersWithClustering()
 
-    // 5. Start Location Tracking
-    startLocationTracking()
+    // 5. Setup Interaction for Location (Permissions)
+    setupMapInteractions()
   }
 
   // ... (renderMarkersWithClustering remains same) ...
@@ -1281,6 +1275,26 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       if (v.includes(key)) return colors[key]
     }
     return colors.default
+  }
+  function setupMapInteractions() {
+    if (!$mapElement) return
+
+    const triggerLocation = () => {
+      // Only request if we haven't started watching yet
+      if (!watchId) {
+        startLocationTracking()
+      }
+    }
+
+    // Add listeners to map container
+    $mapElement.addEventListener('click', triggerLocation, { once: true })
+    $mapElement.addEventListener('touchstart', triggerLocation, { once: true })
+
+    // Also Leaflet map instance events if initialized
+    if (mapInstance) {
+      mapInstance.on('click', triggerLocation)
+      mapInstance.on('dragstart', triggerLocation)
+    }
   }
 </script>
 
