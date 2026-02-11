@@ -57,13 +57,13 @@ export const isUserAuthenticated = (): boolean => {
     return user.isAuthenticated === 'true' || user.isAuthenticated === true; // Handle persistent string vs boolean
 };
 
-export const loginUser = async (phone: string, code: string) => {
+export const loginUser = async (phone: string) => {
     try {
         // Updated to use Server-Side API logic
         const response = await fetch('/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ phone, code })
+            body: JSON.stringify({ phone })
         });
 
         const data = await response.json();

@@ -2,22 +2,15 @@
 import type { APIRoute } from 'astro';
 import { userCache } from '../../lib/serverUserCache';
 
-// Helper to check access key in CSV
-const hasAccessKey = (csv: string, key: string) => {
-    if (!csv) return false;
-    const codes = csv.split(',').map(s => s.trim());
-    return codes.includes(key.trim());
-};
-
 export const POST: APIRoute = async ({ request }) => {
     try {
         const body = await request.json();
-        const { phone, code } = body;
+        const { phone } = body;
 
-        if (!phone || !code) {
+        if (!phone) {
             return new Response(JSON.stringify({
                 success: false,
-                error: 'Teléfono y código son requeridos'
+                error: 'Teléfono es requerido'
             }), { status: 400 });
         }
 
@@ -29,16 +22,6 @@ export const POST: APIRoute = async ({ request }) => {
                 success: false,
                 error: 'Usuario no encontrado'
             }), { status: 404 });
-        }
-
-        // Validate Credential
-        const isValid = hasAccessKey(user.ticketsFixed, String(code));
-
-        if (!isValid) {
-            return new Response(JSON.stringify({
-                success: false,
-                error: 'Código de acceso incorrecto'
-            }), { status: 401 });
         }
 
         // Return User Data (Sanitized if needed, but here we return relevant fields)

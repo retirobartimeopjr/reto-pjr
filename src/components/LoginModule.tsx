@@ -15,7 +15,6 @@ export default function LoginModule() {
 
     // Local form state
     const [phone, setPhone] = useState('');
-    const [code, setCode] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -41,12 +40,11 @@ export default function LoginModule() {
         setLoading(true);
 
         try {
-            const result = await loginUser(phone, code);
+            const result = await loginUser(phone);
 
             if (result.success) {
                 isLoginOpen.set(false);
                 setPhone('');
-                setCode('');
                 window.location.reload(); // Hard reload to notify Astro islands if needed, or just let React update
             } else {
                 setError(result.error || 'Credenciales inválidas');
@@ -139,20 +137,13 @@ export default function LoginModule() {
             {user.isAuthenticated !== 'true' ? (
                 <div className="flex items-center gap-3">
                     <button
-                        onClick={handleRegister}
-                        className="px-4 py-1.5 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-full text-[#3d0000] text-xs font-sans font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-stretch-jump"
-                    >
-                        <span>Registrarme Quiero Apoyar!</span>
-                    </button>
-
-                    <button
                         onClick={() => isLoginOpen.set(true)}
-                        className="px-5 py-2 bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 rounded-full text-white text-sm font-sans font-medium transition-all duration-300 flex items-center gap-2 group cursor-pointer"
+                        className="px-5 py-2 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-full text-[#3d0000] text-sm font-sans font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-stretch-jump"
                     >
-                        <span>Ingresar</span>
+                        <span>¡Quiero Jugar!</span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className="h-4 w-4 text-[#f8b134] group-hover:text-[#fbd07e] transition-colors"
+                            className="h-4 w-4"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -167,18 +158,30 @@ export default function LoginModule() {
                     </button>
                 </div>
             ) : (
-                <button
-                    onClick={handleLogout}
-                    className="px-5 py-2 bg-red-500/10 hover:bg-red-500/30 backdrop-blur-md border border-red-500/30 rounded-full text-red-200 text-sm font-sans font-medium transition-all duration-300 flex items-center gap-2 group cursor-pointer"
-                >
-                    <span>Salir</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                        <polyline points="16 17 21 12 16 7"></polyline>
-                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                    </svg>
-                </button>
+                <div className="flex items-center gap-3">
+                    <a
+                        href="https://forms.gle/HMvueg96JV3gqNmB6"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-1.5 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-full text-[#3d0000] text-xs font-sans font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-soft-bounce"
+                    >
+                        <span>¡Inscríbete AQUÍ al IV Retiro!</span>
+                    </a>
+
+                    <button
+                        onClick={handleLogout}
+                        className="px-5 py-2 bg-red-500/10 hover:bg-red-500/30 backdrop-blur-md border border-red-500/30 rounded-full text-red-200 text-sm font-sans font-medium transition-all duration-300 flex items-center gap-2 group cursor-pointer"
+                    >
+                        <span>Salir</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                    </button>
+                </div>
             )}
+
 
             <AnimatePresence>
                 {/* Login Modal */}
@@ -213,6 +216,14 @@ export default function LoginModule() {
                             </div>
 
                             <form onSubmit={handleLogin} className="space-y-4">
+                                <button
+                                    type="button"
+                                    onClick={handleRegister}
+                                    className="w-full mb-4 px-4 py-3 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-xl text-[#3d0000] text-sm font-sans font-bold transition-all duration-300 flex justify-center items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-soft-bounce"
+                                >
+                                    <span>Registrarme para Jugar!</span>
+                                </button>
+
                                 <div>
                                     <label className="block text-xs uppercase tracking-wider text-white/50 mb-1">Teléfono</label>
                                     <input
@@ -224,17 +235,7 @@ export default function LoginModule() {
                                     />
                                 </div>
 
-                                <div>
-                                    <label className="block text-xs uppercase tracking-wider text-white/50 mb-1">Código de Acceso</label>
-                                    <input
-                                        type="password"
-                                        value={code}
-                                        onChange={(e) => setCode(e.target.value)}
-                                        placeholder="••••••"
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#f8b134]/50 focus:ring-1 focus:ring-[#f8b134]/50 transition-all font-sans"
-                                    />
-                                    <p className="text-[10px] text-white/30 mt-1">Ingresa uno de los códigos de tus tickets (Tickets Fixed).</p>
-                                </div>
+
 
                                 {error && (
                                     <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-200 text-sm flex items-center gap-2">
