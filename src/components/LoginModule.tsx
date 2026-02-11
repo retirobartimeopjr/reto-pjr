@@ -30,6 +30,25 @@ export default function LoginModule() {
     const uploadSectionRef = useRef<HTMLDivElement>(null);
     const [showErrorHighlight, setShowErrorHighlight] = useState(false);
 
+    // Iframe Handling
+    const getInitialIframeHeight = () => {
+        if (typeof window !== 'undefined') {
+            return window.innerWidth < 768 ? 7000 : 6000;
+        }
+        return 7000;
+    };
+
+    const [iframeHeight, setIframeHeight] = useState(getInitialIframeHeight);
+    const iframeLoadCount = useRef(0);
+
+    const handleIframeLoad = () => {
+        iframeLoadCount.current += 1;
+        // La primera carga es el form, la segunda suele ser la confirmación de envío
+        if (iframeLoadCount.current > 1) {
+            setIframeHeight(500);
+        }
+    };
+
     // Initial check is handled by NanoStores automatically.
 
     React.useEffect(() => {
@@ -71,6 +90,8 @@ export default function LoginModule() {
     const handleRegister = () => {
         setIsFileUploaded(false);
         setShowRegisterModal(true);
+        setIframeHeight(getInitialIframeHeight());
+        iframeLoadCount.current = 0;
     };
 
 
@@ -135,6 +156,8 @@ export default function LoginModule() {
                     setSelectedFile(null);
                     setRegisterPhone('');
                     setUploadProgress(0);
+                    setIframeHeight(getInitialIframeHeight());
+                    iframeLoadCount.current = 0;
                 }
             );
 
@@ -353,8 +376,8 @@ export default function LoginModule() {
                                 <div
                                     ref={uploadSectionRef}
                                     className={`bg-white/5 border border-dashed rounded-xl p-6 relative transition-all duration-300 ${showErrorHighlight
-                                            ? 'border-red-500 bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.4)] animate-shake'
-                                            : 'border-[#f8b134]/30 hover:border-[#f8b134]/60'
+                                        ? 'border-red-500 bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.4)] animate-shake'
+                                        : 'border-[#f8b134]/30 hover:border-[#f8b134]/60'
                                         }`}
                                 >
 
@@ -367,8 +390,8 @@ export default function LoginModule() {
                                             onChange={(e) => setRegisterPhone(e.target.value)}
                                             placeholder="Ej. 3123415728"
                                             className={`w-full bg-black/20 border rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none transition-all font-sans ${showErrorHighlight
-                                                    ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500'
-                                                    : 'border-white/10 focus:border-[#f8b134]/50 focus:ring-1 focus:ring-[#f8b134]/50'
+                                                ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500'
+                                                : 'border-white/10 focus:border-[#f8b134]/50 focus:ring-1 focus:ring-[#f8b134]/50'
                                                 }`}
                                         />
                                     </div>
@@ -406,8 +429,8 @@ export default function LoginModule() {
                                             <label
                                                 htmlFor="file-upload"
                                                 className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-black/20 hover:bg-black/40 transition-all group ${showErrorHighlight
-                                                        ? 'border-red-500/50 animate-pulse'
-                                                        : 'border-white/10 hover:border-[#f8b134]/50'
+                                                    ? 'border-red-500/50 animate-pulse'
+                                                    : 'border-white/10 hover:border-[#f8b134]/50'
                                                     }`}
                                             >
                                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -474,11 +497,12 @@ export default function LoginModule() {
                                     <iframe
                                         src="https://docs.google.com/forms/d/e/1FAIpQLSeDOHKFcFTZQGiVIap5NReFMBbQH0WKXaQTNkrCsK9lll9JWw/viewform?embedded=true"
                                         width="100%"
-                                        height="6000"
+                                        height={iframeHeight}
+                                        onLoad={handleIframeLoad}
                                         frameBorder="0"
                                         marginHeight={0}
                                         marginWidth={0}
-                                        className="w-full"
+                                        className="w-full transition-all duration-500"
                                     >
                                         Cargando…
                                     </iframe>
