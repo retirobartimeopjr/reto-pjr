@@ -70,18 +70,26 @@ function MapInner({ onLocationFound, triggerLocate, isFollowing, setIsFollowing,
         }, 100);
     }, [map]);
 
-    // Handle user interaction (drag) to stop following
+    // Handle user interaction (drag/click)
     useEffect(() => {
-        const onDrag = () => {
+        const onInteraction = () => {
             if (isFollowing) {
                 setIsFollowing(false);
             }
+            // If we don't have user position yet, try to get it on interaction
+            if (!userPosition) {
+                map.locate({ setView: false, enableHighAccuracy: true });
+            }
         };
-        map.on('dragstart', onDrag);
+
+        map.on('dragstart', onInteraction);
+        map.on('click', onInteraction);
+
         return () => {
-            map.off('dragstart', onDrag);
+            map.off('dragstart', onInteraction);
+            map.off('click', onInteraction);
         };
-    }, [map, isFollowing, setIsFollowing]);
+    }, [map, isFollowing, setIsFollowing, userPosition]);
 
     // Handle "Follow Me" behavior
     useEffect(() => {

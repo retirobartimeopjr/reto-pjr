@@ -705,7 +705,10 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           (pos) => {
             updateUserLocation(pos.coords.latitude, pos.coords.longitude)
           },
-          (err) => console.warn('Geolocation error:', err),
+          (err) => {
+            console.warn('Geolocation error:', err)
+            watchId = null // Reset to allow retry
+          },
           { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
         )
       } else {
