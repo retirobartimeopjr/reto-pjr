@@ -136,13 +136,40 @@ export default function BartiPregunta() {
         <>
             <button
                 onClick={handleOpenTrivia}
-                className="w-full bg-[#f8b134] hover:bg-[#dca336] text-black font-serif font-bold py-4 rounded-xl shadow-[0_0_20px_rgba(248,177,52,0.3)] transition-all transform hover:scale-105 flex flex-col items-center justify-center gap-1 group"
+                className="w-full relative overflow-hidden bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:to-[#a06d10] text-black rounded-2xl shadow-[0_0_25px_rgba(248,177,52,0.4)] transition-all duration-300 transform hover:scale-[1.02] group border-2 border-[#fff5d6]/50"
             >
-                <div className="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    <span className="text-lg">Jugar BartiPregunta</span>
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-10 bg-[url('/noise.png')] mix-blend-overlay"></div>
+
+                <div className="relative z-10 flex flex-row items-center justify-between px-6 py-4 md:px-8 md:py-6 gap-4">
+
+                    {/* Left: Text Content */}
+                    <div className="flex flex-col items-start text-left shrink">
+                        <div className="flex items-center gap-2 mb-1">
+                            <span className="bg-black/20 text-black px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest backdrop-blur-sm">
+                                Trivia Diaria
+                            </span>
+                        </div>
+                        <h3 className="text-2xl md:text-3xl font-serif font-black leading-none mb-1 drop-shadow-sm">
+                            BartiPregunta
+                        </h3>
+                        <p className="text-black font-bold text-lg md:text-xl leading-normal mt-1">
+                            ¡Responde al Llamado y Gana Puntos! 📣
+                        </p>
+                    </div>
+
+                    {/* Right: Image */}
+                    <div className="relative w-16 h-16 md:w-20 md:h-20 shrink-0 drop-shadow-xl transform group-hover:rotate-6 transition-transform duration-300">
+                        <img
+                            src="/biblia.png"
+                            alt="Biblia"
+                            className="w-full h-full object-contain"
+                        />
+                    </div>
                 </div>
-                <span className="text-[10px] uppercase opacity-70 tracking-widest group-hover:tracking-[0.2em] transition-all">Gana Puntos Extra</span>
+
+                {/* Shine Effect */}
+                <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] group-hover:animate-shine" />
             </button>
 
             {/* LOGIN WARNING MODAL */}

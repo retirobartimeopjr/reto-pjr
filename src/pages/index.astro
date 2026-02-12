@@ -5,6 +5,7 @@ import Countdown from '../components/Countdown.astro'
 import Dashboard from '../components/Dashboard'
 import Leaderboard from '../components/Leaderboard'
 import Map from '../components/Map.astro'
+import PromoSection from '../components/PromoSection'
 import Referidos from '../components/Referidos'
 import RegistrationButton from '../components/RegistrationButton'
 import Snowballs from '../components/Snowballs.astro'
@@ -57,7 +58,7 @@ const isLocked = true
         <h1
           class="font-serif text-4xl md:text-6xl font-bold uppercase tracking-[0.2em] text-gold-texture leading-tight whitespace-normal md:whitespace-nowrap px-4"
         >
-          "¡Señor, que vea!"
+          "Señor. ¡Que vea!"
         </h1>
 
         <p
@@ -69,6 +70,9 @@ const isLocked = true
         {/* CTA Button with Arrow - Now controlled by React Component */}
         <RegistrationButton client:only="react" />
       </div>
+
+      {/* PROMO SECTION */}
+      <PromoSection client:load />
 
       {/* DASHBOARD SECTION (Visible only if logged in - handled by component) */}
       <div class="w-full max-w-6xl animate-fade-in-up delay-100">
