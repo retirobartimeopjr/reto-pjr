@@ -13,11 +13,61 @@ const { title } = Astro.props
 <html lang="es" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Reto Bartimeo 2026 - IV Retiro" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/webp" href="/logo-rojo.webp" />
     <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+
+    <!-- SEO & Metatags -->
+    <title>Retiro Bartimeo Colombia | {title}</title>
+    <meta
+      name="description"
+      content="IV Retiro Bartimeo en la Parroquia Jesucristo Redentor. Únete a nuestra Comunidad de Fe Católica y vive una experiencia transformadora en Colombia."
+    />
+    <meta
+      name="keywords"
+      content="Retiro Bartimeo, Bartimeo Colombia, Católico, Comunidad, Iglesia, Fe, Parroquia Jesucristo Redentor, IV Retiro"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://retirobartimeo.org/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://retirobartimeo.org/" />
+    <meta property="og:title" content="Retiro Bartimeo Colombia | IV Retiro" />
+    <meta
+      property="og:description"
+      content="IV Retiro Bartimeo en la Parroquia Jesucristo Redentor. Comunidad, Fe e Iglesia Católica en Colombia."
+    />
+    <meta property="og:image" content="https://retirobartimeo.org/bartimeo.png" />
+    <meta property="og:site_name" content="Retiro Bartimeo Colombia" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "IV Retiro Bartimeo",
+        "startDate": "2026-03-20T17:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {
+          "@type": "Place",
+          "name": "Parroquia Jesucristo Redentor",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Colombia",
+            "addressCountry": "CO"
+          }
+        },
+        "description": "IV Retiro Bartimeo en la Parroquia Jesucristo Redentor. Un evento Católico de Fe y Comunidad, organizado por la Iglesia.",
+        "image": ["https://retirobartimeo.org/bartimeo.png"],
+        "organizer": {
+          "@type": "Organization",
+          "name": "Parroquia Jesucristo Redentor",
+          "url": "https://retirobartimeo.org"
+        }
+      }
+    </script>
 
     <link
       rel="preload"

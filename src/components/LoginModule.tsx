@@ -33,7 +33,7 @@ export default function LoginModule() {
     // Iframe Handling
     const getInitialIframeHeight = () => {
         if (typeof window !== 'undefined') {
-            return window.innerWidth < 768 ? 7000 : 6000;
+            return window.innerWidth < 768 ? 7100 : 6000;
         }
         return 7000;
     };
@@ -347,7 +347,7 @@ export default function LoginModule() {
                             initial={{ scale: 0.95, opacity: 0, y: 10 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.95, opacity: 0, y: 10 }}
-                            className="relative w-full max-w-2xl bg-[#1a1a1a] border border-[#f8b134]/30 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+                            className="relative w-full max-w-2xl bg-[#1a1a1a] border border-[#f8b134]/30 rounded-2xl shadow-2xl overflow-y-auto max-h-[90vh] flex flex-col custom-scrollbar"
                         >
                             {/* Header */}
                             <div className="p-6 border-b border-white/10 bg-[#1a1a1a] relative z-20 flex justify-between items-center shrink-0">
@@ -371,7 +371,7 @@ export default function LoginModule() {
                             </div>
 
                             {/* Scrollable Content */}
-                            <div className="overflow-y-auto overflow-x-hidden p-6 space-y-8 custom-scrollbar">
+                            <div className="p-6 space-y-8">
                                 {/* File Upload Section */}
                                 <div
                                     ref={uploadSectionRef}
@@ -383,7 +383,7 @@ export default function LoginModule() {
 
                                     {/* Phone Input */}
                                     <div className="mb-6">
-                                        <label className={`block text-sm uppercase tracking-wider mb-2 font-bold ${showErrorHighlight ? 'text-red-400' : 'text-[#f8b134]'}`}>1. Tu Teléfono (Para identificar tu pago)</label>
+                                        <label className={`block text-sm uppercase tracking-wider mb-2 font-bold ${showErrorHighlight ? 'text-red-400' : 'text-[#f8b134]'}`}>Digita tu Teléfono (Para identificar tu pago)</label>
                                         <input
                                             type="tel"
                                             value={registerPhone}
@@ -396,20 +396,9 @@ export default function LoginModule() {
                                         />
                                     </div>
 
-                                    <div className="flex items-start gap-4 mb-4">
-                                        <div className={`p-3 rounded-lg ${showErrorHighlight ? 'bg-red-500/20 text-red-500' : 'bg-[#f8b134]/10 text-[#f8b134]'}`}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h4 className={`text-lg font-medium mb-1 ${showErrorHighlight ? 'text-red-400' : 'text-white'}`}>2. Foto/Captura - Comprobante de Aporte 🙏🏼</h4>
-                                            <p className="text-white/50 text-sm">
-                                                Sube aquí la captura o PDF de tu aporte. <br />
-                                                <span className="text-[#f8b134]/70 text-xs">Máximo 10MB (Imagen o PDF)</span>
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <label className={`block text-sm uppercase tracking-wider mb-2 font-bold ${showErrorHighlight ? 'text-red-400' : 'text-[#f8b134]'}`}>
+                                        Sube la Captura de tu Comprobante (Imagen o PDF)
+                                    </label>
 
                                     {/* File Input */}
                                     <div className="relative">
@@ -428,16 +417,21 @@ export default function LoginModule() {
                                         {!selectedFile ? (
                                             <label
                                                 htmlFor="file-upload"
-                                                className={`flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-black/20 hover:bg-black/40 transition-all group ${showErrorHighlight
-                                                    ? 'border-red-500/50 animate-pulse'
-                                                    : 'border-white/10 hover:border-[#f8b134]/50'
+                                                className={`flex flex-col items-center justify-center w-full h-40 border-2 border-dashed rounded-xl cursor-pointer transition-all group ${showErrorHighlight
+                                                    ? 'border-red-500/50 bg-red-500/10 animate-pulse'
+                                                    : 'border-[#f8b134]/40 bg-[#f8b134]/5 hover:bg-[#f8b134]/10 hover:border-[#f8b134]'
                                                     }`}
                                             >
-                                                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                                    <p className={`mb-2 text-sm transition-colors ${showErrorHighlight ? 'text-red-400' : 'text-white/70 group-hover:text-white'}`}>
-                                                        <span className="font-semibold">Clic para subir el comprobante que falta</span>
+                                                <div className="flex flex-col items-center justify-center pt-5 pb-6 text-center px-4">
+                                                    <div className={`mb-3 p-3 rounded-full ${showErrorHighlight ? 'bg-red-500/20 text-red-400' : 'bg-[#f8b134]/20 text-[#f8b134] group-hover:scale-110 transition-transform'}`}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                                        </svg>
+                                                    </div>
+                                                    <p className={`mb-1 text-lg font-bold transition-colors ${showErrorHighlight ? 'text-red-400' : 'text-white group-hover:text-[#f8b134]'}`}>
+                                                        Toca aquí para subir el comprobante
                                                     </p>
-                                                    <p className="text-xs text-white/40">SVG, PNG, JPG, PDF o DOC</p>
+                                                    <p className="text-sm text-white/50">Soporta Imágenes o PDF</p>
                                                 </div>
                                             </label>
                                         ) : (
