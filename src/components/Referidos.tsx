@@ -24,7 +24,7 @@ export default function Referidos() {
         }
     }, [toast]);
 
-    if (user.isAuthenticated !== 'true') return null;
+    if (!mounted || user.isAuthenticated !== 'true') return null;
 
     // Ensure payedTickets is treated as number safe
     const payedTicketsCount = Number(user.payedTickets) || 0;

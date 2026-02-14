@@ -9,7 +9,7 @@ export const GET: APIRoute = async ({ params }) => {
     }
 
     try {
-        const doc = await db.collection('users').doc(id).get();
+        const doc = await db.collection('user').doc(id).get();
 
         if (!doc.exists) {
             return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });

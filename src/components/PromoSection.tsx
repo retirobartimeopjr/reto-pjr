@@ -37,6 +37,14 @@ export default function PromoSection() {
               <p className="text-lg md:text-xl text-white/90 leading-relaxed font-light">
                 Esta es una iniciativa para llevar <span className="text-brand font-medium">tecnología a la comunidad</span> y recaudar fondos para nuestro IV Retiro.
               </p>
+
+              <div className="mt-6 flex justify-center">
+                <img
+                  src="/acutis.png"
+                  alt="Carlo Acutis"
+                  className="w-full max-w-[200px] h-auto object-contain drop-shadow-lg opacity-90 rounded-lg"
+                />
+              </div>
             </div>
 
             {/* Steps / Instructions Group */}

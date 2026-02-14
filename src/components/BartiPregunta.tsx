@@ -139,7 +139,7 @@ export default function BartiPregunta() {
                 className="w-full relative overflow-hidden bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:to-[#a06d10] text-black rounded-2xl shadow-[0_0_25px_rgba(248,177,52,0.4)] transition-all duration-300 transform hover:scale-[1.02] group border-2 border-[#fff5d6]/50"
             >
                 {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10 bg-[url('/noise.png')] mix-blend-overlay"></div>
+                <div className="absolute inset-0 opacity-10 bg-[url('/noise.svg')] mix-blend-overlay"></div>
 
                 <div className="relative z-10 flex flex-row items-center justify-between px-6 py-4 md:px-8 md:py-6 gap-4">
 

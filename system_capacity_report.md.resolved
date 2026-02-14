@@ -1,0 +1,59 @@
+# Análisis de Capacidad del Sistema Bartimeo
+
+Basado en la revisión del código fuente y la configuración de infraestructura, este informe detalla la capacidad estimada del sistema para soportar usuarios concurrentes y acciones críticas.
+
+## Resumen Ejecutivo
+
+- **Capacidad Estimada**: ~50-100 usuarios concurrentes realizando acciones críticas simultáneamente.
+- **Cuello de Botella Principal**: El sistema de caché de usuarios ([serverUserCache.ts](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/src/lib/serverUserCache.ts)) carga **toda la base de datos de usuarios** en memoria cada 60 segundos.
+- **Riesgo Crítico**: A medida que crezca la base de usuarios (e.g., >2,000 usuarios), el consumo de memoria y CPU en la Raspberry Pi podría causar caídas del servicio, especialmente durante el reinicio o la actualización de la caché.
+
+## Análisis de Acciones Críticas
+
+### 1. Inicio de Sesión (`/api/login`)
+- **Lógica**: Verifica si el usuario existe en una caché local en memoria.
+- **Eficiencia**: Muy alta para lecturas (nanosegundos).
+- **Problema**: La caché se actualiza descargando **todos** los usuarios de Firestore cada 60 segundos.
+- **Impacto**:
+    - Si tienes 1,000 usuarios, descarga 1,000 documentos x 4 núcleos (PM2 Cluster) = 4,000 lecturas cada minuto.
+    - Si tienes 10,000 usuarios, descarga 40,000 documentos/minuto. Esto saturará la CPU y la red de la Raspberry Pi rápidamente.
+
+### 2. Registrar Visita (`/api/visit`)
+- **Lógica**: Usa transacciones de Firestore para asegurar consistencia.
+- **Eficiencia**: Buena. Firestore soporta altas cargas de escritura.
+- **Límite**: La transacción bloquea el documento del usuario por un breve momento. Si un mismo usuario intenta registrar 10 visitas en 1 segundo, fallará, pero usuarios distintos no se bloquean entre sí.
+
+### 3. Trivia (`/api/trivia`)
+- **Lógica**: Valida respuesta y guarda en una nueva colección.
+- **Eficiencia**: Excelente. Es una operación de "solo escritura" (append-only) que escala muy bien.
+
+### 4. Mapa (`/api/parroquias`)
+- **Lógica**: Descarga todas las parroquias cada vez que alguien abre el mapa.
+- **Eficiencia**: Aceptable por ahora (~100 parroquias), pero ineficiente. Debería cachearse en el cliente o en el servidor (CDN).
+
+## Estimación de Recursos (Raspberry Pi)
+
+Asumiendo una Raspberry Pi 4 con 4GB/8GB de RAM:
+
+| Recurso | Uso Actual Est. | Límite Est. | Conclusiones |
+| :--- | :--- | :--- | :--- |
+| **CPU** | Bajo en reposo, Alto en recarga de caché | **100%** | La recarga de caché (parsear JSON de miles de usuarios) bloqueará la CPU periódicamente. |
+| **Memoria** | ~100MB por instancia | **Total RAM** | Cada proceso de Node guarda una copia de TODOS los usuarios. 4 procesos x 10MB (datos) + Overhead = Peligroso si crece la BD. |
+| **Red** | Bajo | **Gigabit** | Descargar la BD completa cada minuto consume ancho de banda y lecturas de Firestore ($$$). |
+
+## Recomendaciones Inmediatas
+
+1.  **Optimizar [serverUserCache.ts](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/src/lib/serverUserCache.ts)**:
+    - **URGENTE**: Cambiar la lógica para no descargar *todos* los usuarios.
+    - **Solución A**: Usar Redis (ya tienes `@upstash/redis` en [package.json](file:///Users/jesus.traslavina/Desktop/XPO/gemini/bartimeo/bartimeo-app/package.json)) para cachear usuarios individualmente con un TTL (ej. 5 minutos). Solo buscar en Firestore si no está en Redis.
+    - **Solución B**: Eliminar la caché en memoria para `login` y hacer la consulta directa a Firestore (`where('phone', '==', phone)`). Firestore es rápido y escala mejor que la memoria de la Pi.
+
+2.  **Cachear `/api/parroquias`**:
+    - Configurar cabeceras de caché HTTP (`Cache-Control`) para que el navegador del usuario guarde la respuesta por 1 hora o más.
+
+3.  **PM2 Config**:
+    - Considerar reducir `instances: 'max'` a `instances: 2` si la memoria escasea, para dar espacio al sistema operativo.
+
+## Conclusión Final
+
+El sistema funcionará bien para un piloto o evento pequeño (<500 usuarios). Sin embargo, el diseño actual de `serverUserCache` es una **bomba de tiempo** para la escalabilidad. Si esperas miles de usuarios, **debes refactorizar el login** para no cargar toda la colección en memoria.

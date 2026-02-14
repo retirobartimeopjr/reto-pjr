@@ -1,12 +1,19 @@
 
 import { useStore } from '@nanostores/react';
+import { useEffect, useState } from 'react';
 import { userStore } from '../store/userStore';
 
 export default function Dashboard() {
     const user = useStore(userStore);
 
-    if (user.isAuthenticated !== 'true') {
-        return null; // Should not happen if protected, but safe guard
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted || user.isAuthenticated !== 'true') {
+        return null;
     }
 
     const payedCount = Number(user.payedTickets) || 0;

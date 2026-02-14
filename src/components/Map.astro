@@ -337,73 +337,43 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Points Awarded Notification -->
-    <div
-      id="points-notification"
-      class="fixed inset-0 z-[10000] flex items-center justify-center pointer-events-none hidden bg-black/60 backdrop-blur-[2px]"
-    >
+      {/* Already Visited Modal */}
       <div
-        class="transform scale-0 transition-transform duration-500 ease-out data-[show=true]:scale-100 flex flex-col items-center gap-2"
-        id="points-container"
-      >
-        <h2
-          class="text-4xl md:text-6xl font-serif text-[#f8b134] font-bold text-center animate-bounce drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]"
-        >
-          ¡Excelente!
-        </h2>
-        <p
-          id="points-amount"
-          class="text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-[0_0_25px_rgba(248,177,52,0.8)]"
-          style="-webkit-text-stroke: 2px #f8b134;"
-        >
-          +50
-        </p>
-        <p
-          class="text-[#f8b134] text-xl md:text-2xl font-bold uppercase tracking-[0.2em] mt-4 animate-pulse"
-        >
-          Puntos Ganados
-        </p>
-      </div>
-    </div>
-
-    {/* Already Visited Modal */}
-    <div
-      id="already-visited-modal"
-      class="hidden absolute inset-0 z-[2002] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-    >
-      <div
-        class="bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full animate-bounce-in text-center"
+        id="already-visited-modal"
+        class="hidden absolute inset-0 z-[2002] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
       >
         <div
-          class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          class="bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full animate-bounce-in text-center"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8 text-blue-600"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+          <div
+            class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-blue-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">¡Ya visitaste esta parroquia!</h3>
+          <p class="text-gray-600 mb-6">
+            Tu fe ya ha dejado huella aquí. Te invitamos a seguir peregrinando y visitar todas las
+            demás parroquias del mapa para ganar más puntos.
+          </p>
+          <button
+            id="btn-close-visited"
+            class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors shadow-lg"
+          >
+            Seguir Peregrinación
+          </button>
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-2">¡Ya visitaste esta parroquia!</h3>
-        <p class="text-gray-600 mb-6">
-          Tu fe ya ha dejado huella aquí. Te invitamos a seguir peregrinando y visitar todas las
-          demás parroquias del mapa para ganar más puntos.
-        </p>
-        <button
-          id="btn-close-visited"
-          class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl hover:bg-blue-700 transition-colors shadow-lg"
-        >
-          Seguir Peregrinación
-        </button>
       </div>
     </div>
   </section>
@@ -468,6 +438,35 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     </div>
   </section>
 </BentoCard>
+
+<!-- Points Awarded Notification (Global) -->
+<div
+  id="points-notification"
+  class="fixed inset-0 z-[10000] flex items-center justify-center pointer-events-none hidden bg-black/60 backdrop-blur-[2px]"
+>
+  <div
+    class="transform scale-0 transition-transform duration-500 ease-out data-[show=true]:scale-100 flex flex-col items-center gap-2"
+    id="points-container"
+  >
+    <h2
+      class="text-4xl md:text-6xl font-serif text-[#f8b134] font-bold text-center animate-bounce drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]"
+    >
+      ¡Excelente!
+    </h2>
+    <p
+      id="points-amount"
+      class="text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-[0_0_25px_rgba(248,177,52,0.8)]"
+      style="-webkit-text-stroke: 2px #f8b134;"
+    >
+      +200
+    </p>
+    <p
+      class="text-[#f8b134] text-xl md:text-2xl font-bold uppercase tracking-[0.2em] mt-4 animate-pulse"
+    >
+      Puntos Ganados
+    </p>
+  </div>
+</div>
 
 <!-- Leaflet CSS -->
 <link

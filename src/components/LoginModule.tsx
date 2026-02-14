@@ -26,6 +26,12 @@ export default function LoginModule() {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [isFileUploaded, setIsFileUploaded] = useState(false);
 
+    // Hydration fix
+    const [mounted, setMounted] = useState(false);
+    React.useEffect(() => {
+        setMounted(true);
+    }, []);
+
     // UI Feedback State
     const uploadSectionRef = useRef<HTMLDivElement>(null);
     const [showErrorHighlight, setShowErrorHighlight] = useState(false);
@@ -40,14 +46,6 @@ export default function LoginModule() {
 
     const [iframeHeight, setIframeHeight] = useState(getInitialIframeHeight);
     const iframeLoadCount = useRef(0);
-
-    const handleIframeLoad = () => {
-        iframeLoadCount.current += 1;
-        // La primera carga es el form, la segunda suele ser la confirmación de envío
-        if (iframeLoadCount.current > 1) {
-            setIframeHeight(500);
-        }
-    };
 
     // Initial check is handled by NanoStores automatically.
 
@@ -86,15 +84,26 @@ export default function LoginModule() {
 
     // Register flow state
     const [showThankYou, setShowThankYou] = useState(false);
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+    const iframeSectionRef = useRef<HTMLDivElement>(null);
+    const errorRef = useRef<HTMLDivElement>(null);
 
     const handleRegister = () => {
         setIsFileUploaded(false);
+        setIsFormSubmitted(false);
         setShowRegisterModal(true);
         setIframeHeight(getInitialIframeHeight());
         iframeLoadCount.current = 0;
     };
 
-
+    const handleIframeLoad = () => {
+        iframeLoadCount.current += 1;
+        // La primera carga es el form, la segunda suele ser la confirmación de envío
+        if (iframeLoadCount.current > 1) {
+            setIframeHeight(500);
+            setIsFormSubmitted(true);
+        }
+    };
 
     const handleFinalSubmission = async () => {
         let hasError = false;
@@ -104,14 +113,25 @@ export default function LoginModule() {
         } else if (!selectedFile) {
             setError('Por favor selecciona tu comprobante');
             hasError = true;
+        } else if (!isFormSubmitted) {
+            setError('⚠️ Por favor completa y ENVÍA el formulario de Google (abajo 👇) para terminar.');
+            hasError = true;
         }
 
         if (hasError) {
             setShowErrorHighlight(true);
-            // Scroll to upload section
-            if (uploadSectionRef.current) {
-                uploadSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Scroll logic
+            if (!registerPhone || !selectedFile) {
+                if (uploadSectionRef.current) {
+                    uploadSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else if (!isFormSubmitted) {
+                if (errorRef.current) {
+                    errorRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
             }
+
             // Reset highlight after animation
             setTimeout(() => setShowErrorHighlight(false), 2000);
             return;
@@ -158,6 +178,7 @@ export default function LoginModule() {
                     setUploadProgress(0);
                     setIframeHeight(getInitialIframeHeight());
                     iframeLoadCount.current = 0;
+                    setIsFormSubmitted(false);
                 }
             );
 
@@ -170,13 +191,15 @@ export default function LoginModule() {
 
     return (
         <>
-            {user.isAuthenticated !== 'true' ? (
+            {!mounted || user.isAuthenticated !== 'true' ? (
                 <div className="flex items-center gap-3">
-                    <button
-                        onClick={() => isLoginOpen.set(true)}
+                    <a
+                        href="https://forms.gle/HMvueg96JV3gqNmB6"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="px-5 py-2 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-full text-[#3d0000] text-sm font-sans font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-stretch-jump"
                     >
-                        <span>¡Quiero Jugar!</span>
+                        <span>¡Ir al Retiro!</span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-4 w-4"
@@ -191,7 +214,7 @@ export default function LoginModule() {
                                 d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
                             ></path>
                         </svg>
-                    </button>
+                    </a>
                 </div>
             ) : (
                 <div className="flex items-center gap-3">
@@ -201,7 +224,7 @@ export default function LoginModule() {
                         rel="noopener noreferrer"
                         className="px-4 py-1.5 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-full text-[#3d0000] text-xs font-sans font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-soft-bounce"
                     >
-                        <span>¡Inscríbete AQUÍ al IV Retiro!</span>
+                        <span>¡Inscríbete al IV Retiro!</span>
                     </a>
 
                     <button
@@ -257,7 +280,7 @@ export default function LoginModule() {
                                     onClick={handleRegister}
                                     className="w-full mb-4 px-4 py-3 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-xl text-[#3d0000] text-sm font-sans font-bold transition-all duration-300 flex justify-center items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-soft-bounce"
                                 >
-                                    <span>Registrarme para Jugar!</span>
+                                    <span>¡Registrarme para Jugar!</span>
                                 </button>
 
                                 <div>
@@ -304,21 +327,13 @@ export default function LoginModule() {
                                     {/* Botón secundario para solicitar código */}
                                     <div className="pt-4 flex justify-center w-full">
                                         <a
-                                            href={`https://wa.me/573123415728?text=${encodeURIComponent(
-                                                `Hola Jesus :) Necesito ayuda con mi acceso a retirobartimeo.org Muchas gracias. Este es mi numero de telefono para que puedas consultar ${phone}`
-                                            )}`}
+                                            href="https://wa.me/573123415728?text=Hola%20Jesus%20:)%20Necesito%20ayuda%20con%20mi%20acceso%20a%20retirobartimeo.org%20Muchas%20gracias."
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            onClick={(e) => {
-                                                if (!phone) {
-                                                    e.preventDefault();
-                                                    setError("Por favor ingresa tu teléfono ⬆️ para solicitar el registro por WhatsApp 💬");
-                                                }
-                                            }}
-                                            className="w-full py-3 border border-[#f8b134]/30 bg-[#f8b134]/5 hover:bg-[#f8b134]/10 rounded-lg text-[#f8b134] text-sm font-medium transition-all duration-300 flex justify-center items-center gap-2 cursor-pointer group"
+                                            className="w-full py-3 bg-[#25D366] hover:bg-[#20bd5a] rounded-lg text-white text-sm font-bold transition-all duration-300 flex justify-center items-center gap-2 cursor-pointer group shadow-lg hover:shadow-[#25D366]/30 hover:-translate-y-0.5"
                                         >
                                             <img src="/wha.png" className="w-5 h-5 drop-shadow-md transition-transform group-hover:scale-110" alt="WhatsApp" />
-                                            Solicitar Registro por WhatsApp
+                                            Solicitar Ayuda por WhatsApp
                                         </a>
                                     </div>
                                 </div>
@@ -354,7 +369,7 @@ export default function LoginModule() {
                                 <div>
                                     <h3 className="text-3xl font-serif text-[#f8b134]">Registro y Aporte</h3>
                                     <p className="text-white text-base font-medium mt-2 max-w-lg leading-relaxed">
-                                        Para registrarte y participar del Reto puedes subir tu aporte y enviar el formulario de abajo con las boletas que quieres seleccionar para ti. Para cada boleta pedimos un <span className="text-[#f8b134] text-lg font-bold">apoyo de $20.000 pesos</span>. Muchas gracias por tu generosidad. El Señor Te Bendiga.
+                                        Para participar en el Reto, sube tu aporte y envía el formulario con las boletas que deseas. Cada boleta tiene un valor de <span className="text-[#f8b134] text-lg font-bold">$20.000</span>. ¡Gracias por tu generosidad! El Señor te bendiga 🙏✨
                                     </p>
                                 </div>
                                 <button
@@ -383,7 +398,7 @@ export default function LoginModule() {
 
                                     {/* Phone Input */}
                                     <div className="mb-6">
-                                        <label className={`block text-sm uppercase tracking-wider mb-2 font-bold ${showErrorHighlight ? 'text-red-400' : 'text-[#f8b134]'}`}>Digita tu Teléfono (Para identificar tu pago)</label>
+                                        <label className={`block text-sm uppercase tracking-wider mb-2 font-bold ${showErrorHighlight ? 'text-red-400' : 'text-[#f8b134]'}`}>Digita tu Teléfono</label>
                                         <input
                                             type="tel"
                                             value={registerPhone}
@@ -397,7 +412,7 @@ export default function LoginModule() {
                                     </div>
 
                                     <label className={`block text-sm uppercase tracking-wider mb-2 font-bold ${showErrorHighlight ? 'text-red-400' : 'text-[#f8b134]'}`}>
-                                        Sube la Captura de tu Comprobante (Imagen o PDF)
+                                        Sube la Captura de tu Comprobante
                                     </label>
 
                                     {/* File Input */}
@@ -475,6 +490,9 @@ export default function LoginModule() {
                                         </div>
                                     )}
 
+                                    {/* Error Anchor */}
+                                    <div ref={errorRef} className="scroll-mt-4" />
+
                                     {/* Error Message */}
                                     {error && (
                                         <div className="mt-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-200 text-sm flex items-center gap-2">
@@ -487,7 +505,10 @@ export default function LoginModule() {
                                 </div>
 
                                 {/* Google Form Embed */}
-                                <div className="rounded-xl overflow-hidden bg-white border border-white/10">
+                                <div
+                                    ref={iframeSectionRef}
+                                    className="rounded-xl overflow-hidden bg-white border border-white/10"
+                                >
                                     <iframe
                                         src="https://docs.google.com/forms/d/e/1FAIpQLSeDOHKFcFTZQGiVIap5NReFMBbQH0WKXaQTNkrCsK9lll9JWw/viewform?embedded=true"
                                         width="100%"
