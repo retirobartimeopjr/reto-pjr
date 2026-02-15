@@ -12,6 +12,7 @@ export interface CachedUser {
     parroquiasVistitadas: string;
     preguntasVistas: string;
     referencia: string;
+    'tickets-numbers': string; // Explicitly added
     [key: string]: any; // Allow other fields
 }
 
@@ -51,6 +52,7 @@ class UserCacheService {
                         parroquiasVistitadas: data.parroquiasVistitadas || '',
                         preguntasVistas: data.preguntasvistas || '',
                         referencia: data.referencia || '',
+                        'tickets-numbers': data['tickets-numbers'] || '',
                         ...data
                     });
                 });

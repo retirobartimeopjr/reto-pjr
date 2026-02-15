@@ -36,7 +36,8 @@ export const POST: APIRoute = async ({ request }) => {
                 score: user.score,
                 parroquiasVistitadas: user.parroquiasVistitadas,
                 preguntasVistas: user.preguntasVistas,
-                referencia: user.referencia
+                referencia: user.referencia,
+                'tickets-numbers': user['tickets-numbers']
             }
         }), { status: 200 });
 

@@ -14,6 +14,7 @@ export type UserProfile = {
     preguntasVistas: string;
     referencia: string;
     isAuthenticated: string; // Changed to string ('true'/'false')
+    'tickets-numbers': string;
 };
 
 // Default empty state
@@ -28,6 +29,7 @@ const initialState: UserProfile = {
     preguntasVistas: '',
     referencia: '',
     isAuthenticated: 'false',
+    'tickets-numbers': '',
 };
 
 // Persistent store to keep session alive across reloads
@@ -54,7 +56,7 @@ export const getCurrentUser = (): UserProfile => {
 
 export const isUserAuthenticated = (): boolean => {
     const user = getCurrentUser();
-    return user.isAuthenticated === 'true' || user.isAuthenticated === true; // Handle persistent string vs boolean
+    return user.isAuthenticated === 'true'; // Handle persistent string
 };
 
 export const loginUser = async (phone: string) => {
@@ -74,7 +76,8 @@ export const loginUser = async (phone: string) => {
                 ...data.user,
                 payedTickets: String(data.user.payedTickets),
                 score: String(data.user.score),
-                isAuthenticated: 'true'
+                isAuthenticated: 'true',
+                'tickets-numbers': data.user['tickets-numbers'] || ''
             };
 
             userStore.set(userData);
@@ -129,7 +132,8 @@ export const refreshUserData = async () => {
                 parroquiasVistitadas: data.parroquiasVistitadas || '',
                 preguntasVistas: data.preguntasvistas || '',
                 referencia: data.referencia || '',
-                username: data.username || current.username
+                username: data.username || current.username,
+                'tickets-numbers': data['tickets-numbers'] || ''
             };
             userStore.set(newData);
             if (typeof window !== 'undefined' && (window as any).bartimeoUserStore) {

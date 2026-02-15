@@ -141,32 +141,37 @@ const isLocked = true
 
         {/* HIDDEN / DISABLED SECTIONS (As per user request "lo demas queda oculto") */}
         {/* Achievements & Tickets - Wrapped in a Blur/Locked Container visually */}
-        <div
-          class="w-full opacity-50 grayscale pointer-events-none relative overflow-hidden rounded-2xl border border-white/5 mt-4"
-        >
-          <div
-            class="absolute inset-0 bg-black/60 z-10 flex items-center justify-center backdrop-blur-sm"
-          >
-            <p
-              class="text-white/40 font-serif uppercase tracking-widest text-sm border border-white/20 px-4 py-2 rounded-full"
-            >
-              Próximamente
-            </p>
-          </div>
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
-            <div class="lg:col-span-2">
-              <AchievementsSection isLocked={true} />
+        {
+          false && (
+            <div class="w-full opacity-50 grayscale pointer-events-none relative overflow-hidden rounded-2xl border border-white/5 mt-4">
+              <div class="absolute inset-0 bg-black/60 z-10 flex items-center justify-center backdrop-blur-sm">
+                <p class="text-white/40 font-serif uppercase tracking-widest text-sm border border-white/20 px-4 py-2 rounded-full">
+                  Próximamente
+                </p>
+              </div>
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
+                <div class="lg:col-span-2">
+                  <AchievementsSection isLocked={true} />
+                </div>
+                <div class="lg:col-span-1">
+                  {/* Placeholder for old ranking space */}
+                  <div class="h-64 bg-white/5 rounded-xl" />
+                </div>
+              </div>
             </div>
-            <div class="lg:col-span-1">
-              {/* Placeholder for old ranking space */}
-              <div class="h-64 bg-white/5 rounded-xl"></div>
-            </div>
-          </div>
-        </div>
+          )
+        }
       </div>
 
-      <footer class="text-white/30 text-[10px] font-light uppercase tracking-widest mt-10">
-        &copy; 2026 Proyecto Bartimeo
+      <footer
+        class="flex flex-col items-center justify-center gap-4 text-white/80 text-[10px] font-light uppercase tracking-widest mt-12 mb-8"
+      >
+        <img
+          src="/bartimeo.png"
+          alt="Reto Bartimeo 2026"
+          class="w-32 h-auto drop-shadow-[0_0_10px_rgba(255,255,255,0.6)]"
+        />
+        <p>Reto Bartimeo 2026</p>
       </footer>
     </main>
   </div>

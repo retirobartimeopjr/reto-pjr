@@ -406,33 +406,55 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   <!-- Lista de Parroquias Cercanas -->
   <section
     id="nearby-section"
-    class="mt-6 hidden bg-black/20 backdrop-blur-sm rounded-xl p-6 border border-white/10"
+    class="mt-6 hidden bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden transition-all duration-300"
   >
-    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-      <span class="bg-[#f8b134] text-[#640010] p-1 rounded-lg">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-          ></path>
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-        </svg>
-      </span>
-      Parroquias Cercanas (&lt;2km)
-    </h3>
-    <div id="nearby-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <button
+      id="nearby-header"
+      class="w-full flex items-center justify-between p-6 text-left focus:outline-none group hover:bg-white/5 transition-colors"
+    >
+      <div class="flex items-center gap-2">
+        <span class="bg-[#f8b134] text-[#640010] p-1 rounded-lg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+            ></path>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+        </span>
+        <h3 class="text-xl font-bold text-white group-hover:text-[#f8b134] transition-colors">
+          Parroquias Cercanas (&lt;2km)
+        </h3>
+      </div>
+      <svg
+        id="nearby-chevron"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6 text-white/50 transition-transform duration-300 group-hover:text-white"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
+        ></path>
+      </svg>
+    </button>
+
+    <div
+      id="nearby-list"
+      class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 pt-0 hidden animate-in slide-in-from-top-2"
+    >
       <!-- Items injected here by JS -->
       <p class="text-white/50 italic col-span-full text-center py-4">Calculando ubicación...</p>
     </div>
@@ -1222,6 +1244,18 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         )
       }
     })
+
+    // Collapsible Nearby List
+    const nearbyHeader = document.getElementById('nearby-header')
+    const nearbyList = document.getElementById('nearby-list')
+    const nearbyChevron = document.getElementById('nearby-chevron')
+
+    if (nearbyHeader && nearbyList && nearbyChevron) {
+      nearbyHeader.addEventListener('click', () => {
+        nearbyList.classList.toggle('hidden')
+        nearbyChevron.classList.toggle('rotate-180')
+      })
+    }
   }
 
   // Updated FlyTo to also open popup if ID provided
