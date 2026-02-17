@@ -35,7 +35,7 @@ export default function PromoSection() {
             {/* Context */}
             <div className="text-center border-b border-white/10 pb-6">
               <p className="text-lg md:text-xl text-white/90 leading-relaxed font-light">
-                Esta es una iniciativa para llevar <span className="text-brand font-medium">tecnología a la comunidad</span> y recaudar fondos para nuestro IV Retiro.
+                Esta es una iniciativa pastoral <span className="text-brand font-medium">que busca recolectar fondos</span> para el IV Retiro de nuestros jovenes Bartimeo.
               </p>
 
               <div className="mt-6 flex justify-center">
@@ -58,7 +58,7 @@ export default function PromoSection() {
                 <p className="text-base md:text-lg text-white/80 leading-snug">
                   Ve a las Parroquias participantes y confirma tu visita.
                   <br />
-                  <span className="text-brand/90 font-bold block mt-2">+ 100 Puntos por templo</span>
+                  <span className="text-brand/90 font-bold block mt-2">+ 200 Puntos por templo</span>
                 </p>
               </div>
 
@@ -71,7 +71,7 @@ export default function PromoSection() {
                 <p className="text-base md:text-lg text-white/80 leading-snug">
                   Contesta las BartiPreguntas sobre nuestra fe.
                   <br />
-                  <span className="text-brand/90 font-bold block mt-2">+ 50 Puntos por acierto</span>
+                  <span className="text-brand/90 font-bold block mt-2">+ 20 Puntos por acierto</span>
                 </p>
               </div>
             </div>
@@ -83,10 +83,10 @@ export default function PromoSection() {
               </h3>
               <ul className="space-y-3 text-lg md:text-xl text-white/90 font-light list-disc list-inside marker:text-brand">
                 <li>
-                  <span className="font-medium text-white">Gran Premio:</span> Para el peregrino con más puntos acumulados.
+                  <span className="font-medium text-white">Gran Premio:</span> <span className="font-bold text-[#f8b134]">$2.000.000 COP</span> para el peregrino con más puntos acumulados al final.
                 </li>
                 <li>
-                  <span className="font-medium text-white">Segundo Premio:</span> Sorteo entre todos los participantes (si no ganaste por puntos).
+                  <span className="font-medium text-white">Segundo Premio:</span> Sorteo de un <span className="font-bold text-[#f8b134]">Bono por $500.000 COP</span> en nuestra tienda <em>"El Rinconcito de Jesús"</em> (P. Jesucristo Redentor).
                 </li>
               </ul>
             </div>

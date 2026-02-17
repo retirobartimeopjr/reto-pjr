@@ -91,11 +91,28 @@ export default function Referidos() {
         }
     };
 
-    const handleShare = () => {
-        const text = `¡Hola! Únete al Reto Bartimeo y apóyame registrando mi número: ${user.phone} cuando te inscribas. ¡Ambos ganamos puntos! 🚀`;
-        const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
+    
+    const handleShare = async () => {
+        const shareData = {
+            title: 'Reto Bartimeo',
+            text: `¡Hola! Únete al Reto Bartimeo (retirobartimeo.org) y apóyame registrando mi número: ${user.phone} cuando te inscribas. ¡Ánimo!`,
+        };
+
+        try {
+            // 1. Intentamos usar la API nativa de compartir (celulares)
+            if (navigator.share) {
+                await navigator.share(shareData);
+            } else {
+                // 2. Fallback: Abrir WhatsApp en una pestaña nueva
+                const waUrl = `https://wa.me/?text=${encodeURIComponent(shareData.text)}`;
+                window.open(waUrl, '_blank', 'noopener,noreferrer');
+            }
+        } catch (err) {
+            console.error('Error al compartir:', err);
+        }
     };
+
+
 
     const Portal = ({ children }: { children: React.ReactNode }) => {
         if (!mounted || typeof document === 'undefined') return null;

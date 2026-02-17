@@ -9,20 +9,36 @@ export const GET: APIRoute = async ({ url }) => {
     }
 
     try {
-        // 1. Get User's unseen questions
+        // 1. Get User's unseen questions & Daily Limit Check
         const userDoc = await db.collection('user').doc(userId).get();
         if (!userDoc.exists) {
             return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
         }
 
         const userData = userDoc.data();
-        const preguntasVistasStr = userData?.preguntasvistas || "";
+
+        // --- DAILY LIMIT CHECK ---
+        const today = new Date().toLocaleString("en-US", { timeZone: "America/Bogota" }).split(",")[0]; // Format: M/D/YYYY
+
+        let dailyCount = 0;
+        if (userData?.lastTriviaDate === today) {
+            dailyCount = userData.dailyTriviaCount || 0;
+        }
+
+        if (dailyCount >= 10) {
+            return new Response(JSON.stringify({
+                empty: true,
+                limitReached: true,
+                message: "¡Has alcanzado el límite de 10 preguntas por hoy! Vuelve mañana para ganar más puntos."
+            }), { status: 200 });
+        }
+        // -------------------------
+
+        // Handling case sensitivity for 'preguntasVistas' field (could be lower or camel case)
+        const preguntasVistasStr = userData?.preguntasVistas || userData?.preguntasvistas || "";
         const seenIds = preguntasVistasStr.split(',').map((s: string) => s.trim()).filter((s: string) => s.length > 0);
 
         // 2. Fetch all available questions
-        // Note: For large datasets, this is inefficient. 
-        // Better approach: Store 'available_questions' list or random ID generation. 
-        // But for <100 questions, fetching collection is fine.
         const questionsSnap = await db.collection('pregunta').get();
 
         const availableQuestions = questionsSnap.docs
@@ -47,7 +63,9 @@ export const GET: APIRoute = async ({ url }) => {
                 selectedQ.opcionC,
                 selectedQ.opcionD
             ].filter(Boolean), // Ensure no empty options
-            reward: selectedQ.reward || 0
+            reward: selectedQ.reward || 0,
+            dailyCount: dailyCount + 1, // Return current attempt number
+            maxDaily: 10
         };
 
         return new Response(JSON.stringify(responseData), {

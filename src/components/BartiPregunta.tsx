@@ -46,7 +46,12 @@ export default function BartiPregunta() {
             const data = await res.json();
 
             if (data.empty) {
-                setTriviaFeedback({ type: 'error', message: data.message });
+                // Check if it's due to daily limit or no more questions
+                if (data.limitReached) {
+                    setTriviaFeedback({ type: 'error', message: data.message });
+                } else {
+                    setTriviaFeedback({ type: 'error', message: data.message });
+                }
             } else if (data.error) {
                 setTriviaFeedback({ type: 'error', message: 'Error cargando pregunta.' });
             } else {
@@ -258,6 +263,11 @@ export default function BartiPregunta() {
                                 </div>
                             ) : currentQuestion ? (
                                 <div className="animate-in slide-in-from-bottom-4 fade-in duration-300">
+                                    <div className="flex justify-center items-center mb-6">
+                                        <span className="bg-white/10 text-white/70 px-3 py-1 rounded-full text-xs font-medium border border-white/10">
+                                            Pregunta {currentQuestion.dailyCount} de {currentQuestion.maxDaily} hoy
+                                        </span>
+                                    </div>
                                     <p className="text-white text-xl font-medium text-center mb-8 leading-relaxed">
                                         {currentQuestion.pregunta}
                                     </p>

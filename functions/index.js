@@ -386,7 +386,7 @@ exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (even
 
 
 // ==================================================================
-// 4. PROCESAR VISITA (onCreate)
+// 4. PROCESAR VISITA (onCreate) - CORREGIDO
 // ==================================================================
 exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
     const snap = event.data;
@@ -401,48 +401,57 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
         return;
     }
 
-    // Usa 'parroquias' (plural) según tu colección real
     const parroquiaRef = db.collection('parroquias').doc(String(parroquiaId));
     const userRef = db.collection('user').doc(userId);
 
     try {
         await db.runTransaction(async (transaction) => {
-            // 1. Leer Parroquia
+            // 1. Leer Parroquia y Usuario
             const parroquiaDoc = await transaction.get(parroquiaRef);
-            if (!parroquiaDoc.exists) {
-                throw new Error(`Parroquia ${parroquiaId} not found.`);
-            }
+            if (!parroquiaDoc.exists) throw new Error(`Parroquia ${parroquiaId} not found.`);
+
+            const userDoc = await transaction.get(userRef);
+            if (!userDoc.exists) throw new Error(`User ${userId} not found.`);
 
             const parroquiaData = parroquiaDoc.data();
             const reward = Number(parroquiaData.reward) || 0;
-
-            // 2. Leer Usuario
-            const userDoc = await transaction.get(userRef);
-            if (!userDoc.exists) {
-                throw new Error(`User ${userId} not found.`);
-            }
-
             const userData = userDoc.data();
+            
+            // Verificación CSV
             const visitadasStr = userData.parroquiasVistitadas || "";
-
             const visitadasArray = visitadasStr.split(',').map(s => s.trim());
             const yaVisitada = visitadasArray.includes(String(parroquiaId));
 
-            // 3. Preparar Actualizaciones
+            // 2. Siempre aumentamos el contador global de la parroquia
+            // (Porque hay un documento de visita físico creado)
             transaction.update(parroquiaRef, {
                 visits: FieldValue.increment(1)
             });
 
+            // 3. Lógica de Puntos con BANDERA DE SEGURIDAD
             if (!yaVisitada) {
+                // ES NUEVA: Sumamos puntos y marcamos el doc como VALIDO
                 const newVisitadasStr = addToCSV(visitadasStr, parroquiaId);
 
                 transaction.update(userRef, {
                     score: FieldValue.increment(reward),
                     parroquiasVistitadas: newVisitadasStr
                 });
+
+                // *** IMPORTANTE: Marcamos que esta visita SÍ dio puntos ***
+                transaction.update(snap.ref, {
+                    puntosOtorgados: true,
+                    valorOtorgado: reward
+                });
+
                 console.log(`[VISIT] User ${userId} First time at ${parroquiaId}. Added ${reward} points.`);
             } else {
-                console.log(`[VISIT] User ${userId} already visited ${parroquiaId}. No points added.`);
+                // ES DUPLICADA: No sumamos puntos y marcamos como FALSE
+                transaction.update(snap.ref, {
+                    puntosOtorgados: false,
+                    valorOtorgado: 0
+                });
+                console.log(`[VISIT] User ${userId} duplicate visit at ${parroquiaId}. No points added.`);
             }
         });
 
@@ -452,9 +461,8 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
 });
 
 // ==================================================================
-// 5. ELIMINAR VISITA (onDelete) - [NUEVA FUNCIÓN]
+// 5. ELIMINAR VISITA (onDelete) - CORREGIDO
 // ==================================================================
-// Lógica: Restar visits en parroquia -> Eliminar ID de user.parroquiasVistitadas -> Restar Score
 exports.eliminarVisita = onDocumentDeleted("visit/{visitId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
@@ -463,12 +471,17 @@ exports.eliminarVisita = onDocumentDeleted("visit/{visitId}", async (event) => {
     const userId = data.userId;
     const parroquiaId = data.parroquiaid;
 
+    // LEEMOS LA BANDERA: ¿Esta visita dio puntos originalmente?
+    const debioSumarPuntos = data.puntosOtorgados === true;
+    // Recuperamos cuánto valía (por si cambiaron el valor en la parroquia después)
+    const valorOriginal = Number(data.valorOtorgado) || 0;
+
     if (!userId || !parroquiaId) {
         console.error("Missing userId or parroquiaId in deleted visit document");
         return;
     }
 
-    console.log(`[DELETE VISIT] Rolling back visit for User ${userId} at Parroquia ${parroquiaId}`);
+    console.log(`[DELETE VISIT] Rollback: User ${userId}, Parroquia ${parroquiaId}. ¿Dio Puntos?: ${debioSumarPuntos}`);
 
     const parroquiaRef = db.collection('parroquias').doc(String(parroquiaId));
     const userRef = db.collection('user').doc(userId);
@@ -478,37 +491,38 @@ exports.eliminarVisita = onDocumentDeleted("visit/{visitId}", async (event) => {
             const parroquiaDoc = await transaction.get(parroquiaRef);
             const userDoc = await transaction.get(userRef);
 
-            // 1. Restar conteo global en Parroquias (si existe la parroquia)
+            // 1. Siempre restamos el conteo global (porque se borró un doc físico)
             if (parroquiaDoc.exists) {
-                // Usamos increment(-1) para restar de forma atómica
                 transaction.update(parroquiaRef, {
                     visits: FieldValue.increment(-1)
                 });
-            } else {
-                console.warn(`Parroquia ${parroquiaId} not found during visit rollback.`);
             }
 
-            // 2. Limpiar Usuario (Quitar del CSV y restar puntos)
-            if (userDoc.exists) {
+            // 2. Solo castigamos al usuario si la visita borrada ERA LEGÍTIMA
+            if (debioSumarPuntos && userDoc.exists) {
                 const userData = userDoc.data();
                 const visitadasStr = userData.parroquiasVistitadas || "";
-
-                // Usamos la función helper para quitar SOLO este ID
+                
+                // Quitamos del CSV
                 const newVisitadasStr = removeFromCSV(visitadasStr, parroquiaId);
-
-                const updates = {
-                    parroquiasVistitadas: newVisitadasStr
-                };
-
-                // También restamos los puntos para evitar fraude (si borra y vuelve a visitar)
-                // Necesitamos el reward de la parroquia para saber cuánto restar.
-                if (parroquiaDoc.exists) {
-                    const reward = Number(parroquiaDoc.data().reward) || 0;
-                    updates.score = FieldValue.increment(-reward);
-                    console.log(`Restando ${reward} puntos al usuario.`);
+                
+                // Determinamos cuántos puntos restar
+                let rewardARestar = valorOriginal;
+                
+                // Fallback: Si no guardamos valorOtorgado, leemos de la parroquia actual
+                if (rewardARestar === 0 && parroquiaDoc.exists) {
+                    rewardARestar = Number(parroquiaDoc.data().reward) || 0;
                 }
 
+                const updates = {
+                    parroquiasVistitadas: newVisitadasStr,
+                    score: FieldValue.increment(-rewardARestar)
+                };
+
                 transaction.update(userRef, updates);
+                console.log(`[ROLLBACK] Se restaron ${rewardARestar} puntos porque se eliminó una visita legítima.`);
+            } else {
+                console.log(`[ROLLBACK] NO se restaron puntos (era un duplicado o no otorgó puntos).`);
             }
         });
 

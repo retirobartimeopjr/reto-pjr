@@ -10,6 +10,10 @@ ssh -i ~/.ssh/bartimeo-key.pem ubuntu@52.67.225.143
 
 
 
+firebase deploy --project reto-bartimeo --only functions
+
+
+
 -Restarurar modo de visualizacion de las parroquias. incluyendo cercanas.
 E incluyendo la confirmacion por cercania y la subidad de evidencias.
 

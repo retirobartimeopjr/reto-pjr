@@ -189,6 +189,16 @@ export default function LoginModule() {
         }
     };
 
+    // Transfer Check State
+    const [showTransferCheck, setShowTransferCheck] = useState(false);
+
+    const handleStartRegisterFlow = () => {
+        isLoginOpen.set(false); // Close login modal
+        setShowTransferCheck(true);
+    };
+
+
+
     return (
         <>
             {!mounted || user.isAuthenticated !== 'true' ? (
@@ -277,7 +287,7 @@ export default function LoginModule() {
                             <form onSubmit={handleLogin} className="space-y-4">
                                 <button
                                     type="button"
-                                    onClick={handleRegister}
+                                    onClick={handleStartRegisterFlow}
                                     className="w-full mb-4 px-4 py-3 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-xl text-[#3d0000] text-sm font-sans font-bold transition-all duration-300 flex justify-center items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-soft-bounce"
                                 >
                                     <span>¡Registrarme para Jugar!</span>
@@ -338,6 +348,100 @@ export default function LoginModule() {
                                     </div>
                                 </div>
                             </form>
+                        </motion.div>
+                    </div>
+                )}
+
+                {/* CONTRIBUTION INFO MODAL (Full Screen) */}
+                {showTransferCheck && (
+                    <div className="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 animate-in fade-in duration-300">
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="w-full max-w-lg text-center"
+                        >
+                            <div className="space-y-4 animate-in slide-in-from-bottom-8 fade-in duration-500">
+                                <div className="mx-auto w-20 h-20 bg-[#f8b134]/10 rounded-full flex items-center justify-center border border-[#f8b134]/30 mb-3 shadow-[0_0_20px_rgba(248,177,52,0.2)]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-[#f8b134]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+
+                                <h2 className="text-2xl md:text-3xl font-serif text-[#f8b134] leading-tight font-bold">
+                                    Aporte Solidario
+                                </h2>
+
+                                <p className="text-white/90 text-base leading-relaxed max-w-md mx-auto">
+                                    Para poder participar de este Reto pedimos un aporte de <span className="text-[#f8b134] font-bold">$20.000</span>.
+                                </p>
+
+                                <div className="bg-[#722F37] p-5 rounded-2xl border border-white/10 max-w-sm mx-auto shadow-2xl relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+
+                                    <p className="text-white/90 mb-4 text-sm relative z-10 font-medium text-center">
+                                        Puedes ayudarnos con tu transferencia por aquí:
+                                    </p>
+
+                                    <div className="flex justify-center items-center gap-6 mb-5 relative z-10">
+                                        <div className="bg-white/10 p-2 rounded-lg backdrop-blur-sm">
+                                            <img src="/nequi.png" alt="Nequi" className="h-7 object-contain drop-shadow-md" />
+                                        </div>
+                                        <div className="w-px h-8 bg-white/20"></div>
+                                        <div className="flex items-center gap-3 bg-white/10 p-2 pr-4 rounded-lg backdrop-blur-sm">
+                                            <span className="text-white font-bold text-lg drop-shadow-sm">BreB</span>
+                                            <img src="/breve.avif" alt="Bre-B" className="h-5 object-contain rounded-full shadow-sm" />
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-1 relative z-10 text-center mb-5">
+                                        <p className="text-base font-medium text-white/90 drop-shadow-md">Nicolas Borrero</p>
+                                        <div
+                                            className="bg-black/20 rounded-xl py-2 px-4 inline-block cursor-pointer hover:bg-black/30 transition-colors group active:scale-95"
+                                            onClick={() => { navigator.clipboard.writeText('3182004659'); alert('Copiado!'); }}
+                                        >
+                                            <p className="text-2xl font-mono text-[#f8b134] tracking-wider font-bold select-all copy-text group-hover:scale-105 transition-transform drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                                                3182004659
+                                            </p>
+                                            <p className="text-[9px] text-white/40 mt-0.5 uppercase tracking-widest font-bold">Toca para copiar</p>
+                                        </div>
+                                    </div>
+
+                                    <a
+                                        href="https://checkout.nequi.wompi.co/l/VPOS_LoWyIu"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="relative z-10 w-full mb-5 bg-white hover:bg-gray-100 text-[#722F37] font-bold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 group text-sm"
+                                    >
+                                        <span>Pagar con Tarjeta o PSE (Wompi)</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                        </svg>
+                                    </a>
+
+                                    <p className="text-[10px] text-white/50 pt-3 border-t border-white/10 italic relative z-10">
+                                        Este número también tiene llave <span className="text-[#f8b134] font-bold">Bre-B</span> y es la misma llave para transferir.
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-3 pt-3 max-w-sm mx-auto">
+                                    <button
+                                        onClick={() => setShowTransferCheck(false)}
+                                        className="py-2.5 px-6 rounded-xl border border-white/10 text-white/50 hover:text-white hover:bg-white/5 font-medium transition-all text-sm"
+                                    >
+                                        Luego
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setShowTransferCheck(false);
+                                            handleRegister();
+                                        }}
+                                        className="py-2.5 px-6 rounded-xl bg-[#f8b134] text-[#3d0000] font-bold hover:bg-[#fbd07e] shadow-[0_0_20px_rgba(248,177,52,0.3)] transition-all transform hover:scale-105 text-sm"
+                                    >
+                                        Siguiente
+                                    </button>
+                                </div>
+                            </div>
                         </motion.div>
                     </div>
                 )}

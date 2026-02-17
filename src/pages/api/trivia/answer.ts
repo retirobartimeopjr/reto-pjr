@@ -26,8 +26,11 @@ export const POST: APIRoute = async ({ request }) => {
         const isCorrect = respuesta === correctAnswer;
 
         // 3. Write to 'respuesta' collection (Triggers Cloud Function)
+        // 3. Write to 'respuesta' collection (Triggers Cloud Function)
+        const batch = db.batch();
+
         const respuestaRef = db.collection('respuesta').doc();
-        await respuestaRef.set({
+        batch.set(respuestaRef, {
             userId,
             preguntaid: preguntaId,
             respuesta: respuesta,
@@ -35,12 +38,32 @@ export const POST: APIRoute = async ({ request }) => {
             timestamp: admin.firestore.FieldValue.serverTimestamp()
         });
 
-        // 4. Return result for Optimistic UI
+        // 4. Update User Daily Count
+        const userRef = db.collection('user').doc(userId);
+        const today = new Date().toLocaleString("en-US", { timeZone: "America/Bogota" }).split(",")[0]; // Format: M/D/YYYY
+
+        const userDoc = await userRef.get();
+        const userData = userDoc.data();
+
+        let newCount = 1;
+        if (userData?.lastTriviaDate === today) {
+            newCount = (userData.dailyTriviaCount || 0) + 1;
+        }
+
+        batch.update(userRef, {
+            dailyTriviaCount: newCount,
+            lastTriviaDate: today
+        });
+
+        await batch.commit();
+
+        // 5. Return result for Optimistic UI
         return new Response(JSON.stringify({
             success: true,
             isCorrect: isCorrect,
             reward: isCorrect ? reward : 0,
-            correctAnswer: correctAnswer
+            correctAnswer: correctAnswer,
+            dailyCount: newCount
         }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
