@@ -15,12 +15,17 @@ export default function LoginModule() {
 
     // Local form state
     const [phone, setPhone] = useState('');
+
+    // UI Feedback State
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [showErrorHighlight, setShowErrorHighlight] = useState(false);
+    const uploadSectionRef = useRef<HTMLDivElement>(null);
 
     // Registration & Upload State
     const [showRegisterModal, setShowRegisterModal] = useState(false);
     const [registerPhone, setRegisterPhone] = useState('');
+    const [referralPhone, setReferralPhone] = useState(''); // New state for referral
     const [uploading, setUploading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -33,26 +38,45 @@ export default function LoginModule() {
     }, []);
 
     // UI Feedback State
-    const uploadSectionRef = useRef<HTMLDivElement>(null);
-    const [showErrorHighlight, setShowErrorHighlight] = useState(false);
+    // const uploadSectionRef = useRef<HTMLDivElement>(null); // MOVED UP
+    // const [showErrorHighlight, setShowErrorHighlight] = useState(false); // MOVED UP
+    // const [error, setError] = useState(''); // REMOVED DUPLICATE
+    // const [loading, setLoading] = useState(false); // REMOVED DUPLICATE
+
 
     // Iframe Handling
     const getInitialIframeHeight = () => {
         if (typeof window !== 'undefined') {
-            return window.innerWidth < 768 ? 7100 : 6000;
+            return window.innerWidth < 768 ? 8200 : 6900;
         }
-        return 7000;
+        return 8000;
     };
-
     const [iframeHeight, setIframeHeight] = useState(getInitialIframeHeight);
+
+    // Donation & Modal State
+    const [showTransferCheck, setShowTransferCheck] = useState(false);
+    const [isDonationMode, setIsDonationMode] = useState(false);
+
     const iframeLoadCount = useRef(0);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const phoneInputRef = useRef<HTMLInputElement>(null);
 
     // Initial check is handled by NanoStores automatically.
 
     React.useEffect(() => {
         // Expose to global scope for non-React components (e.g. Map.astro)
-        (window as any).openLoginModule = () => isLoginOpen.set(true);
-        return () => { delete (window as any).openLoginModule; };
+        (window as any).openLoginModule = () => {
+            setIsDonationMode(false); // Reset to login mode
+            isLoginOpen.set(true);
+        };
+        (window as any).openDonationModal = () => {
+            setIsDonationMode(true); // Set to donation mode
+            setShowTransferCheck(true);
+        };
+        return () => {
+            delete (window as any).openLoginModule;
+            delete (window as any).openDonationModal;
+        };
     }, []);
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -140,6 +164,26 @@ export default function LoginModule() {
         setUploading(true);
         setError('');
 
+        // SUBMIT PENDING REFERRAL (If applicable)
+        if (referralPhone && referralPhone.trim().length >= 10 && registerPhone !== referralPhone) {
+            try {
+                // Non-blocking call - we don't want to fail registration if referral fails
+                fetch('/api/submitReferral', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: null, // New user
+                        newUserPhone: registerPhone.trim(),
+                        referralPhone: referralPhone.trim()
+                    })
+                }).then(res => res.json())
+                    .then(data => console.log("[Registration] Referral submitted:", data))
+                    .catch(err => console.error("[Registration] Referral submit error:", err));
+            } catch (e) {
+                console.error("Referral trigger error", e);
+            }
+        }
+
         try {
             // Create filename with phone number
             const fileExtension = selectedFile!.name.split('.').pop();
@@ -175,6 +219,7 @@ export default function LoginModule() {
                     setIsFileUploaded(false);
                     setSelectedFile(null);
                     setRegisterPhone('');
+                    setReferralPhone('');
                     setUploadProgress(0);
                     setIframeHeight(getInitialIframeHeight());
                     iframeLoadCount.current = 0;
@@ -189,11 +234,9 @@ export default function LoginModule() {
         }
     };
 
-    // Transfer Check State
-    const [showTransferCheck, setShowTransferCheck] = useState(false);
-
     const handleStartRegisterFlow = () => {
         isLoginOpen.set(false); // Close login modal
+        setIsDonationMode(false); // Reset to contribution mode
         setShowTransferCheck(true);
     };
 
@@ -369,18 +412,21 @@ export default function LoginModule() {
                                 </div>
 
                                 <h2 className="text-2xl md:text-3xl font-serif text-[#f8b134] leading-tight font-bold">
-                                    Aporte Solidario
+                                    {isDonationMode ? 'Hacer una Donación' : 'Aporte Solidario'}
                                 </h2>
 
                                 <p className="text-white/90 text-base leading-relaxed max-w-md mx-auto">
-                                    Para poder participar de este Reto pedimos un aporte de <span className="text-[#f8b134] font-bold">$20.000</span>.
+                                    {isDonationMode
+                                        ? <>Tu generosidad nos ayuda a seguir adelante. Puedes donar <span className="text-[#f8b134] font-bold">cualquier monto</span> que desees.</>
+                                        : <>Para poder participar de este Reto pedimos un aporte de <span className="text-[#f8b134] font-bold">$20.000</span>.</>
+                                    }
                                 </p>
 
                                 <div className="bg-[#722F37] p-5 rounded-2xl border border-white/10 max-w-sm mx-auto shadow-2xl relative overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 
                                     <p className="text-white/90 mb-4 text-sm relative z-10 font-medium text-center">
-                                        Puedes ayudarnos con tu transferencia por aquí:
+                                        {isDonationMode ? 'Puedes hacer tu donación por aquí:' : 'Puedes ayudarnos con tu transferencia por aquí:'}
                                     </p>
 
                                     <div className="flex justify-center items-center gap-6 mb-5 relative z-10">
@@ -395,7 +441,7 @@ export default function LoginModule() {
                                     </div>
 
                                     <div className="space-y-1 relative z-10 text-center mb-5">
-                                        <p className="text-base font-medium text-white/90 drop-shadow-md">Nicolas Borrero</p>
+                                        <p className="text-base font-medium text-white/90 drop-shadow-md">Recibe: Nicolas Borrero</p>
                                         <div
                                             className="bg-black/20 rounded-xl py-2 px-4 inline-block cursor-pointer hover:bg-black/30 transition-colors group active:scale-95"
                                             onClick={() => { navigator.clipboard.writeText('3182004659'); alert('Copiado!'); }}
@@ -413,15 +459,15 @@ export default function LoginModule() {
                                         rel="noopener noreferrer"
                                         className="relative z-10 w-full mb-5 bg-white hover:bg-gray-100 text-[#722F37] font-bold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 group text-sm"
                                     >
-                                        <span>Pagar con Tarjeta o PSE (Wompi)</span>
+                                        <span>Donar con Tarjeta o PSE (Wompi)</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                         </svg>
                                     </a>
 
-                                    <p className="text-[10px] text-white/50 pt-3 border-t border-white/10 italic relative z-10">
+                                    {/* <p className="text-[10px] text-white/50 pt-3 border-t border-white/10 italic relative z-10">
                                         Este número también tiene llave <span className="text-[#f8b134] font-bold">Bre-B</span> y es la misma llave para transferir.
-                                    </p>
+                                    </p> */}
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-3 pt-3 max-w-sm mx-auto">
@@ -429,17 +475,20 @@ export default function LoginModule() {
                                         onClick={() => setShowTransferCheck(false)}
                                         className="py-2.5 px-6 rounded-xl border border-white/10 text-white/50 hover:text-white hover:bg-white/5 font-medium transition-all text-sm"
                                     >
-                                        Luego
+                                        {isDonationMode ? 'Cerrar' : 'Luego'}
                                     </button>
-                                    <button
-                                        onClick={() => {
-                                            setShowTransferCheck(false);
-                                            handleRegister();
-                                        }}
-                                        className="py-2.5 px-6 rounded-xl bg-[#f8b134] text-[#3d0000] font-bold hover:bg-[#fbd07e] shadow-[0_0_20px_rgba(248,177,52,0.3)] transition-all transform hover:scale-105 text-sm"
-                                    >
-                                        Siguiente
-                                    </button>
+
+                                    {!isDonationMode && (
+                                        <button
+                                            onClick={() => {
+                                                setShowTransferCheck(false);
+                                                handleRegister();
+                                            }}
+                                            className="py-2.5 px-6 rounded-xl bg-[#f8b134] text-[#3d0000] font-bold hover:bg-[#fbd07e] shadow-[0_0_20px_rgba(248,177,52,0.3)] transition-all transform hover:scale-105 text-sm"
+                                        >
+                                            Siguiente
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>
@@ -515,8 +564,22 @@ export default function LoginModule() {
                                         />
                                     </div>
 
+                                    {/* Referral Input (Optional) */}
+                                    <div className="mb-6">
+                                        <label className="block text-sm uppercase tracking-wider mb-2 font-bold text-[#f8b134]">
+                                            Si alguien te recomendó el Reto, ingresa su número <span className="text-white/40 text-xs normal-case font-normal">(Opcional)</span>
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            value={referralPhone}
+                                            onChange={(e) => setReferralPhone(e.target.value)}
+                                            placeholder="Ej. 3009876543"
+                                            className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:border-[#f8b134]/50 focus:ring-1 focus:ring-[#f8b134]/50 transition-all font-sans"
+                                        />
+                                    </div>
+
                                     <label className={`block text-sm uppercase tracking-wider mb-2 font-bold ${showErrorHighlight ? 'text-red-400' : 'text-[#f8b134]'}`}>
-                                        Sube la Captura de tu Comprobante
+                                        Sube la foto/captura de tu comprobante de aporte solidario ($20.000)
                                     </label>
 
                                     {/* File Input */}
@@ -702,7 +765,7 @@ export default function LoginModule() {
                             </h3>
 
                             <p className="text-white/80 text-sm mb-6 leading-relaxed">
-                                Cada aporte cuenta. Si has completado todos los pasos, podrás ingresar con tu teléfono. Si no es así, escríbenos por WhatsApp para obtener ayuda.
+                                Cada aporte cuenta. Si has completado todos los pasos, podrás ingresar con tu teléfono en 30 segundos. Si no es así, escríbenos por WhatsApp para obtener ayuda.
                             </p>
 
                             <a

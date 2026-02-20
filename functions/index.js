@@ -373,7 +373,8 @@ exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (even
 
                 // Sumamos +1 al contador.
                 transaction.update(padrinoRef, {
-                    referidos: FieldValue.increment(1)
+                    referidos: FieldValue.increment(1),
+                    score: FieldValue.increment(100) // <--- Esta línea sumaría puntos al total
                 });
 
                 console.log(`[REFERIDOS] Success! Verified padrino ${padrinoDoc.id}. Incrementing +1.`);
@@ -416,7 +417,7 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
             const parroquiaData = parroquiaDoc.data();
             const reward = Number(parroquiaData.reward) || 0;
             const userData = userDoc.data();
-            
+
             // Verificación CSV
             const visitadasStr = userData.parroquiasVistitadas || "";
             const visitadasArray = visitadasStr.split(',').map(s => s.trim());
@@ -502,13 +503,13 @@ exports.eliminarVisita = onDocumentDeleted("visit/{visitId}", async (event) => {
             if (debioSumarPuntos && userDoc.exists) {
                 const userData = userDoc.data();
                 const visitadasStr = userData.parroquiasVistitadas || "";
-                
+
                 // Quitamos del CSV
                 const newVisitadasStr = removeFromCSV(visitadasStr, parroquiaId);
-                
+
                 // Determinamos cuántos puntos restar
                 let rewardARestar = valorOriginal;
-                
+
                 // Fallback: Si no guardamos valorOtorgado, leemos de la parroquia actual
                 if (rewardARestar === 0 && parroquiaDoc.exists) {
                     rewardARestar = Number(parroquiaDoc.data().reward) || 0;

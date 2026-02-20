@@ -1,23 +1,29 @@
 
 import { useStore } from '@nanostores/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { userStore } from '../store/userStore';
 
 type UserRank = {
     username: string;
-    score: number;
+    score: number | null;
+    trend?: 'up' | 'down';
 };
 
 export default function Leaderboard() {
     const [ranking, setRanking] = useState<UserRank[]>([]);
     const [loading, setLoading] = useState(true);
     const user = useStore(userStore);
+    const previousRankingRef = useRef<Map<string, number>>(new Map());
 
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
                 // Determine if we need to force refresh
-                const res = await fetch('/api/leaderboard');
+                const queryParams = (user && user.isAuthenticated === 'true' && user.docId)
+                    ? `?uid=${user.docId}`
+                    : '';
+
+                const res = await fetch(`/api/leaderboard${queryParams}`);
                 if (!res.ok) throw new Error("Failed to fetch");
                 const data: UserRank[] = await res.json();
 
@@ -26,14 +32,31 @@ export default function Leaderboard() {
                     const currentScore = parseInt(user.score);
                     const userInRank = data.find(u => u.username === user.username);
 
-                    if (userInRank && userInRank.score < currentScore) {
+                    if (userInRank && userInRank.score !== null && userInRank.score < currentScore) {
                         userInRank.score = currentScore;
                         // Re-sort if needed (simple sort desc)
-                        data.sort((a, b) => b.score - a.score);
+                        data.sort((a, b) => (b.score ?? 0) - (a.score ?? 0));
                     }
                 }
 
-                setRanking(data);
+                // Determine trend
+                const newRankingWithTrend = data.map((u, index) => {
+                    const prevRank = previousRankingRef.current.get(u.username);
+                    let trend: 'up' | 'down' = 'up'; // default to up as requested "si no ha cambiado sigue en subio"
+                    if (prevRank !== undefined) {
+                        if (index < prevRank) trend = 'up';
+                        else if (index > prevRank) trend = 'down';
+                        // if index === prevRank, keeps the default 'up'
+                    }
+                    return { ...u, trend };
+                });
+
+                // Update previous ranking map
+                const newRankMap = new Map();
+                newRankingWithTrend.forEach((u, index) => newRankMap.set(u.username, index));
+                previousRankingRef.current = newRankMap;
+
+                setRanking(newRankingWithTrend);
             } catch (error) {
                 console.error("Error fetching leaderboard:", error);
             } finally {
@@ -47,7 +70,7 @@ export default function Leaderboard() {
         // Optional: Polling every 60s
         const interval = setInterval(fetchLeaderboard, 60000);
         return () => clearInterval(interval);
-    }, [user.score]); // Re-run when score updates
+    }, [user.score, user.isAuthenticated]); // Re-run when score or auth updates
 
     if (loading) {
         return <div className="text-center text-white/50 text-sm py-4">Cargando Clasificación...</div>;
@@ -110,11 +133,27 @@ export default function Leaderboard() {
                             </div>
 
                             {/* Score */}
-                            <div className="flex flex-col items-end flex-shrink-0 ml-4">
-                                <span className={`text-2xl md:text-3xl font-black ${scoreStyle}`}>
-                                    {user.score}
-                                </span>
-                                <span className="text-[10px] uppercase tracking-widest text-white/40">Puntos</span>
+                            <div className="flex flex-col items-end justify-center flex-shrink-0 ml-4 min-h-[50px]">
+                                {user.score !== null ? (
+                                    <>
+                                        <span className={`text-2xl md:text-3xl font-black ${scoreStyle}`}>
+                                            {user.score}
+                                        </span>
+                                        <span className="text-[10px] uppercase tracking-widest text-white/40">Puntos</span>
+                                    </>
+                                ) : (
+                                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10">
+                                        {user.trend === 'down' ? (
+                                            <svg className="w-6 h-6 text-red-500 drop-shadow-[0_0_5px_rgba(239,68,68,0.5)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                            </svg>
+                                        ) : (
+                                            <svg className="w-6 h-6 text-green-500 drop-shadow-[0_0_5px_rgba(34,197,94,0.5)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                                            </svg>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     );

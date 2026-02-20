@@ -1,6 +1,7 @@
 
 import type { APIRoute } from 'astro';
 import { userCache } from '../../lib/serverUserCache';
+import { db } from '../../services/firebase';
 
 export const POST: APIRoute = async ({ request }) => {
     try {
@@ -24,6 +25,35 @@ export const POST: APIRoute = async ({ request }) => {
             }), { status: 404 });
         }
 
+        // Check for Pending Referrals
+        try {
+            const userPhone = String(user.phone);
+            const pendingRefDoc = await db.collection('pending_referrals').doc(userPhone).get();
+
+            if (pendingRefDoc.exists) {
+                const pendingData = pendingRefDoc.data();
+                const referrerPhone = pendingData?.referralPhone;
+
+                if (referrerPhone && (!user.referencia || user.referencia.length < 5)) {
+                    console.log(`[Login] Found pending referral for ${userPhone} -> Referrer: ${referrerPhone}`);
+
+                    // Update User
+                    await db.collection('user').doc(user.docId).update({
+                        referencia: referrerPhone
+                    });
+
+                    // Delete Pending Record
+                    await db.collection('pending_referrals').doc(userPhone).delete();
+
+                    // Update local user object for return
+                    user.referencia = referrerPhone;
+                }
+            }
+        } catch (err) {
+            console.error("[Login] Error checking pending referrals:", err);
+            // Non-blocking error
+        }
+
         // Return User Data (Sanitized if needed, but here we return relevant fields)
         return new Response(JSON.stringify({
             success: true,
@@ -36,7 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
                 score: user.score,
                 parroquiasVistitadas: user.parroquiasVistitadas,
                 preguntasVistas: user.preguntasVistas,
-                referencia: user.referencia,
+                referencia: user.referencia, // Will include updated reference if applicable
                 'tickets-numbers': user['tickets-numbers']
             }
         }), { status: 200 });
