@@ -205,14 +205,14 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         class="hidden absolute inset-0 z-[2000] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
       >
         <div
-          class="bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full animate-bounce-in text-center"
+          class="bg-white rounded-2xl p-4 md:p-6 shadow-2xl max-w-sm w-full max-h-[90vh] flex flex-col animate-bounce-in text-center overflow-hidden"
         >
           <div
-            class="w-16 h-16 bg-[#f8b134]/20 rounded-full flex items-center justify-center mx-auto mb-4"
+            class="shrink-0 w-12 h-12 md:w-16 md:h-16 bg-[#f8b134]/20 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-4"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-8 w-8 text-[#d9901c]"
+              class="h-6 w-6 md:h-8 md:w-8 text-[#d9901c]"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -230,22 +230,95 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-2">¡Has llegado!</h3>
-          <p class="text-gray-600 mb-6">
+          <h3 class="shrink-0 text-lg md:text-xl font-bold text-gray-900 mb-1 md:mb-2">
+            ¡Has llegado!
+          </h3>
+          <p class="shrink-0 text-sm md:text-base text-gray-600 mb-2 md:mb-4">
             Estás cerca de <strong id="modal-parish-name" class="text-[#640010]"
               >nombre parroquia</strong
-            >. ¿Confirmas tu visita?
+            >. ¿Confirmas visita?
           </p>
-          <div class="flex gap-3 justify-center">
+          <div
+            class="mb-2 md:mb-4 text-left p-2 md:p-3 bg-gray-50 rounded-xl border border-gray-100 overflow-y-auto custom-scrollbar"
+          >
+            <p class="text-xs md:text-sm text-gray-700 mb-2 md:mb-3 font-medium leading-relaxed">
+              Por motivos de seguridad y verificar que estás realizando el reto, sube una foto tuya
+              con la parroquia de fondo.
+            </p>
+
+            <label
+              for="photo-upload-input"
+              class="flex flex-col items-center justify-center gap-1 w-full bg-gradient-to-r from-[#f8b134]/10 to-[#f8b134]/5 hover:from-[#f8b134]/20 hover:to-[#f8b134]/10 text-[#d9901c] font-bold py-3 md:py-4 px-2 rounded-xl cursor-pointer transition-all border-2 border-dashed border-[#f8b134]/40 hover:border-[#f8b134] text-center group shadow-sm hover:shadow-md"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-8 w-8 md:h-10 md:w-10 mb-1 md:mb-2 text-[#f8b134] group-hover:scale-110 transition-transform duration-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+              <span class="text-sm md:text-lg tracking-tight">📸 Subir Evidencia</span>
+              <span class="text-[9px] md:text-xs font-normal text-gray-500 mt-0"
+                >(Toca aquí para subir foto)</span
+              >
+            </label>
+            <input
+              type="file"
+              id="photo-upload-input"
+              accept="image/*"
+              capture="environment"
+              class="hidden"
+            />
+
+            <div
+              id="file-selected-name"
+              class="hidden mt-2 md:mt-4 text-[11px] md:text-sm text-center text-green-700 font-bold overflow-hidden text-ellipsis whitespace-nowrap bg-green-50 p-2 md:p-3 rounded-lg border border-green-200 shadow-inner flex items-center justify-center gap-1 md:gap-2"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 md:h-5 md:w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span id="file-selected-text">Evidencia seleccionada</span>
+            </div>
+
+            <div
+              id="upload-status"
+              class="hidden mt-2 md:mt-4 text-xs md:text-sm font-bold text-center text-[#d9901c] bg-[#f8b134]/10 p-2 md:p-3 rounded-lg border border-[#f8b134]/20 animate-pulse"
+            >
+              Subiendo foto... <span id="upload-progress">0%</span>
+            </div>
+          </div>
+          <div
+            class="shrink-0 flex gap-2 md:gap-3 justify-center mt-2 pt-2 border-t border-gray-100"
+          >
             <button
               id="btn-cancel-arrival"
-              class="px-5 py-2.5 rounded-xl border border-gray-300 text-gray-600 font-semibold hover:bg-gray-50 transition-colors"
+              class="px-4 md:px-5 py-2 md:py-2.5 text-sm md:text-base rounded-xl border border-gray-300 text-gray-600 font-semibold hover:bg-gray-50 transition-colors"
             >
               Cancelar
             </button>
             <button
               id="btn-confirm-arrival"
-              class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#f8b134] to-[#eeb045] text-[#640010] font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+              class="px-4 md:px-5 py-2 md:py-2.5 text-sm md:text-base rounded-xl bg-gradient-to-r from-[#f8b134] to-[#eeb045] text-[#640010] font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all"
             >
               ¡Sí, estoy aquí!
             </button>
@@ -379,119 +452,119 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- Leyenda de colores -->
-  <aside class="legend-container p-4" aria-label="Leyenda de Vicarias">
-    <h3 class="sr-only">Leyenda de Vicarias</h3>
-    <ul class="flex flex-wrap gap-3 justify-center" id="legend" role="list">
-      <!-- Leyenda items will be dynamic or static? Let's make a few static for now based on known vicarias -->
-      <li
-        class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
-      >
-        <span class="w-3 h-3 rounded-full bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]"
-        ></span> San Pedro
-      </li>
-      <li
-        class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
-      >
-        <span class="w-3 h-3 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.5)]"></span> Misericordioso
-      </li>
-      <li
-        class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
-      >
-        <span class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(16, 185, 129, 1)]"
-        ></span> Otros Templos
-      </li>
-    </ul>
-  </aside>
-
-  <!-- Lista de Parroquias Cercanas -->
-  <section
-    id="nearby-section"
-    class="mt-6 hidden bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden transition-all duration-300"
-  >
-    <button
-      id="nearby-header"
-      class="w-full flex items-center justify-between p-6 text-left focus:outline-none group hover:bg-white/5 transition-colors"
-    >
-      <div class="flex items-center gap-2">
-        <span class="bg-[#f8b134] text-[#640010] p-1 rounded-lg">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-            ></path>
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-          </svg>
-        </span>
-        <h3 class="text-xl font-bold text-white group-hover:text-[#f8b134] transition-colors">
-          Parroquias Cercanas (&lt;2km)
-        </h3>
-      </div>
-      <svg
-        id="nearby-chevron"
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 text-white/50 transition-transform duration-300 group-hover:text-white"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
-        ></path>
-      </svg>
-    </button>
-
+    <!-- Points Awarded Notification (Map Overlay) -->
     <div
-      id="nearby-list"
-      class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 pt-0 hidden animate-in slide-in-from-top-2"
+      id="points-notification"
+      class="absolute inset-0 z-[10000] flex items-center justify-center pointer-events-none hidden bg-black/60 backdrop-blur-sm rounded-lg"
     >
-      <!-- Items injected here by JS -->
-      <p class="text-white/50 italic col-span-full text-center py-4">Calculando ubicación...</p>
+      <div
+        class="transform scale-0 transition-transform duration-500 ease-out data-[show=true]:scale-100 flex flex-col items-center gap-2"
+        id="points-container"
+      >
+        <h2
+          class="text-3xl md:text-4xl font-serif text-[#f8b134] font-bold text-center animate-bounce drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]"
+        >
+          ¡Excelente!
+        </h2>
+        <p
+          id="points-amount"
+          class="text-6xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-200 drop-shadow-[0_0_15px_rgba(248,177,52,0.8)]"
+          style="-webkit-text-stroke: 1px #f8b134;"
+        >
+          +200
+        </p>
+        <p
+          class="text-[#f8b134] text-lg md:text-xl font-bold uppercase tracking-[0.1em] mt-2 animate-pulse"
+        >
+          Puntos Ganados
+        </p>
+      </div>
     </div>
   </section>
 </BentoCard>
 
-<!-- Points Awarded Notification (Global) -->
-<div
-  id="points-notification"
-  class="fixed inset-0 z-[10000] flex items-center justify-center pointer-events-none hidden bg-black/60 backdrop-blur-[2px]"
+<!-- Leyenda de colores -->
+<aside class="legend-container p-4" aria-label="Leyenda de Vicarias">
+  <h3 class="sr-only">Leyenda de Vicarias</h3>
+  <ul class="flex flex-wrap gap-3 justify-center" id="legend" role="list">
+    <!-- Leyenda items will be dynamic or static? Let's make a few static for now based on known vicarias -->
+    <li
+      class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
+    >
+      <span class="w-3 h-3 rounded-full bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.5)]"
+      ></span> San Pedro
+    </li>
+    <li
+      class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
+    >
+      <span class="w-3 h-3 rounded-full bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.5)]"></span> Misericordioso
+    </li>
+    <li
+      class="group relative flex items-center gap-3 px-4 py-2 bg-black/40 border border-white/10 rounded-xl text-white text-sm font-bold shadow-sm"
+    >
+      <span class="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(16, 185, 129, 1)]"
+      ></span> Otros Templos
+    </li>
+  </ul>
+</aside>
+
+<!-- Lista de Parroquias Cercanas -->
+<section
+  id="nearby-section"
+  class="mt-6 hidden bg-black/20 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden transition-all duration-300"
 >
-  <div
-    class="transform scale-0 transition-transform duration-500 ease-out data-[show=true]:scale-100 flex flex-col items-center gap-2"
-    id="points-container"
+  <button
+    id="nearby-header"
+    class="w-full flex items-center justify-between p-6 text-left focus:outline-none group hover:bg-white/5 transition-colors"
   >
-    <h2
-      class="text-4xl md:text-6xl font-serif text-[#f8b134] font-bold text-center animate-bounce drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]"
+    <div class="flex items-center gap-2">
+      <span class="bg-[#f8b134] text-[#640010] p-1 rounded-lg">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+          ></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+      </span>
+      <h3 class="text-xl font-bold text-white group-hover:text-[#f8b134] transition-colors">
+        Parroquias Cercanas (&lt;2km)
+      </h3>
+    </div>
+    <svg
+      id="nearby-chevron"
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 text-white/50 transition-transform duration-300 group-hover:text-white"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
     >
-      ¡Excelente!
-    </h2>
-    <p
-      id="points-amount"
-      class="text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 drop-shadow-[0_0_25px_rgba(248,177,52,0.8)]"
-      style="-webkit-text-stroke: 2px #f8b134;"
-    >
-      +200
-    </p>
-    <p
-      class="text-[#f8b134] text-xl md:text-2xl font-bold uppercase tracking-[0.2em] mt-4 animate-pulse"
-    >
-      Puntos Ganados
-    </p>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
+      ></path>
+    </svg>
+  </button>
+
+  <div
+    id="nearby-list"
+    class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 pt-0 hidden animate-in slide-in-from-top-2"
+  >
+    <!-- Items injected here by JS -->
+    <p class="text-white/50 italic col-span-full text-center py-4">Calculando ubicación...</p>
   </div>
-</div>
+</section>
 
 <!-- Leaflet CSS -->
 <link
@@ -528,6 +601,8 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
 <script>
   import confetti from 'canvas-confetti'
+  import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+  import { storage } from '../lib/firebase.client'
   import { isLoginOpen } from '../store/uiStore'
 
   // @ts-nocheck
@@ -828,7 +903,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   }
 
   // Execute Visit (Called after Confirmation)
-  window.executeVisit = async (parroquiaId, parroquiaName) => {
+  window.executeVisit = async (parroquiaId, parroquiaName, photoPath) => {
     try {
       // Use central helper to get user data
       const user = getUserData()
@@ -877,6 +952,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           userId: user.docId,
           parroquiaId: parroquiaId,
           userLogInfo: user,
+          photoPath: photoPath,
         }),
       })
 
@@ -1065,27 +1141,136 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   }
 
   function showProximityModal(loc, pid) {
+    if (!isUserLoggedIn()) {
+      showLoginRequiredModal()
+      return
+    }
+
+    const user = getUserData()
+    if (!user) return
+
+    const visitedString = user.parroquiasVistitadas || ''
+    const visitedIds = visitedString.split(',').map((id) => id.trim())
+    const targetId = (pid || loc.name).toString()
+
+    if (visitedIds.includes(targetId) || confirmedParishes.has(targetId)) {
+      const visitedModal = document.getElementById('already-visited-modal')
+      if (visitedModal) {
+        visitedModal.classList.remove('hidden')
+        const closeBtn = document.getElementById('btn-close-visited')
+        if (closeBtn) {
+          closeBtn.onclick = () => {
+            visitedModal.classList.add('hidden')
+          }
+        }
+      } else {
+        alert('¡Ya has visitado esta parroquia!')
+      }
+      return
+    }
+
     const modal = document.getElementById('proximity-modal')
     if (modal.classList.contains('hidden')) {
-      document.getElementById('modal-parish-name').textContent = loc.name
+      const nameEl = document.getElementById('modal-parish-name')
+      if (nameEl) nameEl.textContent = loc.name
       modal.classList.remove('hidden')
+
+      // reset input state
+      const fileInput = document.getElementById('photo-upload-input')
+      if (fileInput) fileInput.value = ''
+      const selectedName = document.getElementById('file-selected-name')
+      if (selectedName) selectedName.classList.add('hidden')
 
       const btnConfirm = document.getElementById('btn-confirm-arrival')
       const btnCancel = document.getElementById('btn-cancel-arrival')
 
-      btnConfirm.onclick = () => {
-        // LOGIN CHECK
-        if (!isUserLoggedIn()) {
-          modal.classList.add('hidden')
-          showLoginRequiredModal()
-          return
-        }
+      if (btnConfirm && btnCancel) {
+        btnConfirm.onclick = async () => {
+          // Redundant safely check
+          if (!isUserLoggedIn()) {
+            modal.classList.add('hidden')
+            showLoginRequiredModal()
+            return
+          }
 
-        window.executeVisit(pid, loc.name)
-        modal.classList.add('hidden')
-      }
-      btnCancel.onclick = () => {
-        modal.classList.add('hidden')
+          const user = getUserData()
+          if (!user) {
+            alert('Error obteniendo datos del usuario')
+            return
+          }
+
+          const fileInput = document.getElementById('photo-upload-input')
+          const file = fileInput.files?.[0]
+
+          if (!file) {
+            alert('Por favor selecciona o toma una foto para confirmar tu visita.')
+            return
+          }
+
+          // Bloquear boton
+          btnConfirm.disabled = true
+          btnConfirm.textContent = 'Subiendo...'
+          btnCancel.disabled = true
+
+          const statusDiv = document.getElementById('upload-status')
+          const progressSpan = document.getElementById('upload-progress')
+          if (statusDiv) statusDiv.classList.remove('hidden')
+
+          try {
+            // Upload photo
+            const validExtensions = ['jpg', 'jpeg', 'png', 'webp', 'heic', 'heif']
+            const fileExtension = file.name.split('.').pop()?.toLowerCase() || ''
+            if (!validExtensions.includes(fileExtension)) {
+              throw new Error('Solo se permiten archivos de imagen.')
+            }
+
+            // Using comprobantes/ directory to bypass strict Firebase Storage rules for /visitas
+            // since users are not authenticated via standard Firebase Auth mechanism
+            const storagePath = `visitas/visita_${pid}_${user.docId}_${Date.now()}.${fileExtension}`
+            const storageRef = ref(storage, storagePath)
+
+            const uploadTask = uploadBytesResumable(storageRef, file)
+
+            uploadTask.on(
+              'state_changed',
+              (snapshot) => {
+                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+                if (progressSpan) progressSpan.textContent = progress + '%'
+              },
+              (error) => {
+                console.error('Error subiendo imagen:', error)
+                alert('Hubo un error al subir la imagen.')
+                btnConfirm.disabled = false
+                btnConfirm.textContent = '¡Sí, estoy aquí!'
+                btnCancel.disabled = false
+                if (statusDiv) statusDiv.classList.add('hidden')
+              },
+              async () => {
+                // Success
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+
+                window.executeVisit(pid, loc.name, downloadURL)
+
+                // Reset modal state
+                modal.classList.add('hidden')
+                btnConfirm.disabled = false
+                btnConfirm.textContent = '¡Sí, estoy aquí!'
+                btnCancel.disabled = false
+                if (statusDiv) statusDiv.classList.add('hidden')
+                fileInput.value = ''
+              }
+            )
+          } catch (error) {
+            alert(error.message || 'Error al procesar la imagen')
+            btnConfirm.disabled = false
+            btnConfirm.textContent = '¡Sí, estoy aquí!'
+            btnCancel.disabled = false
+            if (statusDiv) statusDiv.classList.add('hidden')
+          }
+        }
+        btnCancel.onclick = () => {
+          modal.classList.add('hidden')
+        }
       }
     }
   }
@@ -1162,11 +1347,16 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
   function showSuccessAnimation() {
     const overlay = document.getElementById('success-overlay')
+    if (!overlay) return
+
     overlay.classList.remove('hidden')
 
     // Auto close or manual close
-    document.getElementById('btn-close-success').onclick = () => {
-      overlay.classList.add('hidden')
+    const closeBtn = document.getElementById('btn-close-success')
+    if (closeBtn) {
+      closeBtn.onclick = () => {
+        overlay.classList.add('hidden')
+      }
     }
 
     // Optional: Auto hide after 5s
@@ -1257,6 +1447,23 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       nearbyHeader.addEventListener('click', () => {
         nearbyList.classList.toggle('hidden')
         nearbyChevron.classList.toggle('rotate-180')
+      })
+    }
+
+    // Photo Upload Input Listener
+    const photoInput = document.getElementById('photo-upload-input')
+    const photoNameDisplay = document.getElementById('file-selected-name')
+    const photoNameText = document.getElementById('file-selected-text')
+
+    if (photoInput && photoNameDisplay && photoNameText) {
+      photoInput.addEventListener('change', (e) => {
+        const files = e.target.files
+        if (files && files.length > 0) {
+          photoNameText.textContent = 'Evidencia: ' + files[0].name
+          photoNameDisplay.classList.remove('hidden')
+        } else {
+          photoNameDisplay.classList.add('hidden')
+        }
       })
     }
   }

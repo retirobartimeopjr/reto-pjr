@@ -5,13 +5,14 @@ import { admin, db } from '../../services/firebase';
 export const POST: APIRoute = async ({ request }) => {
     try {
         const body = await request.json();
-        const { userId, parroquiaId, userLogInfo } = body;
+        const { userId, parroquiaId, userLogInfo, photoPath } = body;
 
         // Log user info as requested by user
         if (userLogInfo) {
             console.log("--- LOGGED IN USER INFO FROM CLIENT ---");
             console.log("UserID:", userId);
             console.log("ParroquiaID:", parroquiaId);
+            console.log("Photo URL:", photoPath);
             console.log("User Snapshot:", JSON.stringify(userLogInfo, null, 2));
             console.log("---------------------------------------");
         }
@@ -74,7 +75,8 @@ export const POST: APIRoute = async ({ request }) => {
                 userId,
                 parroquiaid: parroquiaId,
                 timestamp: admin.firestore.FieldValue.serverTimestamp(),
-                pointsAwarded: rewardPoints
+                pointsAwarded: rewardPoints,
+                photoUrl: photoPath || null
             });
 
             console.log(`✅ [VISIT] Recorded visit for User ${userId} at Parroquia ${parroquiaId}. Awarded ${rewardPoints} points.`);
