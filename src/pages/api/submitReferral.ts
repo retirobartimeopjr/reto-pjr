@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { db } from '../../services/firebase';
+import { query } from '../../lib/db';
 
 export const POST: APIRoute = async ({ request }) => {
     try {
@@ -10,49 +10,46 @@ export const POST: APIRoute = async ({ request }) => {
             return new Response(JSON.stringify({ success: false, error: "Faltan datos requeridos." }), { status: 400 });
         }
 
-        const targetPhone = String(referralPhone).replace(/\D/g, '').trim(); // Sanitize referral phone
-        const newPhone = newUserPhone ? String(newUserPhone).replace(/\D/g, '').trim() : null; // Sanitize potential new user phone
+        const targetPhone = String(referralPhone).replace(/\D/g, '').trim(); 
+        const newPhone = newUserPhone ? String(newUserPhone).replace(/\D/g, '').trim() : null; 
 
-        // 1. Validate Target User (Does the referrer exist?)
-        const referrerQuery = await db.collection('user').where('phone', '==', targetPhone).limit(1).get();
+        // 1. Validar que la persona que invitó realmente exista
+        const referrerRes = await query('SELECT id FROM users WHERE phone = $1', [targetPhone]);
 
-        if (referrerQuery.empty) {
+        if (referrerRes.rowCount === 0) {
             return new Response(JSON.stringify({ success: false, error: "El número de quien te invitó no está registrado." }), { status: 404 });
         }
 
-        const referrerData = referrerQuery.docs[0].data();
-
-        // 2. Identify the User to be referred (Existing or New)
-        let userRef;
-        let userData;
+        // 2. Identificar al usuario a ser referido
+        let userData: any = null;
 
         if (userId) {
-            userRef = db.collection('user').doc(userId);
-            const userSnap = await userRef.get();
-            if (userSnap.exists) {
-                userData = userSnap.data();
-            }
+            const userRes = await query('SELECT id, phone, referencia FROM users WHERE id = $1', [userId]);
+            if (userRes.rowCount > 0) userData = userRes.rows[0];
         } else if (newPhone) {
-            // Check if user already exists by phone
-            const userQuery = await db.collection('user').where('phone', '==', newPhone).limit(1).get();
-            if (!userQuery.empty) {
-                userRef = userQuery.docs[0].ref;
-                userData = userQuery.docs[0].data();
-            }
+            const userRes = await query('SELECT id, phone, referencia FROM users WHERE phone = $1', [newPhone]);
+            if (userRes.rowCount > 0) userData = userRes.rows[0];
         }
 
-        // SCENARIO A: NEW USER (DOES NOT EXIST YET) -> SAVE PENDING REFERRAL
+        // ESCENARIO A: NUEVO USUARIO (AÚN NO EXISTE) -> GUARDAR REFERIDO PENDIENTE
         if (!userData && newPhone) {
-            console.log(`[Referral] Saving PENDING referral for ${newPhone} (Referrer: ${targetPhone})`);
+            console.log(`[Referral Postgres] Guardando referido pendiente para ${newPhone} (Referrer: ${targetPhone})`);
 
-            // Check if pending referral already exists to prevent duplicates
-            const pendingRef = db.collection('pending_referrals').doc(newPhone);
-            await pendingRef.set({
-                newUserPhone: newPhone,
-                referralPhone: targetPhone,
-                createdAt: new Date().toISOString(),
-                status: 'pending'
-            });
+            // Asegurar que la tabla existe (se crea automáticamente si no existe)
+            await query(`
+                CREATE TABLE IF NOT EXISTS pending_referrals (
+                    phone VARCHAR(50) PRIMARY KEY, 
+                    referrer_phone VARCHAR(50), 
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            `);
+
+            // Usamos UPSERT (ON CONFLICT) para no duplicar ni causar errores si intentan varias veces
+            await query(`
+                INSERT INTO pending_referrals (phone, referrer_phone) 
+                VALUES ($1, $2)
+                ON CONFLICT (phone) DO UPDATE SET referrer_phone = EXCLUDED.referrer_phone
+            `, [newPhone, targetPhone]);
 
             return new Response(JSON.stringify({
                 success: true,
@@ -61,33 +58,23 @@ export const POST: APIRoute = async ({ request }) => {
             }), { status: 200 });
         }
 
-        // SCENARIO B: EXISTING USER logic (Validation checks)
+        // ESCENARIO B: USUARIO EXISTENTE (Validaciones)
         if (!userData) {
             return new Response(JSON.stringify({ success: false, error: "Usuario no encontrado." }), { status: 404 });
         }
 
-        // If we found the user via query but didn't set userRef (legacy behavior fallback)
-        if (!userRef && userData) {
-            // Should verify we have a ref, if coming from query
-            // This block might be redundant if logic above is correct, but safe
-        }
-
-        const payedTickets = Number(userData?.payedTickets || userData?.payedtickets || 0);
-
-        // CHECK: Cannot refer self
-        if (userData?.phone === targetPhone) {
+        // RESTRICCIÓN: No referirse a sí mismo
+        if (userData.phone === targetPhone) {
             return new Response(JSON.stringify({ success: false, error: "No puedes referirte a ti mismo." }), { status: 400 });
         }
 
-        // CHECK: Cannot change if already set
-        if (userData?.referencia && userData.referencia.length > 5) {
+        // RESTRICCIÓN: Ya tiene referido
+        if (userData.referencia && userData.referencia.length > 5) {
             return new Response(JSON.stringify({ success: false, error: "Ya tienes un referido asignado." }), { status: 400 });
         }
 
-        // 3. EXECUTE WRITE (Direct Update)
-        await userRef?.update({
-            referencia: targetPhone
-        });
+        // 3. EJECUTAR ESCRITURA
+        await query(`UPDATE users SET referencia = $1 WHERE id = $2`, [targetPhone, userData.id]);
 
         return new Response(JSON.stringify({
             success: true,
@@ -98,7 +85,7 @@ export const POST: APIRoute = async ({ request }) => {
         });
 
     } catch (error) {
-        console.error("Referral API Error:", error);
-        return new Response(JSON.stringify({ success: false, error: "Error interno del servidor." }), { status: 500 });
+        console.error("❌ Postgres Referral API Error:", error);
+        return new Response(JSON.stringify({ success: false, error: "Error interno del servidor (Postgres)." }), { status: 500 });
     }
 }

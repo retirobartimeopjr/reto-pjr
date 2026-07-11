@@ -1,6 +1,6 @@
-
 import type { APIRoute } from 'astro';
-import { admin, db } from '../../services/firebase';
+import { query } from '../../lib/db';
+import crypto from 'crypto';
 
 export const POST: APIRoute = async ({ request }) => {
     try {
@@ -24,84 +24,52 @@ export const POST: APIRoute = async ({ request }) => {
             }), { status: 400 });
         }
 
-        // 1. Run Transaction to Update User & Log Visit
-        const userRef = db.collection('user').doc(userId);
-        const visitRef = db.collection('visit').doc();
-
-        await db.runTransaction(async (t) => {
-            const userDoc = await t.get(userRef);
-            if (!userDoc.exists) {
-                throw new Error("User does not exist");
-            }
-
-            // Fetch Parish Data to get Reward
-            let rewardPoints = 0;
-            const parishDocRef = db.collection('parroquias').doc(parroquiaId);
-            const parishDoc = await t.get(parishDocRef);
-
-            if (parishDoc.exists) {
-                rewardPoints = parseInt(parishDoc.data()?.reward || "0");
-            } else {
-                // Fallback: Search by 'id' field if not found by Doc ID
-                const query = db.collection('parroquias').where('id', '==', parroquiaId).limit(1);
-                const querySnapshot = await t.get(query);
-                if (!querySnapshot.empty) {
-                    rewardPoints = parseInt(querySnapshot.docs[0].data()?.reward || "0");
-                } else {
-                    console.warn(`Parish ${parroquiaId} not found during visit. Defaulting reward to 0.`);
-                }
-            }
-
-            // Prevent Duplicates
-            const userData = userDoc.data();
-            const visitedStr = userData?.parroquiasVistitadas || "";
-            const visitedArr = visitedStr.split(',').map((s: string) => s.trim()).filter((s: string) => s);
-
-            if (visitedArr.includes(parroquiaId.toString())) {
-                throw new Error("Duplicate Visit");
-            }
-
-            // Update State
-            const newVisited = [...visitedArr, parroquiaId].join(',');
-            const currentScore = parseInt(userData?.score || "0");
-            const newScore = currentScore + rewardPoints;
-
-            t.update(userRef, {
-                parroquiasVistitadas: newVisited,
-                score: newScore.toString()
-            });
-
-            t.set(visitRef, {
-                userId,
-                parroquiaid: parroquiaId,
-                timestamp: admin.firestore.FieldValue.serverTimestamp(),
-                pointsAwarded: rewardPoints,
-                photoUrl: photoPath || null
-            });
-
-            console.log(`✅ [VISIT] Recorded visit for User ${userId} at Parroquia ${parroquiaId}. Awarded ${rewardPoints} points.`);
-        });
-
-        return new Response(JSON.stringify({
-            success: true,
-            message: 'Visita registrada y puntos sumados',
-            visitId: visitRef.id
-        }), { status: 200 });
-
-    } catch (error: any) {
-        console.error("❌ [VISIT API ERROR]", error);
-
-        if (error.message === 'Duplicate Visit') {
-            return new Response(JSON.stringify({
+        // 1. Validar que la Parroquia exista y obtener su puntaje (reward)
+        const parishRes = await query('SELECT reward FROM parroquias WHERE id = $1', [parseInt(parroquiaId)]);
+        
+        if (parishRes.rowCount === 0) {
+             return new Response(JSON.stringify({
                 success: false,
-                code: 'DUPLICATE_VISIT',
-                error: 'Ya has visitado esta parroquia'
-            }), { status: 409 });
+                error: 'Parroquia no encontrada en la base de datos'
+            }), { status: 404 });
+        }
+        
+        const rewardPoints = parishRes.rows[0].reward || 0;
+        const visitId = crypto.randomUUID(); // Usamos UUID nativo de Node.js
+
+        // 2. Insertar la visita (Postgres evitará automáticamente los duplicados con UNIQUE CONSTRAINT)
+        try {
+            await query(`
+                INSERT INTO user_parroquia_visits (id, user_id, parroquia_id, points_awarded, photo_url)
+                VALUES ($1, $2, $3, $4, $5)
+            `, [visitId, userId, parseInt(parroquiaId), rewardPoints, photoPath || null]);
+
+            console.log(`✅ [VISIT POSTGRES] Visita registrada para Usuario ${userId} en Parroquia ${parroquiaId}. Puntos: ${rewardPoints}`);
+            
+            return new Response(JSON.stringify({
+                success: true,
+                message: 'Visita registrada y puntos sumados',
+                visitId: visitId
+            }), { status: 200 });
+
+        } catch (err: any) {
+            // El código de error 23505 en Postgres significa Unique Violation (Duplicado)
+            if (err.code === '23505') {
+                 console.log(`⚠️ [VISIT DUPLICATE] El usuario ${userId} intentó visitar de nuevo la parroquia ${parroquiaId}`);
+                 return new Response(JSON.stringify({
+                    success: false,
+                    code: 'DUPLICATE_VISIT',
+                    error: 'Ya has visitado esta parroquia'
+                }), { status: 409 });
+            }
+            throw err; // Si es otro error, lo capturará el catch global
         }
 
+    } catch (error: any) {
+        console.error("❌ [VISIT API ERROR Postgres]", error);
         return new Response(JSON.stringify({
             success: false,
-            error: 'Error registrando la visita'
+            error: 'Error registrando la visita en la base de datos'
         }), { status: 500 });
     }
 };

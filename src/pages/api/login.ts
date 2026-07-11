@@ -1,7 +1,5 @@
-
 import type { APIRoute } from 'astro';
-import { userCache } from '../../lib/serverUserCache';
-import { db } from '../../services/firebase';
+import { query } from '../../lib/db';
 
 export const POST: APIRoute = async ({ request }) => {
     try {
@@ -15,67 +13,53 @@ export const POST: APIRoute = async ({ request }) => {
             }), { status: 400 });
         }
 
-        // Use the Cache Service
-        const user = await userCache.findUserByPhone(String(phone));
+        // Consultamos a Postgres con un JOIN dinámico que reemplaza la necesidad de Firebase y pre-calcula los stats en milisegundos
+        const sql = `
+            SELECT 
+                u.id, u.phone, u.username, u.referencia, u.payed_tickets,
+                (SELECT STRING_AGG(parroquia_id::TEXT, ',') FROM user_parroquia_visits WHERE user_id = u.id) AS visited_parroquias_ids,
+                (SELECT STRING_AGG(pregunta_id::TEXT, ',') FROM user_trivia_answers WHERE user_id = u.id) AS answered_preguntas_ids,
+                (SELECT STRING_AGG(ticket_number::TEXT, ',') FROM tickets WHERE user_id = u.id) AS ticket_numbers,
+                (SELECT STRING_AGG(fixed::TEXT, ',') FROM tickets WHERE user_id = u.id) AS tickets_fixed,
+                COALESCE((SELECT SUM(points_awarded) FROM user_parroquia_visits WHERE user_id = u.id), 0) +
+                COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0) AS total_score
+            FROM users u
+            WHERE u.phone = $1;
+        `;
+        
+        const res = await query(sql, [String(phone)]);
 
-        if (!user) {
+        if (res.rowCount === 0) {
             return new Response(JSON.stringify({
                 success: false,
-                error: 'Usuario no encontrado'
+                error: 'Usuario no encontrado en la base de datos'
             }), { status: 404 });
         }
 
-        // Check for Pending Referrals
-        try {
-            const userPhone = String(user.phone);
-            const pendingRefDoc = await db.collection('pending_referrals').doc(userPhone).get();
+        const userRow = res.rows[0];
 
-            if (pendingRefDoc.exists) {
-                const pendingData = pendingRefDoc.data();
-                const referrerPhone = pendingData?.referralPhone;
-
-                if (referrerPhone && (!user.referencia || user.referencia.length < 5)) {
-                    console.log(`[Login] Found pending referral for ${userPhone} -> Referrer: ${referrerPhone}`);
-
-                    // Update User
-                    await db.collection('user').doc(user.docId).update({
-                        referencia: referrerPhone
-                    });
-
-                    // Delete Pending Record
-                    await db.collection('pending_referrals').doc(userPhone).delete();
-
-                    // Update local user object for return
-                    user.referencia = referrerPhone;
-                }
-            }
-        } catch (err) {
-            console.error("[Login] Error checking pending referrals:", err);
-            // Non-blocking error
-        }
-
-        // Return User Data (Sanitized if needed, but here we return relevant fields)
+        // Format user object exactly as frontend expects it
         return new Response(JSON.stringify({
             success: true,
             user: {
-                docId: user.docId,
-                phone: user.phone,
-                username: user.username,
-                ticketsFixed: user.ticketsFixed,
-                payedTickets: user.payedTickets,
-                score: user.score,
-                parroquiasVistitadas: user.parroquiasVistitadas,
-                preguntasVistas: user.preguntasVistas,
-                referencia: user.referencia, // Will include updated reference if applicable
-                'tickets-numbers': user['tickets-numbers']
+                docId: userRow.id,
+                phone: userRow.phone,
+                username: userRow.username,
+                ticketsFixed: userRow.tickets_fixed || "",
+                payedTickets: String(userRow.payed_tickets || 0),
+                score: String(userRow.total_score || 0),
+                parroquiasVistitadas: userRow.visited_parroquias_ids || "",
+                preguntasVistas: userRow.answered_preguntas_ids || "",
+                referencia: userRow.referencia || "",
+                'tickets-numbers': userRow.ticket_numbers || ""
             }
         }), { status: 200 });
 
     } catch (error) {
-        console.error("Login API Error:", error);
+        console.error("❌ Postgres Login API Error:", error);
         return new Response(JSON.stringify({
             success: false,
-            error: 'Error interno del servidor'
+            error: 'Error interno del servidor (Postgres)'
         }), { status: 500 });
     }
 };

@@ -1,39 +1,26 @@
-
 import type { APIRoute } from 'astro';
-import { db } from '../../services/firebase';
+import { query } from '../../lib/db';
 
 export const GET: APIRoute = async () => {
     try {
-        const snapshot = await db.collection('parroquias').get();
+        const res = await query(`
+            SELECT id, name, vicaria, latitude, longitude, reward 
+            FROM parroquias
+            WHERE latitude IS NOT NULL AND longitude IS NOT NULL
+        `);
 
-        const parroquias = snapshot.docs.map(doc => {
-            const data = doc.data();
-
-            // Coordinates are stored as "lat, lng" string in Firebase (from Excel)
-            // or sometimes might be separated if migration changed. 
-            // Based on migration, it's a direct copy, so it's a string "lat, ln".
-
-
-            // Check if coordinates exist (some data has 'location', some 'coordinates')
-            const rawCoords = data.coordinates || data.location;
-            if (!rawCoords) return null;
-
-            const parts = rawCoords.toString().split(',');
-            if (parts.length !== 2) return null;
-
-            const lat = parseFloat(parts[0].trim());
-            const lng = parseFloat(parts[1].trim());
-
-            if (isNaN(lat) || isNaN(lng)) return null;
-
+        const parroquias = res.rows.map(row => {
             return {
-                id: data.id || doc.id,
-                name: data.name,
-                center: { lat, lng },
-                vicaria: data.vicaria,
-                reward: data.reward || 0 // Ensure reward is passed, default to 0
+                id: row.id.toString(), // Mantenemos string id por compatibilidad con el frontend
+                name: row.name,
+                center: { 
+                    lat: Number(row.latitude), 
+                    lng: Number(row.longitude) 
+                },
+                vicaria: row.vicaria,
+                reward: row.reward || 0
             };
-        }).filter(p => p !== null);
+        });
 
         return new Response(JSON.stringify(parroquias), {
             status: 200,
@@ -42,7 +29,7 @@ export const GET: APIRoute = async () => {
             }
         });
     } catch (error) {
-        console.error("API Error", error);
-        return new Response(JSON.stringify({ error: "Failed to fetch data" }), { status: 500 });
+        console.error("❌ Postgres Parroquias API Error:", error);
+        return new Response(JSON.stringify({ error: "Failed to fetch data from Postgres" }), { status: 500 });
     }
 }

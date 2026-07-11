@@ -15,9 +15,9 @@
     "pnpm": ">=9"
   },
   "dependencies": {
+    "@astrojs/node": "^9.0.0",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "3.6.0",
-    "@astrojs/node": "^9.0.0",
     "@floating-ui/dom": "1.7.4",
     "@midudev/tailwind-animations": "0.2.0",
     "@nanostores/persistent": "^1.2.0",
@@ -41,6 +41,7 @@
     "lucide-react": "^0.562.0",
     "nanostores": "^1.1.0",
     "node-fetch": "^3.3.2",
+    "pg": "^8.22.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-leaflet": "^5.0.0",

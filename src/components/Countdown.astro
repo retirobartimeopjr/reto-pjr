@@ -75,21 +75,37 @@
 
 <script>
   function updateCountdown() {
-    // March 20, 2026 5:00 PM (17:00)
-    // Assuming user wants next occurrence or specifically 2026?
-    // Context says "2026 Project", so 2026.
-    // Fixed Date: 2026-03-20T17:00:00
+    const targetDate = new Date('2026-03-19T18:00:00').getTime()
 
-    const targetDate = new Date('2026-03-20T17:00:00').getTime()
+    // Check immediately on load — if already past the deadline, lock right away
+    if (Date.now() >= targetDate) {
+      const timerEl = document.getElementById('countdown-timer')
+      if (timerEl) {
+        timerEl.innerHTML = `
+          <div class="text-center animate-pulse py-4">
+            <p class="text-[#f8b134] text-2xl font-black font-serif drop-shadow-[0_2px_8px_rgba(248,177,52,0.5)]">🏆 ¡El Reto ha terminado!</p>
+            <p class="text-white/70 text-sm mt-2">Gracias a todos los participantes</p>
+          </div>`
+      }
+      return
+    }
 
     const interval = setInterval(() => {
       const now = new Date().getTime()
       const distance = targetDate - now
 
+      // Ya no bloqueamos la UI
+
       if (distance < 0) {
         clearInterval(interval)
-        document.getElementById('countdown-timer').innerHTML =
-          "<div class='text-center text-xl text-[#f8b134] font-bold'>¡El tiempo ha llegado!</div>"
+        const timerEl = document.getElementById('countdown-timer')
+        if (timerEl) {
+          timerEl.innerHTML = `
+            <div class="text-center animate-pulse py-4">
+              <p class="text-[#f8b134] text-2xl font-black font-serif drop-shadow-[0_2px_8px_rgba(248,177,52,0.5)]">🏆 ¡El Reto ha terminado!</p>
+              <p class="text-white/70 text-sm mt-2">Gracias a todos los participantes</p>
+            </div>`
+        }
         return
       }
 

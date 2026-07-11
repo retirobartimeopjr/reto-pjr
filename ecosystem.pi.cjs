@@ -3,13 +3,13 @@ module.exports = {
         {
             name: 'bartimeo',
             script: './dist/server/entry.mjs',
-            instances: 'max',
+            instances: 2,
             exec_mode: 'cluster',
             env: {
                 HOST: '127.0.0.1',
                 PORT: 3000,
                 NODE_ENV: 'production',
-                PGHOST: '172.31.20.251',
+                PGHOST: '127.0.0.1',
                 PGUSER: 'postgres',
                 PGPASSWORD: 'BartimeoRoot2026!*',
                 PGDATABASE: 'bartimeodb',

@@ -54,6 +54,7 @@ export default function Referidos() {
     };
 
     const handleConfirmSubmit = async () => {
+
         setShowConfirm(false);
         setLoading(true);
 
@@ -127,6 +128,7 @@ Puedes participar y ayudarme de una manera muy sencilla:
 
     return (
         <>
+
             {/* Main Container - More transparent, with stronger gradient and solid inner boxes */}
             <div className="bg-gradient-to-br from-[#722F37]/90 to-[#722F37]/60 border border-white/10 rounded-2xl p-4 md:p-8 mt-8 relative overflow-hidden shadow-2xl backdrop-blur-sm">
                 {/* Decorative Background Glow - subtle for depth */}

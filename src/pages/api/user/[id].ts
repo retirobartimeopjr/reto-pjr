@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { db } from '../../../services/firebase';
+import { query } from '../../../lib/db';
 
 export const GET: APIRoute = async ({ params }) => {
     const { id } = params;
@@ -9,27 +9,40 @@ export const GET: APIRoute = async ({ params }) => {
     }
 
     try {
-        const doc = await db.collection('user').doc(id).get();
+        const sql = `
+            SELECT 
+                u.id, u.phone, u.username, u.referencia, u.payed_tickets,
+                (SELECT STRING_AGG(parroquia_id::TEXT, ',') FROM user_parroquia_visits WHERE user_id = u.id) AS visited_parroquias_ids,
+                (SELECT STRING_AGG(pregunta_id::TEXT, ',') FROM user_trivia_answers WHERE user_id = u.id) AS answered_preguntas_ids,
+                (SELECT STRING_AGG(ticket_number::TEXT, ',') FROM tickets WHERE user_id = u.id) AS ticket_numbers,
+                (SELECT STRING_AGG(fixed::TEXT, ',') FROM tickets WHERE user_id = u.id) AS tickets_fixed,
+                COALESCE((SELECT SUM(points_awarded) FROM user_parroquia_visits WHERE user_id = u.id), 0) +
+                COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0) AS total_score
+            FROM users u
+            WHERE u.id = $1;
+        `;
 
-        if (!doc.exists) {
-            return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
+        const res = await query(sql, [id]);
+
+        if (res.rowCount === 0) {
+            return new Response(JSON.stringify({ error: "Usuario no encontrado en Postgres" }), { status: 404 });
         }
 
-        const userData = doc.data();
-        // Return only necessary fields or full object depending on needs
-        // Ensure to include score and visited list
+        const userRow = res.rows[0];
+
+        // Mapeamos los datos exactamente al formato que espera el userStore en el cliente
         return new Response(JSON.stringify({
-            docId: doc.id,
-            username: userData?.username,
-            score: userData?.score || "0",
-            parroquiasVistitadas: userData?.parroquiasVistitadas || "",
-            // Add other fields if needed by the frontend store
-            phone: userData?.phone,
-            ticketsFixed: userData?.ticketsFixed,
-            payedTickets: userData?.payedTickets,
-            preguntasVistas: userData?.preguntasVistas,
-            referencia: userData?.referencia,
-            isAuthenticated: "true"
+            docId: userRow.id,
+            username: userRow.username,
+            score: String(userRow.total_score || 0),
+            parroquiasVistitadas: userRow.visited_parroquias_ids || "",
+            phone: userRow.phone,
+            ticketsFixed: userRow.tickets_fixed || "",
+            payedTickets: String(userRow.payed_tickets || 0),
+            preguntasVistas: userRow.answered_preguntas_ids || "",
+            referencia: userRow.referencia || "",
+            isAuthenticated: "true",
+            'tickets-numbers': userRow.ticket_numbers || ""
         }), {
             status: 200,
             headers: {
@@ -37,7 +50,7 @@ export const GET: APIRoute = async ({ params }) => {
             }
         });
     } catch (error) {
-        console.error("API Error fetching user:", error);
-        return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+        console.error("❌ API Error fetching user from Postgres:", error);
+        return new Response(JSON.stringify({ error: "Internal Server Error (Postgres)" }), { status: 500 });
     }
 }

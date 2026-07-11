@@ -19,6 +19,8 @@
 
 # production
 /build
+/dist
+*.mp4
 
 # misc
 .DS_Store
@@ -52,3 +54,4 @@ next-env.d.ts
 
 /functions/node_modules
 
+deploy_rpi_full.sh

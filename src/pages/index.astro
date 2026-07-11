@@ -1,5 +1,7 @@
 ---
-import AchievementsSection from '../components/AchievementsSection.astro'
+import fs from 'node:fs';
+import path from 'node:path';
+
 import BartiPregunta from '../components/BartiPregunta'
 import Countdown from '../components/Countdown.astro'
 import Dashboard from '../components/Dashboard'
@@ -13,7 +15,23 @@ import Snowballs from '../components/Snowballs.astro'
 import HomeHeader from '../components/home/HomeHeader.astro'
 import Layout from '../layouts/Layout.astro'
 
-const isLocked = true
+const isLocked = true;
+
+// Video Gallery Logic (Server-Side Rendering)
+const prodVideosPath = path.join(process.cwd(), 'dist', 'client', 'videos');
+const devVideosPath = path.join(process.cwd(), 'public', 'videos');
+const targetVideosPath = import.meta.env.PROD ? prodVideosPath : devVideosPath;
+
+let videoFiles: string[] = [];
+try {
+  if (fs.existsSync(targetVideosPath)) {
+    videoFiles = fs.readdirSync(targetVideosPath)
+      .filter((f: string) => f.endsWith('.mp4') || f.endsWith('.webm'))
+      .sort(); // Alfabético
+  }
+} catch (e) {
+  console.error("Error leyendo directorio de videos:", e);
+}
 ---
 
 <Layout title="Reto Bartimeo 2026">
@@ -126,43 +144,37 @@ const isLocked = true
           <Map />
         </section>
 
-        {/* Video Section */}
-        <section
-          class="w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative mt-4 bg-black"
-        >
-          <video
-            class="w-full h-auto max-h-[600px] object-contain mx-auto"
-            controls
-            playsinline
-            poster="/bartimeo.png"
+        {/* Video Gallery Section (Dynamic) */}
+        {videoFiles.length > 0 && (
+          <section
+            class="w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative mt-4 bg-black/40 backdrop-blur-md p-6"
           >
-            <source src="/Download.mp4" type="video/mp4" />
-            Tu navegador no soporta videos.
-          </video>
-        </section>
-
-        {/* HIDDEN / DISABLED SECTIONS (As per user request "lo demas queda oculto") */}
-        {/* Achievements & Tickets - Wrapped in a Blur/Locked Container visually */}
-        {
-          false && (
-            <div class="w-full opacity-50 grayscale pointer-events-none relative overflow-hidden rounded-2xl border border-white/5 mt-4">
-              <div class="absolute inset-0 bg-black/60 z-10 flex items-center justify-center backdrop-blur-sm">
-                <p class="text-white/40 font-serif uppercase tracking-widest text-sm border border-white/20 px-4 py-2 rounded-full">
-                  Próximamente
-                </p>
-              </div>
-              <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
-                <div class="lg:col-span-2">
-                  <AchievementsSection isLocked={true} />
-                </div>
-                <div class="lg:col-span-1">
-                  {/* Placeholder for old ranking space */}
-                  <div class="h-64 bg-white/5 rounded-xl" />
-                </div>
-              </div>
+            <div class="text-center mb-6">
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-white text-gold-texture">
+                    Galería de Videos
+                </h2>
             </div>
-          )
-        }
+            <div class={`grid gap-6 ${videoFiles.length === 1 ? 'grid-cols-1 max-w-4xl mx-auto' : 'grid-cols-1 md:grid-cols-2'}`}>
+              {videoFiles.map((video) => (
+                <div class="rounded-xl overflow-hidden bg-black border border-white/10 shadow-lg flex flex-col justify-center">
+                  <video
+                    class="w-full h-auto object-contain"
+                    controls
+                    playsinline
+                    poster="/bartimeo.png"
+                    style={{ maxHeight: '500px' }}
+                  >
+                    <source src={`/videos/${video}`} type="video/mp4" />
+                    Tu navegador no soporta videos.
+                  </video>
+                  <div class="p-3 text-center bg-white/5 border-t border-white/10">
+                    <p class="text-white/70 text-xs font-mono truncate">{video}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
 
       <footer

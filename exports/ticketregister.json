@@ -1,0 +1,7746 @@
+[
+  {
+    "id": "00zHWiT0VAtAqE2HS15v",
+    "ticketId": "191",
+    "phone": "3105796030",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TB75",
+    "importedAt": "2026-03-01T22:05:33.257Z",
+    "timestamp": {
+      "_seconds": 1772402733,
+      "_nanoseconds": 377000000
+    },
+    "processedAt": {
+      "_seconds": 1772402734,
+      "_nanoseconds": 215000000
+    },
+    "userId": "1VGS7uz4HXiKM0xrPrN8",
+    "status": "SUCCESS",
+    "username": "Angela Morales"
+  },
+  {
+    "id": "03ySErVHKllxvGEHRZzJ",
+    "ticketId": "86",
+    "phone": "3005925135",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AH42",
+    "username": "Andrea Martínez Alarcón ",
+    "importedAt": "2026-02-22T19:10:40.224Z",
+    "timestamp": {
+      "_seconds": 1771787441,
+      "_nanoseconds": 213000000
+    },
+    "processedAt": {
+      "_seconds": 1771787444,
+      "_nanoseconds": 906000000
+    },
+    "userId": "pLAwOJHNDD26QVo11Avt",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "04AMzdG7RsuDO9p5iJfa",
+    "ticketId": "200",
+    "phone": "3053012747",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PM13",
+    "username": "Nataly Horan ",
+    "importedAt": "2026-03-04T23:36:17.604Z",
+    "timestamp": {
+      "_seconds": 1772667377,
+      "_nanoseconds": 728000000
+    },
+    "processedAt": {
+      "_seconds": 1772667378,
+      "_nanoseconds": 413000000
+    },
+    "userId": "EwieZ0xI8dowhWCHlMI1",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "06mzpvS7BpA5XsdysLgk",
+    "ticketId": "168",
+    "phone": "3126561163",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HV19",
+    "username": "Alejandra ariza",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 168 is already owned by User Gfn5YSVfMbvc7SAcnmzM.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "0IE8KOs8PXIhSbILWVsB",
+    "ticketId": "71",
+    "phone": "3118858409",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XB22",
+    "username": "Francisco Bartolomeu",
+    "importedAt": "2026-02-15T20:01:43.501Z",
+    "timestamp": {
+      "_seconds": 1771185703,
+      "_nanoseconds": 686000000
+    },
+    "processedAt": {
+      "_seconds": 1771185706,
+      "_nanoseconds": 978000000
+    },
+    "userId": "I1xS8gTMwYwlsTahZcD7",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "0QQfHWDQ6UztXNlPEwVm",
+    "ticketId": "19",
+    "phone": "3222254082",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WO39",
+    "username": "Juana Lozano",
+    "importedAt": "2026-02-15T21:03:41.548Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 19 is already owned by User HOLbQpXnAD0wpNHgEKqU.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "0RztX6jvr1aNHBI3t2ww",
+    "ticketId": "15",
+    "phone": "3118908655",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YP89",
+    "username": "Marianna Álvarez ",
+    "importedAt": "2026-02-17T08:15:23.365Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 15 is already owned by User 5RqZmc03gC4JjyKenj1l.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "0WpErKNn8dBSFfBzdroS",
+    "ticketId": "303",
+    "phone": "3223832371",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QG09",
+    "username": "Mariana Navarro ",
+    "importedAt": "2026-03-19T22:07:13.004Z",
+    "timestamp": {
+      "_seconds": 1773958033,
+      "_nanoseconds": 120000000
+    },
+    "processedAt": {
+      "_seconds": 1773958033,
+      "_nanoseconds": 394000000
+    },
+    "userId": "ifmDgwpxjC8v0ojqTAj8",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "0l23j5vLnHOGhp7uf3Qg",
+    "ticketId": "329",
+    "phone": "3114448411",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SE80",
+    "importedAt": "2026-03-19T22:07:32.851Z",
+    "timestamp": {
+      "_seconds": 1773958052,
+      "_nanoseconds": 969000000
+    },
+    "processedAt": {
+      "_seconds": 1773958053,
+      "_nanoseconds": 250000000
+    },
+    "userId": "G1NDFWPdVXOjsdHoeDgB",
+    "status": "SUCCESS",
+    "username": "Liliana Rojas "
+  },
+  {
+    "id": "0texgNfyXaSM7PHds1hl",
+    "ticketId": "52",
+    "phone": "3102009021",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OR54",
+    "username": "Mauricio Osuna ",
+    "importedAt": "2026-02-21T17:23:35.368Z",
+    "timestamp": {
+      "_seconds": 1771694615,
+      "_nanoseconds": 566000000
+    },
+    "processedAt": {
+      "_seconds": 1771694619,
+      "_nanoseconds": 901000000
+    },
+    "userId": "sEgTSoK2k7ltqXSSYuqr",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "0ujR4vJGfymORR9IW17s",
+    "ticketId": "25",
+    "phone": "3167607356",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EU47",
+    "username": "Sabina patiño",
+    "importedAt": "2026-02-17T08:15:23.361Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 25 is already owned by User VFgEcdLnd7wfJUWgEd3B.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "10R5nTGSR4nuC2xzNS3a",
+    "ticketId": "8",
+    "phone": "3107274836",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QI90",
+    "username": "Shirlena Doria ",
+    "importedAt": "2026-02-15T21:03:41.550Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 8 is already owned by User fuq3dJda0m5hxrdZlhau.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "144CK50r6biYEIXeOt8k",
+    "ticketId": "241",
+    "phone": "3507194404",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OE25",
+    "username": "Medina rueda",
+    "importedAt": "2026-03-19T21:42:27.904Z",
+    "timestamp": {
+      "_seconds": 1773956548,
+      "_nanoseconds": 28000000
+    },
+    "processedAt": {
+      "_seconds": 1773956548,
+      "_nanoseconds": 378000000
+    },
+    "userId": "hu3pUf77W1z0RQyBF2MN",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "16y9zSqwBlvI9tN6fi2i",
+    "ticketId": "170",
+    "phone": "3228211234",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NE49",
+    "username": "Stefania Bayona Rincón",
+    "importedAt": "2026-03-16T02:46:04.710Z",
+    "timestamp": {
+      "_seconds": 1773629165,
+      "_nanoseconds": 702000000
+    },
+    "processedAt": {
+      "_seconds": 1773629169,
+      "_nanoseconds": 82000000
+    },
+    "userId": "wwEMbymlmnwe9287FvjM",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "1GsQJfTJ1AUatnItJuq5",
+    "ticketId": "114",
+    "phone": "3102115274",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XB95",
+    "username": "Nubia Mejia",
+    "importedAt": "2026-02-24T20:43:29.894Z",
+    "timestamp": {
+      "_seconds": 1771965810,
+      "_nanoseconds": 902000000
+    },
+    "processedAt": {
+      "_seconds": 1771965815,
+      "_nanoseconds": 357000000
+    },
+    "userId": "8fufLUVdTZiMKq808HKv",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "1UyilU77rZ3L6uIfb7w2",
+    "ticketId": "24",
+    "phone": "3142232470",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SP02",
+    "username": "Yilver Molina",
+    "importedAt": "2026-02-17T08:15:23.369Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 24 is already owned by User M2AIIE4sbx46ftRViVBR.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "1gNw1dyK4KWke5bx67V3",
+    "ticketId": "11",
+    "phone": "3123415728",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CM85",
+    "username": "Jesus David",
+    "importedAt": "2026-02-15T21:40:43.832Z",
+    "timestamp": {
+      "_seconds": 1771191644,
+      "_nanoseconds": 0
+    },
+    "processedAt": {
+      "_seconds": 1771191647,
+      "_nanoseconds": 278000000
+    },
+    "userId": "RX3b9MkFRjcAwFjvkq5E",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "1kTkYU2E8MdhFixntKVG",
+    "ticketId": "160",
+    "phone": "3103402912",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OE18",
+    "username": "Esperanza Lopez",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 160 is already owned by User 47rQhbUGHVSqaiNwct0l.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "1nykNqnv6DSUmhOHmXvn",
+    "ticketId": "101",
+    "phone": "3222486798",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FM28",
+    "username": "Natalia Becerra",
+    "importedAt": "2026-02-17T08:15:23.371Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 101 is already owned by User 7hrpv6TNMCVttQKQoxzi.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "1sqfmB1Z7maEAVAzlHGj",
+    "ticketId": "30",
+    "phone": "3138314889",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GF36",
+    "username": "Olga Lucia Fuentes",
+    "importedAt": "2026-02-18T01:56:28.692Z",
+    "timestamp": {
+      "_seconds": 1771379788,
+      "_nanoseconds": 926000000
+    },
+    "processedAt": {
+      "_seconds": 1771379792,
+      "_nanoseconds": 826000000
+    },
+    "userId": "unwAuSpSMzS5DJ6Wzp5D",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "27zUvex6tFVSGJrbNV73",
+    "ticketId": "197",
+    "phone": "3202725651",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AR82",
+    "username": "José Molina ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 197 is already owned by User YhsGMr69RFBXgT6214um.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "2HupDoKmqcOImqylUY7S",
+    "ticketId": "161",
+    "phone": "3153477043",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UF52",
+    "username": "Orlando bejarano",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 161 is already owned by User mJgu3nshfdX4riCQgv3B.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "2UG0XoS9XaQmE2blwXw0",
+    "ticketId": "10",
+    "phone": "3176798322",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MC79",
+    "username": "Luciana Garzon",
+    "importedAt": "2026-02-17T08:15:23.367Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 10 is already owned by User 5hTTbPHpzJb8aPiItxZ6.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "2qPgZtj3B4znYCFIKh2w",
+    "ticketId": "193",
+    "phone": "3153858281",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TW85",
+    "username": "Diana Niño",
+    "importedAt": "2026-03-01T21:56:53.246Z",
+    "timestamp": {
+      "_seconds": 1772402213,
+      "_nanoseconds": 374000000
+    },
+    "processedAt": {
+      "_seconds": 1772402213,
+      "_nanoseconds": 970000000
+    },
+    "userId": "QI1FaSGhQoRENuB58O8O",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "2uFFTvNcoZE2DEr68WUm",
+    "ticketId": "205",
+    "phone": "3202939605",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZR93",
+    "username": "Marta melo",
+    "importedAt": "2026-03-19T14:29:36.828Z",
+    "timestamp": {
+      "_seconds": 1773930576,
+      "_nanoseconds": 944000000
+    },
+    "processedAt": {
+      "_seconds": 1773930577,
+      "_nanoseconds": 872000000
+    },
+    "userId": "cICsWopJFFN6dskZ7MiD",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "2uRet7QS0vGOmyTVsVPU",
+    "ticketId": "8",
+    "phone": "3107274836",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QI90",
+    "username": "Shirlena Doria ",
+    "importedAt": "2026-02-15T17:31:48.474Z",
+    "timestamp": {
+      "_seconds": 1771176708,
+      "_nanoseconds": 662000000
+    },
+    "processedAt": {
+      "_seconds": 1771176711,
+      "_nanoseconds": 393000000
+    },
+    "userId": "fuq3dJda0m5hxrdZlhau",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "3Igh44K3ASNVLiLDCQvz",
+    "ticketId": "8",
+    "phone": "3107274836",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QI90",
+    "username": "Shirlena Doria ",
+    "importedAt": "2026-02-17T08:15:23.363Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 8 is already owned by User fuq3dJda0m5hxrdZlhau.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "3MH1VUd6b3pYKjgVninQ",
+    "ticketId": "276",
+    "phone": "3157925213",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RB22",
+    "username": "Pedro Niño",
+    "importedAt": "2026-03-01T22:04:53.224Z",
+    "timestamp": {
+      "_seconds": 1772402693,
+      "_nanoseconds": 342000000
+    },
+    "processedAt": {
+      "_seconds": 1772402693,
+      "_nanoseconds": 659000000
+    },
+    "userId": "DXRaKMuWLsTtHG8IyNpT",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "3QHiSaJP32rAvwe4KXAN",
+    "ticketId": "146",
+    "phone": "3108079737",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RG01",
+    "username": "Diana Niño",
+    "importedAt": "2026-02-20T02:18:53.282Z",
+    "timestamp": {
+      "_seconds": 1771553933,
+      "_nanoseconds": 410000000
+    },
+    "processedAt": {
+      "_seconds": 1771553934,
+      "_nanoseconds": 613000000
+    },
+    "userId": "buh7aj1j5ADUV3Ug4pNJ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "3VAztNuHr5CJccLul8O8",
+    "ticketId": "330",
+    "phone": "3234041621",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WZ62",
+    "username": "Mauricio Torres ",
+    "importedAt": "2026-03-19T17:31:27.273Z",
+    "timestamp": {
+      "_seconds": 1773941487,
+      "_nanoseconds": 451000000
+    },
+    "processedAt": {
+      "_seconds": 1773941491,
+      "_nanoseconds": 151000000
+    },
+    "userId": "RU1C7CAeLOhIcMj9bRhQ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "3XP8n3gSDWbOuNCBXvEA",
+    "ticketId": "317",
+    "phone": "3208313130",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YC87",
+    "username": "Melba Prada ",
+    "importedAt": "2026-03-19T22:07:27.959Z",
+    "timestamp": {
+      "_seconds": 1773958048,
+      "_nanoseconds": 73000000
+    },
+    "processedAt": {
+      "_seconds": 1773958048,
+      "_nanoseconds": 377000000
+    },
+    "userId": "vFakE8OzVbY3IpHUwTpH",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "3cB9ZTgsHlIKh7xvZEGY",
+    "ticketId": "45",
+    "phone": "305230274",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FT63",
+    "username": "Emigdia Gonzalez ",
+    "importedAt": "2026-02-15T17:51:13.116Z",
+    "timestamp": {
+      "_seconds": 1771177873,
+      "_nanoseconds": 238000000
+    },
+    "processedAt": {
+      "_seconds": 1771177873,
+      "_nanoseconds": 679000000
+    },
+    "userId": "74EdysSdHmFLeDgxWUJO",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "3d1tgDvT73cPB4JqCPIG",
+    "ticketId": "271",
+    "phone": "3107755293",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TT46",
+    "username": "Nicolas rodriguez",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 271 is already owned by User Fp3M55yUPCokiYaHiQLE.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "3q5q6XFNXaj0ns0r3ILo",
+    "ticketId": "33",
+    "phone": "3213088359",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IJ82",
+    "importedAt": "2026-02-17T02:43:15.762Z",
+    "timestamp": {
+      "_seconds": 1771296195,
+      "_nanoseconds": 954000000
+    },
+    "processedAt": {
+      "_seconds": 1771296198,
+      "_nanoseconds": 951000000
+    },
+    "userId": "JL532w0HxeTgUBmUUfbv",
+    "status": "SUCCESS",
+    "username": "Santiago Correal"
+  },
+  {
+    "id": "3x78ze9AakrOwJFpUycF",
+    "ticketId": "21",
+    "phone": "3138702202",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BH67",
+    "username": "Yadith pardo orduña",
+    "importedAt": "2026-02-19T21:51:17.471Z",
+    "timestamp": {
+      "_seconds": 1771537877,
+      "_nanoseconds": 606000000
+    },
+    "processedAt": {
+      "_seconds": 1771537878,
+      "_nanoseconds": 802000000
+    },
+    "userId": "01GFtWqrRqt64jAqi10E",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "42TSnRS2Ix06hnjuVc4g",
+    "ticketId": "29",
+    "phone": "3052548403",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RN01",
+    "username": "Emilia Carrera Torres ",
+    "importedAt": "2026-02-17T01:40:35.606Z",
+    "timestamp": {
+      "_seconds": 1771292435,
+      "_nanoseconds": 785000000
+    },
+    "processedAt": {
+      "_seconds": 1771292436,
+      "_nanoseconds": 628000000
+    },
+    "userId": "sUeQYRnoAZEbTgOFqs06",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "445iYn5dwNdi17Ha742O",
+    "ticketId": "54",
+    "phone": "3167327054",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GD94",
+    "username": "Clara Criado",
+    "importedAt": "2026-02-22T20:19:40.406Z",
+    "timestamp": {
+      "_seconds": 1771791580,
+      "_nanoseconds": 527000000
+    },
+    "processedAt": {
+      "_seconds": 1771791581,
+      "_nanoseconds": 206000000
+    },
+    "userId": "QqKxTrVmXtxCgWcymPxU",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "46nYGZ0yGcw5W5Ay8STx",
+    "ticketId": "129",
+    "phone": "3132634967",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DI27",
+    "username": "Richard Zain Vasquez Delgado",
+    "importedAt": "2026-02-17T01:26:00.438Z",
+    "timestamp": {
+      "_seconds": 1771291560,
+      "_nanoseconds": 555000000
+    },
+    "processedAt": {
+      "_seconds": 1771291561,
+      "_nanoseconds": 60000000
+    },
+    "userId": "SH6NzQLfsM3fpAzuy509",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "4Nf1M4HdBkus9v3jOgcV",
+    "ticketId": "308",
+    "phone": "3232331640",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WE04",
+    "username": "Edgar torres ",
+    "importedAt": "2026-03-19T22:11:52.851Z",
+    "timestamp": {
+      "_seconds": 1773958312,
+      "_nanoseconds": 968000000
+    },
+    "processedAt": {
+      "_seconds": 1773958313,
+      "_nanoseconds": 204000000
+    },
+    "userId": "gIjsdGcBWsZEuOk6WFY9",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "4R8XkuzDngOqtJ52EYpQ",
+    "ticketId": "18",
+    "phone": "3158631662",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FT88",
+    "username": "Jhoanna Fragozo",
+    "importedAt": "2026-02-15T17:35:23.065Z",
+    "timestamp": {
+      "_seconds": 1771176923,
+      "_nanoseconds": 170000000
+    },
+    "processedAt": {
+      "_seconds": 1771176923,
+      "_nanoseconds": 801000000
+    },
+    "userId": "tGFJOzHVvuJ7tZK7aDCZ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "4T9F2yCBDT91zZW0Mlaz",
+    "ticketId": "84",
+    "phone": "3203061635",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GJ56",
+    "importedAt": "2026-02-20T22:41:37.855Z",
+    "timestamp": {
+      "_seconds": 1771627298,
+      "_nanoseconds": 836000000
+    },
+    "processedAt": {
+      "_seconds": 1771627300,
+      "_nanoseconds": 4000000
+    },
+    "userId": "vV6DPFXIjmriAmIH6JvV",
+    "status": "SUCCESS",
+    "username": "Liliana Mosquera"
+  },
+  {
+    "id": "4eeyAxjtem2d1NDg4ufg",
+    "ticketId": "225",
+    "phone": "3108134741",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KB27",
+    "username": "Silvana avila ",
+    "importedAt": "2026-03-19T20:50:07.763Z",
+    "timestamp": {
+      "_seconds": 1773953408,
+      "_nanoseconds": 862000000
+    },
+    "processedAt": {
+      "_seconds": 1773953409,
+      "_nanoseconds": 764000000
+    },
+    "userId": "sRI5TfSU8xWVns9rw0hi",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "4fW963nIi01f2vEGmi6T",
+    "ticketId": "263",
+    "phone": "3114448411",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TD85",
+    "importedAt": "2026-03-19T22:07:47.953Z",
+    "timestamp": {
+      "_seconds": 1773958068,
+      "_nanoseconds": 61000000
+    },
+    "processedAt": {
+      "_seconds": 1773958068,
+      "_nanoseconds": 401000000
+    },
+    "userId": "G1NDFWPdVXOjsdHoeDgB",
+    "status": "SUCCESS",
+    "username": "Liliana Rojas "
+  },
+  {
+    "id": "4hdub97dcpVRmeU50iBa",
+    "ticketId": "129",
+    "phone": "3132634967",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DI27",
+    "username": "Richard Zain Vasquez Delgado",
+    "importedAt": "2026-02-17T08:15:23.368Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 129 is already owned by User SH6NzQLfsM3fpAzuy509.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "4lVu0MifdjrXwMoF2hac",
+    "ticketId": "312",
+    "phone": "3132853745",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XI62",
+    "username": "Marta Cecilia ",
+    "importedAt": "2026-03-19T16:18:52.044Z",
+    "timestamp": {
+      "_seconds": 1773937133,
+      "_nanoseconds": 16000000
+    },
+    "processedAt": {
+      "_seconds": 1773937136,
+      "_nanoseconds": 613000000
+    },
+    "userId": "clFZmO35Z0sdkQpje4A4",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "4sk3HN2yZrovVe6YUUMk",
+    "ticketId": "147",
+    "phone": "3214877834",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FE31",
+    "username": "Jaime Vergara",
+    "importedAt": "2026-02-17T08:15:23.368Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 147 is already owned by User m8bLKeT5Dw18Odjw31Yh.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "52ra3Ws65SzdVO6z8jQp",
+    "ticketId": "236",
+    "phone": "3144671382",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EA11",
+    "username": "Nicolas Santamaria ",
+    "importedAt": "2026-03-19T15:27:51.857Z",
+    "timestamp": {
+      "_seconds": 1773934072,
+      "_nanoseconds": 31000000
+    },
+    "processedAt": {
+      "_seconds": 1773934075,
+      "_nanoseconds": 477000000
+    },
+    "userId": "5VlA1av4yENTyw3O1s3d",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "5M7tUsR7KHXxMGHfFezd",
+    "ticketId": "33",
+    "phone": "3213088359",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IJ82",
+    "username": "Freddy Correal",
+    "importedAt": "2026-02-17T08:15:23.370Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 33 is already owned by User JL532w0HxeTgUBmUUfbv.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "5eW9oSBUnGHtaArFPM6F",
+    "ticketId": "109",
+    "phone": "3143224768",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KQ81",
+    "username": "Maria Fernanda Correal Olave",
+    "importedAt": "2026-02-22T22:50:20.843Z",
+    "timestamp": {
+      "_seconds": 1771800620,
+      "_nanoseconds": 951000000
+    },
+    "processedAt": {
+      "_seconds": 1771800623,
+      "_nanoseconds": 531000000
+    },
+    "userId": "KctQ3HUlDlsDzzlWdwX4",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "5j9qHhEQVyFTuSAnuoW3",
+    "ticketId": "255",
+    "phone": "3214395088",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LH55",
+    "username": "Ivan mendez",
+    "importedAt": "2026-03-19T22:22:32.852Z",
+    "timestamp": {
+      "_seconds": 1773958952,
+      "_nanoseconds": 970000000
+    },
+    "processedAt": {
+      "_seconds": 1773958953,
+      "_nanoseconds": 264000000
+    },
+    "userId": "wNi7UB3OjudrWLB3iqa6",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "5zTb9tUqsssd9OASgpX7",
+    "ticketId": "177",
+    "phone": "3118313125",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BE29",
+    "username": "Jeny benavides",
+    "importedAt": "2026-03-19T12:34:26.610Z",
+    "timestamp": {
+      "_seconds": 1773923666,
+      "_nanoseconds": 905000000
+    },
+    "processedAt": {
+      "_seconds": 1773923667,
+      "_nanoseconds": 578000000
+    },
+    "userId": "8fbuUi6SD6gt6v3msQ5T",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "62A3DTlgIyDV2QadJHNT",
+    "ticketId": "184",
+    "phone": "3193994489",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AF93",
+    "username": "Gabriela bernal ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 184 is already owned by User 95IuPwX6phWyi75a4nTV.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "62rg75oKoS6YSbCB0BQy",
+    "ticketId": "122",
+    "phone": "3006663583",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PI39",
+    "username": "Mirian Rodriguez ",
+    "importedAt": "2026-03-01T18:47:02.627Z",
+    "timestamp": {
+      "_seconds": 1772390823,
+      "_nanoseconds": 667000000
+    },
+    "processedAt": {
+      "_seconds": 1772390828,
+      "_nanoseconds": 434000000
+    },
+    "userId": "GTfGALQcYK8ObQJukwz5",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "63Upvisg0XrSig0wDnW0",
+    "ticketId": "124",
+    "phone": "3212963507",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CG34",
+    "username": "Hector Rodriguez",
+    "importedAt": "2026-02-17T08:15:23.367Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 124 is already owned by User CzazK7JWHN2aQVKdop6Y.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "63cd6oiEBlccO5wG6j4c",
+    "ticketId": "253",
+    "phone": "3007647936",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IZ42",
+    "username": "Juan castro ",
+    "importedAt": "2026-03-19T22:15:08.453Z",
+    "timestamp": {
+      "_seconds": 1773958508,
+      "_nanoseconds": 574000000
+    },
+    "processedAt": {
+      "_seconds": 1773958508,
+      "_nanoseconds": 849000000
+    },
+    "userId": "6QHBTiHDvNxb2k6nzhRa",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "6ItJz2qxQ9xzqMg1OHVd",
+    "ticketId": "145",
+    "phone": "3153970577",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ID22",
+    "username": "Mariamer",
+    "importedAt": "2026-03-01T21:56:18.125Z",
+    "timestamp": {
+      "_seconds": 1772402178,
+      "_nanoseconds": 250000000
+    },
+    "processedAt": {
+      "_seconds": 1772402179,
+      "_nanoseconds": 499000000
+    },
+    "userId": "fg9LlqeOryj1xq4Ar6pL",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "6TXyq0hNF92B5ENsv19R",
+    "ticketId": "45",
+    "phone": "305230274",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FT63",
+    "username": "Emigdia Gonzalez ",
+    "importedAt": "2026-02-17T08:15:23.364Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 45 is already owned by User 74EdysSdHmFLeDgxWUJO.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "6TqxnqsNmMccOQl53uLO",
+    "ticketId": "218",
+    "phone": "3002105830",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RQ75",
+    "username": "Cecilia Sabogal ",
+    "importedAt": "2026-03-19T14:26:16.812Z",
+    "timestamp": {
+      "_seconds": 1773930376,
+      "_nanoseconds": 933000000
+    },
+    "processedAt": {
+      "_seconds": 1773930377,
+      "_nanoseconds": 747000000
+    },
+    "userId": "fqDcSuu1HwbbC0eB85nc",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "6WdJrzYswXC8qWGo9K1f",
+    "ticketId": "2",
+    "phone": "3214877834",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LH23",
+    "username": "Jaime Vergara ",
+    "importedAt": "2026-02-17T08:15:23.366Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 2 is already owned by User m8bLKeT5Dw18Odjw31Yh.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "6bEPzYyGnpS5ofvC6ewp",
+    "ticketId": "115",
+    "phone": "3115070561",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JX72",
+    "username": "Sebastian Oyola",
+    "importedAt": "2026-02-22T16:27:24.453Z",
+    "timestamp": {
+      "_seconds": 1771777645,
+      "_nanoseconds": 552000000
+    },
+    "processedAt": {
+      "_seconds": 1771777649,
+      "_nanoseconds": 761000000
+    },
+    "userId": "6DtGk1bfJOyvEEemc2Im",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "6gPNRWy7wnM8wJQ67UVR",
+    "ticketId": "103",
+    "phone": "3044701729",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BG59",
+    "username": "Ana Cantor",
+    "importedAt": "2026-02-23T02:07:11.521Z",
+    "timestamp": {
+      "_seconds": 1771812432,
+      "_nanoseconds": 611000000
+    },
+    "processedAt": {
+      "_seconds": 1771812433,
+      "_nanoseconds": 345000000
+    },
+    "userId": "29HtH34s8pSG6TXeCEBn",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "6rBBF6CRMbR55offdv49",
+    "ticketId": "99",
+    "phone": "3025099326",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OJ49",
+    "username": "Sofia Garzon",
+    "importedAt": "2026-02-22T18:09:49.961Z",
+    "timestamp": {
+      "_seconds": 1771783790,
+      "_nanoseconds": 85000000
+    },
+    "processedAt": {
+      "_seconds": 1771783791,
+      "_nanoseconds": 516000000
+    },
+    "userId": "OSqupiKqaL41EC8t1vsg",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "6wBClNyVGY4CMb98bqsJ",
+    "ticketId": "19",
+    "phone": "3222254082",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WO39",
+    "username": "Juana Lozano",
+    "importedAt": "2026-02-15T16:33:42.939Z",
+    "timestamp": {
+      "_seconds": 1771173223,
+      "_nanoseconds": 114000000
+    },
+    "processedAt": {
+      "_seconds": 1771173226,
+      "_nanoseconds": 372000000
+    },
+    "userId": "HOLbQpXnAD0wpNHgEKqU",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "7HeWdwvbQCmQckuGdFFK",
+    "ticketId": "25",
+    "phone": "3167607356",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EU47",
+    "username": "Sabina patiño",
+    "importedAt": "2026-02-15T21:03:41.546Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 25 is already owned by User VFgEcdLnd7wfJUWgEd3B.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "7MyeFJMLzmMpTZwuLw17",
+    "ticketId": "139",
+    "phone": "3108663795",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UY69",
+    "username": "Paola cristancho",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 139 is already owned by User jvyjckn7RH4vvLs8mg1w.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "7VsBu9z2azn6i2mUYmbr",
+    "ticketId": "151",
+    "phone": "3153923476",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AE78",
+    "username": "Gabriela Quintero",
+    "importedAt": "2026-03-01T21:55:53.226Z",
+    "timestamp": {
+      "_seconds": 1772402153,
+      "_nanoseconds": 337000000
+    },
+    "processedAt": {
+      "_seconds": 1772402154,
+      "_nanoseconds": 373000000
+    },
+    "userId": "Ta0vRxFdX30VxyLHQZKW",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "7kggQuy9A9iKhCE83SlT",
+    "ticketId": "143",
+    "phone": "3107869085",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JU72",
+    "username": "Maria Josefa mancera",
+    "importedAt": "2026-02-18T16:01:11.699Z",
+    "timestamp": {
+      "_seconds": 1771430472,
+      "_nanoseconds": 773000000
+    },
+    "processedAt": {
+      "_seconds": 1771430476,
+      "_nanoseconds": 630000000
+    },
+    "userId": "bCKXnnsZsGMTCYw6zKeN",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "7veYT4bghc9KgTEMMAYV",
+    "ticketId": "283",
+    "phone": "3142851047",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NH54",
+    "username": "Mía Manosalva ",
+    "importedAt": "2026-03-19T22:14:07.928Z",
+    "timestamp": {
+      "_seconds": 1773958448,
+      "_nanoseconds": 110000000
+    },
+    "processedAt": {
+      "_seconds": 1773958448,
+      "_nanoseconds": 927000000
+    },
+    "userId": "g3UgosMjR4iglKxamNJt",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "7wxp4sugoDol7AKH3Aws",
+    "ticketId": "57",
+    "phone": "3054256716",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OL50",
+    "username": "Jorge Andrés Rodríguez Carrillo ",
+    "importedAt": "2026-02-15T19:35:03.377Z",
+    "timestamp": {
+      "_seconds": 1771184103,
+      "_nanoseconds": 560000000
+    },
+    "processedAt": {
+      "_seconds": 1771184106,
+      "_nanoseconds": 481000000
+    },
+    "userId": "1poG3b35SdFPxlvNNfDo",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "80tL11he7z43ADfN1r98",
+    "ticketId": "46",
+    "phone": "3164655467",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RE45",
+    "username": "Myriam barrera",
+    "importedAt": "2026-02-20T17:18:57.037Z",
+    "timestamp": {
+      "_seconds": 1771607938,
+      "_nanoseconds": 34000000
+    },
+    "processedAt": {
+      "_seconds": 1771607941,
+      "_nanoseconds": 909000000
+    },
+    "userId": "slwLIQVGNEluFpsrhEge",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "8XxsEbRDXWYMUHvrxPfv",
+    "ticketId": "184",
+    "phone": "3193994489",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AF93",
+    "username": "Gabriela bernal ",
+    "importedAt": "2026-03-19T12:55:11.586Z",
+    "timestamp": {
+      "_seconds": 1773924911,
+      "_nanoseconds": 768000000
+    },
+    "processedAt": {
+      "_seconds": 1773924912,
+      "_nanoseconds": 687000000
+    },
+    "userId": "95IuPwX6phWyi75a4nTV",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "8hzgCanyDXpD2cMVJDBq",
+    "ticketId": "272",
+    "phone": "3145963872",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GR30",
+    "username": "Lucia baquero",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 272 is already owned by User HuJp0bHZlTGy6SptEtBG.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "8sYyQuRTrwCwdRmtknTB",
+    "ticketId": "120",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SO23",
+    "username": "Karen Moreno Orjuela",
+    "importedAt": "2026-02-17T22:28:48.253Z",
+    "timestamp": {
+      "_seconds": 1771367328,
+      "_nanoseconds": 467000000
+    },
+    "processedAt": {
+      "_seconds": 1771367332,
+      "_nanoseconds": 373000000
+    },
+    "userId": "22AzkAjLiKUt4zJ8mWQr",
+    "status": "SUCCESS",
+    "phone": "3115335293"
+  },
+  {
+    "id": "8vCr0AIsLAswqtHW82dW",
+    "ticketId": "180",
+    "phone": "3132010234",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CW62",
+    "username": "Yolima diaz",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 180 is already owned by User K14B1veZZFaigFd3cuWr.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "9IJ5gNeKtF4mLpOamcVy",
+    "ticketId": "175",
+    "phone": "3194036883",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZK62",
+    "username": "Heidy Quevedo",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 175 is already owned by User yN1l1b2h0FvVYeWUkDaQ.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "9Nlpj0joXadN6gWJPy5Y",
+    "ticketId": "211",
+    "phone": "3104785402",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XG59",
+    "username": "Enrique ramirez",
+    "importedAt": "2026-03-19T18:12:07.348Z",
+    "timestamp": {
+      "_seconds": 1773943927,
+      "_nanoseconds": 536000000
+    },
+    "processedAt": {
+      "_seconds": 1773943930,
+      "_nanoseconds": 937000000
+    },
+    "userId": "yT7HN9wkO2VxUc10KXdy",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "9RNVXd5bWXHMD7Mhc1xv",
+    "ticketId": "271",
+    "phone": "3107755293",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TT46",
+    "username": "Nicolas rodriguez",
+    "importedAt": "2026-03-19T14:11:26.958Z",
+    "timestamp": {
+      "_seconds": 1773929487,
+      "_nanoseconds": 132000000
+    },
+    "processedAt": {
+      "_seconds": 1773929490,
+      "_nanoseconds": 388000000
+    },
+    "userId": "Fp3M55yUPCokiYaHiQLE",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "9frMgeX86I6Aw0FTz1LZ",
+    "ticketId": "22",
+    "phone": "3203396882",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LH66",
+    "username": "Andrés Bernal",
+    "importedAt": "2026-02-17T08:15:23.369Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 22 is already owned by User eT781VOisY8aSoKS5HL6.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "9hXARtQb52k8aHSDtEsw",
+    "ticketId": "16",
+    "phone": "3022900938",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HE39",
+    "username": "Liliana Amaya",
+    "importedAt": "2026-02-15T17:32:03.141Z",
+    "timestamp": {
+      "_seconds": 1771176723,
+      "_nanoseconds": 263000000
+    },
+    "processedAt": {
+      "_seconds": 1771176724,
+      "_nanoseconds": 352000000
+    },
+    "userId": "PyoeQQnq4FMEV55IsXhm",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "9mSMT1F25PvZm43VwbWa",
+    "ticketId": "181",
+    "phone": "3123154827",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MT16",
+    "username": "Maria cardenas",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 181 is already owned by User 2HdACeObf43nTlMJUamO.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "9niqYvZctobuM6BQpuL1",
+    "ticketId": "7",
+    "phone": "3123656910",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LD87",
+    "username": "Paula Delgadillo",
+    "importedAt": "2026-02-17T08:15:23.361Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 7 is already owned by User cnnCb5Qjnbh8fkGwLxyh.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "9oo4HlAslwf4V2ct2diO",
+    "ticketId": "229",
+    "phone": "3045608600",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XB15",
+    "username": "Oscar gomez ",
+    "importedAt": "2026-03-19T20:57:28.003Z",
+    "timestamp": {
+      "_seconds": 1773953848,
+      "_nanoseconds": 128000000
+    },
+    "processedAt": {
+      "_seconds": 1773953848,
+      "_nanoseconds": 434000000
+    },
+    "userId": "Iu2zZzr7IJLO1I6hZcdt",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "9sHI0QtZTyeSVeHiaW1n",
+    "ticketId": "183",
+    "phone": "3002841772",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AR96",
+    "username": "Daniela hernandez",
+    "importedAt": "2026-03-19T12:52:52.374Z",
+    "timestamp": {
+      "_seconds": 1773924773,
+      "_nanoseconds": 309000000
+    },
+    "processedAt": {
+      "_seconds": 1773924774,
+      "_nanoseconds": 228000000
+    },
+    "userId": "dUY437bEbgui1JqfJ4xj",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "9vagBFcP743aRYFeJvLL",
+    "ticketId": "133",
+    "phone": "3005696754",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WA67",
+    "username": "Maria Roa",
+    "importedAt": "2026-02-16T21:50:16.355Z",
+    "timestamp": {
+      "_seconds": 1771278616,
+      "_nanoseconds": 486000000
+    },
+    "processedAt": {
+      "_seconds": 1771278616,
+      "_nanoseconds": 882000000
+    },
+    "userId": "InmqAPBsBfrA48eNLH6e",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "AA0vIRrzmHOpRFaV8jnT",
+    "ticketId": "258",
+    "phone": "3132162053",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CQ39",
+    "username": "Ivan Rodriguex",
+    "importedAt": "2026-03-19T22:09:32.911Z",
+    "timestamp": {
+      "_seconds": 1773958173,
+      "_nanoseconds": 21000000
+    },
+    "processedAt": {
+      "_seconds": 1773958173,
+      "_nanoseconds": 332000000
+    },
+    "userId": "J0EbAnYbpzZsn2M8xAa8",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "AdG0Wa53UuOwQB5FnSlt",
+    "ticketId": "6",
+    "phone": "3016672535",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QR11",
+    "username": "Melissa Delgado",
+    "importedAt": "2026-02-18T03:19:23.933Z",
+    "timestamp": {
+      "_seconds": 1771384764,
+      "_nanoseconds": 146000000
+    },
+    "processedAt": {
+      "_seconds": 1771384767,
+      "_nanoseconds": 745000000
+    },
+    "userId": "oVXfbup9KzJv5IDl4IO7",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "AeADttnEkySwpGauSpoG",
+    "ticketId": "206",
+    "phone": "1523415426",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YG44",
+    "username": "Thomas Dryzmalla",
+    "importedAt": "2026-03-04T23:44:37.662Z",
+    "timestamp": {
+      "_seconds": 1772667877,
+      "_nanoseconds": 786000000
+    },
+    "processedAt": {
+      "_seconds": 1772667879,
+      "_nanoseconds": 30000000
+    },
+    "userId": "7geyoH80DzvnC7HSlzQJ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "AgxMej8atfhLI8qSUPE2",
+    "ticketId": "265",
+    "phone": "3232042948",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "VE51",
+    "username": "Sandra acero",
+    "importedAt": "2026-03-19T22:37:48.017Z",
+    "timestamp": {
+      "_seconds": 1773959868,
+      "_nanoseconds": 926000000
+    },
+    "processedAt": {
+      "_seconds": 1773959869,
+      "_nanoseconds": 196000000
+    },
+    "userId": "0ya8UqJdoKmPNOXpka5z",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "BUnzvHgirh5AtWiOWoZd",
+    "ticketId": "106",
+    "phone": "3108079737",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GY13",
+    "username": "Diana Niño",
+    "importedAt": "2026-02-20T02:18:53.281Z",
+    "timestamp": {
+      "_seconds": 1771553933,
+      "_nanoseconds": 410000000
+    },
+    "processedAt": {
+      "_seconds": 1771553935,
+      "_nanoseconds": 710000000
+    },
+    "userId": "buh7aj1j5ADUV3Ug4pNJ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "BYbjjPwyf6lwBppMB1ig",
+    "ticketId": "4",
+    "phone": "3182616471",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NP52",
+    "username": "Carlos Becerra",
+    "importedAt": "2026-02-17T08:15:23.370Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 4 is already owned by User ACM8gYACLPgK8wPFywEC.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "BYeOAup6LlX4VJyGzah9",
+    "ticketId": "156",
+    "phone": "3207206948",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IZ56",
+    "username": "Paola bedoya",
+    "importedAt": "2026-03-19T11:36:46.488Z",
+    "timestamp": {
+      "_seconds": 1773920207,
+      "_nanoseconds": 482000000
+    },
+    "processedAt": {
+      "_seconds": 1773920208,
+      "_nanoseconds": 458000000
+    },
+    "userId": "AnLnhEyHtTyT1Na5Qed9",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "BghkUD6csa9EuRKjbeKy",
+    "ticketId": "179",
+    "phone": "3138526009",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DM68",
+    "username": "Marina quevedo",
+    "importedAt": "2026-03-19T12:39:46.779Z",
+    "timestamp": {
+      "_seconds": 1773923986,
+      "_nanoseconds": 976000000
+    },
+    "processedAt": {
+      "_seconds": 1773923987,
+      "_nanoseconds": 351000000
+    },
+    "userId": "6n3d6T8fCn1KmUnpkjT4",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "C1BWdLIsrhYVYShS2F5v",
+    "ticketId": "68",
+    "phone": "3192055726",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JW21",
+    "username": "Luis Fernando González cuervo",
+    "importedAt": "2026-02-20T17:41:17.075Z",
+    "timestamp": {
+      "_seconds": 1771609278,
+      "_nanoseconds": 60000000
+    },
+    "processedAt": {
+      "_seconds": 1771609281,
+      "_nanoseconds": 904000000
+    },
+    "userId": "FOe1DHIVoui87WqhBOKi",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "C5IzaVpeAx4bnO0niyXZ",
+    "ticketId": "79",
+    "phone": "3015433827",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NL86",
+    "username": "Maritza Contreras",
+    "importedAt": "2026-02-15T16:36:47.820Z",
+    "timestamp": {
+      "_seconds": 1771173407,
+      "_nanoseconds": 951000000
+    },
+    "processedAt": {
+      "_seconds": 1771173409,
+      "_nanoseconds": 201000000
+    },
+    "userId": "4FQgwZ3E59o8v7SMP5kS",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "C7nYE3S9dznMIoMzWuOf",
+    "ticketId": "118",
+    "phone": "3157857266",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DK34",
+    "username": "Marbel Cano",
+    "importedAt": "2026-02-15T17:57:38.005Z",
+    "timestamp": {
+      "_seconds": 1771178258,
+      "_nanoseconds": 109000000
+    },
+    "processedAt": {
+      "_seconds": 1771178259,
+      "_nanoseconds": 12000000
+    },
+    "userId": "FtXHdBadNenLYx7v5be6",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "CAkXOBPuZF1noF9jdj7Y",
+    "ticketId": "196",
+    "phone": "3105537668",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QZ05",
+    "username": "Maleja cuervo",
+    "importedAt": "2026-03-19T13:17:06.658Z",
+    "timestamp": {
+      "_seconds": 1773926226,
+      "_nanoseconds": 774000000
+    },
+    "processedAt": {
+      "_seconds": 1773926227,
+      "_nanoseconds": 145000000
+    },
+    "userId": "FGn5NnAetEoXpe4zBOlg",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "CH2KYKr5vewmvoU4aO3g",
+    "ticketId": "78",
+    "phone": "3005694631",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NH49",
+    "username": "Reina Pardo ",
+    "importedAt": "2026-02-20T00:46:12.976Z",
+    "timestamp": {
+      "_seconds": 1771548374,
+      "_nanoseconds": 58000000
+    },
+    "processedAt": {
+      "_seconds": 1771548375,
+      "_nanoseconds": 285000000
+    },
+    "userId": "uti3Jy0kYebKXVnkdwKx",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "CIM2XAx6TdeO0ZBlFLN5",
+    "ticketId": "28",
+    "phone": "3105594381",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZB34",
+    "username": "Javier Sandoval",
+    "importedAt": "2026-02-15T21:03:41.551Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 28 is already owned by User ZKC26uLEb9VsrVrZ0MMa.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "CjJzidm2AfqsVj63HOjm",
+    "ticketId": "140",
+    "phone": "3132631508",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NQ08",
+    "username": "Caterine cortez",
+    "importedAt": "2026-03-19T11:33:06.501Z",
+    "timestamp": {
+      "_seconds": 1773919986,
+      "_nanoseconds": 618000000
+    },
+    "processedAt": {
+      "_seconds": 1773919988,
+      "_nanoseconds": 235000000
+    },
+    "userId": "Reng4Fcj0j1FBMj0cvpG",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "D2BxL9aST2fXNQmjLfJJ",
+    "ticketId": "236",
+    "phone": "3144671382",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EA11",
+    "username": "Nicolas Santamaria ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 236 is already owned by User 5VlA1av4yENTyw3O1s3d.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "D7ZmPmcYvOyhK2Vnyn5o",
+    "ticketId": "93",
+    "phone": "3208384395",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RI15",
+    "username": "Delma Bernal",
+    "importedAt": "2026-02-17T22:52:53.459Z",
+    "timestamp": {
+      "_seconds": 1771368773,
+      "_nanoseconds": 631000000
+    },
+    "processedAt": {
+      "_seconds": 1771368777,
+      "_nanoseconds": 399000000
+    },
+    "userId": "MAHhroebS5JY6813lRga",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "DDFbGiPYMHGSsrbcSbNp",
+    "ticketId": "77",
+    "phone": "3508527410",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YY66",
+    "username": "Miguel Sosa",
+    "importedAt": "2026-02-17T08:15:23.361Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 77 is already owned by User GL5a0yXuJM912UvlvpP9.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "DKOoeBuzxadoMrgDiP9F",
+    "ticketId": "279",
+    "phone": "5616170258",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZK21",
+    "username": "Marta Neira ",
+    "importedAt": "2026-03-04T23:39:57.659Z",
+    "timestamp": {
+      "_seconds": 1772667597,
+      "_nanoseconds": 779000000
+    },
+    "processedAt": {
+      "_seconds": 1772667598,
+      "_nanoseconds": 434000000
+    },
+    "userId": "sd8yqkiaEzboZ28F6wRZ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "DSRljCVevnCDZRBsUSTg",
+    "ticketId": "300",
+    "phone": "3124649394",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YC31",
+    "username": "Amanda ",
+    "importedAt": "2026-03-19T22:20:47.937Z",
+    "timestamp": {
+      "_seconds": 1773958848,
+      "_nanoseconds": 53000000
+    },
+    "processedAt": {
+      "_seconds": 1773958848,
+      "_nanoseconds": 355000000
+    },
+    "userId": "ahzxwYEUd0n9ktAKrwsp",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "DVR3YfG9djZMPhIgEnco",
+    "ticketId": "257",
+    "phone": "3146006195",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WK67",
+    "username": "Daniela Argüelles Gómez",
+    "importedAt": "2026-03-07T15:29:34.251Z",
+    "timestamp": {
+      "_seconds": 1772897374,
+      "_nanoseconds": 568000000
+    },
+    "processedAt": {
+      "_seconds": 1772897377,
+      "_nanoseconds": 879000000
+    },
+    "userId": "yoZObBDOdsIJvSkRp7IQ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "DYv1ucSEIHP4qYJgbpuP",
+    "ticketId": "77",
+    "phone": "3508527410",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YY66",
+    "username": "Miguel Sosa",
+    "importedAt": "2026-02-15T15:48:22.787Z",
+    "timestamp": {
+      "_seconds": 1771170502,
+      "_nanoseconds": 916000000
+    },
+    "processedAt": {
+      "_seconds": 1771170503,
+      "_nanoseconds": 507000000
+    },
+    "userId": "GL5a0yXuJM912UvlvpP9",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "DkcLbOYBYMv4as5lXpGm",
+    "ticketId": "261",
+    "phone": "3205656299",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CZ02",
+    "username": "Mabelu",
+    "importedAt": "2026-03-19T22:14:27.979Z",
+    "timestamp": {
+      "_seconds": 1773958468,
+      "_nanoseconds": 95000000
+    },
+    "processedAt": {
+      "_seconds": 1773958468,
+      "_nanoseconds": 373000000
+    },
+    "userId": "4EuGzRnMYcVIWsEsLSel",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Dm5GWxZlLUP87X40TTVF",
+    "ticketId": "141",
+    "phone": "3105796030",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IZ87",
+    "importedAt": "2026-03-01T21:58:33.538Z",
+    "timestamp": {
+      "_seconds": 1772402313,
+      "_nanoseconds": 664000000
+    },
+    "processedAt": {
+      "_seconds": 1772402313,
+      "_nanoseconds": 971000000
+    },
+    "userId": "1VGS7uz4HXiKM0xrPrN8",
+    "status": "SUCCESS",
+    "username": "Angela Morales"
+  },
+  {
+    "id": "DoBF8tRjzp8zuPNSyAAb",
+    "ticketId": "79",
+    "phone": "3015433827",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NL86",
+    "username": "Maritza Contreras",
+    "importedAt": "2026-02-17T08:15:23.362Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 79 is already owned by User 4FQgwZ3E59o8v7SMP5kS.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "DoKTAwHB0ci1gyXeTkow",
+    "ticketId": "72",
+    "phone": "3168783010",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZK01",
+    "username": "Stella Delgadillo ",
+    "importedAt": "2026-02-22T14:32:19.264Z",
+    "timestamp": {
+      "_seconds": 1771770740,
+      "_nanoseconds": 368000000
+    },
+    "processedAt": {
+      "_seconds": 1771770744,
+      "_nanoseconds": 285000000
+    },
+    "userId": "iuY8LVzbtkBuDaDC0bQF",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "DyWaqYVAEr99NzzMmUcP",
+    "ticketId": "111",
+    "phone": "3108625196",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QO60",
+    "username": "Maria Angelica Bucheli",
+    "importedAt": "2026-02-17T04:56:56.395Z",
+    "timestamp": {
+      "_seconds": 1771304216,
+      "_nanoseconds": 521000000
+    },
+    "processedAt": {
+      "_seconds": 1771304217,
+      "_nanoseconds": 818000000
+    },
+    "userId": "L4Os309rwzX5dx8lPA3N",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "E2Jz6gBNNYQpDGnUeC1l",
+    "ticketId": "111",
+    "phone": "3108625196",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QO60",
+    "username": "Maria Angelica Bucheli",
+    "importedAt": "2026-02-17T08:15:23.370Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 111 is already owned by User L4Os309rwzX5dx8lPA3N.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "E3vfDbTxbjXRY0ybdGUO",
+    "ticketId": "216",
+    "phone": "3224365024",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MI17",
+    "username": "Manuela Carolina Flórez López ",
+    "importedAt": "2026-03-05T19:39:33.644Z",
+    "timestamp": {
+      "_seconds": 1772739574,
+      "_nanoseconds": 287000000
+    },
+    "processedAt": {
+      "_seconds": 1772739577,
+      "_nanoseconds": 887000000
+    },
+    "userId": "v5mjT8zbsvQkxyIkghk3",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Edc72uElbx63IPxCC4VL",
+    "ticketId": "217",
+    "phone": "3222589139",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZF85",
+    "username": "Kylie ramirez",
+    "importedAt": "2026-03-19T20:27:07.714Z",
+    "timestamp": {
+      "_seconds": 1773952027,
+      "_nanoseconds": 879000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 217 is already owned by User x9QJxU1hEdpIB8ba5rG2.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "EfaSbh1exYUs7TYxqJTs",
+    "ticketId": "294",
+    "phone": "3134671984",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TC51",
+    "username": "Alabnis perez",
+    "importedAt": "2026-03-19T22:20:52.890Z",
+    "timestamp": {
+      "_seconds": 1773958853,
+      "_nanoseconds": 15000000
+    },
+    "processedAt": {
+      "_seconds": 1773958853,
+      "_nanoseconds": 835000000
+    },
+    "userId": "AG77vlUtiW9kBJET6PEL",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "F5VEFH53mn23xAX1WbSj",
+    "ticketId": "142",
+    "phone": "3002304766",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JF18",
+    "username": "Gloria Carrera",
+    "importedAt": "2026-02-22T23:16:00.902Z",
+    "timestamp": {
+      "_seconds": 1771802161,
+      "_nanoseconds": 62000000
+    },
+    "processedAt": {
+      "_seconds": 1771802162,
+      "_nanoseconds": 815000000
+    },
+    "userId": "3IiHk8Hkylx752jkKXhf",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "F9PtbFbTRsD2eX7fcCST",
+    "ticketId": "40",
+    "phone": "3213419379",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CO97",
+    "username": "Sara Cantillo",
+    "importedAt": "2026-02-23T02:54:01.669Z",
+    "timestamp": {
+      "_seconds": 1771815241,
+      "_nanoseconds": 860000000
+    },
+    "processedAt": {
+      "_seconds": 1771815245,
+      "_nanoseconds": 183000000
+    },
+    "userId": "OnzDdkI163pj61DUrCLa",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "FJQqwsPo29BK5gVIwI6P",
+    "ticketId": "280",
+    "phone": "7133927584",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IF01",
+    "username": "Lucia Niño",
+    "importedAt": "2026-03-04T03:15:23.707Z",
+    "timestamp": {
+      "_seconds": 1772594123,
+      "_nanoseconds": 898000000
+    },
+    "processedAt": {
+      "_seconds": 1772594128,
+      "_nanoseconds": 490000000
+    },
+    "userId": "5p3HcsdIJKpTHXewY9lx",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "FLib1nkyYURhPPnQj6xm",
+    "ticketId": "96",
+    "phone": "3000000000",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LC76",
+    "username": "Abuelita Simon",
+    "importedAt": "2026-03-06T20:38:37.551Z",
+    "timestamp": {
+      "_seconds": 1772829518,
+      "_nanoseconds": 658000000
+    },
+    "processedAt": {
+      "_seconds": 1772829521,
+      "_nanoseconds": 928000000
+    },
+    "userId": "zYA20IGaPmL8chqckUAq",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "FSboWsxSwlFTi6nDKhxF",
+    "ticketId": "73",
+    "phone": "3118940005",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EZ17",
+    "username": "David Pardo Barragán ",
+    "importedAt": "2026-02-20T15:14:15.850Z",
+    "timestamp": {
+      "_seconds": 1771600456,
+      "_nanoseconds": 856000000
+    },
+    "processedAt": {
+      "_seconds": 1771600460,
+      "_nanoseconds": 997000000
+    },
+    "userId": "GeSaNZbpYRq85cvbwY38",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "FW6fh8uCynFUkEn7llVG",
+    "ticketId": "380",
+    "phone": "3228762326",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TN34",
+    "username": "Yaneth ",
+    "importedAt": "2026-03-19T22:35:48.052Z",
+    "timestamp": {
+      "_seconds": 1773959748,
+      "_nanoseconds": 231000000
+    },
+    "processedAt": {
+      "_seconds": 1773959748,
+      "_nanoseconds": 727000000
+    },
+    "userId": "T5coeZwH13gBI0g4OM5H",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "FceMs0KaJybFBoJO0gqi",
+    "ticketId": "175",
+    "phone": "3194036883",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZK62",
+    "username": "Heidy Quevedo",
+    "importedAt": "2026-03-19T12:29:31.511Z",
+    "timestamp": {
+      "_seconds": 1773923371,
+      "_nanoseconds": 634000000
+    },
+    "processedAt": {
+      "_seconds": 1773923372,
+      "_nanoseconds": 274000000
+    },
+    "userId": "yN1l1b2h0FvVYeWUkDaQ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "FhatbqjtrygIWklSF5zc",
+    "ticketId": "245",
+    "phone": "30175424551",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KB25",
+    "username": "Cindy Geney",
+    "importedAt": "2026-03-19T13:36:31.650Z",
+    "timestamp": {
+      "_seconds": 1773927392,
+      "_nanoseconds": 621000000
+    },
+    "processedAt": {
+      "_seconds": 1773927395,
+      "_nanoseconds": 575000000
+    },
+    "userId": "VbNCFd8BaMjlJoAFeMU2",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "FssSIbbg8lwhoGv9kLlg",
+    "ticketId": "208",
+    "phone": "3028426869",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AU49",
+    "username": "Andres restrepo",
+    "importedAt": "2026-03-19T15:30:46.970Z",
+    "timestamp": {
+      "_seconds": 1773934247,
+      "_nanoseconds": 87000000
+    },
+    "processedAt": {
+      "_seconds": 1773934247,
+      "_nanoseconds": 721000000
+    },
+    "userId": "2QIWGdnHhIxV5x73Jmxl",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "FtQXguBbF3PJ4EU5uyh9",
+    "ticketId": "224",
+    "phone": "3114742511",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AJ96",
+    "username": "Tatiana rosales ",
+    "importedAt": "2026-03-19T20:39:07.716Z",
+    "timestamp": {
+      "_seconds": 1773952747,
+      "_nanoseconds": 839000000
+    },
+    "processedAt": {
+      "_seconds": 1773952748,
+      "_nanoseconds": 785000000
+    },
+    "userId": "GrOAO4N4c4tN8oVtm5tY",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "G16q6MykBT6ZU7C2aVwT",
+    "ticketId": "221",
+    "phone": "3052548476",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PA27",
+    "username": "Lucía Carrera ",
+    "importedAt": "2026-03-19T14:25:36.813Z",
+    "timestamp": {
+      "_seconds": 1773930337,
+      "_nanoseconds": 809000000
+    },
+    "processedAt": {
+      "_seconds": 1773930338,
+      "_nanoseconds": 896000000
+    },
+    "userId": "ibWdqaDOuEx41vxTKFH7",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "G3kH2szlKwcvvingPmit",
+    "ticketId": "183",
+    "phone": "3002841772",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AR96",
+    "username": "Daniela hernandez",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 183 is already owned by User dUY437bEbgui1JqfJ4xj.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "GCaQaKcUnTWpeIptOsn7",
+    "ticketId": "211",
+    "phone": "3104785402",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XG59",
+    "username": "Enrique ramirez",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 211 is already owned by User yT7HN9wkO2VxUc10KXdy.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "GHkLfLIyn2nnVpUQSN5i",
+    "ticketId": "212",
+    "phone": "1762276351",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JP77",
+    "username": "Nicola ",
+    "importedAt": "2026-03-05T22:12:32.454Z",
+    "timestamp": {
+      "_seconds": 1772748752,
+      "_nanoseconds": 665000000
+    },
+    "processedAt": {
+      "_seconds": 1772748755,
+      "_nanoseconds": 882000000
+    },
+    "userId": "vMutfnmXyMs3Ow4x6PwR",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "GIFEtOz7AhwEmWeDWTPh",
+    "ticketId": "57",
+    "phone": "3054256716",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OL50",
+    "username": "Jorge Andrés Rodríguez Carrillo ",
+    "importedAt": "2026-02-17T08:15:23.365Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 57 is already owned by User 1poG3b35SdFPxlvNNfDo.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "GJkLcZNKKo1VYhXXMYYU",
+    "ticketId": "28",
+    "phone": "3105594381",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZB34",
+    "username": "Javier Sandoval",
+    "importedAt": "2026-02-17T08:15:23.364Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 28 is already owned by User ZKC26uLEb9VsrVrZ0MMa.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "GLAQh52k26txqcETsQPH",
+    "ticketId": "153",
+    "phone": "3156266426",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CH81",
+    "username": "Inés Sanabria ",
+    "importedAt": "2026-03-03T00:54:38.395Z",
+    "timestamp": {
+      "_seconds": 1772499278,
+      "_nanoseconds": 579000000
+    },
+    "processedAt": {
+      "_seconds": 1772499282,
+      "_nanoseconds": 98000000
+    },
+    "userId": "bJ94G9hXHuitggWCyCKu",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "GM8plj2BfhhShJ6b816s",
+    "ticketId": "35",
+    "phone": "3203389246",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SM17",
+    "username": "Gustavo Delgado ",
+    "importedAt": "2026-02-20T00:37:32.980Z",
+    "timestamp": {
+      "_seconds": 1771547853,
+      "_nanoseconds": 183000000
+    },
+    "processedAt": {
+      "_seconds": 1771547857,
+      "_nanoseconds": 129000000
+    },
+    "userId": "xYO8A1UhMJo1UxOlPsNo",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "GMFuSFs1RkJfDwCeax9M",
+    "ticketId": "273",
+    "phone": "3173444472",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YE65",
+    "username": "Maria botero",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 273 is already owned by User wTcgryUTRarlEWfBRHZs.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "GUaCXLTj3GWOUozFjwBU",
+    "ticketId": "185",
+    "phone": "3208953160",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GA98",
+    "username": "Isabela diaz",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 185 is already owned by User USF5DZzJRAMKnxjBmghn.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "GbvIYgUw5wlmdAlVjI9N",
+    "ticketId": "150",
+    "phone": "3134709458",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YQ11",
+    "username": "Diana Tamayo",
+    "importedAt": "2026-03-01T21:55:13.289Z",
+    "timestamp": {
+      "_seconds": 1772402114,
+      "_nanoseconds": 281000000
+    },
+    "processedAt": {
+      "_seconds": 1772402117,
+      "_nanoseconds": 412000000
+    },
+    "userId": "ys3AQw56jgJIa3j51o9f",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "GfyV9FQW0Csg3YGG74bf",
+    "ticketId": "135",
+    "phone": "3157827147",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CK24",
+    "username": "Consuelo Ariza Carvajal",
+    "importedAt": "2026-02-23T02:13:16.802Z",
+    "timestamp": {
+      "_seconds": 1771812796,
+      "_nanoseconds": 970000000
+    },
+    "processedAt": {
+      "_seconds": 1771812798,
+      "_nanoseconds": 231000000
+    },
+    "userId": "JXG8VkNWJvyufqkra2CU",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "GkodRS03diDvVm2FasR3",
+    "ticketId": "38",
+    "phone": "3163321568",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MR50",
+    "username": "Edgar Medellin Suarez ",
+    "importedAt": "2026-02-22T18:14:29.991Z",
+    "timestamp": {
+      "_seconds": 1771784070,
+      "_nanoseconds": 108000000
+    },
+    "processedAt": {
+      "_seconds": 1771784071,
+      "_nanoseconds": 146000000
+    },
+    "userId": "mXOeSiff97UOuimaNb43",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "GtLwYJstl3K5oiM4pMNm",
+    "ticketId": "204",
+    "phone": "3143508840",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "US39",
+    "username": "Leydi Ortiz ",
+    "importedAt": "2026-03-02T13:27:16.334Z",
+    "timestamp": {
+      "_seconds": 1772458037,
+      "_nanoseconds": 453000000
+    },
+    "processedAt": {
+      "_seconds": 1772458041,
+      "_nanoseconds": 92000000
+    },
+    "userId": "WJlsuYOFfOGVTTYZSLYG",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "GzGnAGCBpd4PBQ2Q02ex",
+    "ticketId": "25",
+    "phone": "3167607356",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EU47",
+    "username": "Sabina patiño",
+    "importedAt": "2026-02-15T15:06:22.672Z",
+    "timestamp": {
+      "_seconds": 1771167983,
+      "_nanoseconds": 675000000
+    },
+    "processedAt": {
+      "_seconds": 1771167986,
+      "_nanoseconds": 717000000
+    },
+    "userId": "VFgEcdLnd7wfJUWgEd3B",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "H1Wt8OIfC1f1ObbZPGat",
+    "ticketId": "67",
+    "phone": "3178950849",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IC93",
+    "username": "Cecilia Santamaría ",
+    "importedAt": "2026-02-19T16:38:31.281Z",
+    "timestamp": {
+      "_seconds": 1771519112,
+      "_nanoseconds": 301000000
+    },
+    "processedAt": {
+      "_seconds": 1771519115,
+      "_nanoseconds": 614000000
+    },
+    "userId": "qTWM6hnj106nAKtCO9gO",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "HDFZHRcNpqY4CS0ntvYi",
+    "ticketId": "69",
+    "phone": "3176391441",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ID08",
+    "username": "Sandra Herrera ",
+    "importedAt": "2026-02-18T14:37:41.090Z",
+    "timestamp": {
+      "_seconds": 1771425461,
+      "_nanoseconds": 273000000
+    },
+    "processedAt": {
+      "_seconds": 1771425465,
+      "_nanoseconds": 18000000
+    },
+    "userId": "bBdUvPVOIeutPlcYMuXN",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "HaWn4UoZAY19qBvyGGbC",
+    "ticketId": "31",
+    "phone": "3103284975",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QJ23",
+    "username": "Juan Diego Fuentes ",
+    "importedAt": "2026-02-19T21:49:32.359Z",
+    "timestamp": {
+      "_seconds": 1771537773,
+      "_nanoseconds": 359000000
+    },
+    "processedAt": {
+      "_seconds": 1771537777,
+      "_nanoseconds": 130000000
+    },
+    "userId": "CqSrIas4Yrk6pOrggWxx",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "HhVuJwuxeqdNEZEgEAri",
+    "ticketId": "13",
+    "phone": "3118125633",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GD96",
+    "username": "Magaly Barragan",
+    "importedAt": "2026-02-15T21:03:41.549Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 13 is already owned by User Y0TXhc1dFRt8W0rzyohl.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "HmwAG3VanuAtRALAJL0c",
+    "ticketId": "118",
+    "phone": "3157857266",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DK34",
+    "username": "Marbel Cano",
+    "importedAt": "2026-02-17T08:15:23.364Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 118 is already owned by User FtXHdBadNenLYx7v5be6.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "IIGdrTLyjyuL9BWXBtnl",
+    "ticketId": "51",
+    "phone": "3158215637",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EQ85",
+    "username": "Maria Margarita Sanchez Prieto",
+    "importedAt": "2026-02-22T20:17:00.373Z",
+    "timestamp": {
+      "_seconds": 1771791421,
+      "_nanoseconds": 440000000
+    },
+    "processedAt": {
+      "_seconds": 1771791424,
+      "_nanoseconds": 486000000
+    },
+    "userId": "ElhUW5VGrFZASw3KB2pw",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "IJ5P6noKrdhvuGf648PD",
+    "ticketId": "208",
+    "phone": "3028426869",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AU49",
+    "username": "Andres restrepo",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 208 is already owned by User 2QIWGdnHhIxV5x73Jmxl.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "ITElJi5kafYdqTJykwVB",
+    "ticketId": "79",
+    "phone": "3015433827",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NL86",
+    "username": "Maritza Contreras",
+    "importedAt": "2026-02-15T21:03:41.549Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 79 is already owned by User 4FQgwZ3E59o8v7SMP5kS.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "ITZGR3lajGuPKQcScTjX",
+    "ticketId": "5",
+    "phone": "3134670194",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GK83",
+    "username": "Jaydith Galvis",
+    "importedAt": "2026-02-17T08:15:23.365Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 5 is already owned by User vTWMfBZcbYMIkDjqp9H8.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "Iu0O8pWFTnIKLEAPPnAW",
+    "ticketId": "198",
+    "phone": "3123363713",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZS62",
+    "username": "Santiago bejarano",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 198 is already owned by User Q82a28fAibgLxbfBVr4c.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "Iyum6HjCxnJzQm14IPfd",
+    "ticketId": "217",
+    "phone": "3222589139",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZF85",
+    "username": "Kylie ramirez",
+    "importedAt": "2026-03-19T20:26:59.769Z",
+    "timestamp": {
+      "_seconds": 1773952020,
+      "_nanoseconds": 91000000
+    },
+    "processedAt": {
+      "_seconds": 1773952021,
+      "_nanoseconds": 11000000
+    },
+    "userId": "x9QJxU1hEdpIB8ba5rG2",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "J4lIHv81JvdMDWVdDeWY",
+    "ticketId": "16",
+    "phone": "3022900938",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HE39",
+    "username": "Liliana Amaya",
+    "importedAt": "2026-02-17T08:15:23.363Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 16 is already owned by User PyoeQQnq4FMEV55IsXhm.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "JrEaZICUobLIGYQWB9Qn",
+    "ticketId": "159",
+    "phone": "3138056274",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WY08",
+    "username": "Alejandro Bernal",
+    "importedAt": "2026-03-02T00:24:53.687Z",
+    "timestamp": {
+      "_seconds": 1772411094,
+      "_nanoseconds": 683000000
+    },
+    "processedAt": {
+      "_seconds": 1772411097,
+      "_nanoseconds": 833000000
+    },
+    "userId": "4DkmdvU6mKPJZiaBqN5o",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "KK0QluqgbIaMxvBloTFN",
+    "ticketId": "243",
+    "phone": "3132730533",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DJ88",
+    "username": "Sofia rozo",
+    "importedAt": "2026-03-19T21:47:12.826Z",
+    "timestamp": {
+      "_seconds": 1773956833,
+      "_nanoseconds": 2000000
+    },
+    "processedAt": {
+      "_seconds": 1773956833,
+      "_nanoseconds": 347000000
+    },
+    "userId": "2JMCV965HhrYVebxdrPk",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "KNK22J4ZAm0AIq3OrXqQ",
+    "ticketId": "286",
+    "phone": "3103241176",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LD38",
+    "username": "Sofia Escobar ",
+    "importedAt": "2026-03-19T22:07:08.073Z",
+    "timestamp": {
+      "_seconds": 1773958028,
+      "_nanoseconds": 196000000
+    },
+    "processedAt": {
+      "_seconds": 1773958028,
+      "_nanoseconds": 532000000
+    },
+    "userId": "kClFwmOWD9asfTYua2M4",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "KP17CKdqwm0857DjNA8K",
+    "ticketId": "61",
+    "phone": "3203451820",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PB61",
+    "username": "Carlos Tellez",
+    "importedAt": "2026-02-22T20:21:45.356Z",
+    "timestamp": {
+      "_seconds": 1771791706,
+      "_nanoseconds": 255000000
+    },
+    "processedAt": {
+      "_seconds": 1771791707,
+      "_nanoseconds": 409000000
+    },
+    "userId": "6Pc2K1ypljDNfy06tpwh",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "KTGsFNUaTwJ2H9MbUiIX",
+    "ticketId": "3",
+    "phone": "3005370857",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "VH03",
+    "username": "Diego Urrego Fonseca ",
+    "importedAt": "2026-02-17T03:24:20.772Z",
+    "timestamp": {
+      "_seconds": 1771298660,
+      "_nanoseconds": 952000000
+    },
+    "processedAt": {
+      "_seconds": 1771298663,
+      "_nanoseconds": 905000000
+    },
+    "userId": "iOF4UPd8WtL8rYJhuSoB",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "L6rp3AaCzVUTy403ACrm",
+    "ticketId": "158",
+    "phone": "3202247450",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LL60",
+    "username": "Astrid Cruz",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 158 is already owned by User uOeEGmRIaoFF31qVkDit.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "LXrn5g9cEbLmNxWNWnOF",
+    "ticketId": "124",
+    "phone": "3212963507",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CG34",
+    "username": "Hector Rodriguez",
+    "importedAt": "2026-02-16T21:44:39.878Z",
+    "timestamp": {
+      "_seconds": 1771278280,
+      "_nanoseconds": 71000000
+    },
+    "processedAt": {
+      "_seconds": 1771278283,
+      "_nanoseconds": 16000000
+    },
+    "userId": "CzazK7JWHN2aQVKdop6Y",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "LYvqs1cRqN5JEBaZfqMh",
+    "ticketId": "42",
+    "phone": "3182004659",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UP08",
+    "username": "Nicolas Borrero",
+    "importedAt": "2026-02-17T15:55:38.364Z",
+    "timestamp": {
+      "_seconds": 1771343739,
+      "_nanoseconds": 340000000
+    },
+    "processedAt": {
+      "_seconds": 1771343742,
+      "_nanoseconds": 992000000
+    },
+    "userId": "w7ZsOAVoH2XKs5uf4rS2",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "LaaMKNecCDZqm94zqu1u",
+    "ticketId": "126",
+    "phone": "3156014136",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QJ34",
+    "username": "Pelusa",
+    "importedAt": "2026-02-28T16:25:27.580Z",
+    "timestamp": {
+      "_seconds": 1772295927,
+      "_nanoseconds": 702000000
+    },
+    "processedAt": {
+      "_seconds": 1772295931,
+      "_nanoseconds": 603000000
+    },
+    "userId": "qVQ5C9fdgE9lk4h4s5T0",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Lj0Zt3FVp0lSxhrJlTMK",
+    "ticketId": "12",
+    "phone": "3165206865",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KJ95",
+    "importedAt": "2026-02-17T04:04:40.930Z",
+    "timestamp": {
+      "_seconds": 1771301081,
+      "_nanoseconds": 112000000
+    },
+    "processedAt": {
+      "_seconds": 1771301084,
+      "_nanoseconds": 33000000
+    },
+    "userId": "7JVc4QztCiD8MbcR3vwL",
+    "status": "SUCCESS",
+    "username": "Fabian Carrera Amaya"
+  },
+  {
+    "id": "Lmj2wZSoudPDAt2T6FDI",
+    "ticketId": "90",
+    "phone": "3202156916",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "VI09",
+    "username": "Andres Castro",
+    "importedAt": "2026-02-22T18:09:09.953Z",
+    "timestamp": {
+      "_seconds": 1771783750,
+      "_nanoseconds": 72000000
+    },
+    "processedAt": {
+      "_seconds": 1771783751,
+      "_nanoseconds": 95000000
+    },
+    "userId": "PcfyS1Y3Rx6igf4CT5Gz",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Lr9xQEIvquO11DAMs0lt",
+    "ticketId": "85",
+    "phone": "3043004397",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IH52",
+    "username": "Yolanda Buitrago",
+    "importedAt": "2026-02-21T14:15:24.861Z",
+    "timestamp": {
+      "_seconds": 1771683324,
+      "_nanoseconds": 986000000
+    },
+    "processedAt": {
+      "_seconds": 1771683329,
+      "_nanoseconds": 428000000
+    },
+    "userId": "8kqqUn5pBOesIO3anxQh",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "M2fHEx1IB7oSxpAYmJuM",
+    "ticketId": "187",
+    "phone": "3103341569",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZD22",
+    "username": "Ana bernal",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 187 is already owned by User IwNVF7TcLgwshiUFMnyj.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "M5OJ0nrqrsK80BqhISxW",
+    "ticketId": "47",
+    "phone": "3158347323",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MK73",
+    "username": "Luisa Fernanda Carrillo Giraldo ",
+    "importedAt": "2026-02-15T19:01:09.520Z",
+    "timestamp": {
+      "_seconds": 1771182070,
+      "_nanoseconds": 553000000
+    },
+    "processedAt": {
+      "_seconds": 1771182073,
+      "_nanoseconds": 577000000
+    },
+    "userId": "i9zfp9VbtcTXa7rG2Kxg",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "M9uYbmekNaqD50kMEcOi",
+    "ticketId": "192",
+    "phone": "3206772181",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TU72",
+    "username": "Natalia villamil",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 192 is already owned by User dDA2FegPyTNhE3ucxw7P.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "MIY1N7kaAjjf5COXhOoI",
+    "ticketId": "227",
+    "phone": "3138009491",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NT91",
+    "username": "Marta lopez",
+    "importedAt": "2026-03-19T20:51:52.656Z",
+    "timestamp": {
+      "_seconds": 1773953512,
+      "_nanoseconds": 781000000
+    },
+    "processedAt": {
+      "_seconds": 1773953513,
+      "_nanoseconds": 77000000
+    },
+    "userId": "unffOVbLelUR7KkI3LP8",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "MNZBCl3sS6K0z4YfmGBW",
+    "ticketId": "232",
+    "phone": "3054633110",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GN16",
+    "username": "Julia Quiñones",
+    "importedAt": "2026-03-04T01:43:28.360Z",
+    "timestamp": {
+      "_seconds": 1772588608,
+      "_nanoseconds": 535000000
+    },
+    "processedAt": {
+      "_seconds": 1772588611,
+      "_nanoseconds": 510000000
+    },
+    "userId": "zKxPkMuUhg5tClHDEbuX",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "MTuDLEFpMhF29NLITRWN",
+    "ticketId": "16",
+    "phone": "3022900938",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HE39",
+    "username": "Liliana Amaya",
+    "importedAt": "2026-02-15T21:03:41.550Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 16 is already owned by User PyoeQQnq4FMEV55IsXhm.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "MYtTyB3XqQo2aSRRux4J",
+    "ticketId": "231",
+    "phone": "3164675645",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "VF02",
+    "username": "Fabio Bejarano",
+    "importedAt": "2026-03-04T01:22:23.131Z",
+    "timestamp": {
+      "_seconds": 1772587344,
+      "_nanoseconds": 190000000
+    },
+    "processedAt": {
+      "_seconds": 1772587345,
+      "_nanoseconds": 463000000
+    },
+    "userId": "ShRvMHqhsOBqoaWLIge9",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "MaIvCD8TEzH0DgPta0yo",
+    "ticketId": "246",
+    "phone": "3160499918",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TG56",
+    "username": "Santiago tapia",
+    "importedAt": "2026-03-19T21:56:32.835Z",
+    "timestamp": {
+      "_seconds": 1773957392,
+      "_nanoseconds": 965000000
+    },
+    "processedAt": {
+      "_seconds": 1773957393,
+      "_nanoseconds": 805000000
+    },
+    "userId": "4mifor60lVJ2RTBkg9Wu",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "MbMe241PDl4cXujeHczo",
+    "ticketId": "74",
+    "phone": "3233222470",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UX50",
+    "username": "Olga Hernández ",
+    "importedAt": "2026-02-19T14:13:20.927Z",
+    "timestamp": {
+      "_seconds": 1771510401,
+      "_nanoseconds": 129000000
+    },
+    "processedAt": {
+      "_seconds": 1771510405,
+      "_nanoseconds": 36000000
+    },
+    "userId": "XBXCTbdhhNhKUbJSlmOK",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "MonnRswnh235l2eytbJy",
+    "ticketId": "22",
+    "phone": "3203396882",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LH66",
+    "username": "Andrés Bernal",
+    "importedAt": "2026-02-17T01:47:55.624Z",
+    "timestamp": {
+      "_seconds": 1771292875,
+      "_nanoseconds": 802000000
+    },
+    "processedAt": {
+      "_seconds": 1771292876,
+      "_nanoseconds": 677000000
+    },
+    "userId": "eT781VOisY8aSoKS5HL6",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "N2jo8h4wksoMrWGIOHky",
+    "ticketId": "163",
+    "phone": "3018105709",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZO52",
+    "username": "Judith Neira ",
+    "importedAt": "2026-02-18T20:19:07.375Z",
+    "timestamp": {
+      "_seconds": 1771445947,
+      "_nanoseconds": 504000000
+    },
+    "processedAt": {
+      "_seconds": 1771445948,
+      "_nanoseconds": 852000000
+    },
+    "userId": "WkrWPkSGy8XOFJfM9njU",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "NMDfTEqEGYlJkpoGZjtd",
+    "ticketId": "110",
+    "phone": "3105595363",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DL63",
+    "username": "Melina Cruz",
+    "importedAt": "2026-02-22T18:07:09.963Z",
+    "timestamp": {
+      "_seconds": 1771783631,
+      "_nanoseconds": 53000000
+    },
+    "processedAt": {
+      "_seconds": 1771783635,
+      "_nanoseconds": 36000000
+    },
+    "userId": "W94SXQGQZquBNgTozVCN",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "NMTZlh8rWPrZzccUgTRI",
+    "ticketId": "169",
+    "phone": "3123092567",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SV28",
+    "username": "Pilar molina",
+    "importedAt": "2026-03-19T12:24:46.594Z",
+    "timestamp": {
+      "_seconds": 1773923087,
+      "_nanoseconds": 679000000
+    },
+    "processedAt": {
+      "_seconds": 1773923091,
+      "_nanoseconds": 152000000
+    },
+    "userId": "yMqsE2zHhio7pHPBjD3b",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "NMtTtCzyGbXuObWCCojw",
+    "ticketId": "23",
+    "phone": "3507502357",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MH24",
+    "username": "Sara Izquierdo ",
+    "importedAt": "2026-02-18T13:17:05.858Z",
+    "timestamp": {
+      "_seconds": 1771420626,
+      "_nanoseconds": 58000000
+    },
+    "processedAt": {
+      "_seconds": 1771420627,
+      "_nanoseconds": 421000000
+    },
+    "userId": "ghgORdPTrm1zQoD20kRj",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "NU4uAqqtCnpGRDQ9PFSY",
+    "ticketId": "47",
+    "phone": "3158347323",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MK73",
+    "username": "Luisa Fernanda Carrillo Giraldo ",
+    "importedAt": "2026-02-17T08:15:23.365Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 47 is already owned by User i9zfp9VbtcTXa7rG2Kxg.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "NXCDkKv7RkWYCJ8wQCeD",
+    "ticketId": "58",
+    "phone": "3143006195",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RG98",
+    "username": "Catalina Gomez ",
+    "importedAt": "2026-02-22T01:08:56.606Z",
+    "timestamp": {
+      "_seconds": 1771722537,
+      "_nanoseconds": 573000000
+    },
+    "processedAt": {
+      "_seconds": 1771722541,
+      "_nanoseconds": 526000000
+    },
+    "userId": "vlgjgmtOvmWxRAzpgiTz",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "NnIv8dZBCmH0jhvisDrX",
+    "ticketId": "144",
+    "phone": "3014384575",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SW66",
+    "username": "Sandra marin",
+    "importedAt": "2026-02-17T13:50:17.941Z",
+    "timestamp": {
+      "_seconds": 1771336218,
+      "_nanoseconds": 922000000
+    },
+    "processedAt": {
+      "_seconds": 1771336222,
+      "_nanoseconds": 665000000
+    },
+    "userId": "NHhNJWFnBkFTZQgf2gON",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "OEVe782BVvR5FoCpTgQi",
+    "ticketId": "223",
+    "phone": "3245896645",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FB46",
+    "username": "Juan palacio",
+    "importedAt": "2026-03-19T20:35:07.763Z",
+    "timestamp": {
+      "_seconds": 1773952507,
+      "_nanoseconds": 875000000
+    },
+    "processedAt": {
+      "_seconds": 1773952508,
+      "_nanoseconds": 158000000
+    },
+    "userId": "ubDyRre90UfFuO0giqy5",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "OIqaVIZgP2kfuYHQSlu6",
+    "ticketId": "24",
+    "phone": "3142232470",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SP02",
+    "username": "Yilver Molina",
+    "importedAt": "2026-02-17T01:26:15.652Z",
+    "timestamp": {
+      "_seconds": 1771291575,
+      "_nanoseconds": 771000000
+    },
+    "processedAt": {
+      "_seconds": 1771291577,
+      "_nanoseconds": 663000000
+    },
+    "userId": "M2AIIE4sbx46ftRViVBR",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "OJFBwRtpE5KsUuGt6Nx5",
+    "ticketId": "162",
+    "phone": "3168543538",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EI40",
+    "username": "Rosmery romero",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 162 is already owned by User X5ikFMdmbTJM929JB2k2.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "OihBy4v6XPlgNqeEHBNq",
+    "ticketId": "81",
+    "phone": "3203061635",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TD08",
+    "importedAt": "2026-02-18T13:07:11.189Z",
+    "timestamp": {
+      "_seconds": 1771420031,
+      "_nanoseconds": 401000000
+    },
+    "processedAt": {
+      "_seconds": 1771420035,
+      "_nanoseconds": 264000000
+    },
+    "userId": "vV6DPFXIjmriAmIH6JvV",
+    "status": "SUCCESS",
+    "username": "Liliana Mosquera"
+  },
+  {
+    "id": "OihWClOy23UrIoOwfwrm",
+    "ticketId": "53",
+    "phone": "3153162961",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UB88",
+    "username": "ALEJANDRO DUITAMA",
+    "importedAt": "2026-02-17T08:15:23.369Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 53 is already owned by User RYB5AtcXpAl1L9FbK9gj.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "PAoeUda4QD6f1Dq7bnWz",
+    "ticketId": "60",
+    "phone": "3008448611",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AC35",
+    "username": "Stevan Ramirez Cajamarca",
+    "importedAt": "2026-02-17T01:26:35.646Z",
+    "timestamp": {
+      "_seconds": 1771291595,
+      "_nanoseconds": 759000000
+    },
+    "processedAt": {
+      "_seconds": 1771291596,
+      "_nanoseconds": 419000000
+    },
+    "userId": "FDLlRx2xvmYTCoaDlGyr",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "PGw2kgPiEcuLImws8Ftu",
+    "ticketId": "198",
+    "phone": "3123363713",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZS62",
+    "username": "Santiago bejarano",
+    "importedAt": "2026-03-19T13:19:46.696Z",
+    "timestamp": {
+      "_seconds": 1773926386,
+      "_nanoseconds": 809000000
+    },
+    "processedAt": {
+      "_seconds": 1773926387,
+      "_nanoseconds": 169000000
+    },
+    "userId": "Q82a28fAibgLxbfBVr4c",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "PLLJ5flgp39PZMP9evul",
+    "ticketId": "71",
+    "phone": "3118858409",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XB22",
+    "username": "Francisco Bartolomeu",
+    "importedAt": "2026-02-17T08:15:23.365Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 71 is already owned by User I1xS8gTMwYwlsTahZcD7.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "PfCkGe264lnFOMHjpN9v",
+    "ticketId": "235",
+    "phone": "3227975780",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UV98",
+    "username": "Nicolas fonseca ",
+    "importedAt": "2026-03-19T21:12:47.819Z",
+    "timestamp": {
+      "_seconds": 1773954768,
+      "_nanoseconds": 738000000
+    },
+    "processedAt": {
+      "_seconds": 1773954769,
+      "_nanoseconds": 859000000
+    },
+    "userId": "mK2dnuYqcG80KDkqbBo6",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "PltUl000QfGGBYGvZFvv",
+    "ticketId": "119",
+    "phone": "3002149450",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EQ57",
+    "username": "Ricardo Torres Sabogal ",
+    "importedAt": "2026-02-18T20:14:07.353Z",
+    "timestamp": {
+      "_seconds": 1771445648,
+      "_nanoseconds": 344000000
+    },
+    "processedAt": {
+      "_seconds": 1771445653,
+      "_nanoseconds": 453000000
+    },
+    "userId": "bWoIHYWVdkxB4CULpfUR",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "PrEMHAYhFb5labex7IDo",
+    "ticketId": "91",
+    "phone": "3202659938",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BQ23",
+    "username": "Diana Duque",
+    "importedAt": "2026-02-20T19:16:17.327Z",
+    "timestamp": {
+      "_seconds": 1771614977,
+      "_nanoseconds": 502000000
+    },
+    "processedAt": {
+      "_seconds": 1771614981,
+      "_nanoseconds": 572000000
+    },
+    "userId": "LNaHgk3z8s2yTx41UsWf",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "QFN0RagwYeLajHyofrbT",
+    "ticketId": "32",
+    "phone": "3102142709",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZA17",
+    "username": "Monica Vigoya",
+    "importedAt": "2026-02-20T15:36:05.619Z",
+    "timestamp": {
+      "_seconds": 1771601766,
+      "_nanoseconds": 98000000
+    },
+    "processedAt": {
+      "_seconds": 1771601767,
+      "_nanoseconds": 597000000
+    },
+    "userId": "wYGqaGrpF4fKnnBCpRpo",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "QJRBDjXGNrLxLcllKgoR",
+    "ticketId": "169",
+    "phone": "3123092567",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SV28",
+    "username": "Pilar molina",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 169 is already owned by User yMqsE2zHhio7pHPBjD3b.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "QLmc9dvqp8JbMfJ6nf0F",
+    "ticketId": "147",
+    "phone": "3214877834",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FE31",
+    "importedAt": "2026-02-16T21:51:54.971Z",
+    "timestamp": {
+      "_seconds": 1771278715,
+      "_nanoseconds": 91000000
+    },
+    "processedAt": {
+      "_seconds": 1771278715,
+      "_nanoseconds": 474000000
+    },
+    "userId": "m8bLKeT5Dw18Odjw31Yh",
+    "status": "SUCCESS",
+    "username": "Jaime Vergara"
+  },
+  {
+    "id": "QceP3oqx9oswkeVBCN8F",
+    "ticketId": "173",
+    "phone": "3006419745",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RL80",
+    "username": "Ferney Baquero",
+    "importedAt": "2026-03-19T12:27:26.611Z",
+    "timestamp": {
+      "_seconds": 1773923246,
+      "_nanoseconds": 737000000
+    },
+    "processedAt": {
+      "_seconds": 1773923247,
+      "_nanoseconds": 697000000
+    },
+    "userId": "j8UdievxuUuQs08HLPpx",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Qeo7KBF1IEzFs9VxPygl",
+    "ticketId": "164",
+    "phone": "3186516568",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RO44",
+    "username": "Valeria Becerra",
+    "importedAt": "2026-02-17T08:15:23.371Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 164 is already owned by User aWwNH0qef5I7ovphuGbU.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "QoNxe2uIHrYhNZibet4f",
+    "ticketId": "112",
+    "phone": "3059793859",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GZ35",
+    "username": "León ",
+    "importedAt": "2026-03-04T20:34:46.995Z",
+    "timestamp": {
+      "_seconds": 1772656487,
+      "_nanoseconds": 177000000
+    },
+    "processedAt": {
+      "_seconds": 1772656491,
+      "_nanoseconds": 615000000
+    },
+    "userId": "8oLYrfubk2TltIg4MueR",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "QrdQZ5hfebtpRWNO9hSm",
+    "ticketId": "242",
+    "phone": "3219511007",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "VK20",
+    "username": "Encarnacion ",
+    "importedAt": "2026-03-19T21:37:47.889Z",
+    "timestamp": {
+      "_seconds": 1773956268,
+      "_nanoseconds": 797000000
+    },
+    "processedAt": {
+      "_seconds": 1773956269,
+      "_nanoseconds": 175000000
+    },
+    "userId": "FxmVBni8RK7yjVEoW07h",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Qs1NksClWY7UwHM2gwde",
+    "ticketId": "188",
+    "phone": "3008750489",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WT22",
+    "username": "Mariana cova",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 188 is already owned by User 1RcbJSwnuak5BO0y8mWD.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "QxgKqd9kHcEsN3xg7GaN",
+    "ticketId": "296",
+    "phone": "3003181706",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XK27",
+    "username": "Juana ",
+    "importedAt": "2026-03-19T22:38:28.052Z",
+    "timestamp": {
+      "_seconds": 1773959908,
+      "_nanoseconds": 166000000
+    },
+    "processedAt": {
+      "_seconds": 1773959908,
+      "_nanoseconds": 970000000
+    },
+    "userId": "y4OPaSnnDa2VLxvDNHsd",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "R3K2us7aiOCGR7GI1MeL",
+    "ticketId": "19",
+    "phone": "3222254082",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WO39",
+    "username": "Juana Lozano",
+    "importedAt": "2026-02-17T08:15:23.362Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 19 is already owned by User HOLbQpXnAD0wpNHgEKqU.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "RMFV90E8XNuQiY1ar2So",
+    "ticketId": "180",
+    "phone": "3132010234",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CW62",
+    "username": "Yolima diaz",
+    "importedAt": "2026-03-19T12:42:06.621Z",
+    "timestamp": {
+      "_seconds": 1773924127,
+      "_nanoseconds": 534000000
+    },
+    "processedAt": {
+      "_seconds": 1773924128,
+      "_nanoseconds": 342000000
+    },
+    "userId": "K14B1veZZFaigFd3cuWr",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "RbiROgWnCo8mTyN7b1NQ",
+    "ticketId": "127",
+    "phone": "3153434767",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OH36",
+    "username": "Alvaro I Rodriguez P",
+    "importedAt": "2026-02-17T01:25:55.606Z",
+    "timestamp": {
+      "_seconds": 1771291556,
+      "_nanoseconds": 559000000
+    },
+    "processedAt": {
+      "_seconds": 1771291559,
+      "_nanoseconds": 467000000
+    },
+    "userId": "F9G29fysMdaYRx2xnVM6",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Ro5hoSxM8g02K2rrvwZ8",
+    "ticketId": "82",
+    "phone": "3105717181",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JL95",
+    "username": "María Paula Acosta",
+    "importedAt": "2026-02-17T08:15:23.361Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 82 is already owned by User NZvqadJ0jBLtLXBQmeE0.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "RplmP7MI18dg14uWiH5e",
+    "ticketId": "275",
+    "phone": "3004679031",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TV91",
+    "username": "Natalia villamil",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 275 is already owned by User OKL3ospaX6RqE7DclFRD.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "S0bIPQ0InrMpV32kvf3k",
+    "ticketId": "136",
+    "phone": "3004679031",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MQ39",
+    "importedAt": "2026-02-20T22:27:58.020Z",
+    "timestamp": {
+      "_seconds": 1771626479,
+      "_nanoseconds": 105000000
+    },
+    "processedAt": {
+      "_seconds": 1771626482,
+      "_nanoseconds": 796000000
+    },
+    "userId": "OKL3ospaX6RqE7DclFRD",
+    "status": "SUCCESS",
+    "username": "Santiago Bejarano"
+  },
+  {
+    "id": "S24Y5T16uJ7uZ0zzjzmX",
+    "ticketId": "195",
+    "phone": "3124402119",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UA16",
+    "username": "Ángela María Sánchez Jiménez ",
+    "importedAt": "2026-02-23T00:29:46.053Z",
+    "timestamp": {
+      "_seconds": 1771806586,
+      "_nanoseconds": 239000000
+    },
+    "processedAt": {
+      "_seconds": 1771806589,
+      "_nanoseconds": 170000000
+    },
+    "userId": "DNFTlj1HCdqiUIyYN4wP",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "S7tXyOnpMYl3ckAR5688",
+    "ticketId": "71",
+    "phone": "3118858409",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XB22",
+    "username": "Francisco Bartolomeu",
+    "importedAt": "2026-02-15T21:03:41.554Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 71 is already owned by User I1xS8gTMwYwlsTahZcD7.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "SF57YWNCrXDueoPtCIec",
+    "ticketId": "215",
+    "phone": "3125877157",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TG05",
+    "username": "Luis Emiro Olave",
+    "importedAt": "2026-02-22T22:49:41.154Z",
+    "timestamp": {
+      "_seconds": 1771800581,
+      "_nanoseconds": 340000000
+    },
+    "processedAt": {
+      "_seconds": 1771800584,
+      "_nanoseconds": 925000000
+    },
+    "userId": "kVRNyeIzxmOmOXFjx3v4",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "T2kv9tfZmBThaBq5GaQ9",
+    "ticketId": "167",
+    "phone": "3043991402",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QZ32",
+    "username": "Aide chavez",
+    "importedAt": "2026-03-19T11:58:31.438Z",
+    "timestamp": {
+      "_seconds": 1773921511,
+      "_nanoseconds": 569000000
+    },
+    "processedAt": {
+      "_seconds": 1773921511,
+      "_nanoseconds": 960000000
+    },
+    "userId": "XUXgsM340IRf2K7c2RQX",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "T3HhmWM590gHWBeiFTDJ",
+    "ticketId": "101",
+    "phone": "3222486798",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FM28",
+    "username": "Natalia Becerra",
+    "importedAt": "2026-02-17T05:14:56.230Z",
+    "timestamp": {
+      "_seconds": 1771305296,
+      "_nanoseconds": 412000000
+    },
+    "processedAt": {
+      "_seconds": 1771305297,
+      "_nanoseconds": 752000000
+    },
+    "userId": "7hrpv6TNMCVttQKQoxzi",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "T6sN0OhrojcnXrBVYmjr",
+    "ticketId": "273",
+    "phone": "3173444472",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YE65",
+    "username": "Maria botero",
+    "importedAt": "2026-03-19T13:50:07.593Z",
+    "timestamp": {
+      "_seconds": 1773928208,
+      "_nanoseconds": 683000000
+    },
+    "processedAt": {
+      "_seconds": 1773928210,
+      "_nanoseconds": 49000000
+    },
+    "userId": "wTcgryUTRarlEWfBRHZs",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "TAdsO4lPW7hBtE37eoJv",
+    "ticketId": "247",
+    "phone": "3017141863",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OY29",
+    "username": "Isabella Carrera ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 247 is already owned by User o9UtWMG7JZKIfQuwPjfg.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "TSIDXHgSmd0gKKydKDs2",
+    "ticketId": "37",
+    "phone": "3147636833",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SK91",
+    "username": "Miriam Buitrago ",
+    "importedAt": "2026-02-15T21:03:41.547Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 37 is already owned by User H7gATEqtv54W7v1zZwkN.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "TScPWxpm7g5SwKwS2Y6w",
+    "ticketId": "20",
+    "phone": "3233222470",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PF13",
+    "username": "Olga Hernández ",
+    "importedAt": "2026-02-19T14:13:20.926Z",
+    "timestamp": {
+      "_seconds": 1771510401,
+      "_nanoseconds": 129000000
+    },
+    "processedAt": {
+      "_seconds": 1771510405,
+      "_nanoseconds": 206000000
+    },
+    "userId": "XBXCTbdhhNhKUbJSlmOK",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "TVFWhmafRMv97Gu2k9aC",
+    "ticketId": "137",
+    "phone": "3158405695",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LL71",
+    "username": "Maria Alejandra Alvarado",
+    "importedAt": "2026-02-15T21:03:41.558Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 137 is already owned by User 32m3bL3BbGYnB1uWBLt3.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "To2YekeUAB0CwCGglvu7",
+    "ticketId": "157",
+    "phone": "3042504612",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ID79",
+    "username": "Nelly Duarte",
+    "importedAt": "2026-02-22T20:28:40.432Z",
+    "timestamp": {
+      "_seconds": 1771792120,
+      "_nanoseconds": 555000000
+    },
+    "processedAt": {
+      "_seconds": 1771792121,
+      "_nanoseconds": 665000000
+    },
+    "userId": "FAWc2ar41DGJPBR4knW4",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "U7mCpHus9uMZlAArReNm",
+    "ticketId": "137",
+    "phone": "3158405695",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LL71",
+    "username": "Maria Alejandra Alvarado",
+    "importedAt": "2026-02-17T08:15:23.366Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 137 is already owned by User 32m3bL3BbGYnB1uWBLt3.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "U8RQ1pROtsiwO4IcRQyG",
+    "ticketId": "47",
+    "phone": "3158347323",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MK73",
+    "username": "Luisa Fernanda Carrillo Giraldo ",
+    "importedAt": "2026-02-15T21:03:41.553Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 47 is already owned by User i9zfp9VbtcTXa7rG2Kxg.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "UPHcvsFJ6hvJ6v4KzeMD",
+    "ticketId": "164",
+    "phone": "3186516568",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RO44",
+    "username": "Valeria Becerra",
+    "importedAt": "2026-02-17T05:07:16.197Z",
+    "timestamp": {
+      "_seconds": 1771304836,
+      "_nanoseconds": 389000000
+    },
+    "processedAt": {
+      "_seconds": 1771304838,
+      "_nanoseconds": 348000000
+    },
+    "userId": "aWwNH0qef5I7ovphuGbU",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "URFhc8AABEF7bHaadiiP",
+    "ticketId": "219",
+    "phone": "3138923617",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GQ09",
+    "username": "Jenny Andrea Ramos Umaña",
+    "importedAt": "2026-03-05T13:50:31.032Z",
+    "timestamp": {
+      "_seconds": 1772718631,
+      "_nanoseconds": 255000000
+    },
+    "processedAt": {
+      "_seconds": 1772718635,
+      "_nanoseconds": 107000000
+    },
+    "userId": "S8hwp7RatS055fPwzPrS",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "UZBfzuuxmPUjyJlgWsc5",
+    "ticketId": "27",
+    "phone": "3002568680",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OO45",
+    "username": "José Manuel Garzón ",
+    "importedAt": "2026-02-18T01:38:23.727Z",
+    "timestamp": {
+      "_seconds": 1771378704,
+      "_nanoseconds": 669000000
+    },
+    "processedAt": {
+      "_seconds": 1771378708,
+      "_nanoseconds": 389000000
+    },
+    "userId": "VcgIt05J0GkGdZb99CvD",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "UhkOX77ywKy1VoINGmiO",
+    "ticketId": "291",
+    "phone": "3152888298",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KC71",
+    "username": "María Camila Vargas",
+    "importedAt": "2026-03-19T22:46:08.680Z",
+    "timestamp": {
+      "_seconds": 1773960368,
+      "_nanoseconds": 792000000
+    },
+    "processedAt": {
+      "_seconds": 1773960369,
+      "_nanoseconds": 81000000
+    },
+    "userId": "sRYO4ZR5E8P2VF0EjRDg",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Ulut0HBaKnK8ekr8GpOy",
+    "ticketId": "174",
+    "phone": "3153528044",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BX05",
+    "username": "Blanca Alicia Nieto Sotomayor",
+    "importedAt": "2026-02-22T20:30:25.357Z",
+    "timestamp": {
+      "_seconds": 1771792225,
+      "_nanoseconds": 477000000
+    },
+    "processedAt": {
+      "_seconds": 1771792225,
+      "_nanoseconds": 779000000
+    },
+    "userId": "3it0vSroyVRBfvXR1TJB",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Ur8KPhiecdkt7HZ8c6M9",
+    "ticketId": "10",
+    "phone": "3176798322",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MC79",
+    "username": "Luciana Garzon",
+    "importedAt": "2026-02-16T21:27:59.855Z",
+    "timestamp": {
+      "_seconds": 1771277280,
+      "_nanoseconds": 117000000
+    },
+    "processedAt": {
+      "_seconds": 1771277283,
+      "_nanoseconds": 237000000
+    },
+    "userId": "5hTTbPHpzJb8aPiItxZ6",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Uxt1sGcclpsot1CYuyIq",
+    "ticketId": "274",
+    "phone": "3213711079",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ND47",
+    "username": "Leonardo Carreño",
+    "importedAt": "2026-03-07T18:43:34.696Z",
+    "timestamp": {
+      "_seconds": 1772909015,
+      "_nanoseconds": 823000000
+    },
+    "processedAt": {
+      "_seconds": 1772909018,
+      "_nanoseconds": 866000000
+    },
+    "userId": "g5VxJmXgRmgJhqEItbTo",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "V54nUGjd0JzyXkAo6SYR",
+    "ticketId": "104",
+    "phone": "3107660378",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QV39",
+    "username": "Nayive Traslavina",
+    "importedAt": "2026-02-25T17:20:03.830Z",
+    "timestamp": {
+      "_seconds": 1772040004,
+      "_nanoseconds": 14000000
+    },
+    "processedAt": {
+      "_seconds": 1772040005,
+      "_nanoseconds": 710000000
+    },
+    "userId": "BJG8enMNWA6rNBBaudcL",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "V7XBtNqXQ4YnvzWMjU0J",
+    "ticketId": "50",
+    "phone": "3213793415",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AG58",
+    "username": "Annie rozó rojas ",
+    "importedAt": "2026-02-18T20:32:07.448Z",
+    "timestamp": {
+      "_seconds": 1771446728,
+      "_nanoseconds": 410000000
+    },
+    "processedAt": {
+      "_seconds": 1771446729,
+      "_nanoseconds": 617000000
+    },
+    "userId": "T4a268Xa6kqLmK53jotz",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "V8IDwse3kKTJ7kRW4WSv",
+    "ticketId": "160",
+    "phone": "3103402912",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OE18",
+    "username": "Esperanza Lopez",
+    "importedAt": "2026-03-19T11:49:46.693Z",
+    "timestamp": {
+      "_seconds": 1773920987,
+      "_nanoseconds": 795000000
+    },
+    "processedAt": {
+      "_seconds": 1773920989,
+      "_nanoseconds": 13000000
+    },
+    "userId": "47rQhbUGHVSqaiNwct0l",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Vr0c2Y72Dd7t7ZVeyJ8J",
+    "ticketId": "278",
+    "phone": "3106191725",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SA64",
+    "username": "Roberto Tamayo",
+    "importedAt": "2026-03-04T03:17:03.576Z",
+    "timestamp": {
+      "_seconds": 1772594223,
+      "_nanoseconds": 701000000
+    },
+    "processedAt": {
+      "_seconds": 1772594224,
+      "_nanoseconds": 948000000
+    },
+    "userId": "wzX9ck1LOAQoyBGllkV5",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "W0bO93cXIC4NWn0cACfv",
+    "ticketId": "188",
+    "phone": "3008750489",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WT22",
+    "username": "Mariana cova",
+    "importedAt": "2026-03-19T13:04:31.578Z",
+    "timestamp": {
+      "_seconds": 1773925472,
+      "_nanoseconds": 556000000
+    },
+    "processedAt": {
+      "_seconds": 1773925473,
+      "_nanoseconds": 584000000
+    },
+    "userId": "1RcbJSwnuak5BO0y8mWD",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "WHU9wFGaWkxn4JsfAtVx",
+    "ticketId": "9",
+    "phone": "3173779209",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MY41",
+    "username": "Luis David Rojas",
+    "importedAt": "2026-02-15T23:06:24.089Z",
+    "timestamp": {
+      "_seconds": 1771196784,
+      "_nanoseconds": 278000000
+    },
+    "processedAt": {
+      "_seconds": 1771196787,
+      "_nanoseconds": 393000000
+    },
+    "userId": "lRQJVnKj87WBmapfYZEZ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "WhKzcEhtk7JyD2ipgfab",
+    "ticketId": "311",
+    "phone": "3202359640",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QI91",
+    "username": "Mauricio ",
+    "importedAt": "2026-03-19T22:19:12.869Z",
+    "timestamp": {
+      "_seconds": 1773958752,
+      "_nanoseconds": 989000000
+    },
+    "processedAt": {
+      "_seconds": 1773958753,
+      "_nanoseconds": 254000000
+    },
+    "userId": "lQDqcgfKRpwsGB7W0U30",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "X5kRpsG6nLOyMKx6yLAU",
+    "ticketId": "60",
+    "phone": "3008448611",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AC35",
+    "username": "Stevan Ramirez Cajamarca",
+    "importedAt": "2026-02-17T08:15:23.369Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 60 is already owned by User FDLlRx2xvmYTCoaDlGyr.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "XBYLqZAepjZM9OLlvhZY",
+    "ticketId": "125",
+    "phone": "3232312235",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HC80",
+    "username": "Andrea Maldonado",
+    "importedAt": "2026-02-16T21:45:54.949Z",
+    "timestamp": {
+      "_seconds": 1771278355,
+      "_nanoseconds": 69000000
+    },
+    "processedAt": {
+      "_seconds": 1771278356,
+      "_nanoseconds": 764000000
+    },
+    "userId": "0ZT0SnCPGZYqxDdK5l6s",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "XCQuNhS8fUQeRKRWleT3",
+    "ticketId": "82",
+    "phone": "3105717181",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JL95",
+    "username": "María Paula Acosta",
+    "importedAt": "2026-02-15T15:54:27.691Z",
+    "timestamp": {
+      "_seconds": 1771170868,
+      "_nanoseconds": 806000000
+    },
+    "processedAt": {
+      "_seconds": 1771170870,
+      "_nanoseconds": 331000000
+    },
+    "userId": "NZvqadJ0jBLtLXBQmeE0",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "XQKVBZqxdcpVs7yqkc2C",
+    "ticketId": "105",
+    "phone": "3163321568",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BR80",
+    "username": "Edgar Medellin Suarez ",
+    "importedAt": "2026-02-22T18:14:29.991Z",
+    "timestamp": {
+      "_seconds": 1771784070,
+      "_nanoseconds": 108000000
+    },
+    "processedAt": {
+      "_seconds": 1771784071,
+      "_nanoseconds": 31000000
+    },
+    "userId": "mXOeSiff97UOuimaNb43",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "XUNFXZow7jNDbMooB5aW",
+    "ticketId": "207",
+    "phone": "3007548549",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JH85",
+    "username": "Ricardo Torres Sabogal ",
+    "importedAt": "2026-03-19T13:44:26.726Z",
+    "timestamp": {
+      "_seconds": 1773927866,
+      "_nanoseconds": 848000000
+    },
+    "processedAt": {
+      "_seconds": 1773927868,
+      "_nanoseconds": 76000000
+    },
+    "userId": "7QJqqydGAnhUwW7NEr52",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "XnLiDR1fxCmkR0AjPScZ",
+    "ticketId": "88",
+    "phone": "3002095782",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UC24",
+    "username": "Soraya Villalba",
+    "importedAt": "2026-02-18T14:09:26.089Z",
+    "timestamp": {
+      "_seconds": 1771423766,
+      "_nanoseconds": 264000000
+    },
+    "processedAt": {
+      "_seconds": 1771423769,
+      "_nanoseconds": 929000000
+    },
+    "userId": "mfH7Y0UNOkyRf1WuPvEs",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "XzatQLbBb7rdgGBpGdoe",
+    "ticketId": "149",
+    "phone": "3002102817",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RN03",
+    "username": "Mónica Torres ",
+    "importedAt": "2026-02-18T19:08:31.998Z",
+    "timestamp": {
+      "_seconds": 1771441713,
+      "_nanoseconds": 7000000
+    },
+    "processedAt": {
+      "_seconds": 1771441716,
+      "_nanoseconds": 839000000
+    },
+    "userId": "mSeadeMAKtRSvNPtc6OI",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "YE0q93HkBTtfWaflhS8t",
+    "ticketId": "178",
+    "phone": "3004455654",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TC34",
+    "username": "Deicy pino",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 178 is already owned by User h9newC0XjkDYB3eHoJ91.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "YJDylZWnSHDx2ZFvcbjv",
+    "ticketId": "202",
+    "phone": "3142016688",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QZ05",
+    "username": "Natalia rodriguez",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 202 is already owned by User 4g7nZED1nSzcKCM8iGUh.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "YKrSd7dLtZUvCiywMQa7",
+    "ticketId": "77",
+    "phone": "3508527410",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YY66",
+    "username": "Miguel Sosa",
+    "importedAt": "2026-02-15T21:03:41.548Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 77 is already owned by User GL5a0yXuJM912UvlvpP9.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "YUd9lWzbUuxcx8AHs3nR",
+    "ticketId": "182",
+    "phone": "3114345599",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TG45",
+    "username": "Tatiana Fandiño ",
+    "importedAt": "2026-03-02T01:36:58.838Z",
+    "timestamp": {
+      "_seconds": 1772415419,
+      "_nanoseconds": 12000000
+    },
+    "processedAt": {
+      "_seconds": 1772415422,
+      "_nanoseconds": 67000000
+    },
+    "userId": "to82TbAdIvtu7IlXfhOy",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "YUzohKI0jLIm7YVMoQzy",
+    "ticketId": "125",
+    "phone": "3232312235",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HC80",
+    "username": "Andrea Maldonado",
+    "importedAt": "2026-02-17T08:15:23.367Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 125 is already owned by User 0ZT0SnCPGZYqxDdK5l6s.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "YewSW6ZkY4h9tDPi0tnY",
+    "ticketId": "5",
+    "phone": "3134670194",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GK83",
+    "username": "Jaydith Galvis",
+    "importedAt": "2026-02-15T20:02:43.463Z",
+    "timestamp": {
+      "_seconds": 1771185764,
+      "_nanoseconds": 558000000
+    },
+    "processedAt": {
+      "_seconds": 1771185765,
+      "_nanoseconds": 184000000
+    },
+    "userId": "vTWMfBZcbYMIkDjqp9H8",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "YhZT42YpP68eBkzUZzBP",
+    "ticketId": "7",
+    "phone": "3123656910",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LD87",
+    "username": "Paula Delgadillo",
+    "importedAt": "2026-02-15T15:35:52.784Z",
+    "timestamp": {
+      "_seconds": 1771169752,
+      "_nanoseconds": 960000000
+    },
+    "processedAt": {
+      "_seconds": 1771169755,
+      "_nanoseconds": 824000000
+    },
+    "userId": "cnnCb5Qjnbh8fkGwLxyh",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "YjPjRkpzpuRRX4NjfGPC",
+    "ticketId": "118",
+    "phone": "3157857266",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DK34",
+    "username": "Marbel Cano",
+    "importedAt": "2026-02-15T21:03:41.552Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 118 is already owned by User FtXHdBadNenLYx7v5be6.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "YnuRAi8GMXFF4F2YvTIQ",
+    "ticketId": "43",
+    "phone": "3213830865",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WZ05",
+    "username": "Alexandra Lopez",
+    "importedAt": "2026-02-20T12:59:40.123Z",
+    "timestamp": {
+      "_seconds": 1771592380,
+      "_nanoseconds": 325000000
+    },
+    "processedAt": {
+      "_seconds": 1771592383,
+      "_nanoseconds": 706000000
+    },
+    "userId": "5cpkMUhPZEPfqDJ0DUlD",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Z1II2tqxVjzMg4gBifPc",
+    "ticketId": "44",
+    "phone": "3173818146",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YZ92",
+    "username": "Angela Trujillo",
+    "importedAt": "2026-03-03T22:00:42.588Z",
+    "timestamp": {
+      "_seconds": 1772575243,
+      "_nanoseconds": 522000000
+    },
+    "processedAt": {
+      "_seconds": 1772575247,
+      "_nanoseconds": 947000000
+    },
+    "userId": "Mfh3u9alWnpSyNsZ9f22",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Z451M0Ge1zIPzJi7qLRY",
+    "ticketId": "17",
+    "phone": "3212013787",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CE02",
+    "username": "Edwin de León ",
+    "importedAt": "2026-02-17T01:25:55.605Z",
+    "timestamp": {
+      "_seconds": 1771291556,
+      "_nanoseconds": 559000000
+    },
+    "processedAt": {
+      "_seconds": 1771291559,
+      "_nanoseconds": 455000000
+    },
+    "userId": "elPBXa27fUsVYa70aH63",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ZGaBNg8cYPF2sl7gDzHY",
+    "ticketId": "244",
+    "phone": "3246583652",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RD56",
+    "username": "Mario Rodriguez ",
+    "importedAt": "2026-03-19T21:53:13.510Z",
+    "timestamp": {
+      "_seconds": 1773957194,
+      "_nanoseconds": 480000000
+    },
+    "processedAt": {
+      "_seconds": 1773957195,
+      "_nanoseconds": 404000000
+    },
+    "userId": "xlVipEJHsGwdhYCuAfVX",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ZIPdjFlqPjCcfr046T82",
+    "ticketId": "9",
+    "phone": "3173779209",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MY41",
+    "username": "Luis David Rojas",
+    "importedAt": "2026-02-17T08:15:23.366Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 9 is already owned by User lRQJVnKj87WBmapfYZEZ.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "ZOLsKvfv770eX5XwPamC",
+    "ticketId": "59",
+    "phone": "3055466340",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BF75",
+    "username": "Ryan Horan ",
+    "importedAt": "2026-03-04T23:58:47.676Z",
+    "timestamp": {
+      "_seconds": 1772668727,
+      "_nanoseconds": 862000000
+    },
+    "processedAt": {
+      "_seconds": 1772668728,
+      "_nanoseconds": 775000000
+    },
+    "userId": "Nooz5aNw7G7sG2btJ7pV",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ZOs8VVCRyCjXHNkpUI6F",
+    "ticketId": "250",
+    "phone": "3122878017",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LN25",
+    "username": "Juan Carlos ",
+    "importedAt": "2026-03-19T22:11:47.937Z",
+    "timestamp": {
+      "_seconds": 1773958308,
+      "_nanoseconds": 47000000
+    },
+    "processedAt": {
+      "_seconds": 1773958308,
+      "_nanoseconds": 375000000
+    },
+    "userId": "Tx7nIoqTLYhu7Jkq6SlS",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Zi9ykkH7JwgVjmH2nA4t",
+    "ticketId": "272",
+    "phone": "3145963872",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GR30",
+    "username": "Lucia baquero",
+    "importedAt": "2026-03-19T13:52:26.874Z",
+    "timestamp": {
+      "_seconds": 1773928346,
+      "_nanoseconds": 986000000
+    },
+    "processedAt": {
+      "_seconds": 1773928348,
+      "_nanoseconds": 3000000
+    },
+    "userId": "HuJp0bHZlTGy6SptEtBG",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "Zt2uxsSrGAtYe8glt9P7",
+    "ticketId": "189",
+    "phone": "3002130016",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QP56",
+    "username": "María del Pilar",
+    "importedAt": "2026-03-01T22:03:13.270Z",
+    "timestamp": {
+      "_seconds": 1772402594,
+      "_nanoseconds": 245000000
+    },
+    "processedAt": {
+      "_seconds": 1772402595,
+      "_nanoseconds": 39000000
+    },
+    "userId": "s1aX7HjhSFdjyTzwnO4j",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "a2NAhoiuJGwb3z9r7107",
+    "ticketId": "57",
+    "phone": "3054256716",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OL50",
+    "username": "Jorge Andrés Rodríguez Carrillo ",
+    "importedAt": "2026-02-15T21:03:41.553Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 57 is already owned by User 1poG3b35SdFPxlvNNfDo.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "aH9GwEPQZaWP5vu8ynEb",
+    "ticketId": "213",
+    "phone": "3108626926",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FZ73",
+    "username": "Maria Eulogia Gomez",
+    "importedAt": "2026-03-11T21:30:39.320Z",
+    "timestamp": {
+      "_seconds": 1773264640,
+      "_nanoseconds": 345000000
+    },
+    "processedAt": {
+      "_seconds": 1773264643,
+      "_nanoseconds": 483000000
+    },
+    "userId": "RVSTHQcTJePSn093hZgK",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "aJqsnxbd5cKN7P40eJ6Y",
+    "ticketId": "194",
+    "phone": "3103875332",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EO19",
+    "username": "Violeta gonzales",
+    "importedAt": "2026-03-19T13:13:46.713Z",
+    "timestamp": {
+      "_seconds": 1773926026,
+      "_nanoseconds": 823000000
+    },
+    "processedAt": {
+      "_seconds": 1773926027,
+      "_nanoseconds": 108000000
+    },
+    "userId": "BnpDeS9WgVTKpkrf7xPK",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "aZOwvjVCv4nluZMMVBNi",
+    "ticketId": "89",
+    "phone": "3184248462",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GU59",
+    "username": "Andres Moreno Garzon",
+    "importedAt": "2026-02-17T20:48:53.761Z",
+    "timestamp": {
+      "_seconds": 1771361334,
+      "_nanoseconds": 821000000
+    },
+    "processedAt": {
+      "_seconds": 1771361338,
+      "_nanoseconds": 464000000
+    },
+    "userId": "cxJl4J6PSe6iQFRJSrzN",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "acNO11Ut85vHRI6OWgym",
+    "ticketId": "37",
+    "phone": "3147636833",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SK91",
+    "username": "Miriam Buitrago ",
+    "importedAt": "2026-02-17T08:15:23.361Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 37 is already owned by User H7gATEqtv54W7v1zZwkN.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "al4NPjikEJ9MMZ2Lt6Md",
+    "ticketId": "133",
+    "phone": "3005696754",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WA67",
+    "username": "Maria Roa",
+    "importedAt": "2026-02-17T08:15:23.368Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 133 is already owned by User InmqAPBsBfrA48eNLH6e.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "aunOPX4vU0jk1Skn06jW",
+    "ticketId": "75",
+    "phone": "3164784332",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PY26",
+    "username": "Julian Colmenares",
+    "importedAt": "2026-02-22T20:25:45.465Z",
+    "timestamp": {
+      "_seconds": 1771791945,
+      "_nanoseconds": 597000000
+    },
+    "processedAt": {
+      "_seconds": 1771791946,
+      "_nanoseconds": 733000000
+    },
+    "userId": "MNpjtJipOCUtAXzigtpp",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "avCRLC4GaFldCJkIXsTD",
+    "ticketId": "197",
+    "phone": "3202725651",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AR82",
+    "username": "José Molina ",
+    "importedAt": "2026-03-19T13:09:26.717Z",
+    "timestamp": {
+      "_seconds": 1773925766,
+      "_nanoseconds": 859000000
+    },
+    "processedAt": {
+      "_seconds": 1773925767,
+      "_nanoseconds": 197000000
+    },
+    "userId": "YhsGMr69RFBXgT6214um",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "b9OpcbZ3oJZ3UukCCDCX",
+    "ticketId": "185",
+    "phone": "3208953160",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GA98",
+    "username": "Isabela diaz",
+    "importedAt": "2026-03-19T12:58:26.681Z",
+    "timestamp": {
+      "_seconds": 1773925106,
+      "_nanoseconds": 817000000
+    },
+    "processedAt": {
+      "_seconds": 1773925107,
+      "_nanoseconds": 808000000
+    },
+    "userId": "USF5DZzJRAMKnxjBmghn",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "b9tfyVAnyxC0s9zfrrN0",
+    "ticketId": "187",
+    "phone": "3103341569",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZD22",
+    "username": "Ana bernal",
+    "importedAt": "2026-03-19T13:00:31.669Z",
+    "timestamp": {
+      "_seconds": 1773925231,
+      "_nanoseconds": 800000000
+    },
+    "processedAt": {
+      "_seconds": 1773925232,
+      "_nanoseconds": 144000000
+    },
+    "userId": "IwNVF7TcLgwshiUFMnyj",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "bEWeZcNELngYi6anLdOI",
+    "ticketId": "210",
+    "phone": "3155195258",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IK49",
+    "username": "Cesar moreno ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 210 is already owned by User z16FbUqrn8UaDw8HV93B.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "bOeucfo1eDRQpFaa6AAE",
+    "ticketId": "36",
+    "phone": "3044662025",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QO62",
+    "username": "Carlos Morales",
+    "importedAt": "2026-02-18T19:19:57.130Z",
+    "timestamp": {
+      "_seconds": 1771442398,
+      "_nanoseconds": 82000000
+    },
+    "processedAt": {
+      "_seconds": 1771442399,
+      "_nanoseconds": 399000000
+    },
+    "userId": "ueMRb7TYsu1AeBGBNmGR",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "bRgfGsDuw61fuheGDO5c",
+    "ticketId": "127",
+    "phone": "3153434767",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OH36",
+    "username": "Alvaro I Rodriguez P",
+    "importedAt": "2026-02-17T08:15:23.368Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 127 is already owned by User F9G29fysMdaYRx2xnVM6.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "bdOuLUuCDCvsR6AUGdyD",
+    "ticketId": "12",
+    "phone": "3165206865",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KJ95",
+    "username": "Fabián Carrera Amaya ",
+    "importedAt": "2026-02-17T08:15:23.370Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 12 is already owned by User 7JVc4QztCiD8MbcR3vwL.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "bpAGA8Bw8F1uLQ4yr0sq",
+    "ticketId": "214",
+    "phone": "3145804835",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZF73",
+    "username": "Juan martinez",
+    "importedAt": "2026-03-19T20:21:27.692Z",
+    "timestamp": {
+      "_seconds": 1773951688,
+      "_nanoseconds": 612000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 214 is already owned by User fQQx4G4Ed8JN2Zdq1Ikp.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "bq0lx66eiUnha6bXCaA6",
+    "ticketId": "7",
+    "phone": "3123656910",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LD87",
+    "username": "Paula Delgadillo",
+    "importedAt": "2026-02-15T21:03:41.547Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 7 is already owned by User cnnCb5Qjnbh8fkGwLxyh.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "c0cSXpaO5u12jpRqkT4Z",
+    "ticketId": "121",
+    "phone": "7133927584",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KF81",
+    "username": "Lucia Niño",
+    "importedAt": "2026-03-04T03:15:23.707Z",
+    "timestamp": {
+      "_seconds": 1772594123,
+      "_nanoseconds": 898000000
+    },
+    "processedAt": {
+      "_seconds": 1772594127,
+      "_nanoseconds": 24000000
+    },
+    "userId": "5p3HcsdIJKpTHXewY9lx",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "cDFNPI4JiLQUo6WY2f59",
+    "ticketId": "18",
+    "phone": "3158631662",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FT88",
+    "username": "Jhoanna Fragozo",
+    "importedAt": "2026-02-15T21:03:41.551Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 18 is already owned by User tGFJOzHVvuJ7tZK7aDCZ.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "cMFk8raDiNakdmZ8eKSK",
+    "ticketId": "83",
+    "phone": "3204866912",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HG95",
+    "username": "Leydi J. Rodriguez.",
+    "importedAt": "2026-02-22T18:08:14.876Z",
+    "timestamp": {
+      "_seconds": 1771783695,
+      "_nanoseconds": 801000000
+    },
+    "processedAt": {
+      "_seconds": 1771783696,
+      "_nanoseconds": 968000000
+    },
+    "userId": "87vVRiNzJGzpyTjHROeU",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "cg5oWjHlm1qXXVGdm8xD",
+    "ticketId": "202",
+    "phone": "3142016688",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QZ05",
+    "username": "Natalia rodriguez",
+    "importedAt": "2026-03-19T14:13:26.997Z",
+    "timestamp": {
+      "_seconds": 1773929607,
+      "_nanoseconds": 926000000
+    },
+    "processedAt": {
+      "_seconds": 1773929608,
+      "_nanoseconds": 287000000
+    },
+    "userId": "4g7nZED1nSzcKCM8iGUh",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "coAseSc5os2xP2lj5CKb",
+    "ticketId": "131",
+    "phone": "3202828694",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RY88",
+    "username": "Diego Fuentes",
+    "importedAt": "2026-03-12T04:23:25.485Z",
+    "timestamp": {
+      "_seconds": 1773289406,
+      "_nanoseconds": 470000000
+    },
+    "processedAt": {
+      "_seconds": 1773289409,
+      "_nanoseconds": 417000000
+    },
+    "userId": "xS9NVyS4KXSLC6Ek3jBs",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "cvxMI5RjVex3r4ZdtH9e",
+    "ticketId": "171",
+    "phone": "3186665275",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EN70",
+    "username": "Hernando Chaparro",
+    "importedAt": "2026-02-28T22:37:08.632Z",
+    "timestamp": {
+      "_seconds": 1772318229,
+      "_nanoseconds": 711000000
+    },
+    "processedAt": {
+      "_seconds": 1772318232,
+      "_nanoseconds": 803000000
+    },
+    "userId": "iyvHkWeakwmyt48yGebW",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "d1I0nc73ncp5OLPj5ai1",
+    "ticketId": "203",
+    "phone": "3059899353",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YM90",
+    "username": "Stella Neira ",
+    "importedAt": "2026-03-04T23:26:47.572Z",
+    "timestamp": {
+      "_seconds": 1772666807,
+      "_nanoseconds": 740000000
+    },
+    "processedAt": {
+      "_seconds": 1772666811,
+      "_nanoseconds": 217000000
+    },
+    "userId": "3tsHNcccUcPflp1N9iY5",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "d2QhFUT1D7Q2o31VXwwC",
+    "ticketId": "240",
+    "phone": "3046612833",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BE38",
+    "username": "Manuel rincon",
+    "importedAt": "2026-03-19T21:35:07.874Z",
+    "timestamp": {
+      "_seconds": 1773956107,
+      "_nanoseconds": 997000000
+    },
+    "processedAt": {
+      "_seconds": 1773956109,
+      "_nanoseconds": 48000000
+    },
+    "userId": "bhjdl6U0122xswZqkdrC",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "d47m13ZH25uAxQb5jLlw",
+    "ticketId": "176",
+    "phone": "3128280255",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IS39",
+    "username": "Javier Olave",
+    "importedAt": "2026-02-22T23:07:20.918Z",
+    "timestamp": {
+      "_seconds": 1771801641,
+      "_nanoseconds": 954000000
+    },
+    "processedAt": {
+      "_seconds": 1771801645,
+      "_nanoseconds": 698000000
+    },
+    "userId": "eYtPTrROGiBvOB2o8xa0",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "d4KDi9lqkizIgY7zN1RD",
+    "ticketId": "245",
+    "phone": "30175424551",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KB25",
+    "username": "Cindy Geney",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 245 is already owned by User VbNCFd8BaMjlJoAFeMU2.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "dDloi4QOkXsH3oSlN6LE",
+    "ticketId": "248",
+    "phone": "3195451748",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BQ14",
+    "username": "Sara maldonado",
+    "importedAt": "2026-03-19T22:05:13.029Z",
+    "timestamp": {
+      "_seconds": 1773957913,
+      "_nanoseconds": 202000000
+    },
+    "processedAt": {
+      "_seconds": 1773957914,
+      "_nanoseconds": 99000000
+    },
+    "userId": "5jyFP3WiE549cBfA6IHK",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "dLfYYJOpowcLcRlae0GO",
+    "ticketId": "100",
+    "phone": "3046657756",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WC02",
+    "username": "Verónica Díaz ",
+    "importedAt": "2026-02-22T15:34:19.316Z",
+    "timestamp": {
+      "_seconds": 1771774459,
+      "_nanoseconds": 507000000
+    },
+    "processedAt": {
+      "_seconds": 1771774463,
+      "_nanoseconds": 189000000
+    },
+    "userId": "sXhaJ7j8bvVFKIpyQQOM",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "djP2uiOsLGn59EYBiYxM",
+    "ticketId": "123",
+    "phone": "3006193751",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XO68",
+    "username": "Luz Emma de Neira ",
+    "importedAt": "2026-02-18T20:33:27.447Z",
+    "timestamp": {
+      "_seconds": 1771446807,
+      "_nanoseconds": 586000000
+    },
+    "processedAt": {
+      "_seconds": 1771446808,
+      "_nanoseconds": 120000000
+    },
+    "userId": "UBPiqzIZBOg3ladUHynn",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "dmKLWxDF2XzMMDAQn1AI",
+    "ticketId": "269",
+    "phone": "3208236011",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HO04",
+    "username": "Celso Carrera Murcia",
+    "importedAt": "2026-03-19T22:43:28.030Z",
+    "timestamp": {
+      "_seconds": 1773960208,
+      "_nanoseconds": 145000000
+    },
+    "processedAt": {
+      "_seconds": 1773960209,
+      "_nanoseconds": 92000000
+    },
+    "userId": "tQsLr4iNa9GjRv1gKdsd",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "dzQbNYpBNS7XMAGNPzu9",
+    "ticketId": "128",
+    "phone": "3172647180",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QY94",
+    "username": "Blanca Cuesta",
+    "importedAt": "2026-02-16T21:46:54.980Z",
+    "timestamp": {
+      "_seconds": 1771278415,
+      "_nanoseconds": 101000000
+    },
+    "processedAt": {
+      "_seconds": 1771278416,
+      "_nanoseconds": 515000000
+    },
+    "userId": "1pMFYVZEvzSRsvlRhOSq",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "e2O40BZZdnK8ZR2yuP6m",
+    "ticketId": "102",
+    "phone": "3103004179",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TK10",
+    "username": "Claudia Barreto",
+    "importedAt": "2026-02-20T01:34:53.118Z",
+    "timestamp": {
+      "_seconds": 1771551294,
+      "_nanoseconds": 115000000
+    },
+    "processedAt": {
+      "_seconds": 1771551297,
+      "_nanoseconds": 515000000
+    },
+    "userId": "54VpWTQAr05we9tvQGAg",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "e9k3ci1WEtebjthKnk8p",
+    "ticketId": "2",
+    "phone": "3214877834",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LH23",
+    "importedAt": "2026-02-16T00:19:54.366Z",
+    "timestamp": {
+      "_seconds": 1771201194,
+      "_nanoseconds": 539000000
+    },
+    "processedAt": {
+      "_seconds": 1771201197,
+      "_nanoseconds": 681000000
+    },
+    "userId": "m8bLKeT5Dw18Odjw31Yh",
+    "status": "SUCCESS",
+    "username": "Jaime Vergara"
+  },
+  {
+    "id": "eQt4MDa4YQkno6pMgW59",
+    "ticketId": "312",
+    "phone": "3132853745",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XI62",
+    "username": "Marta Cecilia ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 312 is already owned by User clFZmO35Z0sdkQpje4A4.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "eWrLxdHQMrsrypTSpBNl",
+    "ticketId": "95",
+    "phone": "3143224768",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RU92",
+    "username": "Maria Fernanda Correal Olave",
+    "importedAt": "2026-02-22T22:50:20.842Z",
+    "timestamp": {
+      "_seconds": 1771800620,
+      "_nanoseconds": 951000000
+    },
+    "processedAt": {
+      "_seconds": 1771800622,
+      "_nanoseconds": 148000000
+    },
+    "userId": "KctQ3HUlDlsDzzlWdwX4",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ejBF5W6unOTPzCI696R7",
+    "ticketId": "152",
+    "phone": "3118125633",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OA89",
+    "username": "Magaly Barragan",
+    "importedAt": "2026-02-20T15:31:05.837Z",
+    "timestamp": {
+      "_seconds": 1771601466,
+      "_nanoseconds": 91000000
+    },
+    "processedAt": {
+      "_seconds": 1771601470,
+      "_nanoseconds": 489000000
+    },
+    "userId": "Y0TXhc1dFRt8W0rzyohl",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "emsgIJkmtYY4pu1b1TJS",
+    "ticketId": "98",
+    "phone": "3134572450",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MN10",
+    "username": "ELIANA PARDO ORDUÑA",
+    "importedAt": "2026-02-23T18:04:09.371Z",
+    "timestamp": {
+      "_seconds": 1771869850,
+      "_nanoseconds": 456000000
+    },
+    "processedAt": {
+      "_seconds": 1771869853,
+      "_nanoseconds": 951000000
+    },
+    "userId": "Rtq8iGsMlCyQ5HcWRmHg",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "fCnKaYO9pTfyRzd1XO79",
+    "ticketId": "97",
+    "phone": "3245617309",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NT26",
+    "username": "Santiago Ochoa ",
+    "importedAt": "2026-02-17T08:15:23.364Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 97 is already owned by User 4GInq6iVhZFSfUjOG0cV.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "fDi362y6HV7vyEgmRGSm",
+    "ticketId": "34",
+    "phone": "3203396836",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AR17",
+    "username": "Paola Delgado",
+    "importedAt": "2026-02-18T00:18:03.510Z",
+    "timestamp": {
+      "_seconds": 1771373884,
+      "_nanoseconds": 534000000
+    },
+    "processedAt": {
+      "_seconds": 1771373888,
+      "_nanoseconds": 53000000
+    },
+    "userId": "POiEU0Ec4z8BBgr54XDS",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "fGrxlmYnYDJWeNhzOOwA",
+    "ticketId": "186",
+    "phone": "3002137546",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UB77",
+    "username": "Patricia Vanegas",
+    "importedAt": "2026-02-23T00:11:21.092Z",
+    "timestamp": {
+      "_seconds": 1771805482,
+      "_nanoseconds": 83000000
+    },
+    "processedAt": {
+      "_seconds": 1771805485,
+      "_nanoseconds": 217000000
+    },
+    "userId": "AgS4aypmPlBGKlBhMHTU",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "fKVGcJNaHWYnYUjsN0kb",
+    "ticketId": "37",
+    "phone": "3147636833",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SK91",
+    "username": "Miriam Buitrago ",
+    "importedAt": "2026-02-15T15:45:42.807Z",
+    "timestamp": {
+      "_seconds": 1771170342,
+      "_nanoseconds": 986000000
+    },
+    "processedAt": {
+      "_seconds": 1771170344,
+      "_nanoseconds": 263000000
+    },
+    "userId": "H7gATEqtv54W7v1zZwkN",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "fOVbvJqkFjsV4EY9jxvv",
+    "ticketId": "207",
+    "phone": "3007548549",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JH85",
+    "username": "Ricardo Torres Sabogal ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 207 is already owned by User 7QJqqydGAnhUwW7NEr52.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "fkl9qy0AkfapUsDZ2Usu",
+    "ticketId": "15",
+    "phone": "3118908655",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YP89",
+    "username": "Marianna Álvarez ",
+    "importedAt": "2026-02-15T21:03:41.553Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 15 is already owned by User 5RqZmc03gC4JjyKenj1l.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "g8NdjtbnqeYWdSofnmPV",
+    "ticketId": "156",
+    "phone": "3207206948",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IZ56",
+    "username": "Paola bedoya",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 156 is already owned by User AnLnhEyHtTyT1Na5Qed9.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "g8ldK8u3N4fMhiGJmoGr",
+    "ticketId": "220",
+    "phone": "3106283188",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FL97",
+    "username": "Juan avila ",
+    "importedAt": "2026-03-19T20:31:07.728Z",
+    "timestamp": {
+      "_seconds": 1773952267,
+      "_nanoseconds": 843000000
+    },
+    "processedAt": {
+      "_seconds": 1773952268,
+      "_nanoseconds": 709000000
+    },
+    "userId": "uXNsyVOuFnmS4wHzKtAO",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "gEHDf8kWA8mEU18L1G5U",
+    "ticketId": "252",
+    "phone": "3203760656",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XB64",
+    "username": "Diego Tirado ",
+    "importedAt": "2026-03-19T21:23:07.951Z",
+    "timestamp": {
+      "_seconds": 1773955388,
+      "_nanoseconds": 885000000
+    },
+    "processedAt": {
+      "_seconds": 1773955390,
+      "_nanoseconds": 91000000
+    },
+    "userId": "2aT7lOdh4scuxTJnmZyu",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "gWa4jwj3S156KK3xUTFA",
+    "ticketId": "192",
+    "phone": "3206772181",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TU72",
+    "username": "Natalia villamil",
+    "importedAt": "2026-03-19T13:09:07.000Z",
+    "timestamp": {
+      "_seconds": 1773925747,
+      "_nanoseconds": 122000000
+    },
+    "processedAt": {
+      "_seconds": 1773925748,
+      "_nanoseconds": 136000000
+    },
+    "userId": "dDA2FegPyTNhE3ucxw7P",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "gayZV1EC9bUfwTmQNZsd",
+    "ticketId": "194",
+    "phone": "3103875332",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EO19",
+    "username": "Violeta gonzales",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 194 is already owned by User BnpDeS9WgVTKpkrf7xPK.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "gpOTuvfpaBsHi0hy9dlO",
+    "ticketId": "82",
+    "phone": "3105717181",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JL95",
+    "username": "María Paula Acosta",
+    "importedAt": "2026-02-15T21:03:41.548Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 82 is already owned by User NZvqadJ0jBLtLXBQmeE0.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "gqruE9LuxRNZnjuGnh4e",
+    "ticketId": "226",
+    "phone": "3017859458",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XZ45",
+    "username": "Sonia Lopez",
+    "importedAt": "2026-03-12T04:03:50.342Z",
+    "timestamp": {
+      "_seconds": 1773288230,
+      "_nanoseconds": 540000000
+    },
+    "processedAt": {
+      "_seconds": 1773288234,
+      "_nanoseconds": 140000000
+    },
+    "userId": "Zd9AIia1K7apVThiopqn",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "gubWZt7mqiW8nnHEFD4U",
+    "ticketId": "218",
+    "phone": "3002105830",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RQ75",
+    "username": "Cecilia Sabogal ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 218 is already owned by User fqDcSuu1HwbbC0eB85nc.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "hLkAL5NeEGM2oeanADfC",
+    "ticketId": "239",
+    "phone": "3017775354",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NQ75",
+    "username": "Samia Zarur",
+    "importedAt": "2026-03-19T21:31:52.774Z",
+    "timestamp": {
+      "_seconds": 1773955912,
+      "_nanoseconds": 889000000
+    },
+    "processedAt": {
+      "_seconds": 1773955914,
+      "_nanoseconds": 65000000
+    },
+    "userId": "NRD2eVqmpivMwKbX5QyE",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "hQHSiqkAu76f6wPMiSPU",
+    "ticketId": "29",
+    "phone": "3052548403",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RN01",
+    "username": "Emilia Carrera Torres ",
+    "importedAt": "2026-02-17T08:15:23.369Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 29 is already owned by User sUeQYRnoAZEbTgOFqs06.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "hWpUZL5ii6NPw1l7mMki",
+    "ticketId": "117",
+    "phone": "3023234681",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JW67",
+    "username": "Mariana Caicedo",
+    "importedAt": "2026-03-04T03:18:23.656Z",
+    "timestamp": {
+      "_seconds": 1772594303,
+      "_nanoseconds": 800000000
+    },
+    "processedAt": {
+      "_seconds": 1772594307,
+      "_nanoseconds": 369000000
+    },
+    "userId": "xtSfL4BRwQLp7NSCzZtf",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "hcx59QSvkdZ4OCx5PKIm",
+    "ticketId": "221",
+    "phone": "3052548476",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PA27",
+    "username": "Lucía Carrera ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 221 is already owned by User ibWdqaDOuEx41vxTKFH7.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "hoZMb6rix4BSCVdElgJj",
+    "ticketId": "94",
+    "phone": "3133255093",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TW81",
+    "username": "Valeria Jimenez",
+    "importedAt": "2026-02-23T00:48:41.231Z",
+    "timestamp": {
+      "_seconds": 1771807722,
+      "_nanoseconds": 245000000
+    },
+    "processedAt": {
+      "_seconds": 1771807725,
+      "_nanoseconds": 175000000
+    },
+    "userId": "8TX0ZM9stQr1pw6mUAXc",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "i1NqlzdhqcV5kMSqSQQG",
+    "ticketId": "5",
+    "phone": "3134670194",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GK83",
+    "username": "Jaydith Galvis",
+    "importedAt": "2026-02-15T21:03:41.557Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 5 is already owned by User vTWMfBZcbYMIkDjqp9H8.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "i7HrWMjjXOmSJFa51eCX",
+    "ticketId": "97",
+    "phone": "3245617309",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NT26",
+    "username": "Santiago Ochoa ",
+    "importedAt": "2026-02-15T17:55:18.049Z",
+    "timestamp": {
+      "_seconds": 1771178118,
+      "_nanoseconds": 175000000
+    },
+    "processedAt": {
+      "_seconds": 1771178118,
+      "_nanoseconds": 575000000
+    },
+    "userId": "4GInq6iVhZFSfUjOG0cV",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "iDft1ZfS1pX8jrErRuND",
+    "ticketId": "137",
+    "phone": "3158405695",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LL71",
+    "username": "Maria Alejandra Alvarado",
+    "importedAt": "2026-02-15T20:20:48.577Z",
+    "timestamp": {
+      "_seconds": 1771186848,
+      "_nanoseconds": 759000000
+    },
+    "processedAt": {
+      "_seconds": 1771186851,
+      "_nanoseconds": 856000000
+    },
+    "userId": "32m3bL3BbGYnB1uWBLt3",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "iYJip27A0ZZRDdx2D5Co",
+    "ticketId": "178",
+    "phone": "3004455654",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TC34",
+    "username": "Deicy pino",
+    "importedAt": "2026-03-19T12:37:26.652Z",
+    "timestamp": {
+      "_seconds": 1773923846,
+      "_nanoseconds": 787000000
+    },
+    "processedAt": {
+      "_seconds": 1773923847,
+      "_nanoseconds": 425000000
+    },
+    "userId": "h9newC0XjkDYB3eHoJ91",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ieMRvtxZnx5VYY7Afyv9",
+    "ticketId": "138",
+    "phone": "3006663583",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GK53",
+    "username": "Mirian Rodriguez ",
+    "importedAt": "2026-03-01T18:47:02.628Z",
+    "timestamp": {
+      "_seconds": 1772390823,
+      "_nanoseconds": 667000000
+    },
+    "processedAt": {
+      "_seconds": 1772390826,
+      "_nanoseconds": 998000000
+    },
+    "userId": "GTfGALQcYK8ObQJukwz5",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ihnkXiLZFsq3z3jYS5V2",
+    "ticketId": "132",
+    "phone": "3160407054",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EW09",
+    "username": "Valentina Medellin",
+    "importedAt": "2026-03-03T22:03:03.238Z",
+    "timestamp": {
+      "_seconds": 1772575383,
+      "_nanoseconds": 356000000
+    },
+    "processedAt": {
+      "_seconds": 1772575384,
+      "_nanoseconds": 612000000
+    },
+    "userId": "6dJ0GG0qtG9yT4oD0OtB",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ioVgzI3zhxuhYd9b9V5R",
+    "ticketId": "168",
+    "phone": "3126561163",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HV19",
+    "username": "Alejandra ariza",
+    "importedAt": "2026-03-19T12:01:31.468Z",
+    "timestamp": {
+      "_seconds": 1773921691,
+      "_nanoseconds": 590000000
+    },
+    "processedAt": {
+      "_seconds": 1773921692,
+      "_nanoseconds": 468000000
+    },
+    "userId": "Gfn5YSVfMbvc7SAcnmzM",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "izKbTDtKaumRuffAHHZ2",
+    "ticketId": "65",
+    "phone": "3012408395",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SO34",
+    "username": "Patricia Olave",
+    "importedAt": "2026-02-20T18:00:57.214Z",
+    "timestamp": {
+      "_seconds": 1771610457,
+      "_nanoseconds": 401000000
+    },
+    "processedAt": {
+      "_seconds": 1771610458,
+      "_nanoseconds": 659000000
+    },
+    "userId": "RAsnud0htEyJchMEOd8n",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "j9wIn2TbIgMx9q2Fj2u7",
+    "ticketId": "173",
+    "phone": "3006419745",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RL80",
+    "username": "Ferney Baquero",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 173 is already owned by User j8UdievxuUuQs08HLPpx.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "jPQVmXRj3xvJuuxG1jeI",
+    "ticketId": "53",
+    "phone": "3153162961",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UB88",
+    "username": "ALEJANDRO DUITAMA",
+    "importedAt": "2026-02-17T01:30:35.590Z",
+    "timestamp": {
+      "_seconds": 1771291835,
+      "_nanoseconds": 704000000
+    },
+    "processedAt": {
+      "_seconds": 1771291836,
+      "_nanoseconds": 611000000
+    },
+    "userId": "RYB5AtcXpAl1L9FbK9gj",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "jPrNpTCXzVFOxSWpXqwj",
+    "ticketId": "166",
+    "phone": "3195940029",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FI84",
+    "username": "Juan Nicolás Nieto Gámez ",
+    "importedAt": "2026-03-10T21:43:35.830Z",
+    "timestamp": {
+      "_seconds": 1773179016,
+      "_nanoseconds": 815000000
+    },
+    "processedAt": {
+      "_seconds": 1773179019,
+      "_nanoseconds": 977000000
+    },
+    "userId": "0L85pveieyo3mi7f90Rz",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "jR1MeWm4uB73sWUzvTX3",
+    "ticketId": "210",
+    "phone": "3155195258",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "IK49",
+    "username": "Cesar moreno ",
+    "importedAt": "2026-03-19T17:45:52.229Z",
+    "timestamp": {
+      "_seconds": 1773942352,
+      "_nanoseconds": 426000000
+    },
+    "processedAt": {
+      "_seconds": 1773942353,
+      "_nanoseconds": 650000000
+    },
+    "userId": "z16FbUqrn8UaDw8HV93B",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "jj3xjA2F4vPsWOFjPjgm",
+    "ticketId": "13",
+    "phone": "3118125633",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GD96",
+    "username": "Magaly Barragan",
+    "importedAt": "2026-02-15T17:02:42.989Z",
+    "timestamp": {
+      "_seconds": 1771174963,
+      "_nanoseconds": 169000000
+    },
+    "processedAt": {
+      "_seconds": 1771174965,
+      "_nanoseconds": 986000000
+    },
+    "userId": "Y0TXhc1dFRt8W0rzyohl",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ju3mzUEdwijowNvHtIMW",
+    "ticketId": "201",
+    "phone": "3153686747",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SP75",
+    "username": "Maria gonzales",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 201 is already owned by User CYy7F3FhIQhHxuLz6QRT.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "jzZ8izz3hSBFNbzCpD7c",
+    "ticketId": "28",
+    "phone": "3105594381",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZB34",
+    "username": "Javier Sandoval",
+    "importedAt": "2026-02-15T17:46:48.104Z",
+    "timestamp": {
+      "_seconds": 1771177608,
+      "_nanoseconds": 297000000
+    },
+    "processedAt": {
+      "_seconds": 1771177609,
+      "_nanoseconds": 560000000
+    },
+    "userId": "ZKC26uLEb9VsrVrZ0MMa",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "k3dqe2I60JbGK6YjzMS7",
+    "ticketId": "56",
+    "phone": "3003330332",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HA95",
+    "username": "Claudia Matilde Arias",
+    "importedAt": "2026-02-19T20:44:12.559Z",
+    "timestamp": {
+      "_seconds": 1771533852,
+      "_nanoseconds": 772000000
+    },
+    "processedAt": {
+      "_seconds": 1771533856,
+      "_nanoseconds": 423000000
+    },
+    "userId": "NuR9052zlRY23brIdEvP",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "kApb52zb3JBQIJ18hRYb",
+    "ticketId": "1",
+    "phone": "3138060391",
+    "cedula": "-",
+    "payed": "yes",
+    "fixed": "CZ50",
+    "username": "Padre Wilson 😁",
+    "importedAt": "2026-02-14T07:32:37.465Z",
+    "timestamp": {
+      "_seconds": 1771054357,
+      "_nanoseconds": 645000000
+    },
+    "processedAt": {
+      "_seconds": 1771054361,
+      "_nanoseconds": 167000000
+    },
+    "userId": "kzEB5nfh7VKP4MogOnK1",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "kJQ7ZtPc9F1pjOZdd5Sn",
+    "ticketId": "230",
+    "phone": "3004092450",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RL49",
+    "username": "Margarita Quevedo",
+    "importedAt": "2026-03-04T01:09:48.027Z",
+    "timestamp": {
+      "_seconds": 1772586588,
+      "_nanoseconds": 988000000
+    },
+    "processedAt": {
+      "_seconds": 1772586592,
+      "_nanoseconds": 260000000
+    },
+    "userId": "tKOIi8UvshMCpmAD4jYx",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "kNjkjdhpYNGrYgFRzAtE",
+    "ticketId": "328",
+    "phone": "3135709099",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DL42",
+    "username": "Sandra Carrera ",
+    "importedAt": "2026-03-19T22:18:47.928Z",
+    "timestamp": {
+      "_seconds": 1773958728,
+      "_nanoseconds": 52000000
+    },
+    "processedAt": {
+      "_seconds": 1773958728,
+      "_nanoseconds": 628000000
+    },
+    "userId": "DSXvtIJXXyFoBcR9K3uk",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "kZkNTeIU2TMyllZznn9g",
+    "ticketId": "14",
+    "phone": "3204698077",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "JX17",
+    "username": "Daniel Reales",
+    "importedAt": "2026-02-19T03:58:48.828Z",
+    "timestamp": {
+      "_seconds": 1771473529,
+      "_nanoseconds": 12000000
+    },
+    "processedAt": {
+      "_seconds": 1771473532,
+      "_nanoseconds": 605000000
+    },
+    "userId": "srds3vKKCyWvaKHzylqB",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "kbJ8xsepeRekQC7d6r4d",
+    "ticketId": "130",
+    "phone": "3133383284",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CX80",
+    "username": "Natalia Jaramillo",
+    "importedAt": "2026-02-16T21:48:35.052Z",
+    "timestamp": {
+      "_seconds": 1771278515,
+      "_nanoseconds": 960000000
+    },
+    "processedAt": {
+      "_seconds": 1771278517,
+      "_nanoseconds": 39000000
+    },
+    "userId": "7VidQ2bTffTuWFiEqauD",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "kv1Ypm0AKaQ03nKkADGI",
+    "ticketId": "284",
+    "phone": "5116504564",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DG42",
+    "username": "Johanna Torres ",
+    "importedAt": "2026-03-19T22:11:52.852Z",
+    "timestamp": {
+      "_seconds": 1773958312,
+      "_nanoseconds": 968000000
+    },
+    "processedAt": {
+      "_seconds": 1773958313,
+      "_nanoseconds": 255000000
+    },
+    "userId": "TzfUunu5BTIugu3QChCC",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "kvK7Xn3tjhfDHuwk7X98",
+    "ticketId": "17",
+    "phone": "3212013787",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CE02",
+    "username": "Edwin de León ",
+    "importedAt": "2026-02-17T08:15:23.368Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 17 is already owned by User elPBXa27fUsVYa70aH63.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "kz7zDu9AEiCH5OPkmnIj",
+    "ticketId": "268",
+    "phone": "3232042949",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MK17",
+    "username": "Juliana Torres ",
+    "importedAt": "2026-03-19T22:45:48.024Z",
+    "timestamp": {
+      "_seconds": 1773960348,
+      "_nanoseconds": 155000000
+    },
+    "processedAt": {
+      "_seconds": 1773960348,
+      "_nanoseconds": 474000000
+    },
+    "userId": "3tgAplhxcQbN7By74ZoU",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "lUcRlZjOKnoR42Jio3wX",
+    "ticketId": "330",
+    "phone": "3234041621",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WZ62",
+    "username": "Mauricio Torres ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 330 is already owned by User RU1C7CAeLOhIcMj9bRhQ.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "lauP7eX7WOdIMcF3Wcz3",
+    "ticketId": "205",
+    "phone": "3202939605",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZR93",
+    "username": "Marta melo",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 205 is already owned by User cICsWopJFFN6dskZ7MiD.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "lwzLdzaRPzCp1zTg6bvp",
+    "ticketId": "262",
+    "phone": "3053905950",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MX98",
+    "username": "Valentín ",
+    "importedAt": "2026-03-19T22:32:32.910Z",
+    "timestamp": {
+      "_seconds": 1773959553,
+      "_nanoseconds": 32000000
+    },
+    "processedAt": {
+      "_seconds": 1773959554,
+      "_nanoseconds": 283000000
+    },
+    "userId": "TlqhogOSqCmOvgGbgfVz",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "m2MOrBe2AUo5d6dViU0x",
+    "ticketId": "196",
+    "phone": "3105537668",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QZ05",
+    "username": "Maleja cuervo",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 196 is already owned by User FGn5NnAetEoXpe4zBOlg.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "mHnx8OM2TXyIhtNYhNP8",
+    "ticketId": "172",
+    "phone": "9398809317",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GF55",
+    "username": "Juliana Kraus ",
+    "importedAt": "2026-03-05T01:31:47.935Z",
+    "timestamp": {
+      "_seconds": 1772674308,
+      "_nanoseconds": 862000000
+    },
+    "processedAt": {
+      "_seconds": 1772674312,
+      "_nanoseconds": 479000000
+    },
+    "userId": "XvPyYUiZWn26z5CYel2g",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "mf2QzeRnc4drYiZaqneO",
+    "ticketId": "155",
+    "phone": "3103004179",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RE65",
+    "username": "Claudia Barreto",
+    "importedAt": "2026-02-20T01:34:53.118Z",
+    "timestamp": {
+      "_seconds": 1771551294,
+      "_nanoseconds": 115000000
+    },
+    "processedAt": {
+      "_seconds": 1771551299,
+      "_nanoseconds": 87000000
+    },
+    "userId": "54VpWTQAr05we9tvQGAg",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "migtFlTiX8jXZbEGkF0O",
+    "ticketId": "130",
+    "phone": "3133383284",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CX80",
+    "username": "Natalia Jaramillo",
+    "importedAt": "2026-02-17T08:15:23.367Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 130 is already owned by User 7VidQ2bTffTuWFiEqauD.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "mlmTiTiXhGM1Z9KMHoCI",
+    "ticketId": "251",
+    "phone": "3222488401",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TH85",
+    "username": "Maria Paula Ortega",
+    "importedAt": "2026-03-19T22:02:53.105Z",
+    "timestamp": {
+      "_seconds": 1773957774,
+      "_nanoseconds": 19000000
+    },
+    "processedAt": {
+      "_seconds": 1773957775,
+      "_nanoseconds": 270000000
+    },
+    "userId": "i0lwdLG8pCPBRopQM0X0",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "mprbNDtTtJeXHCAaBqD9",
+    "ticketId": "167",
+    "phone": "3043991402",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QZ32",
+    "username": "Aide chavez",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 167 is already owned by User XUXgsM340IRf2K7c2RQX.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "mtmEY4erXz2ezh7EzCd5",
+    "ticketId": "4",
+    "phone": "3182616471",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NP52",
+    "username": "Carlos Becerra",
+    "importedAt": "2026-02-17T04:53:56.189Z",
+    "timestamp": {
+      "_seconds": 1771304037,
+      "_nanoseconds": 165000000
+    },
+    "processedAt": {
+      "_seconds": 1771304040,
+      "_nanoseconds": 155000000
+    },
+    "userId": "ACM8gYACLPgK8wPFywEC",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "n2ev6AGZIIRRA1AlyP1N",
+    "ticketId": "158",
+    "phone": "3202247450",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "LL60",
+    "username": "Astrid Cruz",
+    "importedAt": "2026-03-19T11:44:26.542Z",
+    "timestamp": {
+      "_seconds": 1773920667,
+      "_nanoseconds": 628000000
+    },
+    "processedAt": {
+      "_seconds": 1773920668,
+      "_nanoseconds": 722000000
+    },
+    "userId": "uOeEGmRIaoFF31qVkDit",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "n5JTmqhJ7k5vvfQy2m7v",
+    "ticketId": "254",
+    "phone": "3227973087",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FY56",
+    "username": "Hamilton vergara ",
+    "importedAt": "2026-03-19T22:18:47.928Z",
+    "timestamp": {
+      "_seconds": 1773958728,
+      "_nanoseconds": 52000000
+    },
+    "processedAt": {
+      "_seconds": 1773958728,
+      "_nanoseconds": 630000000
+    },
+    "userId": "qj564zZxtVX2asuv17gf",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "n71GBGnLGsO3I4SKLnKz",
+    "ticketId": "11",
+    "phone": "3123415728",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CM85",
+    "username": "Jesus David",
+    "importedAt": "2026-02-17T08:15:23.366Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 11 is already owned by User RX3b9MkFRjcAwFjvkq5E.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "n7n2GVuZ6zGK06hg4mtT",
+    "ticketId": "45",
+    "phone": "305230274",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FT63",
+    "username": "Emigdia Gonzalez ",
+    "importedAt": "2026-02-15T21:03:41.551Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 45 is already owned by User 74EdysSdHmFLeDgxWUJO.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "nJOmnrQVq4EamI8t1BTw",
+    "ticketId": "209",
+    "phone": "3102585150",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DH35",
+    "username": "Javier rodriguez ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 209 is already owned by User V7bOR8gYs2OUHftlCcVL.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "nWJ39mvrAEpwMk7VIfRl",
+    "ticketId": "161",
+    "phone": "3153477043",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UF52",
+    "username": "Orlando bejarano",
+    "importedAt": "2026-03-19T11:53:31.446Z",
+    "timestamp": {
+      "_seconds": 1773921211,
+      "_nanoseconds": 578000000
+    },
+    "processedAt": {
+      "_seconds": 1773921211,
+      "_nanoseconds": 891000000
+    },
+    "userId": "mJgu3nshfdX4riCQgv3B",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ncYuUHgtgrXELIGayYAr",
+    "ticketId": "97",
+    "phone": "3245617309",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NT26",
+    "username": "Santiago Ochoa ",
+    "importedAt": "2026-02-15T21:03:41.552Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 97 is already owned by User 4GInq6iVhZFSfUjOG0cV.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "nxz31nbAYFdU3PimsF4f",
+    "ticketId": "62",
+    "phone": "3114698541",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EV62",
+    "username": "Mercy Castrellon",
+    "importedAt": "2026-02-23T02:24:01.623Z",
+    "timestamp": {
+      "_seconds": 1771813441,
+      "_nanoseconds": 745000000
+    },
+    "processedAt": {
+      "_seconds": 1771813442,
+      "_nanoseconds": 374000000
+    },
+    "userId": "LOhiRib27W5th56Ol88M",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ofPce6c2QaRimlbqVmXf",
+    "ticketId": "179",
+    "phone": "3138526009",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DM68",
+    "username": "Marina quevedo",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 179 is already owned by User 6n3d6T8fCn1KmUnpkjT4.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "onCVZqJ4xrMOr8qKWziE",
+    "ticketId": "134",
+    "phone": "3146006195",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NE49",
+    "username": "Daniela Argüelles Gómez",
+    "importedAt": "2026-03-07T15:29:34.251Z",
+    "timestamp": {
+      "_seconds": 1772897374,
+      "_nanoseconds": 568000000
+    },
+    "processedAt": {
+      "_seconds": 1772897379,
+      "_nanoseconds": 925000000
+    },
+    "userId": "yoZObBDOdsIJvSkRp7IQ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "p0wWtnojGx87Bv3zONul",
+    "ticketId": "63",
+    "phone": "3174383804",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PW97",
+    "username": "teresa patiño",
+    "importedAt": "2026-02-20T17:49:57.218Z",
+    "timestamp": {
+      "_seconds": 1771609797,
+      "_nanoseconds": 381000000
+    },
+    "processedAt": {
+      "_seconds": 1771609798,
+      "_nanoseconds": 642000000
+    },
+    "userId": "w0GIuzoWoE3UIinpI5zw",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "p4Fu1QmfKsdWMG5q76Ds",
+    "ticketId": "190",
+    "phone": "3002130016",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NV67",
+    "username": "María del Pilar",
+    "importedAt": "2026-03-01T21:57:54.035Z",
+    "timestamp": {
+      "_seconds": 1772402274,
+      "_nanoseconds": 131000000
+    },
+    "processedAt": {
+      "_seconds": 1772402275,
+      "_nanoseconds": 381000000
+    },
+    "userId": "s1aX7HjhSFdjyTzwnO4j",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "pJADS59lZtt1RxahCwQ8",
+    "ticketId": "1",
+    "phone": "3138060391",
+    "cedula": "-",
+    "payed": "yes",
+    "fixed": "CZ50",
+    "username": "Padre Wilson 😁",
+    "importedAt": "2026-02-17T08:15:23.360Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 1 is already owned by User kzEB5nfh7VKP4MogOnK1.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "phsJp31bvBhRP9Tn3rcl",
+    "ticketId": "199",
+    "phone": "1768131142",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BB17",
+    "username": "Marco Halbig",
+    "importedAt": "2026-03-05T22:16:32.479Z",
+    "timestamp": {
+      "_seconds": 1772748992,
+      "_nanoseconds": 600000000
+    },
+    "processedAt": {
+      "_seconds": 1772748994,
+      "_nanoseconds": 208000000
+    },
+    "userId": "FQGnUYEBsklZmITRfKkk",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "q3w4GqpwvgceE4RmUoI1",
+    "ticketId": "238",
+    "phone": "3203398124",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KI99",
+    "username": "Germán Delgado",
+    "importedAt": "2026-03-19T21:27:27.834Z",
+    "timestamp": {
+      "_seconds": 1773955648,
+      "_nanoseconds": 10000000
+    },
+    "processedAt": {
+      "_seconds": 1773955649,
+      "_nanoseconds": 239000000
+    },
+    "userId": "fWmxQQzkvj1YEba2LHs7",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "qCqRuSbcshm9v3f6pGSo",
+    "ticketId": "92",
+    "phone": "3004690570",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AV18",
+    "username": "Carolina Rodríguez ",
+    "importedAt": "2026-02-17T11:57:17.541Z",
+    "timestamp": {
+      "_seconds": 1771329437,
+      "_nanoseconds": 731000000
+    },
+    "processedAt": {
+      "_seconds": 1771329441,
+      "_nanoseconds": 103000000
+    },
+    "userId": "PDH2Cea1egF0S8oAUcXh",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "qWomyeWuHoW2r1gjrX2O",
+    "ticketId": "298",
+    "phone": "3123560172",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GL81",
+    "username": "Juan Sebastián Noel",
+    "importedAt": "2026-03-19T22:19:27.992Z",
+    "timestamp": {
+      "_seconds": 1773958768,
+      "_nanoseconds": 113000000
+    },
+    "processedAt": {
+      "_seconds": 1773958768,
+      "_nanoseconds": 449000000
+    },
+    "userId": "ZJ9CFaamRQWD4gRHhfpv",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "qdTKFsmfJkSvE4mml3nX",
+    "ticketId": "48",
+    "phone": "3123797065",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BN57",
+    "username": "Eliana Puerta",
+    "importedAt": "2026-02-20T20:14:17.491Z",
+    "timestamp": {
+      "_seconds": 1771618458,
+      "_nanoseconds": 470000000
+    },
+    "processedAt": {
+      "_seconds": 1771618462,
+      "_nanoseconds": 547000000
+    },
+    "userId": "BCKbjB3usS8Vw57tZaKw",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "qeQL0U109VG7TLonqpma",
+    "ticketId": "66",
+    "phone": "3046657756",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AC28",
+    "username": "Verónica Díaz ",
+    "importedAt": "2026-02-22T15:34:19.315Z",
+    "timestamp": {
+      "_seconds": 1771774459,
+      "_nanoseconds": 507000000
+    },
+    "processedAt": {
+      "_seconds": 1771774465,
+      "_nanoseconds": 399000000
+    },
+    "userId": "sXhaJ7j8bvVFKIpyQQOM",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "qi5oeqTfBKNhkOWvGydb",
+    "ticketId": "113",
+    "phone": "3208876308",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TW31",
+    "username": "Clara Barrera",
+    "importedAt": "2026-02-25T17:07:23.757Z",
+    "timestamp": {
+      "_seconds": 1772039244,
+      "_nanoseconds": 872000000
+    },
+    "processedAt": {
+      "_seconds": 1772039248,
+      "_nanoseconds": 642000000
+    },
+    "userId": "71wl7kgY9dKYzAXzMPA0",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "qvhjSR1JbV4kB986iC0J",
+    "ticketId": "249",
+    "phone": "3005591342",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WG75",
+    "username": "Maria bayona ",
+    "importedAt": "2026-03-19T22:08:47.989Z",
+    "timestamp": {
+      "_seconds": 1773958128,
+      "_nanoseconds": 103000000
+    },
+    "processedAt": {
+      "_seconds": 1773958128,
+      "_nanoseconds": 406000000
+    },
+    "userId": "5hWowM6CsRKzXLlbmqig",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "rgC0OakHlaOVZKwQ7q6P",
+    "ticketId": "15",
+    "phone": "3118908655",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YP89",
+    "username": "Marianna Álvarez ",
+    "importedAt": "2026-02-15T18:42:48.169Z",
+    "timestamp": {
+      "_seconds": 1771180969,
+      "_nanoseconds": 124000000
+    },
+    "processedAt": {
+      "_seconds": 1771180971,
+      "_nanoseconds": 894000000
+    },
+    "userId": "5RqZmc03gC4JjyKenj1l",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "s53iNTEJk6H3wkCltqMK",
+    "ticketId": "201",
+    "phone": "3153686747",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SP75",
+    "username": "Maria gonzales",
+    "importedAt": "2026-03-19T13:44:06.737Z",
+    "timestamp": {
+      "_seconds": 1773927846,
+      "_nanoseconds": 858000000
+    },
+    "processedAt": {
+      "_seconds": 1773927848,
+      "_nanoseconds": 207000000
+    },
+    "userId": "CYy7F3FhIQhHxuLz6QRT",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "sNBwDe2yfIA7U7T8q1O6",
+    "ticketId": "18",
+    "phone": "3158631662",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "FT88",
+    "username": "Jhoanna Fragozo",
+    "importedAt": "2026-02-17T08:15:23.364Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 18 is already owned by User tGFJOzHVvuJ7tZK7aDCZ.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "srYT3ErSaX9v1P8RKlQU",
+    "ticketId": "165",
+    "phone": "3213470169",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PW58",
+    "username": "Sandra Liliana Rodriguez",
+    "importedAt": "2026-02-15T22:20:43.970Z",
+    "timestamp": {
+      "_seconds": 1771194044,
+      "_nanoseconds": 152000000
+    },
+    "processedAt": {
+      "_seconds": 1771194047,
+      "_nanoseconds": 329000000
+    },
+    "userId": "3hVGPY7bfCDIdAyPd35G",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "swu9SEDgzW9rJYBvyPBO",
+    "ticketId": "41",
+    "phone": "3134989518",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UY09",
+    "username": "Dianita",
+    "importedAt": "2026-03-02T14:43:36.570Z",
+    "timestamp": {
+      "_seconds": 1772462617,
+      "_nanoseconds": 471000000
+    },
+    "processedAt": {
+      "_seconds": 1772462620,
+      "_nanoseconds": 968000000
+    },
+    "userId": "VplrY5Ten58LQxujVXDh",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "tCwTvWq57Vx5eAx33YjT",
+    "ticketId": "107",
+    "phone": "3102142709",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AY36",
+    "username": "Monica Vigoya",
+    "importedAt": "2026-02-20T15:36:05.619Z",
+    "timestamp": {
+      "_seconds": 1771601766,
+      "_nanoseconds": 98000000
+    },
+    "processedAt": {
+      "_seconds": 1771601767,
+      "_nanoseconds": 383000000
+    },
+    "userId": "wYGqaGrpF4fKnnBCpRpo",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "tH8I4yIi1aqmlxkgotrH",
+    "ticketId": "13",
+    "phone": "3118125633",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "GD96",
+    "username": "Magaly Barragan",
+    "importedAt": "2026-02-17T08:15:23.363Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 13 is already owned by User Y0TXhc1dFRt8W0rzyohl.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "tr4QJmI7REvjKkVzsZTy",
+    "ticketId": "233",
+    "phone": "3502095095",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BO85",
+    "username": "María Bejarano",
+    "importedAt": "2026-03-04T01:52:28.363Z",
+    "timestamp": {
+      "_seconds": 1772589149,
+      "_nanoseconds": 393000000
+    },
+    "processedAt": {
+      "_seconds": 1772589150,
+      "_nanoseconds": 944000000
+    },
+    "userId": "xg0HoIeHfgI0QwFxTLqv",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "tx8Bw6pOpItqkjWuCFWH",
+    "ticketId": "181",
+    "phone": "3123154827",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "MT16",
+    "username": "Maria cardenas",
+    "importedAt": "2026-03-19T12:46:26.882Z",
+    "timestamp": {
+      "_seconds": 1773924387,
+      "_nanoseconds": 56000000
+    },
+    "processedAt": {
+      "_seconds": 1773924388,
+      "_nanoseconds": 168000000
+    },
+    "userId": "2HdACeObf43nTlMJUamO",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "tyx98XWrRrq1uXcNMcip",
+    "ticketId": "222",
+    "phone": "1768172233",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RN18",
+    "username": "Johana Torres ",
+    "importedAt": "2026-03-04T23:31:57.595Z",
+    "timestamp": {
+      "_seconds": 1772667117,
+      "_nanoseconds": 791000000
+    },
+    "processedAt": {
+      "_seconds": 1772667119,
+      "_nanoseconds": 192000000
+    },
+    "userId": "FBnE34edfYqaTo4IVncv",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "uPrhNnF0wGx46jep8pS1",
+    "ticketId": "70",
+    "phone": "3160407054",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "AM88",
+    "username": "Valentina Medellin",
+    "importedAt": "2026-02-21T13:20:14.723Z",
+    "timestamp": {
+      "_seconds": 1771680014,
+      "_nanoseconds": 912000000
+    },
+    "processedAt": {
+      "_seconds": 1771680018,
+      "_nanoseconds": 778000000
+    },
+    "userId": "6dJ0GG0qtG9yT4oD0OtB",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "uTFSicEFpoww5d70vx5B",
+    "ticketId": "209",
+    "phone": "3102585150",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DH35",
+    "username": "Javier rodriguez ",
+    "importedAt": "2026-03-19T17:11:07.183Z",
+    "timestamp": {
+      "_seconds": 1773940267,
+      "_nanoseconds": 363000000
+    },
+    "processedAt": {
+      "_seconds": 1773940270,
+      "_nanoseconds": 492000000
+    },
+    "userId": "V7bOR8gYs2OUHftlCcVL",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "uUd7udifse4K0IeglMyr",
+    "ticketId": "1",
+    "phone": "3138060391",
+    "cedula": "-",
+    "payed": "yes",
+    "fixed": "CZ50",
+    "username": "Padre Wilson 😁",
+    "importedAt": "2026-02-15T21:03:41.546Z",
+    "timestamp": {
+      "_seconds": 1771189421,
+      "_nanoseconds": 812000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 1 is already owned by User kzEB5nfh7VKP4MogOnK1.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "uadDkCFCF2WCczXzSVRP",
+    "ticketId": "140",
+    "phone": "3132631508",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "NQ08",
+    "username": "Caterine cortez",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 140 is already owned by User Reng4Fcj0j1FBMj0cvpG.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "ucN3fmx2zSyzTS0j1Hi2",
+    "ticketId": "327",
+    "phone": "3194025757",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CK36",
+    "username": "Patricia Sarmiento ",
+    "importedAt": "2026-03-19T17:35:07.260Z",
+    "timestamp": {
+      "_seconds": 1773941707,
+      "_nanoseconds": 379000000
+    },
+    "processedAt": {
+      "_seconds": 1773941708,
+      "_nanoseconds": 43000000
+    },
+    "userId": "5qBkWgTApEyhaPhzfSUc",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "ueokrc6vca50iUUmGffE",
+    "ticketId": "49",
+    "phone": "3012685172",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "DA14",
+    "username": "Diana Romero",
+    "importedAt": "2026-02-20T16:05:41.801Z",
+    "timestamp": {
+      "_seconds": 1771603542,
+      "_nanoseconds": 16000000
+    },
+    "processedAt": {
+      "_seconds": 1771603545,
+      "_nanoseconds": 889000000
+    },
+    "userId": "cjrjJnsgeviqJfE72mrC",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "uqEHM5nDe9WwC92G5BEu",
+    "ticketId": "256",
+    "phone": "3160430873",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "WU69",
+    "username": "Maria Dangond",
+    "importedAt": "2026-03-19T22:15:08.454Z",
+    "timestamp": {
+      "_seconds": 1773958508,
+      "_nanoseconds": 574000000
+    },
+    "processedAt": {
+      "_seconds": 1773958508,
+      "_nanoseconds": 948000000
+    },
+    "userId": "dcqQjnrY46BDGQUlSHEe",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "urducb3tyPImc1Jq0pZA",
+    "ticketId": "148",
+    "phone": "3002130016",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PD09",
+    "username": "María del Pilar",
+    "importedAt": "2026-03-01T22:03:13.270Z",
+    "timestamp": {
+      "_seconds": 1772402594,
+      "_nanoseconds": 245000000
+    },
+    "processedAt": {
+      "_seconds": 1772402594,
+      "_nanoseconds": 659000000
+    },
+    "userId": "s1aX7HjhSFdjyTzwnO4j",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "uvnd00RdCzZOWd6VDXpn",
+    "ticketId": "128",
+    "phone": "3172647180",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "QY94",
+    "username": "Blanca Cuesta",
+    "importedAt": "2026-02-17T08:15:23.367Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 128 is already owned by User 1pMFYVZEvzSRsvlRhOSq.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "v2AlLxfupYABhbv9oJ4U",
+    "ticketId": "55",
+    "phone": "30000001",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CL37",
+    "username": "Abuelito Simon",
+    "importedAt": "2026-03-06T20:49:47.332Z",
+    "timestamp": {
+      "_seconds": 1772830187,
+      "_nanoseconds": 463000000
+    },
+    "processedAt": {
+      "_seconds": 1772830188,
+      "_nanoseconds": 669000000
+    },
+    "userId": "Dq1wDWBGOKg9nuEZ6q6A",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "v5F7AzAW9htO6vKB9ru5",
+    "ticketId": "108",
+    "phone": "3023234681",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XD46",
+    "username": "Mariana Caicedo",
+    "importedAt": "2026-03-04T03:18:23.655Z",
+    "timestamp": {
+      "_seconds": 1772594303,
+      "_nanoseconds": 800000000
+    },
+    "processedAt": {
+      "_seconds": 1772594305,
+      "_nanoseconds": 169000000
+    },
+    "userId": "xtSfL4BRwQLp7NSCzZtf",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "vJa5hJuOiYkZRwuBSsjy",
+    "ticketId": "214",
+    "phone": "3145804835",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "ZF73",
+    "username": "Juan martinez",
+    "importedAt": "2026-03-19T20:21:19.738Z",
+    "timestamp": {
+      "_seconds": 1773951680,
+      "_nanoseconds": 827000000
+    },
+    "processedAt": {
+      "_seconds": 1773951681,
+      "_nanoseconds": 836000000
+    },
+    "userId": "fQQx4G4Ed8JN2Zdq1Ikp",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "vSf5YbGFvPSOdj454zKL",
+    "ticketId": "80",
+    "phone": "3115070561",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SE95",
+    "username": "Sebastian Oyola",
+    "importedAt": "2026-02-22T16:27:24.452Z",
+    "timestamp": {
+      "_seconds": 1771777645,
+      "_nanoseconds": 552000000
+    },
+    "processedAt": {
+      "_seconds": 1771777651,
+      "_nanoseconds": 759000000
+    },
+    "userId": "6DtGk1bfJOyvEEemc2Im",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "vV4BBzhkHvQU4hACuodM",
+    "ticketId": "275",
+    "phone": "3004679031",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "TV91",
+    "importedAt": "2026-03-19T13:11:26.661Z",
+    "timestamp": {
+      "_seconds": 1773925886,
+      "_nanoseconds": 796000000
+    },
+    "processedAt": {
+      "_seconds": 1773925887,
+      "_nanoseconds": 192000000
+    },
+    "userId": "OKL3ospaX6RqE7DclFRD",
+    "status": "SUCCESS",
+    "username": "Santiago Bejarano"
+  },
+  {
+    "id": "vfzSyiSAtpxvT5DxIIcd",
+    "ticketId": "26",
+    "phone": "3044090811",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "HR43",
+    "username": "Erika Muñoz ",
+    "importedAt": "2026-02-17T12:18:17.559Z",
+    "timestamp": {
+      "_seconds": 1771330698,
+      "_nanoseconds": 678000000
+    },
+    "processedAt": {
+      "_seconds": 1771330702,
+      "_nanoseconds": 339000000
+    },
+    "userId": "wq6HLJy6NAPFw3fyWm6G",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "vnSSOScfT4gfvjWzB4T2",
+    "ticketId": "247",
+    "phone": "3017141863",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OY29",
+    "username": "Isabella Carrera ",
+    "importedAt": "2026-03-19T13:13:26.672Z",
+    "timestamp": {
+      "_seconds": 1773926006,
+      "_nanoseconds": 790000000
+    },
+    "processedAt": {
+      "_seconds": 1773926007,
+      "_nanoseconds": 90000000
+    },
+    "userId": "o9UtWMG7JZKIfQuwPjfg",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "vs4rW2xjPHPDWieGvZGH",
+    "ticketId": "139",
+    "phone": "3108663795",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "UY69",
+    "username": "Paola cristancho",
+    "importedAt": "2026-03-19T11:22:26.503Z",
+    "timestamp": {
+      "_seconds": 1773919346,
+      "_nanoseconds": 732000000
+    },
+    "processedAt": {
+      "_seconds": 1773919351,
+      "_nanoseconds": 67000000
+    },
+    "userId": "jvyjckn7RH4vvLs8mg1w",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "vu86luXFCFwf7vsahcpQ",
+    "ticketId": "237",
+    "phone": "3214355073",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "OE62",
+    "username": "Anita Amaya ",
+    "importedAt": "2026-03-12T19:39:57.736Z",
+    "timestamp": {
+      "_seconds": 1773344398,
+      "_nanoseconds": 722000000
+    },
+    "processedAt": {
+      "_seconds": 1773344401,
+      "_nanoseconds": 948000000
+    },
+    "userId": "gudRx2EeKjwwwI3gWObk",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "w9Cy5xhqb49Rvljjk9ZP",
+    "ticketId": "64",
+    "phone": "3125854203",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PT64",
+    "username": "Walkiria Perez",
+    "importedAt": "2026-02-23T02:02:31.478Z",
+    "timestamp": {
+      "_seconds": 1771812152,
+      "_nanoseconds": 544000000
+    },
+    "processedAt": {
+      "_seconds": 1771812156,
+      "_nanoseconds": 19000000
+    },
+    "userId": "kE25lh31I1rGCMfvDmmJ",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "wQZxLnuPlk7FpGmCwFsW",
+    "ticketId": "154",
+    "phone": "3212054709",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "KQ07",
+    "username": "Beatriz Cuervo Suarez",
+    "importedAt": "2026-02-20T02:16:58.171Z",
+    "timestamp": {
+      "_seconds": 1771553818,
+      "_nanoseconds": 355000000
+    },
+    "processedAt": {
+      "_seconds": 1771553821,
+      "_nanoseconds": 901000000
+    },
+    "userId": "wcoX8bSQ0VgsDWcfJkFl",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "wcuAv4XyGboVxjQtZ8mu",
+    "ticketId": "327",
+    "phone": "3194025757",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "CK36",
+    "username": "Patricia Sarmiento ",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 327 is already owned by User 5qBkWgTApEyhaPhzfSUc.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "wzouAS5QSimgHdPYAohW",
+    "ticketId": "234",
+    "phone": "3166179365",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XE78",
+    "username": "Juan escobar ",
+    "importedAt": "2026-03-19T21:00:27.741Z",
+    "timestamp": {
+      "_seconds": 1773954027,
+      "_nanoseconds": 857000000
+    },
+    "processedAt": {
+      "_seconds": 1773954028,
+      "_nanoseconds": 621000000
+    },
+    "userId": "dzrCquzUBHAvU6oTKhp7",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "xB3I4Ni0bDtwzm6ct2S5",
+    "ticketId": "87",
+    "phone": "3158162189",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EV91",
+    "username": "Angela triana",
+    "importedAt": "2026-02-24T12:30:58.317Z",
+    "timestamp": {
+      "_seconds": 1771936258,
+      "_nanoseconds": 505000000
+    },
+    "processedAt": {
+      "_seconds": 1771936262,
+      "_nanoseconds": 491000000
+    },
+    "userId": "OeBw25u3pjQTunWQTLO5",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "xPhENBNh904alh6BmG45",
+    "ticketId": "39",
+    "phone": "3203398096",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "XF85",
+    "username": "Viviana Delgado",
+    "importedAt": "2026-02-18T00:57:13.608Z",
+    "timestamp": {
+      "_seconds": 1771376234,
+      "_nanoseconds": 570000000
+    },
+    "processedAt": {
+      "_seconds": 1771376239,
+      "_nanoseconds": 404000000
+    },
+    "userId": "gzemxKzA6omT8rfWf9BP",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "xrx4ZYHtzHSJ2zBrlMSK",
+    "ticketId": "177",
+    "phone": "3118313125",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "BE29",
+    "username": "Jeny benavides",
+    "importedAt": "2026-03-19T20:12:30.159Z",
+    "timestamp": {
+      "_seconds": 1773951225,
+      "_nanoseconds": 702000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 177 is already owned by User 8fbuUi6SD6gt6v3msQ5T.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "ymphWggZYHT5FhpMDWmm",
+    "ticketId": "162",
+    "phone": "3168543538",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EI40",
+    "username": "Rosmery romero",
+    "importedAt": "2026-03-19T11:56:06.664Z",
+    "timestamp": {
+      "_seconds": 1773921366,
+      "_nanoseconds": 794000000
+    },
+    "processedAt": {
+      "_seconds": 1773921367,
+      "_nanoseconds": 153000000
+    },
+    "userId": "X5ikFMdmbTJM929JB2k2",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "yyw0KftMBcwZzKMEjV7g",
+    "ticketId": "277",
+    "phone": "3107683232",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "YX90",
+    "username": "Maria Elvira",
+    "importedAt": "2026-03-04T03:16:03.552Z",
+    "timestamp": {
+      "_seconds": 1772594164,
+      "_nanoseconds": 460000000
+    },
+    "processedAt": {
+      "_seconds": 1772594165,
+      "_nanoseconds": 614000000
+    },
+    "userId": "nzVb5XDFS6xJ5fqPO1O8",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "z3B5kbvEG9h4oFEU9X09",
+    "ticketId": "165",
+    "phone": "3213470169",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "PW58",
+    "username": "Sandra Liliana Rodriguez",
+    "importedAt": "2026-02-17T08:15:23.366Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 165 is already owned by User 3hVGPY7bfCDIdAyPd35G.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "zF4ZOQZwEnNG4R3cgVFS",
+    "ticketId": "228",
+    "phone": "3114201885",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "EE07",
+    "username": "Alemar avila",
+    "importedAt": "2026-03-19T20:53:52.676Z",
+    "timestamp": {
+      "_seconds": 1773953632,
+      "_nanoseconds": 791000000
+    },
+    "processedAt": {
+      "_seconds": 1773953633,
+      "_nanoseconds": 97000000
+    },
+    "userId": "4tErdcnY8f9pHIlyu80f",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "zORnumm6wnH9QQTdQpxX",
+    "ticketId": "116",
+    "phone": "3212151448",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "RA78",
+    "username": "Laura Cardenaz",
+    "importedAt": "2026-02-23T02:20:01.530Z",
+    "timestamp": {
+      "_seconds": 1771813201,
+      "_nanoseconds": 714000000
+    },
+    "processedAt": {
+      "_seconds": 1771813202,
+      "_nanoseconds": 906000000
+    },
+    "userId": "WT87CFInW9a8w7rSYDul",
+    "status": "SUCCESS"
+  },
+  {
+    "id": "zcHLVgQbkMhPWfTgInoT",
+    "ticketId": "3",
+    "phone": "3005370857",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "VH03",
+    "username": "Diego Urrego Fonseca ",
+    "importedAt": "2026-02-17T08:15:23.370Z",
+    "timestamp": {
+      "_seconds": 1771316123,
+      "_nanoseconds": 679000000
+    },
+    "error": "ALREADY_ASSIGNED: Ticket 3 is already owned by User iOF4UPd8WtL8rYJhuSoB.",
+    "status": "REJECTED"
+  },
+  {
+    "id": "zdTQTXSl9LMtaMSRT2rd",
+    "ticketId": "76",
+    "phone": "3165206865",
+    "cedula": "",
+    "payed": "yes",
+    "fixed": "SB31",
+    "importedAt": "2026-02-17T12:56:37.827Z",
+    "timestamp": {
+      "_seconds": 1771332998,
+      "_nanoseconds": 797000000
+    },
+    "processedAt": {
+      "_seconds": 1771333002,
+      "_nanoseconds": 337000000
+    },
+    "userId": "7JVc4QztCiD8MbcR3vwL",
+    "status": "SUCCESS",
+    "username": "Fabian Carrera Amaya"
+  }
+]

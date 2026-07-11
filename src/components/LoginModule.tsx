@@ -130,6 +130,7 @@ export default function LoginModule() {
     };
 
     const handleFinalSubmission = async () => {
+
         let hasError = false;
         if (!registerPhone) {
             setError('Por favor ingresa tu número de teléfono');
@@ -244,6 +245,7 @@ export default function LoginModule() {
 
     return (
         <>
+
             {!mounted || user.isAuthenticated !== 'true' ? (
                 <div className="flex items-center gap-3">
                     <a

@@ -5,11 +5,11 @@ import { isLoginOpen, userStore } from '../store/userStore';
 
 export default function BartiPregunta() {
     const user = useStore(userStore);
-    const [isOpen, setIsOpen] = useState(false);
     const [showLoginWarning, setShowLoginWarning] = useState(false);
     const [loading, setLoading] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
     const [triviaFeedback, setTriviaFeedback] = useState<{ type: 'success' | 'error' | null, message: string, reward?: number }>({ type: null, message: '' });
+    const [isOpen, setIsOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -31,6 +31,7 @@ export default function BartiPregunta() {
     };
 
     const handleOpenTrivia = async () => {
+
         if (user.isAuthenticated !== 'true') {
             setShowLoginWarning(true);
             return;
@@ -139,6 +140,7 @@ export default function BartiPregunta() {
 
     return (
         <>
+
             <button
                 onClick={handleOpenTrivia}
                 className="w-full relative overflow-hidden bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:to-[#a06d10] text-black rounded-2xl shadow-[0_0_25px_rgba(248,177,52,0.4)] transition-all duration-300 transform hover:scale-[1.02] group border-2 border-[#fff5d6]/50"

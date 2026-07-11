@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
-import { admin, db } from '../../../services/firebase';
+import { query } from '../../../lib/db';
+import crypto from 'crypto';
 
 export const POST: APIRoute = async ({ request }) => {
     try {
@@ -10,54 +11,52 @@ export const POST: APIRoute = async ({ request }) => {
             return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
         }
 
-        // 1. Verify Question
-        const preguntaRef = db.collection('pregunta').doc(String(preguntaId));
-        const preguntaDoc = await preguntaRef.get();
+        // 1. Verificar la pregunta en Postgres
+        const preguntaRes = await query('SELECT respuesta_correcta, reward FROM preguntas WHERE id = $1', [parseInt(preguntaId)]);
 
-        if (!preguntaDoc.exists) {
+        if (preguntaRes.rowCount === 0) {
             return new Response(JSON.stringify({ error: "Question not found" }), { status: 404 });
         }
 
-        const preguntaData = preguntaDoc.data();
-        const correctAnswer = preguntaData?.respuestaCorrecta;
-        const reward = Number(preguntaData?.reward) || 0;
+        const preguntaData = preguntaRes.rows[0];
+        const correctAnswer = preguntaData.respuesta_correcta;
+        const reward = Number(preguntaData.reward) || 0;
 
-        // 2. Validate Answer
-        const isCorrect = respuesta === correctAnswer;
+        // 2. Validar Respuesta
+        const isCorrect = String(respuesta).trim() === String(correctAnswer).trim();
 
-        // 3. Write to 'respuesta' collection (Triggers Cloud Function)
-        // 3. Write to 'respuesta' collection (Triggers Cloud Function)
-        const batch = db.batch();
+        // 3. Guardar la respuesta (con restricción Unique para evitar trampas)
+        const answerId = crypto.randomUUID();
 
-        const respuestaRef = db.collection('respuesta').doc();
-        batch.set(respuestaRef, {
-            userId,
-            preguntaid: preguntaId,
-            respuesta: respuesta,
-            correcta: isCorrect,
-            timestamp: admin.firestore.FieldValue.serverTimestamp()
-        });
-
-        // 4. Update User Daily Count
-        const userRef = db.collection('user').doc(userId);
-        const today = new Date().toLocaleString("en-US", { timeZone: "America/Bogota" }).split(",")[0]; // Format: M/D/YYYY
-
-        const userDoc = await userRef.get();
-        const userData = userDoc.data();
-
-        let newCount = 1;
-        if (userData?.lastTriviaDate === today) {
-            newCount = (userData.dailyTriviaCount || 0) + 1;
+        try {
+            await query(`
+                INSERT INTO user_trivia_answers (id, user_id, pregunta_id, respuesta_enviada, is_correct, snapshot_reward)
+                VALUES ($1, $2, $3, $4, $5, $6)
+            `, [answerId, userId, parseInt(preguntaId), respuesta, isCorrect, isCorrect ? reward : 0]);
+        } catch (err: any) {
+            if (err.code === '23505') {
+                 return new Response(JSON.stringify({
+                    error: "Ya has respondido esta pregunta anteriormente."
+                }), { status: 409 });
+            }
+            throw err;
         }
 
-        batch.update(userRef, {
-            dailyTriviaCount: newCount,
-            lastTriviaDate: today
-        });
+        // 4. Actualizar el conteo diario del usuario usando magia de SQL (UPDATE + RETURNING)
+        const updateRes = await query(`
+            UPDATE users 
+            SET daily_trivia_count = CASE 
+                    WHEN last_trivia_date = CURRENT_DATE THEN daily_trivia_count + 1 
+                    ELSE 1 
+                END,
+                last_trivia_date = CURRENT_DATE
+            WHERE id = $1
+            RETURNING daily_trivia_count;
+        `, [userId]);
 
-        await batch.commit();
+        const newCount = updateRes.rows[0]?.daily_trivia_count || 1;
 
-        // 5. Return result for Optimistic UI
+        // 5. Retornar resultado al cliente
         return new Response(JSON.stringify({
             success: true,
             isCorrect: isCorrect,
@@ -70,7 +69,7 @@ export const POST: APIRoute = async ({ request }) => {
         });
 
     } catch (error) {
-        console.error("Trivia Answer API Error:", error);
+        console.error("❌ Postgres Trivia Answer API Error:", error);
         return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
     }
 }

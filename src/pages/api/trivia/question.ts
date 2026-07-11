@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { db } from '../../../services/firebase';
+import { query } from '../../../lib/db';
 
 export const GET: APIRoute = async ({ url }) => {
     const userId = url.searchParams.get('userId');
@@ -9,20 +9,33 @@ export const GET: APIRoute = async ({ url }) => {
     }
 
     try {
-        // 1. Get User's unseen questions & Daily Limit Check
-        const userDoc = await db.collection('user').doc(userId).get();
-        if (!userDoc.exists) {
-            return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
+        // 1. Verificamos el límite diario del usuario en Postgres
+        const userRes = await query('SELECT daily_trivia_count, last_trivia_date FROM users WHERE id = $1', [userId]);
+        
+        if (userRes.rowCount === 0) {
+            return new Response(JSON.stringify({ error: "Usuario no encontrado" }), { status: 404 });
         }
 
-        const userData = userDoc.data();
+        const userData = userRes.rows[0];
+        
+        const today = new Date().toLocaleString("en-US", { timeZone: "America/Bogota" }).split(",")[0]; 
+        // En Postgres, last_trivia_date es un campo Date real. Al traerlo a JS se convierte a objeto Date.
+        // Lo formamos al formato local de bogotá para ser consistentes, o validamos por fechas de Postgres.
+        
+        // Más fácil: si en SQL `last_trivia_date = CURRENT_DATE`, el daily count aplica.
+        // Consultemos nuevamente pero pidiendo a Postgres que compare la fecha:
+        const limitCheckRes = await query(`
+            SELECT 
+                daily_trivia_count,
+                (last_trivia_date = CURRENT_DATE) as is_today
+            FROM users WHERE id = $1;
+        `, [userId]);
 
-        // --- DAILY LIMIT CHECK ---
-        const today = new Date().toLocaleString("en-US", { timeZone: "America/Bogota" }).split(",")[0]; // Format: M/D/YYYY
-
+        const limitData = limitCheckRes.rows[0];
         let dailyCount = 0;
-        if (userData?.lastTriviaDate === today) {
-            dailyCount = userData.dailyTriviaCount || 0;
+
+        if (limitData.is_today) {
+            dailyCount = limitData.daily_trivia_count || 0;
         }
 
         if (dailyCount >= 10) {
@@ -32,39 +45,37 @@ export const GET: APIRoute = async ({ url }) => {
                 message: "¡Has alcanzado el límite de 10 preguntas por hoy! Vuelve mañana para ganar más puntos."
             }), { status: 200 });
         }
-        // -------------------------
 
-        // Handling case sensitivity for 'preguntasVistas' field (could be lower or camel case)
-        const preguntasVistasStr = userData?.preguntasVistas || userData?.preguntasvistas || "";
-        const seenIds = preguntasVistasStr.split(',').map((s: string) => s.trim()).filter((s: string) => s.length > 0);
+        // 2. Traemos una pregunta aleatoria que el usuario NO haya respondido antes.
+        // SQL puro, mucho más rápido y elegante que iterar arrays en JavaScript.
+        const sqlRandomQuestion = `
+            SELECT id, pregunta, opcion_a, opcion_b, opcion_c, opcion_d, reward
+            FROM preguntas
+            WHERE id NOT IN (SELECT pregunta_id FROM user_trivia_answers WHERE user_id = $1)
+            ORDER BY RANDOM()
+            LIMIT 1;
+        `;
 
-        // 2. Fetch all available questions
-        const questionsSnap = await db.collection('pregunta').get();
+        const questionRes = await query(sqlRandomQuestion, [userId]);
 
-        const availableQuestions = questionsSnap.docs
-            .map(doc => ({ id: doc.id, ...doc.data() }))
-            .filter((q: any) => !seenIds.includes(q.id));
-
-        if (availableQuestions.length === 0) {
+        if (questionRes.rowCount === 0) {
             return new Response(JSON.stringify({ empty: true, message: "¡Ya respondiste todas las trivias disponibles!" }), { status: 200 });
         }
 
-        // 3. Pick Random
-        const randomIndex = Math.floor(Math.random() * availableQuestions.length);
-        const selectedQ: any = availableQuestions[randomIndex];
+        const selectedQ = questionRes.rows[0];
 
-        // 4. Return formatted question (Hide correct answer)
+        // 3. Devolvemos la pregunta formateada (sin la respuesta correcta)
         const responseData = {
             id: selectedQ.id,
             pregunta: selectedQ.pregunta,
             options: [
-                selectedQ.opcionA,
-                selectedQ.opcionB,
-                selectedQ.opcionC,
-                selectedQ.opcionD
-            ].filter(Boolean), // Ensure no empty options
+                selectedQ.opcion_a,
+                selectedQ.opcion_b,
+                selectedQ.opcion_c,
+                selectedQ.opcion_d
+            ].filter(Boolean), // Evitar opciones nulas
             reward: selectedQ.reward || 0,
-            dailyCount: dailyCount + 1, // Return current attempt number
+            dailyCount: dailyCount + 1, // Retornamos el número de intento actual
             maxDaily: 10
         };
 
@@ -74,7 +85,7 @@ export const GET: APIRoute = async ({ url }) => {
         });
 
     } catch (error) {
-        console.error("Trivia Question API Error:", error);
+        console.error("❌ Postgres Trivia Question API Error:", error);
         return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
     }
 }

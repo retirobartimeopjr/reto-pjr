@@ -1,30 +1,32 @@
-
 import type { APIRoute } from 'astro';
-import { userCache } from '../../lib/serverUserCache';
+import { query } from '../../lib/db';
 
 export const GET: APIRoute = async ({ request }) => {
     try {
-        // Use Server Cache (Auto-refreshed every 60s)
-        const allUsers = await userCache.getAllUsers();
-
-        // Sort descending by score
-        const sorted = [...allUsers].sort((a, b) => (b.score || 0) - (a.score || 0));
-
-        // Check for user ID in query params to determine limit
         const url = new URL(request.url);
         const uid = url.searchParams.get('uid');
 
         let isRegistered = false;
 
+        // 1. Check if the requester is registered
         if (uid) {
-            // fast check if user exists in cache
-            isRegistered = allUsers.some(u => u.docId === uid);
+            const checkRes = await query('SELECT 1 FROM users WHERE id = $1', [uid]);
+            isRegistered = checkRes.rowCount !== null && checkRes.rowCount > 0;
         }
 
-        // Return top users based on limit
-        const topUsers = sorted.slice(0, 10).map(u => ({
+        // 2. Fetch top 10 users from user_stats (already sorted by PostgreSQL!)
+        // Postgres maneja el ordenamiento de 100,000 registros en un abrir y cerrar de ojos
+        const boardRes = await query(`
+            SELECT username, calculated_score 
+            FROM user_stats 
+            ORDER BY calculated_score DESC 
+            LIMIT 10
+        `);
+
+        // 3. Format response (Hide scores if not registered)
+        const topUsers = boardRes.rows.map(u => ({
             username: u.username || 'Anónimo',
-            score: isRegistered ? (u.score || 0) : null
+            score: isRegistered ? Number(u.calculated_score || 0) : null
         }));
 
         return new Response(JSON.stringify(topUsers), {
@@ -35,7 +37,7 @@ export const GET: APIRoute = async ({ request }) => {
         });
 
     } catch (error) {
-        console.error("Leaderboard API Error:", error);
+        console.error("❌ Postgres Leaderboard API Error:", error);
         return new Response(JSON.stringify({ error: 'Server Error' }), { status: 500 });
     }
 };

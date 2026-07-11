@@ -1,0 +1,5547 @@
+[
+  {
+    "id": "01GFtWqrRqt64jAqi10E",
+    "phone": "3138702202",
+    "username": "Yadith pardo orduña",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "21",
+    "tickets-fixed": "BH67",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771537878,
+      "_nanoseconds": 802000000
+    },
+    "referencia": "3138314889",
+    "referidos": 1,
+    "lastTriviaDate": "3/18/2026",
+    "respuestasCorrectas": 31,
+    "dailyTriviaCount": 3,
+    "preguntasvistas": "50,52,96,31,32,100,44,97,102,66,48,74,65,53,69,76,15,7,59,37,1,14,56,47,166,195,64,210,16,34,163,63,231,206,233",
+    "respuestasEnviadas": 35,
+    "parroquiasVistitadas": "12",
+    "score": "920"
+  },
+  {
+    "id": "0L85pveieyo3mi7f90Rz",
+    "phone": "3195940029",
+    "username": "Juan Nicolás Nieto Gámez ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "166",
+    "tickets-fixed": "FI84",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1773179019,
+      "_nanoseconds": 977000000
+    },
+    "parroquiasVistitadas": "14",
+    "lastTriviaDate": "3/13/2026",
+    "score": 700,
+    "respuestasCorrectas": 25,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "212,76,281,275,117,38,5,327,121,11,269,174,22,195,25,347,338,159,13,196,62,308,72,12,203,280,61,261,143,88",
+    "respuestasEnviadas": 30
+  },
+  {
+    "id": "0ZT0SnCPGZYqxDdK5l6s",
+    "phone": "3232312235",
+    "username": "Andrea Maldonado",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "125",
+    "tickets-fixed": "HC80",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771278356,
+      "_nanoseconds": 764000000
+    }
+  },
+  {
+    "id": "0ya8UqJdoKmPNOXpka5z",
+    "phone": "3232042948",
+    "username": "Sandra acero",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "265",
+    "tickets-fixed": "VE51",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773959869,
+      "_nanoseconds": 196000000
+    }
+  },
+  {
+    "id": "1RcbJSwnuak5BO0y8mWD",
+    "phone": "3008750489",
+    "username": "Mariana cova",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "188",
+    "tickets-fixed": "WT22",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773925473,
+      "_nanoseconds": 584000000
+    }
+  },
+  {
+    "id": "1VGS7uz4HXiKM0xrPrN8",
+    "phone": "3105796030",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772402313,
+      "_nanoseconds": 971000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1772402734,
+      "_nanoseconds": 215000000
+    },
+    "tickets-fixed": "IZ87,TB75",
+    "tickets-numbers": "141,191",
+    "tickets-quantity": 2,
+    "username": "Angela Morales"
+  },
+  {
+    "id": "1pMFYVZEvzSRsvlRhOSq",
+    "phone": "3172647180",
+    "username": "Blanca Cuesta",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "128",
+    "tickets-fixed": "QY94",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771278416,
+      "_nanoseconds": 515000000
+    }
+  },
+  {
+    "id": "1poG3b35SdFPxlvNNfDo",
+    "phone": "3054256716",
+    "username": "Jorge Andrés Rodríguez Carrillo ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "57",
+    "tickets-fixed": "OL50",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771184106,
+      "_nanoseconds": 481000000
+    },
+    "parroquiasVistitadas": "0",
+    "lastTriviaDate": "2/24/2026",
+    "score": 940,
+    "respuestasCorrectas": 37,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "52,40,42,47,12,41,19,38,46,30,7,8,16,53,14,23,10,11,2,31,6,21,49,45,48,9,63,84,102,91,26,87,13,34,58,51,24,37,81,77,127,86,92,107,32,85,113,112,55,108",
+    "respuestasEnviadas": 50
+  },
+  {
+    "id": "22AzkAjLiKUt4zJ8mWQr",
+    "username": "Karen Moreno Orjuela",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "120",
+    "tickets-fixed": "SO23",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771367332,
+      "_nanoseconds": 373000000
+    },
+    "lastTriviaDate": "2/17/2026",
+    "dailyTriviaCount": 2,
+    "preguntasvistas": "25,10",
+    "respuestasCorrectas": 1,
+    "respuestasEnviadas": 2,
+    "parroquiasVistitadas": "0",
+    "score": "220",
+    "phone": "3115335293",
+    "referencia": "3167607356"
+  },
+  {
+    "id": "29HtH34s8pSG6TXeCEBn",
+    "phone": "3044701729",
+    "username": "Ana Cantor",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "103",
+    "tickets-fixed": "BG59",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771812433,
+      "_nanoseconds": 345000000
+    }
+  },
+  {
+    "id": "2HdACeObf43nTlMJUamO",
+    "phone": "3123154827",
+    "username": "Maria cardenas",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "181",
+    "tickets-fixed": "MT16",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773924388,
+      "_nanoseconds": 168000000
+    }
+  },
+  {
+    "id": "2JMCV965HhrYVebxdrPk",
+    "phone": "3132730533",
+    "username": "Sofia rozo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "243",
+    "tickets-fixed": "DJ88",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773956833,
+      "_nanoseconds": 347000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "2QIWGdnHhIxV5x73Jmxl",
+    "phone": "3028426869",
+    "username": "Andres restrepo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "208",
+    "tickets-fixed": "AU49",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773934247,
+      "_nanoseconds": 721000000
+    }
+  },
+  {
+    "id": "2aT7lOdh4scuxTJnmZyu",
+    "phone": "3203760656",
+    "username": "Diego Tirado ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "252",
+    "tickets-fixed": "XB64",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773955390,
+      "_nanoseconds": 91000000
+    }
+  },
+  {
+    "id": "32m3bL3BbGYnB1uWBLt3",
+    "phone": "3158405695",
+    "username": "Maria Alejandra Alvarado",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "137",
+    "tickets-fixed": "LL71",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771186851,
+      "_nanoseconds": 856000000
+    },
+    "lastTriviaDate": "3/8/2026",
+    "respuestasCorrectas": 1,
+    "parroquiasVistitadas": "0",
+    "score": "220",
+    "dailyTriviaCount": 3,
+    "preguntasvistas": "24,86,40",
+    "respuestasEnviadas": 3
+  },
+  {
+    "id": "3IiHk8Hkylx752jkKXhf",
+    "phone": "3002304766",
+    "username": "Gloria Carrera",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "142",
+    "tickets-fixed": "JF18",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771802162,
+      "_nanoseconds": 815000000
+    },
+    "referencia": "3213088359",
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 2,
+    "score": 20,
+    "preguntasvistas": "60,31",
+    "respuestasCorrectas": 1,
+    "respuestasEnviadas": 2
+  },
+  {
+    "id": "3hVGPY7bfCDIdAyPd35G",
+    "phone": "3213470169",
+    "username": "Sandra Liliana Rodriguez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "165",
+    "tickets-fixed": "PW58",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771194047,
+      "_nanoseconds": 329000000
+    }
+  },
+  {
+    "id": "3it0vSroyVRBfvXR1TJB",
+    "phone": "3153528044",
+    "username": "Blanca Alicia Nieto Sotomayor",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "174",
+    "tickets-fixed": "BX05",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771792225,
+      "_nanoseconds": 779000000
+    }
+  },
+  {
+    "id": "3tgAplhxcQbN7By74ZoU",
+    "phone": "3232042949",
+    "username": "Juliana Torres ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "268",
+    "tickets-fixed": "MK17",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773960348,
+      "_nanoseconds": 474000000
+    }
+  },
+  {
+    "id": "3tsHNcccUcPflp1N9iY5",
+    "phone": "3059899353",
+    "username": "Stella Neira ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "203",
+    "tickets-fixed": "YM90",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772666811,
+      "_nanoseconds": 217000000
+    }
+  },
+  {
+    "id": "47rQhbUGHVSqaiNwct0l",
+    "phone": "3103402912",
+    "username": "Esperanza Lopez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "160",
+    "tickets-fixed": "OE18",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773920989,
+      "_nanoseconds": 13000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "4DkmdvU6mKPJZiaBqN5o",
+    "phone": "3138056274",
+    "username": "Alejandro Bernal",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "159",
+    "tickets-fixed": "WY08",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772411097,
+      "_nanoseconds": 833000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "4EuGzRnMYcVIWsEsLSel",
+    "phone": "3205656299",
+    "username": "Mabelu",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "261",
+    "tickets-fixed": "CZ02",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958468,
+      "_nanoseconds": 373000000
+    }
+  },
+  {
+    "id": "4FQgwZ3E59o8v7SMP5kS",
+    "phone": "3015433827",
+    "username": "Maritza Contreras",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "79",
+    "tickets-fixed": "NL86",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771173409,
+      "_nanoseconds": 201000000
+    }
+  },
+  {
+    "id": "4GInq6iVhZFSfUjOG0cV",
+    "phone": "3245617309",
+    "username": "Santiago Ochoa ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "97",
+    "tickets-fixed": "NT26",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771178118,
+      "_nanoseconds": 575000000
+    }
+  },
+  {
+    "id": "4g7nZED1nSzcKCM8iGUh",
+    "phone": "3142016688",
+    "username": "Natalia rodriguez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "202",
+    "tickets-fixed": "QZ05",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773929608,
+      "_nanoseconds": 287000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "4mifor60lVJ2RTBkg9Wu",
+    "phone": "3160499918",
+    "username": "Santiago tapia",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "246",
+    "tickets-fixed": "TG56",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773957393,
+      "_nanoseconds": 805000000
+    }
+  },
+  {
+    "id": "4tErdcnY8f9pHIlyu80f",
+    "phone": "3114201885",
+    "username": "Alemar avila",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "228",
+    "tickets-fixed": "EE07",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773953633,
+      "_nanoseconds": 97000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "54VpWTQAr05we9tvQGAg",
+    "phone": "3103004179",
+    "username": "Claudia Barreto",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771551297,
+      "_nanoseconds": 515000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771551299,
+      "_nanoseconds": 87000000
+    },
+    "tickets-fixed": "TK10,RE65",
+    "tickets-numbers": "102,155",
+    "tickets-quantity": 2
+  },
+  {
+    "id": "5RqZmc03gC4JjyKenj1l",
+    "phone": "3118908655",
+    "username": "Marianna Álvarez ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "15",
+    "tickets-fixed": "YP89",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771180971,
+      "_nanoseconds": 894000000
+    },
+    "parroquiasVistitadas": "0",
+    "lastTriviaDate": "2/26/2026",
+    "dailyTriviaCount": 10,
+    "score": 560,
+    "preguntasvistas": "43,75,23,11,41,85,80,14,92,56,33,52,10,3,99,97,115,82,127,25,71,54,12,125,40,9,32,98,24,42",
+    "respuestasCorrectas": 18,
+    "respuestasEnviadas": 30
+  },
+  {
+    "id": "5VlA1av4yENTyw3O1s3d",
+    "phone": "3144671382",
+    "username": "Nicolas Santamaria ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "236",
+    "tickets-fixed": "EA11",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773934075,
+      "_nanoseconds": 477000000
+    }
+  },
+  {
+    "id": "5cpkMUhPZEPfqDJ0DUlD",
+    "phone": "3213830865",
+    "username": "Alexandra Lopez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "43",
+    "tickets-fixed": "WZ05",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771592383,
+      "_nanoseconds": 706000000
+    },
+    "parroquiasVistitadas": "47,43",
+    "lastTriviaDate": "2/25/2026",
+    "dailyTriviaCount": 10,
+    "score": 1200,
+    "preguntasvistas": "42,19,87,28,80,45,10,4,85,36,90,60,82,37,64,8,31,79,11,34,96,72,86,99,22,89,29,54,68,67,47,6,43,46,74,115,71,119,41,120",
+    "respuestasCorrectas": 40,
+    "respuestasEnviadas": 40
+  },
+  {
+    "id": "5hTTbPHpzJb8aPiItxZ6",
+    "phone": "3176798322",
+    "username": "Luciana Garzon",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "10",
+    "tickets-fixed": "MC79",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771277283,
+      "_nanoseconds": 237000000
+    }
+  },
+  {
+    "id": "5hWowM6CsRKzXLlbmqig",
+    "phone": "3005591342",
+    "username": "Maria bayona ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "249",
+    "tickets-fixed": "WG75",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958128,
+      "_nanoseconds": 406000000
+    }
+  },
+  {
+    "id": "5jyFP3WiE549cBfA6IHK",
+    "phone": "3195451748",
+    "username": "Sara maldonado",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "248",
+    "tickets-fixed": "BQ14",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773957914,
+      "_nanoseconds": 99000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "5p3HcsdIJKpTHXewY9lx",
+    "phone": "7133927584",
+    "username": "Lucia Niño",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772594127,
+      "_nanoseconds": 24000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1772594128,
+      "_nanoseconds": 490000000
+    },
+    "tickets-fixed": "KF81,IF01",
+    "tickets-numbers": "121,280",
+    "tickets-quantity": 2
+  },
+  {
+    "id": "5qBkWgTApEyhaPhzfSUc",
+    "phone": "3194025757",
+    "username": "Patricia Sarmiento ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "327",
+    "tickets-fixed": "CK36",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773941708,
+      "_nanoseconds": 43000000
+    }
+  },
+  {
+    "id": "6DtGk1bfJOyvEEemc2Im",
+    "phone": "3115070561",
+    "username": "Sebastian Oyola",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771777649,
+      "_nanoseconds": 761000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771777651,
+      "_nanoseconds": 759000000
+    },
+    "tickets-fixed": "JX72,SE95",
+    "tickets-numbers": "115,80",
+    "tickets-quantity": 2,
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 10,
+    "score": 180,
+    "preguntasvistas": "31,37,17,87,82,59,97,21,78,72",
+    "respuestasCorrectas": 9,
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "6Pc2K1ypljDNfy06tpwh",
+    "phone": "3203451820",
+    "username": "Carlos Tellez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "61",
+    "tickets-fixed": "PB61",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771791707,
+      "_nanoseconds": 409000000
+    }
+  },
+  {
+    "id": "6QHBTiHDvNxb2k6nzhRa",
+    "phone": "3007647936",
+    "username": "Juan castro ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "253",
+    "tickets-fixed": "IZ42",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958508,
+      "_nanoseconds": 849000000
+    }
+  },
+  {
+    "id": "6dJ0GG0qtG9yT4oD0OtB",
+    "phone": "3160407054",
+    "username": "Valentina Medellin",
+    "cedula": "",
+    "email": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771680018,
+      "_nanoseconds": 778000000
+    },
+    "referencia": "3182004659",
+    "parroquiasVistitadas": "19",
+    "referidos": 2,
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1772575384,
+      "_nanoseconds": 612000000
+    },
+    "tickets-fixed": "AM88,EW09",
+    "tickets-numbers": "70,132",
+    "tickets-quantity": 2,
+    "lastTriviaDate": "3/3/2026",
+    "score": 1100,
+    "respuestasCorrectas": 35,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "67,80,8,19,13,75,33,87,31,61,22,50,12,21,62,34,39,51,71,5,106,84,86,42,108,3,94,76,92,113,6,36,112,119,83,47,7,117,30,102,147,24,53,65,41,127,1,9,64,133,74,142,165,14,178,153,44,150,17,100,173,199,131,166,226,137,56,204,66,139",
+    "respuestasEnviadas": 70
+  },
+  {
+    "id": "6n3d6T8fCn1KmUnpkjT4",
+    "phone": "3138526009",
+    "username": "Marina quevedo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "179",
+    "tickets-fixed": "DM68",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773923987,
+      "_nanoseconds": 351000000
+    }
+  },
+  {
+    "id": "71wl7kgY9dKYzAXzMPA0",
+    "phone": "3208876308",
+    "username": "Clara Barrera",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "113",
+    "tickets-fixed": "TW31",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1772039248,
+      "_nanoseconds": 642000000
+    },
+    "referencia": "3138314889",
+    "lastTriviaDate": "2/25/2026",
+    "dailyTriviaCount": 5,
+    "score": 100,
+    "preguntasvistas": "89,94,80,82,18",
+    "respuestasCorrectas": 5,
+    "respuestasEnviadas": 5
+  },
+  {
+    "id": "74EdysSdHmFLeDgxWUJO",
+    "phone": "305230274",
+    "username": "Emigdia Gonzalez ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "45",
+    "tickets-fixed": "FT63",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771177873,
+      "_nanoseconds": 679000000
+    }
+  },
+  {
+    "id": "7JVc4QztCiD8MbcR3vwL",
+    "phone": "3165206865",
+    "cedula": "",
+    "email": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771301084,
+      "_nanoseconds": 33000000
+    },
+    "referencia": "3052548403",
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771333002,
+      "_nanoseconds": 337000000
+    },
+    "tickets-fixed": "KJ95,SB31",
+    "tickets-numbers": "12,76",
+    "tickets-quantity": 2,
+    "username": "Fabian Carrera Amaya",
+    "lastTriviaDate": "3/18/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "46,103,17,83,63,96,85,15,1,31,2,65,102,29,43,36,81,9,11,47,74,101,92,14,72,8,40,70,95,19,27,79,22,32,55,16,10,84,34,33,58,51,60,35,73,38,125,111,108,13,41,136,5,118,78,100,49,148,50,135,142,67,159,144,64,139,30,107,94,4,75,82,156,127,132,114,174,153,141,52,171,116,134,154,97,130,87,119,131,140,200,191,195,62,57,186,166,196,202,161,146,226,172,93,208,145,99,179,61,227,45,158,204,180,147,80,169,69,185,20,182,115,162,106,198,71,39,143,175,177,214,210,152,223,138,220,124,104,76,137,155,54,205,219,123,206,212,192,225,222,184,91,193,164,165,199,121,56,187,150,120,168,68,160,28,181,126,190,157,66,183,86,289,282,26,233,334,352,203,373,269,283,315,287,279,329,338,275,337,360,25,311,290,249,342,167,42,374,347,23,266,294,270,300,213,149,365,255,151,234,211,286,268,53,323,77,333,109,277,346,261,291,310,318,236,229,370,353,258,207,224,280,112,24,48,276,265,217,188,369,305,288,367,248,356,231,21,272,260,349,378,170,343,331,317,326,348,251,89,339",
+    "respuestasCorrectas": 257,
+    "respuestasEnviadas": 260,
+    "parroquiasVistitadas": "0,14,105,300,302,59,64,62,101,63,61,100,303,104,102,110,999,998,997,996,189,186,9,10,7,8,13,12,17,19,26,25,24,21,58,56,54,38,41,48,47,55,57,51,1002,1005,1004,1007,1008,1006,1009,1010,167,168,169,170,198,173,172,178,179,184,182,185,183,180,181,177,176,175,174,216,223,219,229,228,230,231,233,234,217,232,227,226,225,222,221,220,218,115,113,114,116,129,131,134,125,121,123,124,122,126,211,212,215,213,214,210,138,139,140,137,204,52,106,1012",
+    "score": "28340"
+  },
+  {
+    "id": "7QJqqydGAnhUwW7NEr52",
+    "phone": "3007548549",
+    "username": "Ricardo Torres Sabogal ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "207",
+    "tickets-fixed": "JH85",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773927868,
+      "_nanoseconds": 76000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "7VidQ2bTffTuWFiEqauD",
+    "phone": "3133383284",
+    "username": "Natalia Jaramillo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "130",
+    "tickets-fixed": "CX80",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771278517,
+      "_nanoseconds": 39000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "7geyoH80DzvnC7HSlzQJ",
+    "phone": "1523415426",
+    "username": "Thomas Dryzmalla",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "206",
+    "tickets-fixed": "YG44",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772667879,
+      "_nanoseconds": 30000000
+    }
+  },
+  {
+    "id": "7hrpv6TNMCVttQKQoxzi",
+    "phone": "3222486798",
+    "username": "Natalia Becerra",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "101",
+    "tickets-fixed": "FM28",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771305297,
+      "_nanoseconds": 752000000
+    },
+    "referidos": 4,
+    "parroquiasVistitadas": "13,14,34,193,73,82,77,1001,80,83,78,23,22,24,0,194,195,68,1000,192,190,191,33,3,143,98,104,1,188,71,72,4,7",
+    "lastTriviaDate": "3/11/2026",
+    "dailyTriviaCount": 10,
+    "score": 9640,
+    "preguntasvistas": "82,44,36,38,37,25,66,2,95,20,16,71,62,45,99,33,89,55,97,4,24,74,35,1,3,47,93,91,40,23,79,49,61,19,57,78,100,52,64,28,80,84,43,86,58,29,31,42,92,90,103,77,22,72,65,30,70,88,53,8,127,124,69,126,123,5,109,67,128,159,131,152,133,157,168,175,166,153,163,83,120,85,117,39,6,12,94,162,205,219,176,221,193,112,87,116,199,225,178,169,140,111,134,189,48,218,108,136,190,216,184,228,73,104,10,106,222,98,170,149,174,27,56,60,167,177,145,114,130,247,272,378,50,308,186,278,202,288",
+    "respuestasCorrectas": 132,
+    "respuestasEnviadas": 140,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "87vVRiNzJGzpyTjHROeU",
+    "phone": "3204866912",
+    "username": "Leydi J. Rodriguez.",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "83",
+    "tickets-fixed": "HG95",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771783696,
+      "_nanoseconds": 968000000
+    }
+  },
+  {
+    "id": "8TX0ZM9stQr1pw6mUAXc",
+    "phone": "3133255093",
+    "username": "Valeria Jimenez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "94",
+    "tickets-fixed": "TW81",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771807725,
+      "_nanoseconds": 175000000
+    },
+    "parroquiasVistitadas": "57,24,25,26,19,21,20,0,15,14,13,18,44,46",
+    "lastTriviaDate": "3/13/2026",
+    "dailyTriviaCount": 10,
+    "score": 3360,
+    "preguntasvistas": "158,104,304,193,194,107,72,256,153,211,324,63,279,355,237,365,223,316,364,373,359,77,139,113,109,301,22,352,132,170",
+    "respuestasCorrectas": 28,
+    "respuestasEnviadas": 30
+  },
+  {
+    "id": "8fbuUi6SD6gt6v3msQ5T",
+    "phone": "3118313125",
+    "username": "Jeny benavides",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "177",
+    "tickets-fixed": "BE29",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773923667,
+      "_nanoseconds": 578000000
+    }
+  },
+  {
+    "id": "8fufLUVdTZiMKq808HKv",
+    "phone": "3102115274",
+    "username": "Nubia Mejia",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "114",
+    "tickets-fixed": "XB95",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771965815,
+      "_nanoseconds": 357000000
+    },
+    "referencia": "3167607356"
+  },
+  {
+    "id": "8kqqUn5pBOesIO3anxQh",
+    "phone": "3043004397",
+    "username": "Yolanda Buitrago",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "85",
+    "tickets-fixed": "IH52",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771683329,
+      "_nanoseconds": 428000000
+    },
+    "parroquiasVistitadas": "0",
+    "lastTriviaDate": "2/21/2026",
+    "dailyTriviaCount": 3,
+    "preguntasvistas": "42,66,96",
+    "respuestasCorrectas": 2,
+    "respuestasEnviadas": 3,
+    "score": 240
+  },
+  {
+    "id": "8oLYrfubk2TltIg4MueR",
+    "phone": "3059793859",
+    "username": "León ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "112",
+    "tickets-fixed": "GZ35",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772656491,
+      "_nanoseconds": 615000000
+    }
+  },
+  {
+    "id": "95IuPwX6phWyi75a4nTV",
+    "phone": "3193994489",
+    "username": "Gabriela bernal ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "184",
+    "tickets-fixed": "AF93",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773924912,
+      "_nanoseconds": 687000000
+    }
+  },
+  {
+    "id": "ACM8gYACLPgK8wPFywEC",
+    "phone": "3182616471",
+    "username": "Carlos Becerra",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "4",
+    "tickets-fixed": "NP52",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771304040,
+      "_nanoseconds": 155000000
+    },
+    "referencia": "3222486798",
+    "parroquiasVistitadas": "13,14,193,15,0,194,195,68",
+    "lastTriviaDate": "3/10/2026",
+    "dailyTriviaCount": 10,
+    "score": 2860,
+    "preguntasvistas": "52,79,40,97,24,62,103,28,92,4,101,39,14,55,50,90,26,63,83,67,15,3,34,53,12,82,18,33,68,76,87,23,56,41,73,8,95,69,58,61,123,5,117,94,89,29,35,7,47,19,43,118,74,77,126,25,32,21,66,102,78,151,127,293,370,262,330,344,366,46,239,321,140",
+    "respuestasCorrectas": 63,
+    "respuestasEnviadas": 73
+  },
+  {
+    "id": "AG77vlUtiW9kBJET6PEL",
+    "phone": "3134671984",
+    "username": "Alabnis perez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "294",
+    "tickets-fixed": "TC51",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958853,
+      "_nanoseconds": 835000000
+    }
+  },
+  {
+    "id": "AgS4aypmPlBGKlBhMHTU",
+    "phone": "3002137546",
+    "username": "Patricia Vanegas",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "186",
+    "tickets-fixed": "UB77",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771805485,
+      "_nanoseconds": 217000000
+    }
+  },
+  {
+    "id": "AnLnhEyHtTyT1Na5Qed9",
+    "phone": "3207206948",
+    "username": "Paola bedoya",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "156",
+    "tickets-fixed": "IZ56",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773920208,
+      "_nanoseconds": 458000000
+    }
+  },
+  {
+    "id": "BCKbjB3usS8Vw57tZaKw",
+    "phone": "3123797065",
+    "username": "Eliana Puerta",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "48",
+    "tickets-fixed": "BN57",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771618462,
+      "_nanoseconds": 547000000
+    },
+    "referencia": "3167607356"
+  },
+  {
+    "id": "BJG8enMNWA6rNBBaudcL",
+    "phone": "3107660378",
+    "username": "Nayive Traslavina",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "104",
+    "tickets-fixed": "QV39",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1772040005,
+      "_nanoseconds": 710000000
+    },
+    "lastTriviaDate": "2/26/2026",
+    "score": 80,
+    "respuestasCorrectas": 4,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "38,126,116,36,16,40,53,18,20,65",
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "BnpDeS9WgVTKpkrf7xPK",
+    "phone": "3103875332",
+    "username": "Violeta gonzales",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "194",
+    "tickets-fixed": "EO19",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773926027,
+      "_nanoseconds": 108000000
+    }
+  },
+  {
+    "id": "CYy7F3FhIQhHxuLz6QRT",
+    "phone": "3153686747",
+    "username": "Maria gonzales",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "201",
+    "tickets-fixed": "SP75",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773927848,
+      "_nanoseconds": 207000000
+    }
+  },
+  {
+    "id": "CqSrIas4Yrk6pOrggWxx",
+    "phone": "3103284975",
+    "username": "Juan Diego Fuentes ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "31",
+    "tickets-fixed": "QJ23",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771537777,
+      "_nanoseconds": 130000000
+    },
+    "referencia": "3138314889",
+    "lastTriviaDate": "2/21/2026",
+    "dailyTriviaCount": 10,
+    "score": 200,
+    "preguntasvistas": "65,5,59,69,43,78,88,62,56,23",
+    "respuestasCorrectas": 10,
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "CzazK7JWHN2aQVKdop6Y",
+    "phone": "3212963507",
+    "username": "Hector Rodriguez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "124",
+    "tickets-fixed": "CG34",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771278283,
+      "_nanoseconds": 16000000
+    }
+  },
+  {
+    "id": "DNFTlj1HCdqiUIyYN4wP",
+    "phone": "3124402119",
+    "username": "Ángela María Sánchez Jiménez ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "195",
+    "tickets-fixed": "UA16",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771806589,
+      "_nanoseconds": 170000000
+    },
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 1,
+    "score": 20,
+    "preguntasvistas": "35",
+    "respuestasCorrectas": 1,
+    "respuestasEnviadas": 1
+  },
+  {
+    "id": "DSXvtIJXXyFoBcR9K3uk",
+    "phone": "3135709099",
+    "username": "Sandra Carrera ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "328",
+    "tickets-fixed": "DL42",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958728,
+      "_nanoseconds": 628000000
+    }
+  },
+  {
+    "id": "DXRaKMuWLsTtHG8IyNpT",
+    "phone": "3157925213",
+    "username": "Pedro Niño",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "276",
+    "tickets-fixed": "RB22",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772402693,
+      "_nanoseconds": 659000000
+    }
+  },
+  {
+    "id": "Dq1wDWBGOKg9nuEZ6q6A",
+    "phone": "30000001",
+    "username": "Abuelito Simon",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "55",
+    "tickets-fixed": "CL37",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772830188,
+      "_nanoseconds": 669000000
+    }
+  },
+  {
+    "id": "ElhUW5VGrFZASw3KB2pw",
+    "phone": "3158215637",
+    "username": "Maria Margarita Sanchez Prieto",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "51",
+    "tickets-fixed": "EQ85",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771791424,
+      "_nanoseconds": 486000000
+    }
+  },
+  {
+    "id": "EwieZ0xI8dowhWCHlMI1",
+    "phone": "3053012747",
+    "username": "Nataly Horan ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "200",
+    "tickets-fixed": "PM13",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772667378,
+      "_nanoseconds": 413000000
+    }
+  },
+  {
+    "id": "F9G29fysMdaYRx2xnVM6",
+    "phone": "3153434767",
+    "username": "Alvaro I Rodriguez P",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "127",
+    "tickets-fixed": "OH36",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771291559,
+      "_nanoseconds": 467000000
+    }
+  },
+  {
+    "id": "FAWc2ar41DGJPBR4knW4",
+    "phone": "3042504612",
+    "username": "Nelly Duarte",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "157",
+    "tickets-fixed": "ID79",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771792121,
+      "_nanoseconds": 665000000
+    }
+  },
+  {
+    "id": "FBnE34edfYqaTo4IVncv",
+    "phone": "1768172233",
+    "username": "Johana Torres ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "222",
+    "tickets-fixed": "RN18",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772667119,
+      "_nanoseconds": 192000000
+    }
+  },
+  {
+    "id": "FDLlRx2xvmYTCoaDlGyr",
+    "phone": "3008448611",
+    "username": "Stevan Ramirez Cajamarca",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "60",
+    "tickets-fixed": "AC35",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771291596,
+      "_nanoseconds": 419000000
+    },
+    "lastTriviaDate": "3/6/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "62,119,81,123,6,95,104,91,12,116,65,17,52,24,111,39,71,72,63,86,174,83,87,88,85,38,73,139,61,22,118,156,78,25,107,173,21,14,20,60,127,89,77,102,8,108,51,154,2,103,158,166,153,164,69,4,147,194,26,45,18,15,160,5,42,90,179,105,59,29,143,48,214,101,228,132,196,115,32,11,82,114,57,188,208,30,131,121,128,98,223,193,180,197,219,136,192,31,199,213",
+    "respuestasCorrectas": 100,
+    "respuestasEnviadas": 100,
+    "parroquiasVistitadas": "0,88,86,85,87,89,194,1000,68,205,204,206,196,207,67,197,143,144,106,141,142,202,201,200,203,218,113,116,112,114,128,129,186,189,33,84,80,77,999,73,1001,82,78,79,81,65,115,95,96,94,75,74,76,23,195,133,92,91,93,90,20,21,26,25,58,19,17,14",
+    "score": "15600",
+    "referencia": "3052548403"
+  },
+  {
+    "id": "FGn5NnAetEoXpe4zBOlg",
+    "phone": "3105537668",
+    "username": "Maleja cuervo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "196",
+    "tickets-fixed": "QZ05",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773926227,
+      "_nanoseconds": 145000000
+    }
+  },
+  {
+    "id": "FOe1DHIVoui87WqhBOKi",
+    "phone": "3192055726",
+    "username": "Luis Fernando González cuervo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "68",
+    "tickets-fixed": "JW21",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771609281,
+      "_nanoseconds": 904000000
+    }
+  },
+  {
+    "id": "FQGnUYEBsklZmITRfKkk",
+    "phone": "1768131142",
+    "username": "Marco Halbig",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "199",
+    "tickets-fixed": "BB17",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772748994,
+      "_nanoseconds": 208000000
+    }
+  },
+  {
+    "id": "Fp3M55yUPCokiYaHiQLE",
+    "phone": "3107755293",
+    "username": "Nicolas rodriguez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "271",
+    "tickets-fixed": "TT46",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773929490,
+      "_nanoseconds": 388000000
+    }
+  },
+  {
+    "id": "FtXHdBadNenLYx7v5be6",
+    "phone": "3157857266",
+    "username": "Marbel Cano",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "118",
+    "tickets-fixed": "DK34",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771178259,
+      "_nanoseconds": 12000000
+    }
+  },
+  {
+    "id": "FxmVBni8RK7yjVEoW07h",
+    "phone": "3219511007",
+    "username": "Encarnacion ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "242",
+    "tickets-fixed": "VK20",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773956269,
+      "_nanoseconds": 175000000
+    }
+  },
+  {
+    "id": "G1NDFWPdVXOjsdHoeDgB",
+    "phone": "3114448411",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958053,
+      "_nanoseconds": 250000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1773958068,
+      "_nanoseconds": 401000000
+    },
+    "tickets-fixed": "SE80,TD85",
+    "tickets-numbers": "329,263",
+    "tickets-quantity": 2,
+    "username": "Liliana Rojas "
+  },
+  {
+    "id": "GL5a0yXuJM912UvlvpP9",
+    "phone": "3508527410",
+    "username": "Miguel Sosa",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "77",
+    "tickets-fixed": "YY66",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771170503,
+      "_nanoseconds": 507000000
+    }
+  },
+  {
+    "id": "GTfGALQcYK8ObQJukwz5",
+    "phone": "3006663583",
+    "username": "Mirian Rodriguez ",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772390826,
+      "_nanoseconds": 998000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1772390828,
+      "_nanoseconds": 434000000
+    },
+    "tickets-fixed": "GK53,PI39",
+    "tickets-numbers": "138,122",
+    "tickets-quantity": 2
+  },
+  {
+    "id": "GeSaNZbpYRq85cvbwY38",
+    "phone": "3118940005",
+    "username": "David Pardo Barragán ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "73",
+    "tickets-fixed": "EZ17",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771600460,
+      "_nanoseconds": 997000000
+    },
+    "referencia": "3118125633",
+    "parroquiasVistitadas": "43,56,47",
+    "score": "600"
+  },
+  {
+    "id": "Gfn5YSVfMbvc7SAcnmzM",
+    "phone": "3126561163",
+    "username": "Alejandra ariza",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "168",
+    "tickets-fixed": "HV19",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773921692,
+      "_nanoseconds": 468000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "GrOAO4N4c4tN8oVtm5tY",
+    "phone": "3114742511",
+    "username": "Tatiana rosales ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "224",
+    "tickets-fixed": "AJ96",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773952748,
+      "_nanoseconds": 785000000
+    }
+  },
+  {
+    "id": "H7gATEqtv54W7v1zZwkN",
+    "phone": "3147636833",
+    "username": "Miriam Buitrago ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "37",
+    "tickets-fixed": "SK91",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771170344,
+      "_nanoseconds": 263000000
+    }
+  },
+  {
+    "id": "HOLbQpXnAD0wpNHgEKqU",
+    "phone": "3222254082",
+    "username": "Juana Lozano",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "19",
+    "tickets-fixed": "WO39",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771173226,
+      "_nanoseconds": 372000000
+    },
+    "lastTriviaDate": "2/23/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "72,58,10,77,84,54,20,41,19,78,114,55,53,9,28,8,36,107,111,64",
+    "respuestasCorrectas": 20,
+    "respuestasEnviadas": 20,
+    "parroquiasVistitadas": "0,58",
+    "score": "800"
+  },
+  {
+    "id": "HuJp0bHZlTGy6SptEtBG",
+    "phone": "3145963872",
+    "username": "Lucia baquero",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "272",
+    "tickets-fixed": "GR30",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773928348,
+      "_nanoseconds": 3000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "I1xS8gTMwYwlsTahZcD7",
+    "phone": "3118858409",
+    "username": "Francisco Bartolomeu",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "71",
+    "tickets-fixed": "XB22",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771185706,
+      "_nanoseconds": 978000000
+    },
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 10,
+    "score": 380,
+    "preguntasvistas": "94,100,92,3,18,34,27,52,96,65,20,86,43,53,13,30,33,22,85,21",
+    "respuestasCorrectas": 19,
+    "respuestasEnviadas": 20
+  },
+  {
+    "id": "InmqAPBsBfrA48eNLH6e",
+    "phone": "3005696754",
+    "username": "Maria Roa",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "133",
+    "tickets-fixed": "WA67",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771278616,
+      "_nanoseconds": 882000000
+    }
+  },
+  {
+    "id": "Iu2zZzr7IJLO1I6hZcdt",
+    "phone": "3045608600",
+    "username": "Oscar gomez ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "229",
+    "tickets-fixed": "XB15",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773953848,
+      "_nanoseconds": 434000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "IwNVF7TcLgwshiUFMnyj",
+    "phone": "3103341569",
+    "username": "Ana bernal",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "187",
+    "tickets-fixed": "ZD22",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773925232,
+      "_nanoseconds": 144000000
+    }
+  },
+  {
+    "id": "J0EbAnYbpzZsn2M8xAa8",
+    "phone": "3132162053",
+    "username": "Ivan Rodriguex",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "258",
+    "tickets-fixed": "CQ39",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958173,
+      "_nanoseconds": 332000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "JL532w0HxeTgUBmUUfbv",
+    "phone": "3213088359",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "33",
+    "tickets-fixed": "IJ82",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771296198,
+      "_nanoseconds": 951000000
+    },
+    "username": "Santiago Correal",
+    "referidos": 2,
+    "lastTriviaDate": "3/17/2026",
+    "respuestasCorrectas": 32,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "47,23,41,31,1,11,29,28,49,46,57,17,16,56,55,13,99,2,24,4,6,103,90,43,69,97,77,20,45,59,102,12,111,60,63,86,108,53,82,88,8,96,119,10,37,167,200,316,5,67,109,87,367,323",
+    "respuestasEnviadas": 54,
+    "parroquiasVistitadas": "0,204,15",
+    "score": "1440",
+    "referencia": "3052548403"
+  },
+  {
+    "id": "JXG8VkNWJvyufqkra2CU",
+    "phone": "3157827147",
+    "username": "Consuelo Ariza Carvajal",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "135",
+    "tickets-fixed": "CK24",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771812798,
+      "_nanoseconds": 231000000
+    }
+  },
+  {
+    "id": "K14B1veZZFaigFd3cuWr",
+    "phone": "3132010234",
+    "username": "Yolima diaz",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "180",
+    "tickets-fixed": "CW62",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773924128,
+      "_nanoseconds": 342000000
+    }
+  },
+  {
+    "id": "KctQ3HUlDlsDzzlWdwX4",
+    "phone": "3143224768",
+    "username": "Maria Fernanda Correal Olave",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771800622,
+      "_nanoseconds": 148000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771800623,
+      "_nanoseconds": 531000000
+    },
+    "tickets-fixed": "RU92,KQ81",
+    "tickets-numbers": "95,109",
+    "tickets-quantity": 2,
+    "referencia": "3213088359",
+    "lastTriviaDate": "2/24/2026",
+    "dailyTriviaCount": 10,
+    "score": 360,
+    "preguntasvistas": "36,30,56,103,6,31,4,13,53,71,83,90,113,26,57,60,42,41,46,7",
+    "respuestasCorrectas": 18,
+    "respuestasEnviadas": 20
+  },
+  {
+    "id": "L4Os309rwzX5dx8lPA3N",
+    "phone": "3108625196",
+    "username": "Maria Angelica Bucheli",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "111",
+    "tickets-fixed": "QO60",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771304217,
+      "_nanoseconds": 818000000
+    },
+    "referencia": "3222486798",
+    "lastTriviaDate": "2/20/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "52,36,19,34,66,44,32,98,76,37,43,50,57,100,39,58,70,88,101,67",
+    "respuestasCorrectas": 20,
+    "respuestasEnviadas": 20,
+    "parroquiasVistitadas": "0,194,195",
+    "score": "1000"
+  },
+  {
+    "id": "LNaHgk3z8s2yTx41UsWf",
+    "phone": "3202659938",
+    "username": "Diana Duque",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "91",
+    "tickets-fixed": "BQ23",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771614981,
+      "_nanoseconds": 572000000
+    },
+    "referencia": "3167607356",
+    "parroquiasVistitadas": "0",
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "score": 5020,
+    "preguntasvistas": "95,51,64,79,15,80,8,7,86,89,34,68,69,53,49,2,21,71,103,48,10,98,16,1,56,61,96,73,50,33,67,29,24,60,3,92,101,44,125,59,104,22,74,116,110,128,18,5,114,108,19,106,88,72,112,38,81,26,25,111,40,109,148,47,124,156,85,62,119,54,90,134,137,31,75,17,100,149,9,132,84,145,169,167,66,135,57,123,13,120,28,131,102,212,6,196,218,163,217,210,164,118,226,198,171,65,177,77,45,221,117,20,39,122,14,176,70,188,115,175,43,168,87,58,35,82,192,99,189,113,165,190,172,214,76,63,185,187,216,36,46,23,152,157,204,161,42,184,97,224,139,105,140,219,155,55,166,186,194,183,200,154,141,30,129,227,143,127,83,4,281,236,261,313,342,290,142,368,357,350,320,269,273,343,193,311,233,126,232,240,205,376,308,378,282,238,93,257,265,354,268,336,27,314,235,322,298,366,326,231,178,146,267,274,225,356,338,228,329,302,297,317,280,369,299,170,334,266,315,213,287,230,374,346,344,283,247,195,151,372,361,331,327,341,253,78,312,292,246,364,375,211,250,229,248,328,330,270,243,296",
+    "respuestasCorrectas": 241,
+    "respuestasEnviadas": 260
+  },
+  {
+    "id": "LOhiRib27W5th56Ol88M",
+    "phone": "3114698541",
+    "username": "Mercy Castrellon",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "62",
+    "tickets-fixed": "EV62",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771813442,
+      "_nanoseconds": 374000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "M2AIIE4sbx46ftRViVBR",
+    "phone": "3142232470",
+    "username": "Yilver Molina",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "24",
+    "tickets-fixed": "SP02",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771291577,
+      "_nanoseconds": 663000000
+    },
+    "parroquiasVistitadas": "0,15",
+    "lastTriviaDate": "2/18/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "41,21,14,23,51,27,20,8,29,11,18,61,74,35,85,36,97,83,50,30,100,101,102,56,6,87,64,4,5,25",
+    "respuestasCorrectas": 30,
+    "respuestasEnviadas": 30,
+    "score": 1000,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "MAHhroebS5JY6813lRga",
+    "phone": "3208384395",
+    "username": "Delma Bernal",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "93",
+    "tickets-fixed": "RI15",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771368777,
+      "_nanoseconds": 399000000
+    },
+    "referencia": "3167607356",
+    "lastTriviaDate": "2/18/2026",
+    "dailyTriviaCount": 10,
+    "score": 180,
+    "preguntasvistas": "21,73,18,52,102,37,27,84,72,80",
+    "respuestasCorrectas": 9,
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "MNpjtJipOCUtAXzigtpp",
+    "phone": "3164784332",
+    "username": "Julian Colmenares",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "75",
+    "tickets-fixed": "PY26",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771791946,
+      "_nanoseconds": 733000000
+    }
+  },
+  {
+    "id": "Mfh3u9alWnpSyNsZ9f22",
+    "phone": "3173818146",
+    "username": "Angela Trujillo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "44",
+    "tickets-fixed": "YZ92",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772575247,
+      "_nanoseconds": 947000000
+    }
+  },
+  {
+    "id": "NHhNJWFnBkFTZQgf2gON",
+    "phone": "3014384575",
+    "username": "Sandra marin",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "144",
+    "tickets-fixed": "SW66",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771336222,
+      "_nanoseconds": 665000000
+    },
+    "referencia": "3052548403",
+    "lastTriviaDate": "3/11/2026",
+    "dailyTriviaCount": 10,
+    "score": 1040,
+    "preguntasvistas": "99,95,42,34,43,78,66,6,15,11,10,98,59,40,25,16,5,33,29,45,90,63,31,41,60,69,79,50,53,14,109,62,1,58,9,23,38,3,121,26,94,73,48,123,104,77,116,92,35,81,91,85,113,24,44,124,13,97,76,117,161,230,118,207,112,283,152,256,83,377",
+    "respuestasCorrectas": 52,
+    "respuestasEnviadas": 70
+  },
+  {
+    "id": "NRD2eVqmpivMwKbX5QyE",
+    "phone": "3017775354",
+    "username": "Samia Zarur",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "239",
+    "tickets-fixed": "NQ75",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773955914,
+      "_nanoseconds": 65000000
+    }
+  },
+  {
+    "id": "NZvqadJ0jBLtLXBQmeE0",
+    "phone": "3105717181",
+    "username": "María Paula Acosta",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "82",
+    "tickets-fixed": "JL95",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771170870,
+      "_nanoseconds": 331000000
+    },
+    "parroquiasVistitadas": "0,20,21,15,84,73,999,77,1001,82,34",
+    "lastTriviaDate": "2/28/2026",
+    "dailyTriviaCount": 10,
+    "score": 4060,
+    "preguntasvistas": "37,6,20,18,40,25,1,51,45,34,16,42,46,7,15,8,13,2,52,11,98,43,64,93,71,78,68,53,74,21,57,36,38,44,87,17,94,19,32,80,24,69,99,91,58,81,54,62,86,48,66,47,103,33,100,89,84,31,90,22,29,92,10,4,96,76,67,49,79,101,55,82,61,56,23,73,26,27,60,9,121,12,5,28,95,116,75,39,125,108,135,153,114,161,119,155,70,173,85,130",
+    "respuestasCorrectas": 93,
+    "respuestasEnviadas": 100
+  },
+  {
+    "id": "Nooz5aNw7G7sG2btJ7pV",
+    "phone": "3055466340",
+    "username": "Ryan Horan ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "59",
+    "tickets-fixed": "BF75",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772668728,
+      "_nanoseconds": 775000000
+    }
+  },
+  {
+    "id": "NuR9052zlRY23brIdEvP",
+    "phone": "3003330332",
+    "username": "Claudia Matilde Arias",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "56",
+    "tickets-fixed": "HA95",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771533856,
+      "_nanoseconds": 423000000
+    },
+    "referencia": "3044662025",
+    "parroquiasVistitadas": "300,301,100,0,65,195,68,1,14,15,189,18,44,43",
+    "lastTriviaDate": "3/16/2026",
+    "dailyTriviaCount": 10,
+    "score": 4260,
+    "preguntasvistas": "52,44,100,61,82,66,2,7,17,85,115,54,149,63,101,55,170,70,141,128,223,53,106,208,193,220,121,209,134,151,227,99,137,203,181,194,153,1,219,94,142,59,157,191,67,51,30,117,46,65,330,138,290,108,352,376,366,184,293,76,13,118,173,205,328,234,356,154,368,344,281,81,324,28,261,161,363,372,335,251,357,136,240,178,119,98,377,204,354,36",
+    "respuestasCorrectas": 73,
+    "respuestasEnviadas": 90
+  },
+  {
+    "id": "OKL3ospaX6RqE7DclFRD",
+    "phone": "3004679031",
+    "cedula": "",
+    "email": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771626482,
+      "_nanoseconds": 796000000
+    },
+    "parroquiasVistitadas": "0,18,15,13,14,12,99,79,24,25,58,26,21,19,20,3,78,1001,999,73,82,43,56,54,47,40,41,38,49,48,6,197,67,133,144,141,142,52,53,50,51,57,102,65,195,68,1000,194,193,192,190,191,1,4,7,10,8,32,33,44,137,140,139,138,135,136,124,122,123,126,210,215,214,213,212,211,121,125,117,118,120,107,63,101,64,59,302,62,301,300,61,100,303,98,104,127,110,77,80,84,93,91,90,92,85,87,88,89,86,95,96,94,75,74,76,5,35,28,34,27,29,30,45,42,37,39,81,83,23,218,207,206,196,205,204,31,46,128,113,116,114,112,106,203,200,201,202,115,217,234,232,233,231,230,226,227,228,229,219,17,1003,16,1002,1005,1004,1007,1008,1006,1009,1010,22,216,223,221,220,222,176,175,174,173,198,170,169,168,167,172,129,186,55,171,178,179,11,184,9,103,111,109,108,60,177,180,181,183,185,182,224,72,71,189,188,187,97,134,131,130,119,66,105,132,143,1012,1011",
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1773925887,
+      "_nanoseconds": 192000000
+    },
+    "tickets-fixed": "MQ39,TV91",
+    "tickets-numbers": "136,275",
+    "tickets-quantity": 2,
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "13,84,41,85,14,22,12,59,79,70,26,69,7,3,28,93,63,27,80,50,91,19,96,103,38,88,89,44,83,72,32,51,125,29,48,126,107,55,1,31,56,6,76,20,58,9,124,122,62,40,92,123,52,82,81,100,99,39,45,35,119,36,97,110,60,114,18,25,33,34,102,130,49,175,135,17,164,10,141,47,173,169,133,54,53,57,137,90,105,162,147,23,74,112,106,139,129,159,158,155,189,193,64,176,104,131,71,77,194,156,171,183,116,216,121,225,157,184,212,167,209,215,138,220,161,165,15,222,179,95,134,149,140,214,219,127,170,148,188,190,177,120,2,217,153,187,118,208,204,111,67,196,101,21,195,108,178,75,185,207,182,205,143,191,11,37,65,98,174,223,198,210,166,132,211,142,202,228,181,152,266,292,319,354,302,24,264,201,237,377,273,286,128,247,363,370,87,347,309,282,113,311,368,231,367,331,68,257,345,276,268,291,325,246,206,258,350,320,160,333,86,243,94,371,230,294,136,299,365,240,229,241,305,239,227,279,351,197,270,232,180,46,356,244,256,301,203,306,42,30,280,235,283,328,254,346,224,295,78,373,66,372,245,378,168,269,336,327,374,226,339,364,145,322,288,343,249,73,315",
+    "respuestasCorrectas": 278,
+    "respuestasEnviadas": 280,
+    "username": "Santiago Bejarano",
+    "referidos": 22,
+    "score": 56960
+  },
+  {
+    "id": "OSqupiKqaL41EC8t1vsg",
+    "phone": "3025099326",
+    "username": "Sofia Garzon",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "99",
+    "tickets-fixed": "OJ49",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771783791,
+      "_nanoseconds": 516000000
+    },
+    "referencia": "3002568680",
+    "referidos": 1,
+    "lastTriviaDate": "3/3/2026",
+    "respuestasCorrectas": 71,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "48,89,59,62,30,16,101,51,28,50,109,3,127,115,108,13,87,68,119,41,72,121,5,99,106,53,47,128,29,61,79,103,23,100,32,60,64,110,15,69,93,1,11,97,84,37,57,26,44,85,134,96,105,153,33,171,111,4,158,80,21,102,147,95,170,65,71,139,154,12,200,120,43,203,73,201,24,217,193,123",
+    "respuestasEnviadas": 80,
+    "parroquiasVistitadas": "0,30,27,29,34,187,188",
+    "score": "2920"
+  },
+  {
+    "id": "OeBw25u3pjQTunWQTLO5",
+    "phone": "3158162189",
+    "username": "Angela triana",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "87",
+    "tickets-fixed": "EV91",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771936262,
+      "_nanoseconds": 491000000
+    },
+    "referencia": "3167607356",
+    "lastTriviaDate": "2/24/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "114,53,11,88,47,82,121,66,46,123",
+    "respuestasCorrectas": 9,
+    "respuestasEnviadas": 10,
+    "parroquiasVistitadas": "0",
+    "score": "380"
+  },
+  {
+    "id": "OnzDdkI163pj61DUrCLa",
+    "phone": "3213419379",
+    "username": "Sara Cantillo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "40",
+    "tickets-fixed": "CO97",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771815245,
+      "_nanoseconds": 183000000
+    },
+    "referencia": "3123415728",
+    "parroquiasVistitadas": "1007,7,10,14,1006,1008",
+    "lastTriviaDate": "3/18/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "201,157,135,1,148,84,183,204,191,61,90,140,10,151,13,138,110,129,189,93,156,126,65,115,78,136,210,177,133,104,67,35,8,215,127,31,185,76,220,48,20,125,193,49,225,77,169,222,66,55,33,217,39,223,73,98,227,128,37,188,40,205,30,43,106,19,4,38,154,121,23,297,117,270,207,251,244,141,45,12,22,209,330,260,143,321,179,322,374,6,285,355,343,44,105,142,323,236,255,372,57,326,124,25,159,278,200,363,336,241,190,80,212,32,92,41,331,111,56,334,18,338,282,263,308,324,145,289,214,175",
+    "respuestasCorrectas": 122,
+    "respuestasEnviadas": 130,
+    "score": 3640
+  },
+  {
+    "id": "PDH2Cea1egF0S8oAUcXh",
+    "phone": "3004690570",
+    "username": "Carolina Rodríguez ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "92",
+    "tickets-fixed": "AV18",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771329441,
+      "_nanoseconds": 103000000
+    },
+    "lastTriviaDate": "2/23/2026",
+    "score": 280,
+    "respuestasCorrectas": 14,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "93,63,33,42,65,32,6,7,54,13,5,10,53,70,24,11,126,79,67,101",
+    "respuestasEnviadas": 20,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "POiEU0Ec4z8BBgr54XDS",
+    "phone": "3203396836",
+    "username": "Paola Delgado",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "34",
+    "tickets-fixed": "AR17",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771373888,
+      "_nanoseconds": 53000000
+    },
+    "referencia": "3203396882",
+    "parroquiasVistitadas": "32,68",
+    "referidos": 3,
+    "lastTriviaDate": "2/26/2026",
+    "dailyTriviaCount": 10,
+    "score": 2080,
+    "preguntasvistas": "49,29,93,15,63,12,97,56,55,94,69,4,96,19,17,62,33,86,37,21,9,67,95,59,45,7,85,18,103,34,36,60,76,57,51,53,78,20,100,6,89,87,11,24,77,54,71,66,68,88,10,16,83,5,26,38,90,23,46,61,137,92,161,35,32,27,144,119,111,42",
+    "respuestasCorrectas": 69,
+    "respuestasEnviadas": 70
+  },
+  {
+    "id": "PcfyS1Y3Rx6igf4CT5Gz",
+    "phone": "3202156916",
+    "username": "Andres Castro",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "90",
+    "tickets-fixed": "VI09",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771783751,
+      "_nanoseconds": 95000000
+    }
+  },
+  {
+    "id": "PyoeQQnq4FMEV55IsXhm",
+    "phone": "3022900938",
+    "username": "Liliana Amaya",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "16",
+    "tickets-fixed": "HE39",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771176724,
+      "_nanoseconds": 352000000
+    }
+  },
+  {
+    "id": "Q82a28fAibgLxbfBVr4c",
+    "phone": "3123363713",
+    "username": "Santiago bejarano",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "198",
+    "tickets-fixed": "ZS62",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773926387,
+      "_nanoseconds": 169000000
+    }
+  },
+  {
+    "id": "QI1FaSGhQoRENuB58O8O",
+    "phone": "3153858281",
+    "username": "Diana Niño",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "193",
+    "tickets-fixed": "TW85",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772402213,
+      "_nanoseconds": 970000000
+    }
+  },
+  {
+    "id": "QqKxTrVmXtxCgWcymPxU",
+    "phone": "3167327054",
+    "username": "Clara Criado",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "54",
+    "tickets-fixed": "GD94",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771791581,
+      "_nanoseconds": 206000000
+    }
+  },
+  {
+    "id": "RAsnud0htEyJchMEOd8n",
+    "phone": "3012408395",
+    "username": "Patricia Olave",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "65",
+    "tickets-fixed": "SO34",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771610458,
+      "_nanoseconds": 659000000
+    },
+    "referidos": 2,
+    "parroquiasVistitadas": "187,0,204,15",
+    "lastTriviaDate": "3/18/2026",
+    "dailyTriviaCount": 10,
+    "score": 3760,
+    "preguntasvistas": "6,82,95,10,85,60,1,7,76,102,100,16,21,78,103,63,43,73,86,3,87,90,111,54,38,77,99,26,113,49,29,45,37,81,67,17,88,20,53,31,18,79,89,47,8,120,69,110,71,58,46,2,146,117,98,36,25,19,72,152,66,96,62,126,219,44,22,196,151,104,158,172,123,193,164,74,32,191,68,178,225,118,182,198,140,14,163,129,207,157,13,137,174,162,177,212,215,112,194,65,83,187,214,92,145,61,195,184,41,228,307,222,40,169,97,168,341,176,335,91,33,114,199,55,239,84,48,358,141,200,351,156,116,312,173,186,261,329,316,333,317,224,56,285,363,306,375,300,51,50,106,185,249,276,302,161,346,336,209,269",
+    "respuestasCorrectas": 133,
+    "respuestasEnviadas": 160
+  },
+  {
+    "id": "RU1C7CAeLOhIcMj9bRhQ",
+    "phone": "3234041621",
+    "username": "Mauricio Torres ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "330",
+    "tickets-fixed": "WZ62",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773941491,
+      "_nanoseconds": 151000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "RVSTHQcTJePSn093hZgK",
+    "phone": "3108626926",
+    "username": "Maria Eulogia Gomez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "213",
+    "tickets-fixed": "FZ73",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773264643,
+      "_nanoseconds": 483000000
+    }
+  },
+  {
+    "id": "RX3b9MkFRjcAwFjvkq5E",
+    "phone": "3123415728",
+    "username": "Jesus David",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "11",
+    "tickets-fixed": "CM85",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771191647,
+      "_nanoseconds": 278000000
+    },
+    "respuestasCorrectas": 53,
+    "lastTriviaDate": "3/11/2026",
+    "dailyTriviaCount": 1,
+    "preguntasvistas": "35,50,44,25,28,3,53,32,17,31,12,23,61,20,77,101,94,19,11,22,10,68,106,64,55,63,107,14,24,125,128,62,59,145,92,123,79,46,109,5,204,47,220,182,155,33,36,34,199,66,140,167,169,200,90,218,57,7,119,54,378,355,301,13,72,315,71,177,209,230",
+    "respuestasEnviadas": 70,
+    "parroquiasVistitadas": "0,15,43,20,21,58,52",
+    "score": 2760,
+    "referidos": 2,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "RYB5AtcXpAl1L9FbK9gj",
+    "phone": "3153162961",
+    "username": "ALEJANDRO DUITAMA",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "53",
+    "tickets-fixed": "UB88",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771291836,
+      "_nanoseconds": 611000000
+    },
+    "lastTriviaDate": "3/17/2026",
+    "respuestasCorrectas": 22,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "94,3,22,60,6,13,52,28,47,87,299,76,139,256,307,25,131,204,10,254,1,219,141,242,29,260,315,146,231,313,370,184,287",
+    "respuestasEnviadas": 33,
+    "parroquiasVistitadas": "0,186,68",
+    "score": "1040",
+    "referencia": "3052548403"
+  },
+  {
+    "id": "Reng4Fcj0j1FBMj0cvpG",
+    "phone": "3132631508",
+    "username": "Caterine cortez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "140",
+    "tickets-fixed": "NQ08",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773919988,
+      "_nanoseconds": 235000000
+    }
+  },
+  {
+    "id": "Rtq8iGsMlCyQ5HcWRmHg",
+    "phone": "3134572450",
+    "username": "ELIANA PARDO ORDUÑA",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "98",
+    "tickets-fixed": "MN10",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771869853,
+      "_nanoseconds": 951000000
+    },
+    "referencia": "3138702202",
+    "lastTriviaDate": "2/23/2026",
+    "dailyTriviaCount": 10,
+    "score": 200,
+    "preguntasvistas": "18,30,37,15,52,11,45,54,116,124",
+    "respuestasCorrectas": 10,
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "S8hwp7RatS055fPwzPrS",
+    "phone": "3138923617",
+    "username": "Jenny Andrea Ramos Umaña",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "219",
+    "tickets-fixed": "GQ09",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772718635,
+      "_nanoseconds": 107000000
+    }
+  },
+  {
+    "id": "SH6NzQLfsM3fpAzuy509",
+    "phone": "3132634967",
+    "username": "Richard Zain Vasquez Delgado",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "129",
+    "tickets-fixed": "DI27",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771291561,
+      "_nanoseconds": 60000000
+    },
+    "parroquiasVistitadas": "0,15,14,13,4,8,12,19,6,35,32,20,21,26,16,182,189,29,30,39,45,44,183,185,184,11,3,1,72,68,195,197,67,207,206,204,186,71,31,42,37,40,43,98",
+    "lastTriviaDate": "2/27/2026",
+    "dailyTriviaCount": 10,
+    "score": 11160,
+    "preguntasvistas": "4,21,49,22,32,31,11,12,8,38,2,94,42,76,61,57,103,6,43,52,40,90,98,10,66,96,18,44,88,29,1,59,83,100,102,68,55,80,48,51,54,19,33,70,64,62,63,50,95,53,16,97,84,89,24,65,74,37,35,39,75,23,82,60,91,30,81,46,15,7,58,85,41,27,113,114,26,78,71,106,72,123,36,79,86,13,92,93,120,28,47,128,69,112,5,17,117,3,56,105,127,121,14,118,77,125,9,87,110,67,34,177,158,145,168,139,142,164,178,167",
+    "respuestasCorrectas": 118,
+    "respuestasEnviadas": 120,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "ShRvMHqhsOBqoaWLIge9",
+    "phone": "3164675645",
+    "username": "Fabio Bejarano",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "231",
+    "tickets-fixed": "VF02",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772587345,
+      "_nanoseconds": 463000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "T4a268Xa6kqLmK53jotz",
+    "phone": "3213793415",
+    "username": "Annie rozó rojas ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "50",
+    "tickets-fixed": "AG58",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771446729,
+      "_nanoseconds": 617000000
+    },
+    "referencia": "3167607356",
+    "lastTriviaDate": "2/18/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "62,92,37,32,47,49,55,78,80,73",
+    "respuestasCorrectas": 9,
+    "respuestasEnviadas": 10,
+    "parroquiasVistitadas": "0",
+    "score": "380"
+  },
+  {
+    "id": "T5coeZwH13gBI0g4OM5H",
+    "phone": "3228762326",
+    "username": "Yaneth ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "380",
+    "tickets-fixed": "TN34",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773959748,
+      "_nanoseconds": 727000000
+    }
+  },
+  {
+    "id": "Ta0vRxFdX30VxyLHQZKW",
+    "phone": "3153923476",
+    "username": "Gabriela Quintero",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "151",
+    "tickets-fixed": "AE78",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772402154,
+      "_nanoseconds": 373000000
+    }
+  },
+  {
+    "id": "TlqhogOSqCmOvgGbgfVz",
+    "phone": "3053905950",
+    "username": "Valentín ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "262",
+    "tickets-fixed": "MX98",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773959554,
+      "_nanoseconds": 283000000
+    }
+  },
+  {
+    "id": "Tx7nIoqTLYhu7Jkq6SlS",
+    "phone": "3122878017",
+    "username": "Juan Carlos ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "250",
+    "tickets-fixed": "LN25",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958308,
+      "_nanoseconds": 375000000
+    }
+  },
+  {
+    "id": "TzfUunu5BTIugu3QChCC",
+    "phone": "5116504564",
+    "username": "Johanna Torres ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "284",
+    "tickets-fixed": "DG42",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958313,
+      "_nanoseconds": 255000000
+    }
+  },
+  {
+    "id": "UBPiqzIZBOg3ladUHynn",
+    "phone": "3006193751",
+    "username": "Luz Emma de Neira ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "123",
+    "tickets-fixed": "XO68",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771446808,
+      "_nanoseconds": 120000000
+    },
+    "referencia": "3052548403",
+    "parroquiasVistitadas": "71,0,15,18,3,6,4,1,188,187,65,195,190,191,28,34,29,30,31,33,193,192,194,68,144,141,133,207,196,205,204,206,203,200,201,202,112,106,142,197,45,42,37,39,46",
+    "lastTriviaDate": "3/11/2026",
+    "dailyTriviaCount": 10,
+    "score": 12380,
+    "preguntasvistas": "94,98,28,91,11,97,77,62,61,15,86,17,37,31,78,80,70,27,21,90,57,51,85,42,35,40,13,71,59,2,32,18,43,74,76,12,39,24,4,58,46,29,89,36,81,54,55,9,44,82,116,119,60,93,104,123,83,69,3,127,120,30,47,95,105,110,5,103,38,112,73,26,113,109,14,68,48,72,75,7,171,131,10,67,53,111,166,92,106,173,66,125,84,63,101,126,6,25,115,50,56,19,154,141,151,64,134,155,143,136,102,139,175,33,161,34,135,170,87,121,1,149,213,200,144,218,219,223,183,23,197,211,122,146,203,138,216,140,150,20,133,164,204,190,160,128,195,220,148,182,191,142,186,157,99,16,100,159,118,196,292,286,65,363,258,287,300,168,375,328",
+    "respuestasCorrectas": 169,
+    "respuestasEnviadas": 170
+  },
+  {
+    "id": "USF5DZzJRAMKnxjBmghn",
+    "phone": "3208953160",
+    "username": "Isabela diaz",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "185",
+    "tickets-fixed": "GA98",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773925107,
+      "_nanoseconds": 808000000
+    }
+  },
+  {
+    "id": "V7bOR8gYs2OUHftlCcVL",
+    "phone": "3102585150",
+    "username": "Javier rodriguez ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "209",
+    "tickets-fixed": "DH35",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773940270,
+      "_nanoseconds": 492000000
+    }
+  },
+  {
+    "id": "VFgEcdLnd7wfJUWgEd3B",
+    "phone": "3167607356",
+    "username": "Sabina patiño",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "25",
+    "tickets-fixed": "EU47",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771167986,
+      "_nanoseconds": 717000000
+    },
+    "referidos": 14,
+    "parroquiasVistitadas": "0,66,300,301,59,61,100,303,104,1000,68,195,20,21,19,79,88,73,39,114,116,112,12",
+    "lastTriviaDate": "3/10/2026",
+    "dailyTriviaCount": 10,
+    "score": 10000,
+    "preguntasvistas": "32,6,31,33,11,25,52,19,51,37,41,34,18,50,44,13,36,12,42,26,49,4,97,20,63,56,90,55,61,74,94,5,21,27,95,81,79,83,103,99,10,57,88,24,53,69,54,82,2,48,68,30,14,84,91,89,23,64,38,15,67,43,62,87,71,46,9,85,17,76,28,112,123,105,122,29,47,106,3,124,65,78,118,98,60,45,115,73,104,110,100,80,114,116,101,109,128,75,117,102,121,35,142,125,129,165,147,138,157,119,8,132,171,174,130,153,168,143,152,167,166,149,169,134,86,155,108,136,156,1,131,195,227,161,215,127,139,179,213,226,170,180,7,39,133,212,188,150,178,198,72,214,135,206,145,217,196,16,146,209,92,113,197,202,70,144,218,204,183,107,59,181,210,151,176,148,193,186,219,159,211,223,96,126,137,224,185,203,140,177,187,368,365,172,361,252,341,199,230,231,303",
+    "respuestasCorrectas": 195,
+    "respuestasEnviadas": 201,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "VbNCFd8BaMjlJoAFeMU2",
+    "phone": "30175424551",
+    "username": "Cindy Geney",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "245",
+    "tickets-fixed": "KB25",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773927395,
+      "_nanoseconds": 575000000
+    }
+  },
+  {
+    "id": "VcgIt05J0GkGdZb99CvD",
+    "phone": "3002568680",
+    "username": "José Manuel Garzón ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "27",
+    "tickets-fixed": "OO45",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771378708,
+      "_nanoseconds": 389000000
+    },
+    "referidos": 1,
+    "referencia": "3025099326",
+    "parroquiasVistitadas": "30,193,27,0,303,61,104,34",
+    "lastTriviaDate": "3/7/2026",
+    "dailyTriviaCount": 10,
+    "score": 3720,
+    "preguntasvistas": "46,95,97,9,34,42,83,30,11,54,103,101,88,56,58,35,40,47,77,73,15,5,102,36,43,91,23,37,25,52,67,75,50,19,82,33,99,4,100,84,94,81,80,3,87,107,127,63,61,53,12,51,24,68,109,55,41,59,14,120,92,111,29,108,28,57,128,113,118,7,2,78,86,93,117,85,6,142,45,8,76,114,219,149,180,151,137,200,48,174,209,172,168,62,71,69,98,206,191,27,198,173,157,38,228,140,189,65,16,194,139,144",
+    "respuestasCorrectas": 101,
+    "respuestasEnviadas": 112
+  },
+  {
+    "id": "VplrY5Ten58LQxujVXDh",
+    "phone": "3134989518",
+    "username": "Dianita",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "41",
+    "tickets-fixed": "UY09",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772462620,
+      "_nanoseconds": 968000000
+    }
+  },
+  {
+    "id": "W94SXQGQZquBNgTozVCN",
+    "phone": "3105595363",
+    "username": "Melina Cruz",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "110",
+    "tickets-fixed": "DL63",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771783635,
+      "_nanoseconds": 36000000
+    }
+  },
+  {
+    "id": "WJlsuYOFfOGVTTYZSLYG",
+    "phone": "3143508840",
+    "username": "Leydi Ortiz ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "204",
+    "tickets-fixed": "US39",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1772458041,
+      "_nanoseconds": 92000000
+    },
+    "referencia": "3138314889",
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "score": 1760,
+    "preguntasvistas": "138,42,222,32,2,93,30,162,186,48,49,262,247,9,326,353,324,281,315,284,210,336,234,246,127,237,221,340,98,205,169,184,293,174,78,259,270,145,367,301,218,337,108,236,190,39,250,172,231,287,274,199,308,230,240,378,7,372,20,298,85,14,305,214,232,59,176,134,211,325,144,63,220,8,140,91,167,291,53,147,92,118,319,330,303,206,321,285,215,141,61,181,99,276,25,354,154,18,195,159,142,82,34,241,292,67,316",
+    "respuestasCorrectas": 88,
+    "respuestasEnviadas": 107
+  },
+  {
+    "id": "WT87CFInW9a8w7rSYDul",
+    "phone": "3212151448",
+    "username": "Laura Cardenaz",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "116",
+    "tickets-fixed": "RA78",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771813202,
+      "_nanoseconds": 906000000
+    }
+  },
+  {
+    "id": "WkrWPkSGy8XOFJfM9njU",
+    "phone": "3018105709",
+    "username": "Judith Neira ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "163",
+    "tickets-fixed": "ZO52",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771445948,
+      "_nanoseconds": 852000000
+    },
+    "referencia": "3052548403",
+    "parroquiasVistitadas": "71,0,15,18,3,6,4,1,188,187,65,195,190,191,28,34,29,30,31,33,193,192,194,68,67,143,144,141,133,207,196,205,204,206,203,200,201,202,112,106,142,197,45,42,37,39,46,189,186,9,10,7,11,8,13,14,12,17,19,26,25,24,21,58,56,54,38,41,48,47,55,57,51,1003,1002,1005,1004,1007,1008,1006,1009,1010,167,168,169,170,198,171,173,172,178,179,184,23,74,76,75,83,1001,73,80,77,82,78,84,89,88,86,87,85,92,90,91,93,81,79,22,182,185,183,180,181,177,176,175,174,216,223,219,229,228,230,231,233,234,217,232,227,226,225,222,221,220,218,115,113,114,116,129,131,134,125,121,123,124,122,126,211,212,215,213,214,210,138,139,140,137,50,53,52,49,27,35,5,127,132,66,130,120,118,117,107,301,64,111,103,98,136,135,128,44,94,96,95,1011",
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "score": 44680,
+    "preguntasvistas": "22,35,6,3,55,53,58,40,9,92,43,27,81,87,51,89,97,34,30,26,75,56,80,98,69,85,49,66,1,38,60,14,91,67,47,12,78,8,44,99,50,73,39,65,18,79,45,5,54,94,63,2,77,59,113,31,13,15,23,110,52,68,120,121,101,109,88,83,86,118,115,42,29,104,119,72,11,125,124,117,57,149,112,174,7,17,25,48,172,28,150,166,131,138,136,134,37,142,148,46,173,64,61,90,156,111,84,145,154,82,147,152,102,41,128,164,103,143,178,133,32,212,188,74,153,161,105,203,214,71,132,16,192,210,170,10,107,122,76,207,167,123,220,216,95,168,228,197,209,171,224,221,223,151,195,183,227,96,160,62,108,157,180,196,179,175,194,204,36,219,206,184,135,19,185,198,169,186,205,70,199,93,215,144,141,218,129,189,190,139,320,114,352,232,270,315,348,251,337,261,319,290,360,253,339,310,187,332,309,336,247,349,272,326,321,361,237,294,364,357,329,303,20,333,342,208,281,279,287,191,366,181,248,354,314,296,280,264,241,243,313,308,318,236,344,268,222,374,351,158,259,343,252,262,359,162,375,213,33,292,291,316,140,377,373,371,346,323,324,330,306,176,165,304,283,301,21,341,335,229,159,350,325,106,355,311,235,239,146,322",
+    "respuestasCorrectas": 284,
+    "respuestasEnviadas": 290
+  },
+  {
+    "id": "X5ikFMdmbTJM929JB2k2",
+    "phone": "3168543538",
+    "username": "Rosmery romero",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "162",
+    "tickets-fixed": "EI40",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773921367,
+      "_nanoseconds": 153000000
+    }
+  },
+  {
+    "id": "XBXCTbdhhNhKUbJSlmOK",
+    "phone": "3233222470",
+    "username": "Olga Hernández ",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771510405,
+      "_nanoseconds": 36000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771510405,
+      "_nanoseconds": 206000000
+    },
+    "tickets-fixed": "UX50,PF13",
+    "tickets-numbers": "74,20",
+    "tickets-quantity": 2,
+    "lastTriviaDate": "2/19/2026",
+    "dailyTriviaCount": 10,
+    "score": 140,
+    "preguntasvistas": "73,84,79,37,15,39,49,86,26,16",
+    "respuestasCorrectas": 7,
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "XUXgsM340IRf2K7c2RQX",
+    "phone": "3043991402",
+    "username": "Aide chavez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "167",
+    "tickets-fixed": "QZ32",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773921511,
+      "_nanoseconds": 960000000
+    }
+  },
+  {
+    "id": "XvPyYUiZWn26z5CYel2g",
+    "phone": "9398809317",
+    "username": "Juliana Kraus ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "172",
+    "tickets-fixed": "GF55",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772674312,
+      "_nanoseconds": 479000000
+    }
+  },
+  {
+    "id": "Y0TXhc1dFRt8W0rzyohl",
+    "phone": "3118125633",
+    "username": "Magaly Barragan",
+    "cedula": "",
+    "email": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771174965,
+      "_nanoseconds": 986000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771601470,
+      "_nanoseconds": 489000000
+    },
+    "tickets-fixed": "GD96,OA89",
+    "tickets-numbers": "13,152",
+    "tickets-quantity": 2,
+    "referidos": 2,
+    "parroquiasVistitadas": "0,71,12,43,56,47,10,14,8,7,4,1,5,6,33,3,13,20,21,19,26,24,25,1002,31,104,100,61,59,301,44,143,67,65,15,18",
+    "lastTriviaDate": "3/17/2026",
+    "dailyTriviaCount": 10,
+    "score": 13060,
+    "preguntasvistas": "38,12,43,35,36,16,10,23,51,39,45,9,37,11,53,18,28,20,4,24,81,84,32,21,29,19,30,88,8,75,85,58,1,97,80,31,15,57,82,17,22,48,71,61,67,66,77,94,70,96,54,95,74,40,86,98,49,92,6,47,69,99,79,65,91,44,68,72,52,25,59,5,63,27,83,76,56,34,3,46,121,127,50,124,116,112,93,42,2,87,73,101,64,26,104,107,78,122,62,111,117,89,126,119,55,123,105,90,120,33,128,159,176,140,167,165,100,172,133,102,156,166,110,147,7,155,138,131,135,144,108,129,150,130,115,139,174,106,170,109,113,163,118,14,41,13,153,168,132,114,209,161,164,206,222,202,223,189,180,224,160,226,198,190,199,204,152,207,216,213,179,157,195,169,212,141,158,136,171,146,193,200,192,149,219,183,182,187,214,228,188,185,145,211,154,221,191,225,220,60,196,197,103,205,227,194,210,148,184,162,203,218,181,173,217,208,201,175,186,137,134,177,125,178,143,151,215,142,238,302,295,373,308,259,303,330,232,325,264,378,253,371,293,260,372,307,230,369,363,311,331,317,240,254,282,285,343,258,355,287,299,374,345,340,376,244,268,271,233,320,246,344,324,241,316,237,342,368,321,251,279,281,326,333,235,309,250,328,243,301,292,337,348,318,261,266,364,335",
+    "respuestasCorrectas": 283,
+    "respuestasEnviadas": 298
+  },
+  {
+    "id": "YhsGMr69RFBXgT6214um",
+    "phone": "3202725651",
+    "username": "José Molina ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "197",
+    "tickets-fixed": "AR82",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773925767,
+      "_nanoseconds": 197000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "ZJ9CFaamRQWD4gRHhfpv",
+    "phone": "3123560172",
+    "username": "Juan Sebastián Noel",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "298",
+    "tickets-fixed": "GL81",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1773958768,
+      "_nanoseconds": 449000000
+    },
+    "referencia": "3052548403",
+    "lastTriviaDate": "3/19/2026",
+    "score": 160,
+    "respuestasCorrectas": 8,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "65,220,320,228,181,290,302,275,333,96",
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "ZKC26uLEb9VsrVrZ0MMa",
+    "phone": "3105594381",
+    "username": "Javier Sandoval",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "28",
+    "tickets-fixed": "ZB34",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771177609,
+      "_nanoseconds": 560000000
+    }
+  },
+  {
+    "id": "Zd9AIia1K7apVThiopqn",
+    "phone": "3017859458",
+    "username": "Sonia Lopez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "226",
+    "tickets-fixed": "XZ45",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773288234,
+      "_nanoseconds": 140000000
+    }
+  },
+  {
+    "id": "aWwNH0qef5I7ovphuGbU",
+    "phone": "3186516568",
+    "username": "Valeria Becerra",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "164",
+    "tickets-fixed": "RO44",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771304838,
+      "_nanoseconds": 348000000
+    },
+    "referencia": "3222486798",
+    "parroquiasVistitadas": "195",
+    "score": "200"
+  },
+  {
+    "id": "ahzxwYEUd0n9ktAKrwsp",
+    "phone": "3124649394",
+    "username": "Amanda ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "300",
+    "tickets-fixed": "YC31",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958848,
+      "_nanoseconds": 355000000
+    }
+  },
+  {
+    "id": "bBdUvPVOIeutPlcYMuXN",
+    "phone": "3176391441",
+    "username": "Sandra Herrera ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "69",
+    "tickets-fixed": "ID08",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771425465,
+      "_nanoseconds": 18000000
+    },
+    "referencia": "3167607356",
+    "parroquiasVistitadas": "0,114",
+    "lastTriviaDate": "3/12/2026",
+    "score": 2000,
+    "respuestasCorrectas": 80,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "59,62,99,46,40,84,72,20,67,49,38,89,102,17,28,96,47,73,6,19,92,24,76,11,36,33,7,93,53,25,101,48,2,14,37,54,74,79,103,3,64,27,57,71,127,123,66,124,86,85,95,87,83,88,120,34,114,4,75,109,104,164,157,146,107,169,140,137,55,29,150,69,22,100,132,162,82,61,21,32,41,143,105,110,16,56,170,43,175,18,133,108,135,187,138,9,223,134,119,201,42,230,251,161,288,325,248,364,366,350",
+    "respuestasEnviadas": 110
+  },
+  {
+    "id": "bCKXnnsZsGMTCYw6zKeN",
+    "phone": "3107869085",
+    "username": "Maria Josefa mancera",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "143",
+    "tickets-fixed": "JU72",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771430476,
+      "_nanoseconds": 630000000
+    }
+  },
+  {
+    "id": "bJ94G9hXHuitggWCyCKu",
+    "phone": "3156266426",
+    "username": "Inés Sanabria ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "153",
+    "tickets-fixed": "CH81",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772499282,
+      "_nanoseconds": 98000000
+    },
+    "referencia": "3160407054"
+  },
+  {
+    "id": "bWoIHYWVdkxB4CULpfUR",
+    "phone": "3002149450",
+    "username": "Ricardo Torres Sabogal ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "119",
+    "tickets-fixed": "EQ57",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771445653,
+      "_nanoseconds": 453000000
+    },
+    "referencia": "3052548403",
+    "parroquiasVistitadas": "0,15,18,3,6,4,1,188,187,65,195,190,191,28,34,29,30,31,33,193,192,194,68,67,143,144,141,133,207,196,205,204,206,203,200,201,202,112,106,142,197,45,42,37,39,46,189,186,9,10,7,11,8,13,14,12,17,19,26,25,24,21,58,56,54,38,41,48,47,55,57,51,1003,1002,1005,1004,1007,1008,1006,1009,1010,167,168,169,170,198,171,173,172,178,179,184,23,74,76,75,83,1001,73,80,77,78,84,89,88,86,87,85,92,90,91,93,81,79,22,182,185,183,180,181,177,176,175,174,216,223,219,229,228,230,231,233,234,217,232,227,226,225,222,221,220,218,115,113,114,116,129,131,134,125,121,123,124,122,126,211,212,215,213,214,210,138,139,140,137,50,53,52,49,27,35,5,127,132,66,130,120,118,117,107,301,111,103,98,136,135,128,44,94,96,95,1011",
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "score": 44040,
+    "preguntasvistas": "62,4,14,9,3,83,82,102,53,56,52,2,19,41,44,34,28,33,100,43,32,39,68,91,97,92,63,48,27,95,70,16,98,94,8,21,65,60,87,67,64,88,15,25,103,84,55,86,73,29,58,122,126,18,81,109,22,118,105,125,69,6,42,80,89,71,107,123,120,12,36,23,45,79,106,77,17,37,121,111,165,61,169,112,49,5,160,171,142,170,177,161,93,129,150,31,175,141,26,113,128,108,1,156,116,158,114,130,166,152,57,144,172,176,153,138,143,155,40,167,217,185,196,224,104,163,101,228,137,11,54,66,24,74,192,139,135,205,13,210,189,131,124,190,198,75,191,225,96,214,208,47,35,145,222,110,85,51,7,127,179,213,181,20,159,200,134,215,173,99,72,50,174,154,220,78,199,168,207,226,183,203,204,197,164,90,151,46,117,212,216,278,232,279,237,157,335,242,249,149,354,309,244,247,277,229,333,358,288,202,290,361,370,186,38,188,219,295,221,286,243,255,246,236,329,372,298,293,233,119,323,336,312,324,316,283,115,314,30,365,281,148,300,162,305,322,269,341,258,180,330,356,253,238,346,76,178,344,254,302,211,359,350,317,248,275,294,251,240,374,376,340,184,332,194,276,195,325,147,267,326,259,261,187,252,132,268,368,327,364",
+    "respuestasCorrectas": 282,
+    "respuestasEnviadas": 290
+  },
+  {
+    "id": "bhjdl6U0122xswZqkdrC",
+    "phone": "3046612833",
+    "username": "Manuel rincon",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "240",
+    "tickets-fixed": "BE38",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773956109,
+      "_nanoseconds": 48000000
+    }
+  },
+  {
+    "id": "buh7aj1j5ADUV3Ug4pNJ",
+    "phone": "3108079737",
+    "username": "Diana Niño",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771553934,
+      "_nanoseconds": 613000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771553935,
+      "_nanoseconds": 710000000
+    },
+    "tickets-fixed": "RG01,GY13",
+    "tickets-numbers": "146,106",
+    "tickets-quantity": 2,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "cICsWopJFFN6dskZ7MiD",
+    "phone": "3202939605",
+    "username": "Marta melo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "205",
+    "tickets-fixed": "ZR93",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773930577,
+      "_nanoseconds": 872000000
+    }
+  },
+  {
+    "id": "cjrjJnsgeviqJfE72mrC",
+    "phone": "3012685172",
+    "username": "Diana Romero",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "49",
+    "tickets-fixed": "DA14",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771603545,
+      "_nanoseconds": 889000000
+    },
+    "referencia": "3167607356"
+  },
+  {
+    "id": "clFZmO35Z0sdkQpje4A4",
+    "phone": "3132853745",
+    "username": "Marta Cecilia ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "312",
+    "tickets-fixed": "XI62",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773937136,
+      "_nanoseconds": 613000000
+    }
+  },
+  {
+    "id": "cnnCb5Qjnbh8fkGwLxyh",
+    "phone": "3123656910",
+    "username": "Paula Delgadillo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "7",
+    "tickets-fixed": "LD87",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771169755,
+      "_nanoseconds": 824000000
+    },
+    "parroquiasVistitadas": "75,76",
+    "lastTriviaDate": "3/16/2026",
+    "respuestasCorrectas": 97,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "31,27,17,26,38,28,15,53,14,20,43,33,19,13,2,44,51,4,3,32,23,8,99,69,52,12,100,72,1,42,86,36,92,9,29,75,94,77,21,97,65,93,45,88,59,35,64,22,16,83,85,11,24,46,96,58,39,74,76,70,82,78,61,63,68,67,41,49,79,90,102,124,6,60,114,34,95,40,25,110,157,138,107,112,50,30,176,104,89,48,105,173,167,131,126,181,132,216,187,192,152,248,269,234,268,189,368,347,5,276",
+    "respuestasEnviadas": 110,
+    "score": 2340,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "cxJl4J6PSe6iQFRJSrzN",
+    "phone": "3184248462",
+    "username": "Andres Moreno Garzon",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "89",
+    "tickets-fixed": "GU59",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771361338,
+      "_nanoseconds": 464000000
+    },
+    "lastTriviaDate": "2/26/2026",
+    "dailyTriviaCount": 10,
+    "score": 1100,
+    "preguntasvistas": "60,15,67,96,9,5,37,48,13,25,31,38,24,84,41,101,32,40,58,28,89,78,71,27,73,6,16,103,68,2,20,55,66,97,19,52,7,79,62,54,36,92,44,127,17,53,50,111,69,4,18,121,129,177,81,123,172,109,132,45",
+    "respuestasCorrectas": 55,
+    "respuestasEnviadas": 60
+  },
+  {
+    "id": "dDA2FegPyTNhE3ucxw7P",
+    "phone": "3206772181",
+    "username": "Natalia villamil",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "192",
+    "tickets-fixed": "TU72",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773925748,
+      "_nanoseconds": 136000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "dUY437bEbgui1JqfJ4xj",
+    "phone": "3002841772",
+    "username": "Daniela hernandez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "183",
+    "tickets-fixed": "AR96",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773924774,
+      "_nanoseconds": 228000000
+    }
+  },
+  {
+    "id": "dcqQjnrY46BDGQUlSHEe",
+    "phone": "3160430873",
+    "username": "Maria Dangond",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "256",
+    "tickets-fixed": "WU69",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958508,
+      "_nanoseconds": 948000000
+    }
+  },
+  {
+    "id": "dzrCquzUBHAvU6oTKhp7",
+    "phone": "3166179365",
+    "username": "Juan escobar ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "234",
+    "tickets-fixed": "XE78",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773954028,
+      "_nanoseconds": 621000000
+    }
+  },
+  {
+    "id": "eT781VOisY8aSoKS5HL6",
+    "phone": "3203396882",
+    "username": "Andrés Bernal",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "22",
+    "tickets-fixed": "LH66",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771292876,
+      "_nanoseconds": 677000000
+    },
+    "referidos": 1,
+    "parroquiasVistitadas": "0,58,32,15,12,1,4,14,20,19,21,3,6,33,72,71,203,112,98,94,173,44,47,43,40,192,194,193,190,191,205,207,8,24",
+    "referencia": "3052548403",
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "score": 10480,
+    "preguntasvistas": "2,41,11,20,46,28,15,23,42,6,71,99,34,49,69,60,64,36,24,66,100,79,55,94,82,56,44,89,83,16,102,50,87,38,22,10,48,72,91,5,67,81,33,8,57,78,17,103,77,62,52,92,40,45,75,3,85,95,39,1,76,93,35,51,21,47,84,70,101,43,29,90,80,113,125,61,65,120,58,126,13,105,31,37,123,12,119,68,128,107,121,32,112,97,110,98,86,96,4,7,144,74,165,18,59,153,25,167,171,147,138,168,133,175,170,131,106,27,228,197,193,143,150,205,164,201,190,196,159,182,212,211,118,189,117,223,217,221,174,135,154,104,129,142,166,208,218,225,191,140,141,114,149,172,176,139,127,185,88,192,195,163,132,227,30,156,146,313,136,180,272,339,236,73,374,282,373,240,179,319,337,265,297",
+    "respuestasCorrectas": 179,
+    "respuestasEnviadas": 183
+  },
+  {
+    "id": "eYtPTrROGiBvOB2o8xa0",
+    "phone": "3128280255",
+    "username": "Javier Olave",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "176",
+    "tickets-fixed": "IS39",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771801645,
+      "_nanoseconds": 698000000
+    },
+    "referencia": "3012408395",
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 10,
+    "score": 160,
+    "preguntasvistas": "37,13,90,26,98,94,50,7,96,86",
+    "respuestasCorrectas": 8,
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "elPBXa27fUsVYa70aH63",
+    "phone": "3212013787",
+    "username": "Edwin de León ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "17",
+    "tickets-fixed": "CE02",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771291559,
+      "_nanoseconds": 455000000
+    },
+    "parroquiasVistitadas": "46,40,47,43,54,56,58,25,24,21,20,0,12,14,13,15,188,187,204,196,207,106,144,133,141,143,67,197,65,195,1000,68,193,192,71,72,190,32,17,16,19,8,5,10,6,3,31,35,33,44,45,41,38,39,91,92,90,34,28,191,1002,1005,1004,1008,1006,1009,1010,189,9,11,7,179,178,172,168,167,171,169,170,198,173,177,181,180,183,182,185,186,77,84,73,999,1001,80,82,89,88,86,87,203,201,200,113,128,218,202,217,234,233,107,120,118,117,121,123,126,122,124,136,135,139,138,211,212,213,214,215,210,140,137,74,76,75,176,175,174,219,229,228,225,223,221,222,220,230,231,232,227,226,115",
+    "lastTriviaDate": "3/11/2026",
+    "score": 33660,
+    "respuestasCorrectas": 183,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "13,75,99,86,89,72,38,87,37,41,22,44,51,71,84,29,15,96,35,93,40,74,36,90,80,85,47,21,100,43,77,104,97,111,92,121,31,55,1,127,128,53,88,45,116,124,46,126,28,30,39,82,94,114,58,95,66,81,68,63,162,125,160,134,164,144,153,129,70,136,34,73,115,178,33,145,142,169,120,154,148,149,56,27,54,14,163,146,150,32,20,156,67,106,76,161,166,139,158,18,25,131,207,183,42,200,224,194,137,174,123,197,140,206,191,213,57,199,133,157,6,193,112,184,23,91,60,205,201,110,83,196,210,190,118,5,176,223,113,26,141,59,10,48,165,180,152,102,62,220,105,222,11,209,143,119,52,4,195,3,203,17,147,225,122,186,192,109,16,177,79,364,283,254,250,288,179,167,357,296,302,216,289,337,182,368,237,230,303,349",
+    "respuestasEnviadas": 190,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "fQQx4G4Ed8JN2Zdq1Ikp",
+    "phone": "3145804835",
+    "username": "Juan martinez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "214",
+    "tickets-fixed": "ZF73",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773951681,
+      "_nanoseconds": 836000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "fWmxQQzkvj1YEba2LHs7",
+    "phone": "3203398124",
+    "username": "Germán Delgado",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "238",
+    "tickets-fixed": "KI99",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773955649,
+      "_nanoseconds": 239000000
+    }
+  },
+  {
+    "id": "fg9LlqeOryj1xq4Ar6pL",
+    "phone": "3153970577",
+    "username": "Mariamer",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "145",
+    "tickets-fixed": "ID22",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772402179,
+      "_nanoseconds": 499000000
+    }
+  },
+  {
+    "id": "fqDcSuu1HwbbC0eB85nc",
+    "phone": "3002105830",
+    "username": "Cecilia Sabogal ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "218",
+    "tickets-fixed": "RQ75",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773930377,
+      "_nanoseconds": 747000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "fuq3dJda0m5hxrdZlhau",
+    "phone": "3107274836",
+    "username": "Shirlena Doria ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "8",
+    "tickets-fixed": "QI90",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771176711,
+      "_nanoseconds": 393000000
+    },
+    "parroquiasVistitadas": "0,24,61,57,52,41,40,39,37,42,46,44,47,38,48,51,104,25,28,34",
+    "lastTriviaDate": "3/4/2026",
+    "dailyTriviaCount": 10,
+    "score": 5780,
+    "preguntasvistas": "61,81,65,39,4,27,83,103,89,59,31,94,54,76,97,52,86,40,7,38,80,58,70,30,77,43,60,41,68,66,34,3,62,57,42,78,13,84,45,18,44,32,49,55,51,63,92,98,25,26,16,114,36,122,5,28,104,125,115,110,108,118,93,2,21,48,109,10,15,121,166,173,111,100,35,168,157,82,156,56,14,155,72,101,163,123,19,159,130,107,132,144,11,106,79,169,150,176,9,134,1,99,165,136,214,64,192,198,171,143",
+    "respuestasCorrectas": 89,
+    "respuestasEnviadas": 110
+  },
+  {
+    "id": "g3UgosMjR4iglKxamNJt",
+    "phone": "3142851047",
+    "username": "Mía Manosalva ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "283",
+    "tickets-fixed": "NH54",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958448,
+      "_nanoseconds": 927000000
+    }
+  },
+  {
+    "id": "g5VxJmXgRmgJhqEItbTo",
+    "phone": "3213711079",
+    "username": "Leonardo Carreño",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "274",
+    "tickets-fixed": "ND47",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772909018,
+      "_nanoseconds": 866000000
+    }
+  },
+  {
+    "id": "gIjsdGcBWsZEuOk6WFY9",
+    "phone": "3232331640",
+    "username": "Edgar torres ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "308",
+    "tickets-fixed": "WE04",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958313,
+      "_nanoseconds": 204000000
+    }
+  },
+  {
+    "id": "ghgORdPTrm1zQoD20kRj",
+    "phone": "3507502357",
+    "username": "Sara Izquierdo ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "23",
+    "tickets-fixed": "MH24",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771420627,
+      "_nanoseconds": 421000000
+    },
+    "parroquiasVistitadas": "61,59,62,64,0,119,24,25,26,21,19,20,203,200,201,202,218,113,116,114,127,110,102,142,141,143,144,133,207,196,206,205,204,186,189",
+    "lastTriviaDate": "3/1/2026",
+    "dailyTriviaCount": 10,
+    "score": 8800,
+    "preguntasvistas": "47,24,86,40,56,6,48,87,18,55,91,57,75,65,27,53,82,88,80,76,69,15,43,19,39,36,83,37,30,5,49,26,66,14,90,11,79,2,92,13,119,1,62,54,128,104,97,34,100,98,12,38,115,63,122,106,127,4,108,35,109,110,111,70,25,116,125,50,102,117,89,105,114,73,99,113,28,124,16,32,94,163,169,41,120,67,166,172,159,126,121,85,68,72,149,151,33,20,141,22",
+    "respuestasCorrectas": 90,
+    "respuestasEnviadas": 100,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "gudRx2EeKjwwwI3gWObk",
+    "phone": "3214355073",
+    "username": "Anita Amaya ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "237",
+    "tickets-fixed": "OE62",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773344401,
+      "_nanoseconds": 948000000
+    }
+  },
+  {
+    "id": "gzemxKzA6omT8rfWf9BP",
+    "phone": "3203398096",
+    "username": "Viviana Delgado",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "39",
+    "tickets-fixed": "XF85",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771376239,
+      "_nanoseconds": 404000000
+    },
+    "referencia": "3203396836",
+    "parroquiasVistitadas": "77,0",
+    "lastTriviaDate": "2/28/2026",
+    "dailyTriviaCount": 10,
+    "score": 2440,
+    "preguntasvistas": "101,31,64,52,48,17,71,78,15,65,76,63,94,81,33,98,79,47,70,34,91,16,14,90,39,68,53,4,66,102,20,19,40,35,95,12,103,100,13,2,11,96,74,29,27,1,8,67,10,57,25,21,46,88,18,37,85,87,49,26,32,111,22,124,62,109,56,122,61,116,119,54,28,118,9,105,45,6,75,89,72,97,42,115,24,114,93,41,110,50,160,164,143,106,171,3,113,163,44,167,73,132,130,84,150,165,108,99,107,77",
+    "respuestasCorrectas": 102,
+    "respuestasEnviadas": 110
+  },
+  {
+    "id": "h9newC0XjkDYB3eHoJ91",
+    "phone": "3004455654",
+    "username": "Deicy pino",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "178",
+    "tickets-fixed": "TC34",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773923847,
+      "_nanoseconds": 425000000
+    }
+  },
+  {
+    "id": "hu3pUf77W1z0RQyBF2MN",
+    "phone": "3507194404",
+    "username": "Medina rueda",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "241",
+    "tickets-fixed": "OE25",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773956548,
+      "_nanoseconds": 378000000
+    }
+  },
+  {
+    "id": "i0lwdLG8pCPBRopQM0X0",
+    "phone": "3222488401",
+    "username": "Maria Paula Ortega",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "251",
+    "tickets-fixed": "TH85",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773957775,
+      "_nanoseconds": 270000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "i9zfp9VbtcTXa7rG2Kxg",
+    "phone": "3158347323",
+    "username": "Luisa Fernanda Carrillo Giraldo ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "47",
+    "tickets-fixed": "MK73",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771182073,
+      "_nanoseconds": 577000000
+    },
+    "lastTriviaDate": "2/15/2026",
+    "parroquiasVistitadas": "0",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "22,15,10,4,14,9,18,1,52,48",
+    "respuestasCorrectas": 10,
+    "respuestasEnviadas": 10,
+    "score": 400
+  },
+  {
+    "id": "iOF4UPd8WtL8rYJhuSoB",
+    "phone": "3005370857",
+    "username": "Diego Urrego Fonseca ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "3",
+    "tickets-fixed": "VH03",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771298663,
+      "_nanoseconds": 905000000
+    },
+    "referidos": 1,
+    "lastTriviaDate": "2/19/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "45,11,44,37,16,40,5,3,36,52,42,100,90,99,19,26,85,38,79,35,84,31,48,92,39,8,66,82,51,17,86,60,27,34,71,93,43,67,76,56",
+    "respuestasCorrectas": 34,
+    "respuestasEnviadas": 40,
+    "parroquiasVistitadas": "0,52",
+    "score": "1180",
+    "referencia": "3052548403"
+  },
+  {
+    "id": "ibWdqaDOuEx41vxTKFH7",
+    "phone": "3052548476",
+    "username": "Lucía Carrera ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "221",
+    "tickets-fixed": "PA27",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773930338,
+      "_nanoseconds": 896000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "ifmDgwpxjC8v0ojqTAj8",
+    "phone": "3223832371",
+    "username": "Mariana Navarro ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "303",
+    "tickets-fixed": "QG09",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958033,
+      "_nanoseconds": 394000000
+    }
+  },
+  {
+    "id": "iuY8LVzbtkBuDaDC0bQF",
+    "phone": "3168783010",
+    "username": "Stella Delgadillo ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "72",
+    "tickets-fixed": "ZK01",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771770744,
+      "_nanoseconds": 285000000
+    },
+    "referencia": "3118125633",
+    "parroquiasVistitadas": "0,20,21,19,26,24,25,10,14,8,7,4,1,5,6,33,3,13,17,71,44,43,56,58,57,55,51,12,187,188,72,190,32,68,195,1000,192,193,40",
+    "lastTriviaDate": "3/18/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "50,43,46,89,84,61,5,12,1,34,100,108,72,60,172,11,88,6,75,98,150,70,168,223,187,196,117,17,53,107,35,57,204,161,189,219,120,146,10,58,211,170,121,178,79,144,42,142,153,141,185,115,13,9,91,183,36,207,44,56,102,163,59,116,83,63,65,193,201,119,224,40,106,85,68,206,166,110,4,82,71,220,31,124,126,154,109,145,103,173,55,97,136,179,22,114,175,180,24,96,343,129,276,213,169,294,38,137,132,130,231,112,33,279,54,274,20,282,330,127,374,353,306,255,338,281,316,351,329,156,326,369,111,345,159,322,94,247,376,373,295,74,123,378,311,214,105,197,320,319",
+    "respuestasCorrectas": 131,
+    "respuestasEnviadas": 150,
+    "score": 10420
+  },
+  {
+    "id": "iyvHkWeakwmyt48yGebW",
+    "phone": "3186665275",
+    "username": "Hernando Chaparro",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "171",
+    "tickets-fixed": "EN70",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1772318232,
+      "_nanoseconds": 803000000
+    },
+    "referencia": "3052548403",
+    "parroquiasVistitadas": "0,17,191,190",
+    "lastTriviaDate": "3/5/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "18,87,136,44,96,120,4,43,168,83,50,159,1,139,37,80,95,58,68,10,151,142,207,214,203,204,190,61,66,54,20,12,30,149,181,134,202,7,33,219,11,145,191,124,14,40,107,173,16,144,104,49,225,86,211,192,38,180,81,89",
+    "respuestasCorrectas": 56,
+    "respuestasEnviadas": 60,
+    "score": 1920
+  },
+  {
+    "id": "j8UdievxuUuQs08HLPpx",
+    "phone": "3006419745",
+    "username": "Ferney Baquero",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "173",
+    "tickets-fixed": "RL80",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773923247,
+      "_nanoseconds": 697000000
+    }
+  },
+  {
+    "id": "jvyjckn7RH4vvLs8mg1w",
+    "phone": "3108663795",
+    "username": "Paola cristancho",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "139",
+    "tickets-fixed": "UY69",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773919351,
+      "_nanoseconds": 67000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "kClFwmOWD9asfTYua2M4",
+    "phone": "3103241176",
+    "username": "Sofia Escobar ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "286",
+    "tickets-fixed": "LD38",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958028,
+      "_nanoseconds": 532000000
+    }
+  },
+  {
+    "id": "kE25lh31I1rGCMfvDmmJ",
+    "phone": "3125854203",
+    "username": "Walkiria Perez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "64",
+    "tickets-fixed": "PT64",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771812156,
+      "_nanoseconds": 19000000
+    }
+  },
+  {
+    "id": "kVRNyeIzxmOmOXFjx3v4",
+    "phone": "3125877157",
+    "username": "Luis Emiro Olave",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "215",
+    "tickets-fixed": "TG05",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771800584,
+      "_nanoseconds": 925000000
+    },
+    "referencia": "3012408395",
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 10,
+    "score": 200,
+    "preguntasvistas": "70,83,31,69,48,1,85,24,95",
+    "respuestasCorrectas": 10,
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "kzEB5nfh7VKP4MogOnK1",
+    "phone": "3138060391",
+    "username": "Padre Wilson 😁",
+    "cedula": "-",
+    "email": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1770233989,
+      "_nanoseconds": 296000000
+    },
+    "lastRolledBack": {
+      "_seconds": 1771051336,
+      "_nanoseconds": 617000000
+    },
+    "payedtickets": 1,
+    "lastUpdated": {
+      "_seconds": 1771054361,
+      "_nanoseconds": 167000000
+    },
+    "tickets-fixed": "CZ50",
+    "tickets-numbers": "1",
+    "tickets-quantity": 1,
+    "parroquiasVistitadas": "0",
+    "lastTriviaDate": "2/18/2026",
+    "dailyTriviaCount": 2,
+    "score": 280,
+    "preguntasvistas": "3,2,1,44,97",
+    "respuestasCorrectas": 4,
+    "respuestasEnviadas": 7
+  },
+  {
+    "id": "lQDqcgfKRpwsGB7W0U30",
+    "phone": "3202359640",
+    "username": "Mauricio ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "311",
+    "tickets-fixed": "QI91",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958753,
+      "_nanoseconds": 254000000
+    }
+  },
+  {
+    "id": "lRQJVnKj87WBmapfYZEZ",
+    "phone": "3173779209",
+    "username": "Luis David Rojas",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "9",
+    "tickets-fixed": "MY41",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771196787,
+      "_nanoseconds": 393000000
+    },
+    "parroquiasVistitadas": "0",
+    "lastTriviaDate": "2/15/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "45,14,33,1,31,5,46,2,3,32",
+    "respuestasCorrectas": 10,
+    "respuestasEnviadas": 10,
+    "score": 400
+  },
+  {
+    "id": "m8bLKeT5Dw18Odjw31Yh",
+    "phone": "3214877834",
+    "cedula": "",
+    "email": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771201197,
+      "_nanoseconds": 681000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771278715,
+      "_nanoseconds": 474000000
+    },
+    "tickets-fixed": "LH23,FE31",
+    "tickets-numbers": "2,147",
+    "tickets-quantity": 2,
+    "username": "Jaime Vergara",
+    "lastTriviaDate": "3/14/2026",
+    "respuestasCorrectas": 62,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "75,19,88,40,49,94,45,91,85,93,55,81,33,80,58,79,42,68,61,31,56,72,82,9,99,76,96,43,17,103,107,128,2,109,47,44,54,5,118,90,30,95,48,63,73,12,84,122,20,4,102,116,3,117,78,74,108,132,83,177,264,147,175,247,315,335,376,268,272",
+    "respuestasEnviadas": 70,
+    "referencia": "3052548403",
+    "parroquiasVistitadas": "0,76,12,34,28,68,195,15,177,13",
+    "score": "3240"
+  },
+  {
+    "id": "mJgu3nshfdX4riCQgv3B",
+    "phone": "3153477043",
+    "username": "Orlando bejarano",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "161",
+    "tickets-fixed": "UF52",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773921211,
+      "_nanoseconds": 891000000
+    }
+  },
+  {
+    "id": "mK2dnuYqcG80KDkqbBo6",
+    "phone": "3227975780",
+    "username": "Nicolas fonseca ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "235",
+    "tickets-fixed": "UV98",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773954769,
+      "_nanoseconds": 859000000
+    }
+  },
+  {
+    "id": "mSeadeMAKtRSvNPtc6OI",
+    "phone": "3002102817",
+    "username": "Mónica Torres ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "149",
+    "tickets-fixed": "RN03",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771441716,
+      "_nanoseconds": 839000000
+    },
+    "referencia": "3052548403",
+    "parroquiasVistitadas": "71,0,44,105,300,302,59,64,62,101,61,100,303,104,102,110,999,998,997,996,20,197,45,42,37,39,46,189,186,9,10,7,11,8,13,14,12,17,19,26,25,24,21,56,54,38,41,48,47,55,57,51,1003,16,1002,1005,1004,1007,1008,1006,1009,1010,167,168,169,170,198,173,172,179,184,23,74,76,75,83,1001,73,80,77,82,78,84,89,88,86,87,85,92,90,91,93,81,79,22,182,185,183,180,181,177,176,175,174,216,223,219,229,228,230,231,233,234,217,232,227,226,225,222,221,220,218,115,113,114,116,129,131,134,125,121,123,124,122,211,212,215,213,214,210,138,139,140,137,1011,72",
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "score": 35140,
+    "preguntasvistas": "86,49,9,22,79,56,45,32,39,15,38,92,81,60,68,11,41,7,16,42,36,13,34,24,102,31,47,50,3,96,82,8,80,29,40,44,71,12,23,75,103,78,76,19,61,58,52,4,88,43,99,53,105,33,112,46,18,90,25,89,70,122,10,72,55,101,63,30,77,62,111,74,27,65,107,94,2,123,127,83,98,171,150,163,121,131,84,116,165,35,162,137,125,66,149,175,145,170,132,126,144,28,130,67,91,100,14,120,161,5,124,146,6,87,142,73,135,128,140,95,114,224,168,115,169,129,180,26,21,151,97,110,104,200,204,113,223,1,20,198,211,193,143,220,214,192,191,174,37,48,69,108,203,117,222,212,216,106,202,141,159,194,190,172,187,148,152,17,51,219,157,57,177,54,208,225,215,133,138,173,185,160,134,227,153,119,186,201,59,206,207,156,167,188,183,213,196,209,176,118,342,335,312,317,164,324,328,360,260,290,363,327,309,230,210,365,195,338,295,304,311,359,166,333,282,303,357,307,243,238,361,247,349,319,322,314,378,350,323,347,239,255,231,318,305,353,300,136,241,276,283,343,274,64,345,332,298,352,182,109,218,369,221,299,270,329,262,315,240,356,253,256,249,248,296,272,271,285,242,232,287,217,308,93,316,181,244,267,368,364,266,354,228,261,280,155,264,326,268,331",
+    "respuestasCorrectas": 297,
+    "respuestasEnviadas": 300
+  },
+  {
+    "id": "mXOeSiff97UOuimaNb43",
+    "phone": "3163321568",
+    "username": "Edgar Medellin Suarez ",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771784071,
+      "_nanoseconds": 31000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771784071,
+      "_nanoseconds": 146000000
+    },
+    "tickets-fixed": "BR80,MR50",
+    "tickets-numbers": "105,38",
+    "tickets-quantity": 2,
+    "referencia": "3160407054",
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 10,
+    "score": 80,
+    "preguntasvistas": "81,90,26,66,50,84,20,65,61,47",
+    "respuestasCorrectas": 4,
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "mfH7Y0UNOkyRf1WuPvEs",
+    "phone": "3002095782",
+    "username": "Soraya Villalba",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "88",
+    "tickets-fixed": "UC24",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771423769,
+      "_nanoseconds": 929000000
+    }
+  },
+  {
+    "id": "nzVb5XDFS6xJ5fqPO1O8",
+    "phone": "3107683232",
+    "username": "Maria Elvira",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "277",
+    "tickets-fixed": "YX90",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772594165,
+      "_nanoseconds": 614000000
+    }
+  },
+  {
+    "id": "o9UtWMG7JZKIfQuwPjfg",
+    "phone": "3017141863",
+    "username": "Isabella Carrera ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "247",
+    "tickets-fixed": "OY29",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773926007,
+      "_nanoseconds": 90000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "oVXfbup9KzJv5IDl4IO7",
+    "phone": "3016672535",
+    "username": "Melissa Delgado",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "6",
+    "tickets-fixed": "QR11",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771384767,
+      "_nanoseconds": 745000000
+    },
+    "referencia": "3005370857",
+    "parroquiasVistitadas": "0,12,21",
+    "lastTriviaDate": "3/3/2026",
+    "dailyTriviaCount": 10,
+    "score": 2080,
+    "preguntasvistas": "97,96,37,33,15,40,59,6,17,66,47,34,61,55,48,44,51,54,1,30,36,58,100,64,49,79,91,19,81,23,90,42,60,71,52,38,28,26,2,3,93,50,124,75,98,117,21,7,112,16,74,46,22,109,163,43,11,152,175,105,14,111,101,176,119,162,127,150,67,4,155,213,141,56,147,222,177,226,165,159",
+    "respuestasCorrectas": 74,
+    "respuestasEnviadas": 80
+  },
+  {
+    "id": "pLAwOJHNDD26QVo11Avt",
+    "phone": "3005925135",
+    "username": "Andrea Martínez Alarcón ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "86",
+    "tickets-fixed": "AH42",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771787444,
+      "_nanoseconds": 906000000
+    },
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "97,56,38,85,4,37,8,33,74,84,106,17,23,11,82,104,45,113,79,76,96,99,118,109,53,66,105,12,52,14,119,98,9,57,24,114,18,65,28,20,175,131,144,63,50,138,115,134,51,141,77,6,71,146,156,40,133,164,15,127,170,22,157,154,121,13,162,54,108,16,143,159,161,135,220,5,168,75,142,187,107,222,167,39,117,29,195,191,47,30,60,36,61,158,216,223,80,43,35,213,67,180,194,136,185,86,193,206,177,214,10,73,228,62,2,212,221,59,150,31,42,48,92,171,208,172,147,202,94,87,226,81,165,169,64,190,34,152,83,1,153,192,124,163,233,129,305,181,258,249,369,300,148,200,110,290,78,217,111,132,93,324,210,337,286,103,357,55,21,32,160,26,183,173,254,340,225,344,27,262,271,145,356,243,219,182,259,41,365,69,270,345,346,116,321,224,253,25,215,90,207,334,282,237,102,247,139,269,371,372,204,279,19,361,203,209,349,274,68,327,126,184,273,314,179,91,298,363,378,322,303,295,336,211",
+    "respuestasCorrectas": 230,
+    "respuestasEnviadas": 234,
+    "parroquiasVistitadas": "0,34,46,44,71,72,196,207,206,1,20,32,31,29,30,27,40,56,54,38,41,193,192,13,68,195,65,43,999,15,18,47,37,39,42,58,25,24,55,57,76,74,73,77,84,79,186,998,997,12,35,6,33,3,60,100,61,303,59,62,64,104,102,67,194,191,190,7,10,5,17,19,21,26,179,178,181,177,180,173,171,169,168,198,170,14,8,996,995,994,993,89,88,86,85,1002,1005,1004",
+    "score": "24200",
+    "referencia": "3052548403"
+  },
+  {
+    "id": "qTWM6hnj106nAKtCO9gO",
+    "phone": "3178950849",
+    "username": "Cecilia Santamaría ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "67",
+    "tickets-fixed": "IC93",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771519115,
+      "_nanoseconds": 614000000
+    },
+    "parroquiasVistitadas": "71,188,187,9,4,1,6,5,10,7,8,15,0,18,188,19,20,38,56",
+    "referencia": "3052548403",
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "72,12,73,63,4,9,51,15,77,27,62,127,30,52,86,61,110,23,84,109,7,38,21,112,118,93,40,120,119,60,58,74,20,97,33,87,2,113,81,90,108,141,47,121,41,166,129,10,169,122,39,171,172,159,6,105,226,143,111,99,210,336,11,16,18,373,322,203,54,199",
+    "respuestasCorrectas": 65,
+    "respuestasEnviadas": 70,
+    "score": 5200
+  },
+  {
+    "id": "qVQ5C9fdgE9lk4h4s5T0",
+    "phone": "3156014136",
+    "username": "Pelusa",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "126",
+    "tickets-fixed": "QJ34",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1772295931,
+      "_nanoseconds": 603000000
+    },
+    "referencia": "3167607356",
+    "lastTriviaDate": "2/28/2026",
+    "dailyTriviaCount": 10,
+    "score": 160,
+    "preguntasvistas": "169,70,98,87,151,109,175,148,141,34",
+    "respuestasCorrectas": 8,
+    "respuestasEnviadas": 10
+  },
+  {
+    "id": "qj564zZxtVX2asuv17gf",
+    "phone": "3227973087",
+    "username": "Hamilton vergara ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "254",
+    "tickets-fixed": "FY56",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958728,
+      "_nanoseconds": 630000000
+    }
+  },
+  {
+    "id": "s1aX7HjhSFdjyTzwnO4j",
+    "phone": "3002130016",
+    "username": "María del Pilar",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772402275,
+      "_nanoseconds": 381000000
+    },
+    "payedtickets": 3,
+    "lastUpdated": {
+      "_seconds": 1772402595,
+      "_nanoseconds": 39000000
+    },
+    "tickets-fixed": "NV67,PD09,QP56",
+    "tickets-numbers": "190,148,189",
+    "tickets-quantity": 3
+  },
+  {
+    "id": "sEgTSoK2k7ltqXSSYuqr",
+    "phone": "3102009021",
+    "username": "Mauricio Osuna ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "52",
+    "tickets-fixed": "OR54",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771694619,
+      "_nanoseconds": 901000000
+    },
+    "referencia": "3167607356",
+    "lastTriviaDate": "2/21/2026",
+    "dailyTriviaCount": 1,
+    "score": 20,
+    "preguntasvistas": "9",
+    "respuestasCorrectas": 1,
+    "respuestasEnviadas": 1
+  },
+  {
+    "id": "sRI5TfSU8xWVns9rw0hi",
+    "phone": "3108134741",
+    "username": "Silvana avila ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "225",
+    "tickets-fixed": "KB27",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773953409,
+      "_nanoseconds": 764000000
+    }
+  },
+  {
+    "id": "sRYO4ZR5E8P2VF0EjRDg",
+    "phone": "3152888298",
+    "username": "María Camila Vargas",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "291",
+    "tickets-fixed": "KC71",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773960369,
+      "_nanoseconds": 81000000
+    }
+  },
+  {
+    "id": "sUeQYRnoAZEbTgOFqs06",
+    "phone": "3052548403",
+    "username": "Emilia Carrera Torres ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "29",
+    "tickets-fixed": "RN01",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771292436,
+      "_nanoseconds": 628000000
+    },
+    "parroquiasVistitadas": "0,32,71,44,47,40,41,43,105,300,302,59,64,62,101,63,61,100,303,104,102,110,999,998,997,996,20,15,18,3,6,4,1,188,187,65,195,190,191,28,34,29,30,31,33,193,192,194,68,1000,143,144,141,133,207,196,205,204,206,203,200,201,202,112,106,142,197,45,42,37,39,46,189,186,9,10,7,11,13,14,12,17,19,26,25,24,21,58,56,54,38,48,55,57,51,1003,16,1002,1005,1004,1007,1008,1006,1009,1010,167,168,169,170,198,171,173,172,178,179,23,74,76,75,83,1001,73,80,77,82,78,84,89,88,86,87,85,92,90,93,81,79,22,182,185,183,180,181,177,176,175,174,216,223,219,229,228,230,231,233,234,217,232,227,226,225,222,221,220,218,115,113,114,116,129,131,134,125,121,123,124,122,126,211,212,215,213,214,210,138,139,140,137,50,53,52,49,27,35,5,127,132,66,119,130,120,118,117,107,301,111,103,98,136,135,128,94,95,96,99,67,184,91,8,1011,990,989,987,72,1012",
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "13,29,53,3,8,44,52,38,34,18,72,27,60,80,33,61,93,79,58,90,39,82,77,98,31,10,97,54,73,75,76,87,57,9,37,83,94,55,47,88,16,14,40,20,89,12,81,30,65,71,74,84,51,21,15,32,17,101,41,103,42,23,35,2,62,49,70,99,28,24,4,86,118,25,117,128,67,91,56,107,113,92,109,100,66,69,115,85,7,19,95,120,125,64,63,123,26,5,6,158,161,133,122,43,142,124,22,46,175,140,102,154,174,138,141,170,178,127,152,116,169,137,11,163,126,45,111,134,139,50,165,112,105,110,151,48,157,172,166,135,36,196,188,179,180,220,223,185,148,121,132,227,176,150,212,114,159,104,225,199,195,214,78,168,171,221,222,162,145,207,208,160,205,131,184,144,206,106,213,198,173,204,194,190,143,186,217,210,108,209,130,216,181,228,153,182,129,203,202,155,164,1,156,187,193,200,201,215,59,119,136,226,146,183,197,68,224,167,96,245,296,348,370,351,241,302,261,305,350,288,329,257,342,287,334,341,328,303,292,365,277,321,344,274,252,240,353,358,255,366,191,364,357,276,262,264,356,283,298,219,368,295,253,242,291,314,246,280,331,233,308,309,244,265,335,231,363,270,327,359,247,339,315,269,319,311,336,347,324,263,306,330,373,378,275,369,248,345,256,374,147,326,377,323,284,313,293,354,254,360,343,355,337,232,371,237,361,149,235",
+    "respuestasCorrectas": 312,
+    "respuestasEnviadas": 320,
+    "score": 59040,
+    "referidos": 40
+  },
+  {
+    "id": "sXhaJ7j8bvVFKIpyQQOM",
+    "phone": "3046657756",
+    "username": "Verónica Díaz ",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1771774463,
+      "_nanoseconds": 189000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771774465,
+      "_nanoseconds": 399000000
+    },
+    "tickets-fixed": "WC02,AC28",
+    "tickets-numbers": "100,66",
+    "tickets-quantity": 2
+  },
+  {
+    "id": "sd8yqkiaEzboZ28F6wRZ",
+    "phone": "5616170258",
+    "username": "Marta Neira ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "279",
+    "tickets-fixed": "ZK21",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772667598,
+      "_nanoseconds": 434000000
+    }
+  },
+  {
+    "id": "slwLIQVGNEluFpsrhEge",
+    "phone": "3164655467",
+    "username": "Myriam barrera",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "46",
+    "tickets-fixed": "RE45",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771607941,
+      "_nanoseconds": 909000000
+    },
+    "referencia": "3167607356",
+    "parroquiasVistitadas": "0,12",
+    "score": "400"
+  },
+  {
+    "id": "srds3vKKCyWvaKHzylqB",
+    "phone": "3204698077",
+    "username": "Daniel Reales",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "14",
+    "tickets-fixed": "JX17",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771473532,
+      "_nanoseconds": 605000000
+    },
+    "referencia": "3222486798",
+    "lastTriviaDate": "2/21/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "21,103,101,69,7,81,99,68,97,39,58,51,85",
+    "respuestasCorrectas": 12,
+    "respuestasEnviadas": 13,
+    "parroquiasVistitadas": "13,82,77,1001,80,83,78,23,22,24,0,194,195",
+    "score": "2840"
+  },
+  {
+    "id": "tGFJOzHVvuJ7tZK7aDCZ",
+    "phone": "3158631662",
+    "username": "Jhoanna Fragozo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "18",
+    "tickets-fixed": "FT88",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771176923,
+      "_nanoseconds": 801000000
+    },
+    "lastTriviaDate": "3/10/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "37,44,6,16,49,10,3,23,50,15,31,30,24,33,18,46,22,36,8,4,62,102,14,69,20,89,77,68,45,55,67,85,2,42,26,94,1,103,61,35,57,75,7,70,19,53,99,59,60,81,101,84,47,21,87,51,97,79,93,72,73,12,95,76,27,56,17,88,52,28,109,104,58,54,92,125,74,119,83,111,40,152,177,132,82,11,121,153,71,120,165,64,168,159,133,107,126,138,110,158,198,170,145,117,162,13,179,124,66,183,211,142,197,218,208,65,184,220,29,172,134,186,122,80,106,5,129,39,194,127,205,154,91,180,32,156,221,222,151,219,189,178,214,9,155,185,25,150,210,90,253,285,148,294,235,372,86,181,288,359",
+    "respuestasCorrectas": 153,
+    "respuestasEnviadas": 160,
+    "parroquiasVistitadas": "0,12,14,13,20,19,21,106,104,100,61,59,302,64,999,998,997,996",
+    "score": 6660
+  },
+  {
+    "id": "tKOIi8UvshMCpmAD4jYx",
+    "phone": "3004092450",
+    "username": "Margarita Quevedo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "230",
+    "tickets-fixed": "RL49",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772586592,
+      "_nanoseconds": 260000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "tQsLr4iNa9GjRv1gKdsd",
+    "phone": "3208236011",
+    "username": "Celso Carrera Murcia",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "269",
+    "tickets-fixed": "HO04",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773960209,
+      "_nanoseconds": 92000000
+    },
+    "referencia": "3052548403"
+  },
+  {
+    "id": "to82TbAdIvtu7IlXfhOy",
+    "phone": "3114345599",
+    "username": "Tatiana Fandiño ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "182",
+    "tickets-fixed": "TG45",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772415422,
+      "_nanoseconds": 67000000
+    }
+  },
+  {
+    "id": "uOeEGmRIaoFF31qVkDit",
+    "phone": "3202247450",
+    "username": "Astrid Cruz",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "158",
+    "tickets-fixed": "LL60",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773920668,
+      "_nanoseconds": 722000000
+    }
+  },
+  {
+    "id": "uXNsyVOuFnmS4wHzKtAO",
+    "phone": "3106283188",
+    "username": "Juan avila ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "220",
+    "tickets-fixed": "FL97",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773952268,
+      "_nanoseconds": 709000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "ubDyRre90UfFuO0giqy5",
+    "phone": "3245896645",
+    "username": "Juan palacio",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "223",
+    "tickets-fixed": "FB46",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773952508,
+      "_nanoseconds": 158000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "ueMRb7TYsu1AeBGBNmGR",
+    "phone": "3044662025",
+    "username": "Carlos Morales",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "36",
+    "tickets-fixed": "QO62",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771442399,
+      "_nanoseconds": 399000000
+    },
+    "referencia": "3167607356",
+    "referidos": 1,
+    "lastTriviaDate": "3/12/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "52,57,7,68,69,43,38,19,51,90,84,102,67,31,55,47,63,80,74,22,96,35,58,1,40,26,83,101,86,8,73,29,49,71,66,61,4,15,25,53,97,23,48,81,103,32,76,78,16,128,122,112,89,70,10,100,125,99,177,116,132,115,110,92,5,3,147,91,11,150,118,54,135,27,170,126,13,18,42,119,219,181,155,21,169,107,120,39,214,179,168,145,178,137,24,203,307,146,294,236,275,143,287,37,151,183,114,343,266,274,327,232",
+    "respuestasCorrectas": 101,
+    "respuestasEnviadas": 112,
+    "parroquiasVistitadas": "0,66,300,301,59,61,100,303,65,104",
+    "score": "4120"
+  },
+  {
+    "id": "unffOVbLelUR7KkI3LP8",
+    "phone": "3138009491",
+    "username": "Marta lopez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "227",
+    "tickets-fixed": "NT91",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773953513,
+      "_nanoseconds": 77000000
+    }
+  },
+  {
+    "id": "unwAuSpSMzS5DJ6Wzp5D",
+    "phone": "3138314889",
+    "username": "Olga Lucia Fuentes",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "30",
+    "tickets-fixed": "GF36",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771379792,
+      "_nanoseconds": 826000000
+    },
+    "parroquiasVistitadas": "1011",
+    "referidos": 5,
+    "lastTriviaDate": "3/12/2026",
+    "dailyTriviaCount": 10,
+    "score": 2660,
+    "preguntasvistas": "47,91,7,80,73,92,97,94,45,23,9,46,10,81,41,78,43,25,102,85,77,90,79,68,48,4,96,99,8,67,52,50,53,62,24,27,72,65,15,66,37,84,19,101,55,42,54,12,51,93,20,17,32,36,88,2,29,6,63,22,70,82,61,98,11,39,160,3,108,136,60,129,71,128,169,31,125,177,49,162,83,119,58,109,137,123,216,134,222,180,187,117,113,186,191,154,110,127,171,144,111,161,198,26,220,157,268,64,153,133,240,18,199,251,166,253",
+    "respuestasCorrectas": 98,
+    "respuestasEnviadas": 116
+  },
+  {
+    "id": "uti3Jy0kYebKXVnkdwKx",
+    "phone": "3005694631",
+    "username": "Reina Pardo ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "78",
+    "tickets-fixed": "NH49",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771548375,
+      "_nanoseconds": 285000000
+    },
+    "referencia": "3203396836",
+    "lastTriviaDate": "3/1/2026",
+    "dailyTriviaCount": 10,
+    "score": 1080,
+    "preguntasvistas": "69,66,53,80,99,55,86,43,9,8,35,7,94,49,102,89,64,50,48,57,24,51,40,93,3,22,88,58,37,63,25,14,97,54,101,32,13,61,6,26,79,42,45,127,65,78,96,76,67,108,33,5,135,132,160,47,130,12,59,126",
+    "respuestasCorrectas": 54,
+    "respuestasEnviadas": 60
+  },
+  {
+    "id": "v5mjT8zbsvQkxyIkghk3",
+    "phone": "3224365024",
+    "username": "Manuela Carolina Flórez López ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "216",
+    "tickets-fixed": "MI17",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1772739577,
+      "_nanoseconds": 887000000
+    },
+    "referencia": "3004679031",
+    "lastTriviaDate": "3/18/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "54,44,21,14,204,35,155,156,95,109,190,117,215,29,161,146,137,181,107,118,167,87,26,206,79,59,149,36,63,47,119,19,50,76,115,124,214,102,125,189,37,217,73,74,64,187,140,143,210,144,56,139,243,251,171,62,67,27,321,184,335,255,268,347,290,288,226,134,32,318,235,359,368,339,201,205,324,302,364,211,200,116,45,98,128,378,307,311,196,11,20,126,242,349,376,103,80,223,261,3,362,100,276,71,237,280,40,185,260,34,297,286,176,232,178,77,192,231,312,130,351,309,183,123,221,220,122,101,342,28,328,69,138,225,30,127,249,377,33,366",
+    "respuestasCorrectas": 131,
+    "respuestasEnviadas": 140,
+    "parroquiasVistitadas": "52,55,24,25,57,58,26,21,19,20,56,54,51,0,15,14,13,18,3,44,46,206,207,65,141,144,216,182,126,123,124,122,121,125,117,118,120,107,41,43,47,40,38,39,37,42,30,33,31,32,35,191,190,72,71,188,187,9,11,7,10,8,1003,16,17,1002,1005,1004,1007,1008,1006,1009,1010,198,170,169,167,168,171,173,172,178,179,185,183,180,181,177,176,175,174,220,221,222,223,225,229,219,226,227,228,230,231,233,234,232,217,214,213,215,210,212,211,64,63,111,108,109,101,103,59,302,62,301,300,61,100,303,104,105,66",
+    "score": "28920"
+  },
+  {
+    "id": "vFakE8OzVbY3IpHUwTpH",
+    "phone": "3208313130",
+    "username": "Melba Prada ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "317",
+    "tickets-fixed": "YC87",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958048,
+      "_nanoseconds": 377000000
+    }
+  },
+  {
+    "id": "vMutfnmXyMs3Ow4x6PwR",
+    "phone": "1762276351",
+    "username": "Nicola ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "212",
+    "tickets-fixed": "JP77",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772748755,
+      "_nanoseconds": 882000000
+    }
+  },
+  {
+    "id": "vTWMfBZcbYMIkDjqp9H8",
+    "phone": "3134670194",
+    "username": "Jaydith Galvis",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "5",
+    "tickets-fixed": "GK83",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771185765,
+      "_nanoseconds": 184000000
+    },
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 10,
+    "score": 560,
+    "preguntasvistas": "65,83,74,3,38,101,37,70,52,23,98,50,90,30,11,55,69,32,4,86,64,103,36,59,15,12,45,88,26,53",
+    "respuestasCorrectas": 28,
+    "respuestasEnviadas": 30
+  },
+  {
+    "id": "vV6DPFXIjmriAmIH6JvV",
+    "phone": "3203061635",
+    "cedula": "",
+    "email": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771420035,
+      "_nanoseconds": 264000000
+    },
+    "referencia": "3167607356",
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771627300,
+      "_nanoseconds": 4000000
+    },
+    "tickets-fixed": "TD08,GJ56",
+    "tickets-numbers": "81,84",
+    "tickets-quantity": 2,
+    "username": "Liliana Mosquera",
+    "parroquiasVistitadas": "0",
+    "lastTriviaDate": "2/20/2026",
+    "respuestasCorrectas": 9,
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "24,96,55,31,22,10,87,8,1,40",
+    "respuestasEnviadas": 10,
+    "score": 380
+  },
+  {
+    "id": "vlgjgmtOvmWxRAzpgiTz",
+    "phone": "3143006195",
+    "username": "Catalina Gomez ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "58",
+    "tickets-fixed": "RG98",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771722541,
+      "_nanoseconds": 526000000
+    },
+    "parroquiasVistitadas": "0,43,24,33,44,56,21,20,8,46,42,37,40,41,47,104,100,303,61,59,64,101,54,58,133,144,106,1,4,71,190,32",
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 10,
+    "score": 10660,
+    "preguntasvistas": "47,3,45,42,38,4,32,62,64,98,78,71,8,100,90,48,111,68,10,6,57,51,102,70,46,125,55,5,2,106,74,75,28,104,44,84,41,63,49,9,27,30,143,137,21,86,152,107,174,168,172,169,33,166,26,85,18,65,150,69,56,123,159,92,81,139,128,112,59,29,160,83,130,72,167,93,17,122,175,15,184,94,126,99,116,222,121,12,201,115,109,53,105,110,108,161,218,95,97,24,225,216,209,131,145,136,73,79,141,82,52,7,205,14,20,195,170,151,221,179,133,217,142,147,197,213,200,25,194,113,117,134,227,13,176,223,187,219,36,149,124,181,183,80,199,146,211,204,155,76,253,269,153,1,54,345,364,271,16,326,192,323,263,358,241,297,279,356,214,148,289,302,234,259,350,327,114,361,247,278,299,258,118,312,376,293,369,353,331,60,328,332,300,307,310,282,370,260,212,342,288,67,19,229,262,58,244,341,132,325,330,224,321,208,215,272,186,246,266,257,185,318,198,373,31,89,66,249,359,374,311,156,296,22,362,231,239,377,357,103,372,329,40,274,35,363,226,254,243,235",
+    "respuestasCorrectas": 213,
+    "respuestasEnviadas": 250
+  },
+  {
+    "id": "w0GIuzoWoE3UIinpI5zw",
+    "phone": "3174383804",
+    "username": "teresa patiño",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "63",
+    "tickets-fixed": "PW97",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771609798,
+      "_nanoseconds": 642000000
+    },
+    "parroquiasVistitadas": "79,88,73",
+    "lastTriviaDate": "2/23/2026",
+    "dailyTriviaCount": 10,
+    "score": 880,
+    "preguntasvistas": "23,64,100,2,91,55,27,4,32,77,15,7,6,8,10,40,110,66,38,107",
+    "respuestasCorrectas": 14,
+    "respuestasEnviadas": 20,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "w7ZsOAVoH2XKs5uf4rS2",
+    "phone": "3182004659",
+    "username": "Nicolas Borrero",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "42",
+    "tickets-fixed": "UP08",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771343742,
+      "_nanoseconds": 992000000
+    },
+    "parroquiasVistitadas": "0,143",
+    "referidos": 1,
+    "lastTriviaDate": "3/4/2026",
+    "dailyTriviaCount": 10,
+    "score": 1120,
+    "preguntasvistas": "55,14,13,17,49,27,1,3,50,87,100,91,18,69,73,77,94,48,57,7,19,39,38,42,33,81,59,65,71,68,194,89,98,184,139,167,107,144,201,114",
+    "respuestasCorrectas": 31,
+    "respuestasEnviadas": 40,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "wNi7UB3OjudrWLB3iqa6",
+    "phone": "3214395088",
+    "username": "Ivan mendez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "255",
+    "tickets-fixed": "LH55",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773958953,
+      "_nanoseconds": 264000000
+    }
+  },
+  {
+    "id": "wTcgryUTRarlEWfBRHZs",
+    "phone": "3173444472",
+    "username": "Maria botero",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "273",
+    "tickets-fixed": "YE65",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773928210,
+      "_nanoseconds": 49000000
+    }
+  },
+  {
+    "id": "wYGqaGrpF4fKnnBCpRpo",
+    "phone": "3102142709",
+    "username": "Monica Vigoya",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771601767,
+      "_nanoseconds": 383000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1771601767,
+      "_nanoseconds": 597000000
+    },
+    "tickets-fixed": "AY36,ZA17",
+    "tickets-numbers": "107,32",
+    "tickets-quantity": 2,
+    "referencia": "3138314889",
+    "lastTriviaDate": "2/25/2026",
+    "dailyTriviaCount": 10,
+    "score": 760,
+    "preguntasvistas": "40,41,12,87,43,86,31,79,84,58,65,35,32,56,90,51,102,101,23,80,69,37,75,15,60,62,55,83,76,88,94,123,89,33,34,125,109,50,6,67",
+    "respuestasCorrectas": 38,
+    "respuestasEnviadas": 40
+  },
+  {
+    "id": "wcoX8bSQ0VgsDWcfJkFl",
+    "phone": "3212054709",
+    "username": "Beatriz Cuervo Suarez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "154",
+    "tickets-fixed": "KQ07",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771553821,
+      "_nanoseconds": 901000000
+    },
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 10,
+    "score": 380,
+    "preguntasvistas": "52,100,72,3,70,61,86,7,20,33,2,44,67,63,9,77,103,64,85,71",
+    "respuestasCorrectas": 19,
+    "respuestasEnviadas": 20
+  },
+  {
+    "id": "wq6HLJy6NAPFw3fyWm6G",
+    "phone": "3044090811",
+    "username": "Erika Muñoz ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "26",
+    "tickets-fixed": "HR43",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771330702,
+      "_nanoseconds": 339000000
+    },
+    "lastTriviaDate": "3/6/2026",
+    "dailyTriviaCount": 10,
+    "score": 980,
+    "preguntasvistas": "78,34,31,71,30,95,92,98,43,100,6,91,33,65,24,90,9,21,27,2,96,55,40,99,81,44,64,8,32,20,84,11,42,19,124,53,16,38,119,109,72,75,125,45,142,155,180,22,77,108,41,222",
+    "respuestasCorrectas": 49,
+    "respuestasEnviadas": 52,
+    "referencia": "3052548403"
+  },
+  {
+    "id": "wwEMbymlmnwe9287FvjM",
+    "phone": "3228211234",
+    "username": "Stefania Bayona Rincón",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "170",
+    "tickets-fixed": "NE49",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1773629169,
+      "_nanoseconds": 82000000
+    },
+    "referencia": "3123415728",
+    "lastTriviaDate": "3/15/2026",
+    "dailyTriviaCount": 10,
+    "preguntasvistas": "81,305,284,131,107,374,258,212,60,262",
+    "respuestasCorrectas": 10,
+    "respuestasEnviadas": 10,
+    "parroquiasVistitadas": "68",
+    "score": "400"
+  },
+  {
+    "id": "wzX9ck1LOAQoyBGllkV5",
+    "phone": "3106191725",
+    "username": "Roberto Tamayo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "278",
+    "tickets-fixed": "SA64",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772594224,
+      "_nanoseconds": 948000000
+    }
+  },
+  {
+    "id": "x9QJxU1hEdpIB8ba5rG2",
+    "phone": "3222589139",
+    "username": "Kylie ramirez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "217",
+    "tickets-fixed": "ZF85",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773952021,
+      "_nanoseconds": 11000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "xS9NVyS4KXSLC6Ek3jBs",
+    "phone": "3202828694",
+    "username": "Diego Fuentes",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "131",
+    "tickets-fixed": "RY88",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773289409,
+      "_nanoseconds": 417000000
+    }
+  },
+  {
+    "id": "xYO8A1UhMJo1UxOlPsNo",
+    "phone": "3203389246",
+    "username": "Gustavo Delgado ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "35",
+    "tickets-fixed": "SM17",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1771547857,
+      "_nanoseconds": 129000000
+    },
+    "referencia": "3203396836",
+    "lastTriviaDate": "2/22/2026",
+    "dailyTriviaCount": 10,
+    "score": 600,
+    "preguntasvistas": "10,37,64,65,4,92,79,99,35,60,7,90,15,75,16,96,5,9,36,63,78,50,77,100,26,14,67,97,23,42,62,21,61,54,43,25,13,72,29,28",
+    "respuestasCorrectas": 30,
+    "respuestasEnviadas": 40
+  },
+  {
+    "id": "xg0HoIeHfgI0QwFxTLqv",
+    "phone": "3502095095",
+    "username": "María Bejarano",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "233",
+    "tickets-fixed": "BO85",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "createdAt": {
+      "_seconds": 1772589150,
+      "_nanoseconds": 944000000
+    },
+    "referencia": "3004679031",
+    "score": 500,
+    "respuestasCorrectas": 25,
+    "lastTriviaDate": "3/19/2026",
+    "dailyTriviaCount": 1,
+    "preguntasvistas": "225,188,30,168,37,76,145,142,163,193,1,106,150,205,14,25,67,178,214,200,101,173,69,92,184,140,191,211,98,137,249,338,290,337,197,100,318,122,156,203,362",
+    "respuestasEnviadas": 41
+  },
+  {
+    "id": "xlVipEJHsGwdhYCuAfVX",
+    "phone": "3246583652",
+    "username": "Mario Rodriguez ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "244",
+    "tickets-fixed": "RD56",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773957195,
+      "_nanoseconds": 404000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "xtSfL4BRwQLp7NSCzZtf",
+    "phone": "3023234681",
+    "username": "Mariana Caicedo",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772594305,
+      "_nanoseconds": 169000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1772594307,
+      "_nanoseconds": 369000000
+    },
+    "tickets-fixed": "XD46,JW67",
+    "tickets-numbers": "108,117",
+    "tickets-quantity": 2
+  },
+  {
+    "id": "y4OPaSnnDa2VLxvDNHsd",
+    "phone": "3003181706",
+    "username": "Juana ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "296",
+    "tickets-fixed": "XK27",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773959908,
+      "_nanoseconds": 970000000
+    }
+  },
+  {
+    "id": "yMqsE2zHhio7pHPBjD3b",
+    "phone": "3123092567",
+    "username": "Pilar molina",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "169",
+    "tickets-fixed": "SV28",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773923091,
+      "_nanoseconds": 152000000
+    }
+  },
+  {
+    "id": "yN1l1b2h0FvVYeWUkDaQ",
+    "phone": "3194036883",
+    "username": "Heidy Quevedo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "175",
+    "tickets-fixed": "ZK62",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773923372,
+      "_nanoseconds": 274000000
+    }
+  },
+  {
+    "id": "yT7HN9wkO2VxUc10KXdy",
+    "phone": "3104785402",
+    "username": "Enrique ramirez",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "211",
+    "tickets-fixed": "XG59",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773943930,
+      "_nanoseconds": 937000000
+    }
+  },
+  {
+    "id": "yoZObBDOdsIJvSkRp7IQ",
+    "phone": "3146006195",
+    "username": "Daniela Argüelles Gómez",
+    "cedula": "",
+    "email": "",
+    "parroquiasVistitadas": "",
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772897377,
+      "_nanoseconds": 879000000
+    },
+    "payedtickets": 2,
+    "lastUpdated": {
+      "_seconds": 1772897379,
+      "_nanoseconds": 925000000
+    },
+    "tickets-fixed": "WK67,NE49",
+    "tickets-numbers": "257,134",
+    "tickets-quantity": 2
+  },
+  {
+    "id": "ys3AQw56jgJIa3j51o9f",
+    "phone": "3134709458",
+    "username": "Diana Tamayo",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "150",
+    "tickets-fixed": "YQ11",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772402117,
+      "_nanoseconds": 412000000
+    }
+  },
+  {
+    "id": "z16FbUqrn8UaDw8HV93B",
+    "phone": "3155195258",
+    "username": "Cesar moreno ",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "210",
+    "tickets-fixed": "IK49",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1773942353,
+      "_nanoseconds": 650000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "zKxPkMuUhg5tClHDEbuX",
+    "phone": "3054633110",
+    "username": "Julia Quiñones",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "232",
+    "tickets-fixed": "GN16",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772588611,
+      "_nanoseconds": 510000000
+    },
+    "referencia": "3004679031"
+  },
+  {
+    "id": "zYA20IGaPmL8chqckUAq",
+    "phone": "3000000000",
+    "username": "Abuelita Simon",
+    "cedula": "",
+    "email": "",
+    "tickets-numbers": "96",
+    "tickets-fixed": "LC76",
+    "parroquiasVistitadas": "",
+    "tickets-quantity": 1,
+    "payedtickets": 1,
+    "pendingpay": 0,
+    "score": 0,
+    "createdAt": {
+      "_seconds": 1772829521,
+      "_nanoseconds": 928000000
+    }
+  }
+]

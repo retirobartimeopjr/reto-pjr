@@ -1,0 +1,100 @@
+====================================================================
+MEMORIA HISTÓRICA: MIGRACIÓN A AWS (RETO BARTIMEO)
+====================================================================
+Fecha de Generación: Julio 2026
+Objetivo Principal: Escalar la arquitectura del "Reto Bartimeo" para 
+soportar miles de usuarios concurrentes de manera eficiente y 
+económica, abandonando las limitaciones y costos de Firebase 
+(NoSQL/Functions) en favor de una infraestructura robusta en 
+Amazon Web Services (AWS) con PostgreSQL y EC2.
+
+--------------------------------------------------------------------
+FASE 1: Aprovisionamiento en AWS (RDS)
+--------------------------------------------------------------------
+Motivo: Las lecturas y escrituras simultáneas en Firebase (especialmente
+para calcular el ranking y las trivias) se volvieron lentas y muy
+costosas. Necesitábamos una base de datos relacional (SQL) para manejar 
+agregaciones (SUM, COUNT) de forma instantánea.
+Desarrollo:
+- Se creó una instancia de PostgreSQL en AWS RDS (IP: 172.31.20.251).
+- Se configuraron los Security Groups y credenciales maestras.
+
+--------------------------------------------------------------------
+FASE 2: Enlace y Túneles Seguros
+--------------------------------------------------------------------
+Motivo: Para poder desarrollar y migrar datos desde tu entorno local 
+(tu Mac) hacia una base de datos privada en AWS sin exponer la base 
+de datos al internet público.
+Desarrollo:
+- Se configuró un túnel SSH (Port Forwarding) a través de una 
+instancia intermedia (o Raspberry Pi) mapeando el puerto 5432 local 
+al puerto 5432 de la instancia RDS en AWS.
+
+--------------------------------------------------------------------
+FASE 3: Diseño del Esquema Relacional (schema.sql)
+--------------------------------------------------------------------
+Motivo: Mapear la naturaleza "Documental" de Firestore a un modelo 
+relacional estricto, seguro y optimizado.
+Desarrollo:
+- Se creó `schema.sql` definiendo las tablas principales: `users`, 
+`parroquias`, `preguntas_trivia`, `user_trivia_answers`, `tickets`, 
+`user_parroquia_visits`.
+- Se creó la Vista Materializada/Calculada `user_stats` que utiliza 
+Postgres para calcular el Leaderboard (Puntajes) en milisegundos sin 
+sobresaturar el backend.
+
+--------------------------------------------------------------------
+FASE 4: Migración Masiva de Datos (ETL)
+--------------------------------------------------------------------
+Motivo: Mover el histórico de usuarios, respuestas, visitas y tickets 
+que ya existían en Firebase hacia PostgreSQL sin pérdida de datos.
+Desarrollo:
+- Se creó el script `migrate.js` para extraer la base de datos de 
+Firestore (descargada en archivos JSON temporales) e insertarla 
+limpiamente en la base de datos de AWS.
+- Resultados exitosos: +270 usuarios, +3000 tickets, +2140 visitas y 
++7590 respuestas migradas al nuevo formato.
+
+--------------------------------------------------------------------
+FASE 5: Refactorización del Backend (Astro API)
+--------------------------------------------------------------------
+Motivo: Cortar la dependencia de Firebase Admin SDK en el servidor.
+Desarrollo:
+- Se creó el módulo `src/lib/db.ts` utilizando el pool de conexiones `pg`.
+- Se reescribieron los endpoints: `/api/login`, `/api/user/[id]`, 
+`/api/visit`, `/api/trivia/question`, `/api/trivia/answer`, 
+`/api/parroquias`, `/api/submitReferral` y `/api/leaderboard`.
+- Ahora todas estas APIs hablan directamente con PostgreSQL usando SQL nativo.
+
+--------------------------------------------------------------------
+FASE 6: Desacople del Cliente (Frontend) y Pruebas Locales
+--------------------------------------------------------------------
+Motivo: Cortar la dependencia de la SDK de Firebase en el navegador 
+del usuario para mejorar el rendimiento de la web y la seguridad.
+Desarrollo:
+- Modificamos el estado global (`src/store/userStore.ts`) para que en 
+lugar de consultar directamente a Firestore, realice peticiones HTTP 
+(`fetch`) a nuestros propios endpoints de la Fase 5.
+- Se eliminaron bloqueos duros de fechas (`useChallengeLock`) preparándose 
+para un manejo dinámico futuro.
+- Se corrigieron errores de conexión locales y de columnas SQL (`calculated_score`).
+
+--------------------------------------------------------------------
+FASE 7 (ACTUAL): Despliegue en AWS EC2 (Producción)
+--------------------------------------------------------------------
+Motivo: Poner la nueva arquitectura a disposición del mundo.
+Desarrollo (En curso):
+- Configuración de variables de entorno de producción en el EC2 (`.env`).
+- Conexión nativa (misma VPC) entre el servidor EC2 y la base de datos RDS.
+- Envío del código compilado (Astro SSR) y gestión del proceso con PM2 (`ecosystem.config.cjs`).
+
+--------------------------------------------------------------------
+FASE 8 (FUTURA): Panel de Administración Dinámico (/coordi)
+--------------------------------------------------------------------
+Motivo: Controlar el estado de la competencia (Activo/Inactivo) y los 
+mensajes de la interfaz de forma remota sin hacer despliegues de código 
+ni depender de fechas en duro.
+Desarrollo (Pendiente):
+- Tabla `app_config` en Postgres.
+- Interfaz gráfica en Astro/React y endpoints de control.
+====================================================================

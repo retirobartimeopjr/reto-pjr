@@ -9,6 +9,23 @@ setGlobalOptions({ region: "southamerica-east1" });
 initializeApp();
 const db = getFirestore();
 
+// ==================================================================
+// ⏰ CIERRE OFICIAL DE LA COMPETENCIA
+// Jueves 19 de Marzo de 2026 — 6:00 PM hora Bogotá (Colombia, UTC-5)
+// Equivalente UTC: 2026-03-19T23:00:00Z
+// Colombia NO usa horario de verano. UTC-5 es permanente.
+// ==================================================================
+const CHALLENGE_END_UTC = new Date('2026-03-19T23:00:00Z').getTime();
+
+/**
+ * Verifica si la competencia ya ha cerrado.
+ * Siempre usa el tiempo del servidor (UTC), nunca el del cliente.
+ * @returns {boolean} true si la competencia ya terminó
+ */
+const isChallengeOver = () => {
+    return Date.now() >= CHALLENGE_END_UTC;
+};
+
 // --- HELPER FUNCTIONS FOR CSV LOGIC ---
 
 const addToCSV = (csv, value) => {
@@ -35,6 +52,12 @@ const removeFromCSV = (csv, value) => {
 exports.procesarTicketRegister = onDocumentCreated("ticketregister/{registerId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
+
+    // 🔒 BLOQUEO TEMPORAL — Competencia cerrada
+    if (isChallengeOver()) {
+        console.warn(`[LOCKED] [procesarTicketRegister] Competencia cerrada. Registro ignorado a las ${new Date().toISOString()}`);
+        return null;
+    }
 
     const data = snap.data();
     const ticketId = data.ticketId;
@@ -198,6 +221,12 @@ exports.eliminarTicketRegister = onDocumentDeleted("ticketregister/{registerId}"
     const snap = event.data;
     if (!snap) return;
 
+    // 🔒 BLOQUEO TEMPORAL — Competencia cerrada
+    if (isChallengeOver()) {
+        console.warn(`[LOCKED] [eliminarTicketRegister] Competencia cerrada. Eliminación ignorada a las ${new Date().toISOString()}`);
+        return null;
+    }
+
     const data = snap.data();
 
     // Skip rollback if it was rejected
@@ -282,6 +311,12 @@ exports.sincronizarDatosUsuario = onDocumentUpdated("user/{userId}", async (even
 
     // Validamos que existan los datos (por si acaso es un borrado parcial, aunque onUpdate implica ambos)
     if (!event.data.before.exists || !event.data.after.exists) return;
+
+    // 🔒 BLOQUEO TEMPORAL — Competencia cerrada
+    if (isChallengeOver()) {
+        console.warn(`[LOCKED] [sincronizarDatosUsuario] Competencia cerrada. Sincronización ignorada a las ${new Date().toISOString()}`);
+        return null;
+    }
 
     const before = event.data.before.data();
     const after = event.data.after.data();
@@ -393,6 +428,12 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
 
+    // 🔒 BLOQUEO TEMPORAL — Competencia cerrada
+    if (isChallengeOver()) {
+        console.warn(`[LOCKED] [procesarVisita] Competencia cerrada. Visita ignorada a las ${new Date().toISOString()}`);
+        return null;
+    }
+
     const data = snap.data();
     const userId = data.userId;
     const parroquiaId = data.parroquiaid;
@@ -467,6 +508,12 @@ exports.procesarVisita = onDocumentCreated("visit/{visitId}", async (event) => {
 exports.eliminarVisita = onDocumentDeleted("visit/{visitId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
+
+    // 🔒 BLOQUEO TEMPORAL — Competencia cerrada
+    if (isChallengeOver()) {
+        console.warn(`[LOCKED] [eliminarVisita] Competencia cerrada. Eliminación de visita ignorada a las ${new Date().toISOString()}`);
+        return null;
+    }
 
     const data = snap.data();
     const userId = data.userId;
@@ -543,6 +590,12 @@ exports.limpiarUsuarioEliminado = onDocumentDeleted("user/{userId}", async (even
     const snap = event.data;
     if (!snap) return;
 
+    // 🔒 BLOQUEO TEMPORAL — Competencia cerrada
+    if (isChallengeOver()) {
+        console.warn(`[LOCKED] [limpiarUsuarioEliminado] Competencia cerrada. Limpieza ignorada a las ${new Date().toISOString()}`);
+        return null;
+    }
+
     const userData = snap.data();
     const userId = event.params.userId;
 
@@ -597,6 +650,12 @@ exports.limpiarUsuarioEliminado = onDocumentDeleted("user/{userId}", async (even
 exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
+
+    // 🔒 BLOQUEO TEMPORAL — Competencia cerrada
+    if (isChallengeOver()) {
+        console.warn(`[LOCKED] [procesarRespuesta] Competencia cerrada. Respuesta ignorada a las ${new Date().toISOString()}`);
+        return null;
+    }
 
     const data = snap.data();
     const userId = data.userId;
@@ -687,6 +746,12 @@ exports.procesarRespuesta = onDocumentCreated("respuesta/{respuestaId}", async (
 exports.eliminarRespuesta = onDocumentDeleted("respuesta/{respuestaId}", async (event) => {
     const snap = event.data;
     if (!snap) return;
+
+    // 🔒 BLOQUEO TEMPORAL — Competencia cerrada
+    if (isChallengeOver()) {
+        console.warn(`[LOCKED] [eliminarRespuesta] Competencia cerrada. Eliminación ignorada a las ${new Date().toISOString()}`);
+        return null;
+    }
 
     const data = snap.data();
     const userId = data.userId;
