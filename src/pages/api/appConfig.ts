@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { query } from '../../lib/db';
+import bcrypt from 'bcryptjs';
 
 export const GET: APIRoute = async () => {
     try {
@@ -33,17 +34,29 @@ export const POST: APIRoute = async ({ request }) => {
         const body = await request.json();
         const { username, password, active, message } = body;
 
+        // "username" sigue siendo el teléfono por simplicidad como solicitó el usuario,
+        // pero lo renombramos a nivel logico en la DB a 'username' para el admin panel
         if (!username || !password) {
             return new Response(JSON.stringify({ error: 'Credenciales incompletas' }), { status: 400 });
         }
 
-        // 1. Validar Administrador
-        const adminRes = await query('SELECT username FROM admins WHERE username = $1 AND password = $2', [username, password]);
+        // 1. Obtener hash del administrador
+        const adminRes = await query('SELECT password FROM admins WHERE username = $1', [username]);
+        
         if (adminRes.rowCount === 0) {
             return new Response(JSON.stringify({ error: 'Credenciales inválidas' }), { status: 401 });
         }
 
-        // 2. Actualizar Estado
+        const hashedPassword = adminRes.rows[0].password;
+
+        // 2. Validar contraseña con bcrypt
+        const isValid = await bcrypt.compare(password, hashedPassword);
+
+        if (!isValid) {
+            return new Response(JSON.stringify({ error: 'Credenciales inválidas' }), { status: 401 });
+        }
+
+        // 3. Actualizar Estado
         const newState = { active: !!active, message: message || "Reto pausado temporalmente" };
         
         await query(`

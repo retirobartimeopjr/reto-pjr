@@ -1,15 +1,19 @@
 import type { APIRoute } from 'astro';
 import { query } from '../../lib/db';
+import { SignJWT } from 'jose';
+
+// Requiere JWT_SECRET en el .env
+const secret = new TextEncoder().encode(import.meta.env.JWT_SECRET || process.env.JWT_SECRET);
 
 export const POST: APIRoute = async ({ request }) => {
     try {
         const body = await request.json();
         const { phone } = body;
 
-        if (!phone) {
+        if (!phone || typeof phone !== 'string') {
             return new Response(JSON.stringify({
                 success: false,
-                error: 'Teléfono es requerido'
+                error: 'Teléfono inválido o requerido'
             }), { status: 400 });
         }
 
@@ -24,10 +28,10 @@ export const POST: APIRoute = async ({ request }) => {
                 COALESCE((SELECT SUM(points_awarded) FROM user_parroquia_visits WHERE user_id = u.id), 0) +
                 COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0) AS total_score
             FROM users u
-            WHERE u.phone = $1;
+            WHERE u.phone = $1 LIMIT 1;
         `;
         
-        const res = await query(sql, [String(phone)]);
+        const res = await query(sql, [phone]);
 
         if (res.rowCount === 0) {
             return new Response(JSON.stringify({
@@ -37,6 +41,18 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         const userRow = res.rows[0];
+
+        // 1. Generar Token JWT seguro
+        const token = await new SignJWT({ userId: userRow.id, phone: userRow.phone })
+            .setProtectedHeader({ alg: 'HS256' })
+            .setIssuedAt()
+            .setExpirationTime('24h') // Caduca en 24h
+            .sign(secret);
+
+        // 2. Establecer Cookie HttpOnly (Previene XSS)
+        const headers = new Headers();
+        headers.append('Set-Cookie', `auth_token=${token}; HttpOnly; Secure; Path=/; SameSite=Strict; Max-Age=86400`);
+        headers.append('Content-Type', 'application/json');
 
         // Format user object exactly as frontend expects it
         return new Response(JSON.stringify({
@@ -53,7 +69,7 @@ export const POST: APIRoute = async ({ request }) => {
                 referencia: userRow.referencia || "",
                 'tickets-numbers': userRow.ticket_numbers || ""
             }
-        }), { status: 200 });
+        }), { status: 200, headers });
 
     } catch (error) {
         console.error("❌ Postgres Login API Error:", error);

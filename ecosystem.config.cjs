@@ -8,12 +8,10 @@ module.exports = {
             env: {
                 HOST: '127.0.0.1',
                 PORT: 3000,
-                NODE_ENV: 'production',
-                PGHOST: '172.31.20.251',
-                PGUSER: 'postgres',
-                PGPASSWORD: 'BartimeoRoot2026!*',
-                PGDATABASE: 'bartimeodb',
-                PGPORT: '5432'
+                NODE_ENV: 'production'
+                // NOTA: Las variables de PostgreSQL (PGHOST, PGUSER, PGPASSWORD, etc.)
+                // NO DEBEN IR AQUÍ. Deben cargarse desde el archivo .env del servidor
+                // para evitar exponer secretos en el control de versiones.
             },
         },
     ],

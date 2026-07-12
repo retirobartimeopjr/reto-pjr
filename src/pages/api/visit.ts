@@ -1,11 +1,30 @@
 import type { APIRoute } from 'astro';
 import { query } from '../../lib/db';
 import crypto from 'crypto';
+import { jwtVerify } from 'jose';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, cookies }) => {
     try {
+        // 1. VALIDACIÓN JWT DE SEGURIDAD (Evita IDOR)
+        const token = cookies.get('auth_token')?.value;
+        if (!token) {
+            return new Response(JSON.stringify({ success: false, error: 'No autorizado. Inicia sesión.' }), { status: 401 });
+        }
+
+        let jwtPayload;
+        try {
+            const secret = new TextEncoder().encode(import.meta.env.JWT_SECRET || process.env.JWT_SECRET);
+            const { payload } = await jwtVerify(token, secret);
+            jwtPayload = payload;
+        } catch (e) {
+            return new Response(JSON.stringify({ success: false, error: 'Token inválido o expirado' }), { status: 403 });
+        }
+
         const body = await request.json();
-        const { userId, parroquiaId, userLogInfo, photoPath } = body;
+        const { parroquiaId, userLogInfo, photoPath } = body;
+
+        // El userId PROVIENE EXCLUSIVAMENTE DEL TOKEN VERIFICADO, no confiamos en el cliente.
+        const userId = jwtPayload.userId;
 
         // Log user info as requested by user
         if (userLogInfo) {
@@ -13,7 +32,6 @@ export const POST: APIRoute = async ({ request }) => {
             console.log("UserID:", userId);
             console.log("ParroquiaID:", parroquiaId);
             console.log("Photo URL:", photoPath);
-            console.log("User Snapshot:", JSON.stringify(userLogInfo, null, 2));
             console.log("---------------------------------------");
         }
 

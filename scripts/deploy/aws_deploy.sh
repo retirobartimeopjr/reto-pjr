@@ -49,6 +49,10 @@ ssh -i $KEY_IDENTIFIER $REMOTE_USER@$REMOTE_IP << 'EOF'
     
     # Save the PM2 list
     pm2 save
+
+    # Recargar configuración de Nginx
+    echo "🌐 Reloading Nginx configuration..."
+    sudo nginx -s reload
 EOF
 
 echo "✅ Deployment complete!"

@@ -1,13 +1,20 @@
 import pg from 'pg';
 const { Pool } = pg;
 
-// IMPORTANTE: En Astro (que usa Vite), debemos acceder a import.meta.env
-// Para soportar tanto dev local (Astro) como prod (PM2), usamos ambos:
-const host = import.meta.env.PGHOST || process.env.PGHOST || 'localhost';
-const port = parseInt(import.meta.env.PGPORT || process.env.PGPORT || '5432');
-const user = import.meta.env.PGUSER || process.env.PGUSER || 'postgres';
-const rawPassword = import.meta.env.PGPASSWORD || process.env.PGPASSWORD || '';
-const database = import.meta.env.PGDATABASE || process.env.PGDATABASE || 'bartimeodb';
+// Helper function to safely read from process.env at RUNTIME, preventing Vite from statically replacing it
+const getRuntimeEnv = (key: string, fallback: string) => {
+    if (typeof process !== 'undefined' && process.env && process.env[key]) {
+        return process.env[key] as string;
+    }
+    // Fallback to import.meta.env (for local dev) or the provided fallback
+    return (import.meta as any).env[key] || fallback;
+};
+
+const host = getRuntimeEnv('PGHOST', 'localhost');
+const port = parseInt(getRuntimeEnv('PGPORT', '5432'));
+const user = getRuntimeEnv('PGUSER', 'postgres');
+const rawPassword = getRuntimeEnv('PGPASSWORD', '');
+const database = getRuntimeEnv('PGDATABASE', 'bartimeodb');
 
 // Quitamos comillas simples si quedaron del archivo .env.local
 const dbPassword = String(rawPassword).replace(/^'|'$/g, '');
