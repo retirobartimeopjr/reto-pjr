@@ -167,3 +167,29 @@ SELECT
     COALESCE((SELECT SUM(points_awarded) FROM user_parroquia_visits WHERE user_id = u.id), 0) +
     COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0) AS calculated_score
 FROM users u;
+
+-- ==========================================
+-- 8. TABLA DE CONFIGURACIÓN DEL SISTEMA
+-- ==========================================
+CREATE TABLE app_config (
+    key VARCHAR(50) PRIMARY KEY,
+    value JSONB NOT NULL
+);
+
+INSERT INTO app_config (key, value) VALUES 
+('challenge_state', '{"active": true, "message": "¡El Reto ha terminado!"}'::jsonb) 
+ON CONFLICT DO NOTHING;
+
+-- ==========================================
+-- 9. TABLA DE ADMINISTRADORES (COORDINADORES)
+-- ==========================================
+CREATE TABLE admins (
+    username VARCHAR(50) PRIMARY KEY,
+    password VARCHAR(255) NOT NULL
+);
+
+INSERT INTO admins (username, password) VALUES 
+('Aleja', 'bartimeo5'),
+('Nico', 'bartimeo5'),
+('Jesus', 'bartimeo5')
+ON CONFLICT DO NOTHING;

@@ -5,6 +5,7 @@ import path from 'node:path';
 import BartiPregunta from '../components/BartiPregunta'
 import Countdown from '../components/Countdown.astro'
 import Dashboard from '../components/Dashboard'
+import EndOfChallengeModal from '../components/EndOfChallengeModal'
 import Leaderboard from '../components/Leaderboard'
 import Map from '../components/Map.astro'
 import PromoSection from '../components/PromoSection'
@@ -189,6 +190,7 @@ try {
       </footer>
     </main>
   </div>
+  <EndOfChallengeModal client:load />
 </Layout>
 
 <style>
