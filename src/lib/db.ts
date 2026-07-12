@@ -7,7 +7,7 @@ const getRuntimeEnv = (key: string, fallback: string) => {
         return process.env[key] as string;
     }
     // Fallback to import.meta.env (for local dev) or the provided fallback
-    return (import.meta as any).env[key] || fallback;
+    return (import.meta as any).env?.[key] || fallback;
 };
 
 const host = getRuntimeEnv('PGHOST', 'localhost');

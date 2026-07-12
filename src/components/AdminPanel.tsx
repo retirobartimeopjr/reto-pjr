@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import ParroquiasManager from './ParroquiasManager';
 
 export default function AdminPanel() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -127,10 +128,10 @@ export default function AdminPanel() {
 
     return (
         <div className="min-h-screen bg-[#111] p-4 md:p-8 text-white">
-            <div className="max-w-2xl mx-auto space-y-6">
+            <div className="max-w-7xl mx-auto space-y-6">
                 
                 {/* Header */}
-                <div className="bg-[#1a1a1a] rounded-3xl p-6 border border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="bg-[#1a1a1a] rounded-3xl p-6 border border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 max-w-2xl mx-auto w-full">
                     <div>
                         <h1 className="text-2xl font-bold text-brand">Centro de Control</h1>
                         <p className="text-zinc-400">Hola, {username}. Estás en vivo.</p>
@@ -142,7 +143,7 @@ export default function AdminPanel() {
                 </div>
 
                 {/* Main Controls */}
-                <div className="bg-[#1a1a1a] rounded-3xl p-8 border border-white/10 space-y-8">
+                <div className="bg-[#1a1a1a] rounded-3xl p-8 border border-white/10 space-y-8 max-w-2xl mx-auto w-full">
                     
                     {/* The Big Switch */}
                     <div className="flex flex-col items-center p-8 bg-black/30 rounded-2xl border border-white/5">
@@ -191,6 +192,9 @@ export default function AdminPanel() {
                         </div>
                     )}
                 </div>
+
+                {/* --- NUEVA SECCIÓN DE PARROQUIAS --- */}
+                <ParroquiasManager />
             </div>
         </div>
     );
