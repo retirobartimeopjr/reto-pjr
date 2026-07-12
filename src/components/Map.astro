@@ -541,7 +541,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         </svg>
       </span>
       <h3 class="text-xl font-bold text-white group-hover:text-[#f8b134] transition-colors">
-        Parroquias Cercanas (&lt;2km)
+        Parroquias Más Cercanas
       </h3>
     </div>
     <svg
@@ -642,27 +642,30 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     initPage()
   })
 
-  // Fallback for non-view-transitions
-  if (document.readyState === 'complete') {
-    initPage()
-  } else {
-    document.addEventListener('DOMContentLoaded', initPage)
-  }
-
   function initPage() {
     $mapElement = document.querySelector('#map')
     nearbySection = document.querySelector('#nearby-section')
 
-    if ($mapElement && !window.mapInitialized) {
-      window.mapInitialized = true // Prevent double init
+    if ($mapElement) {
+      // Limpieza crucial para Astro View Transitions
+      // Si ya existía un mapa (ej. fuimos a otra página y volvimos), lo destruimos antes de recrearlo en el nuevo nodo DOM.
+      if (mapInstance) {
+        mapInstance.remove()
+        mapInstance = null
+      }
+      window.mapInitialized = false
 
-      centerLat = parseFloat($mapElement.dataset.centerLat)
-      centerLon = parseFloat($mapElement.dataset.centerLon)
-      initialZoom = parseInt($mapElement.dataset.initialZoom)
-      hasUserLocation = $mapElement.dataset.hasUserLocation === 'true'
+      if (!window.mapInitialized) {
+        window.mapInitialized = true // Prevent double init
 
-      initMap()
-      setupUIControls()
+        centerLat = parseFloat($mapElement.dataset.centerLat)
+        centerLon = parseFloat($mapElement.dataset.centerLon)
+        initialZoom = parseInt($mapElement.dataset.initialZoom)
+        hasUserLocation = $mapElement.dataset.hasUserLocation === 'true'
+
+        initMap()
+        setupUIControls()
+      }
     }
   }
 
@@ -703,6 +706,9 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
     // 5. Setup Interaction for Location (Permissions)
     setupMapInteractions()
+
+    // 6. Populate nearby list with default/IP location initially
+    updateNearbyList(centerLat, centerLon)
   }
 
   // ... (renderMarkersWithClustering remains same) ...
@@ -868,8 +874,8 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         )
         return { ...loc, distance: d }
       })
-      .filter((l) => l.distance <= NEARBY_RADIUS_KM)
       .sort((a, b) => a.distance - b.distance)
+      .slice(0, 5) // Mostrar siempre las 5 más cercanas
 
     if (nearby.length > 0) {
       nearbySection.classList.remove('hidden')

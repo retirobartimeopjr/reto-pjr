@@ -1,0 +1,177 @@
+---
+
+import BartiPregunta from '../components/BartiPregunta'
+import Countdown from '../components/Countdown.astro'
+import Dashboard from '../components/Dashboard'
+import EndOfChallengeModal from '../components/EndOfChallengeModal'
+import Leaderboard from '../components/Leaderboard'
+import Map from '../components/Map.astro'
+import PromoSection from '../components/PromoSection'
+import PublicActions from '../components/PublicActions'
+import Referidos from '../components/Referidos'
+import RegistrationButton from '../components/RegistrationButton'
+import Snowballs from '../components/Snowballs.astro'
+import HomeHeader from '../components/home/HomeHeader.astro'
+import Layout from '../layouts/Layout.astro'
+
+const isLocked = true;
+---
+
+<Layout title="Reto Bartimeo 2026">
+  {/* Fondo fijo para evitar problemas de scroll en móvil */}
+  <div
+    class="fixed inset-0 w-full h-full -z-10"
+    style={{
+      backgroundImage:
+        "linear-gradient(to bottom, rgba(100, 0, 16, 0.85), rgba(100, 0, 16, 0.6)), url('/foto.png')",
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}
+  >
+  </div>
+
+  <div class="min-h-screen text-white overflow-x-hidden font-sans selection:bg-brand/30 relative">
+    {/* Snow Effect Component */}
+    <Snowballs />
+
+    {/* Header with Login Button */}
+    <HomeHeader />
+
+    <main
+      class="relative z-10 flex flex-col items-center justify-start w-full min-h-screen px-4 py-8 gap-8 md:gap-12"
+    >
+      {/* 1. Main Hero Block */}
+      <div
+        class="w-full max-w-4xl flex flex-col items-center gap-6 animate-fade-in-up mt-6 text-center relative"
+      >
+        {/* Flag Behind Effect (Profundidad) */}
+        <div class="relative w-full flex justify-center items-center mb-4 min-h-[150px] md:min-h-[200px]">
+            <img
+              src="/bartimeo-flag.png"
+              alt="Flag"
+              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] md:w-[60%] max-w-[400px] opacity-40 blur-sm mix-blend-screen pointer-events-none drop-shadow-[0_0_20px_rgba(248,177,52,0.3)]"
+            />
+            <img
+              src="/logosingle.png"
+              alt="Logo Single"
+              class="relative z-10 w-24 md:w-32 h-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] animate-float"
+            />
+        </div>
+
+        <h1
+          class="text-white/90 text-2xl md:text-4xl font-serif font-light max-w-lg mx-auto leading-relaxed drop-shadow-md"
+        >
+          El camino comienza aquí.
+        </h1>
+
+        {/* CTA Button with Arrow - Now controlled by React Component */}
+        <RegistrationButton client:only="react" />
+      </div>
+
+      {/* PROMO SECTION */}
+      <PromoSection client:load />
+
+      {/* DASHBOARD SECTION (Visible only if logged in - handled by component) */}
+      <div class="w-full max-w-6xl animate-fade-in-up delay-100">
+        <Dashboard client:load />
+      </div>
+
+      {/* Secondary Content Blocks - Bento Grid Layout */}
+      <div class="w-full max-w-6xl animate-fade-in-up delay-100 px-2 lg:px-0 flex flex-col gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
+          {/* LEADERBOARD (Public) */}
+          <div class="lg:col-span-2 h-full">
+            <Leaderboard client:load />
+          </div>
+
+          {/* COUNTDOWN & ACTIONS (Public/Private) */}
+          <div class="lg:col-span-1 flex flex-col gap-6">
+            {/* Countdown */}
+            <div
+              class="bg-black/20 backdrop-blur-md border border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center"
+            >
+              <Countdown />
+            </div>
+
+            {/* GAME & REFERRALS (Interactive) */}
+            <div class="flex flex-col gap-4">
+              <BartiPregunta client:load />
+              <PublicActions client:load />
+            </div>
+          </div>
+
+          {/* REFERRAL SECTION (Full Width in Grid or separate) */}
+          <div class="lg:col-span-3">
+            <Referidos client:load />
+          </div>
+        </div>
+
+        {/* Map - Full Width */}
+        <section
+          class="w-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative mt-4"
+        >
+          <Map />
+        </section>
+
+      </div>
+
+      <footer
+        class="flex flex-col items-center justify-center gap-4 text-white/80 text-[10px] font-light uppercase tracking-widest mt-12 mb-8"
+      >
+        <img
+          src="/bartimeo.png"
+          alt="Reto Bartimeo 2026"
+          class="w-32 h-auto drop-shadow-[0_0_10px_rgba(255,255,255,0.6)]"
+        />
+        <p>Reto Bartimeo 2026</p>
+      </footer>
+    </main>
+  </div>
+  <EndOfChallengeModal client:load />
+</Layout>
+
+<style>
+  .text-gold-texture {
+    background: linear-gradient(to bottom, #f8b134, #bf8418);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .delay-100 {
+    animation-delay: 0.2s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+  }
+</style>

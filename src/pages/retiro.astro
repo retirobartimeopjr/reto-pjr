@@ -1,0 +1,99 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Layout from '../layouts/Layout.astro';
+import HomeHeader from '../components/home/HomeHeader.astro';
+
+// Video Gallery Logic (Server-Side Rendering)
+const prodVideosPath = path.join(process.cwd(), 'dist', 'client', 'videos');
+const devVideosPath = path.join(process.cwd(), 'public', 'videos');
+const targetVideosPath = import.meta.env.PROD ? prodVideosPath : devVideosPath;
+
+let videoFiles: string[] = [];
+try {
+  if (fs.existsSync(targetVideosPath)) {
+    videoFiles = fs.readdirSync(targetVideosPath)
+      .filter((f: string) => f.endsWith('.mp4') || f.endsWith('.webm'))
+      .sort(); // Alfabético
+  }
+} catch (e) {
+  console.error("Error leyendo directorio de videos:", e);
+}
+---
+
+<Layout title="El Retiro - Próximamente">
+  <HomeHeader />
+
+  <main class="min-h-screen pt-24 pb-12 px-4 flex flex-col items-center justify-start relative z-10 overflow-hidden text-center">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 z-[-1] overflow-hidden pointer-events-none fixed">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/noise.svg')] opacity-20 mix-blend-overlay"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-blue-500/10 blur-[120px] rounded-full"></div>
+    </div>
+
+    <div class="w-full max-w-4xl flex flex-col items-center gap-6 animate-fade-in-up mt-6 text-center">
+      <img
+        src="/logosingle.png"
+        alt="Logo Single"
+        class="w-32 md:w-40 h-auto object-contain mb-4 drop-shadow-lg mt-4"
+      />
+
+      <div class="relative group w-full flex justify-center">
+        <img
+          src="/bartimeo.png"
+          alt="Bartimeo"
+          class="w-full max-w-[300px] md:max-w-[700px] object-contain drop-shadow-[0_0_35px_rgba(248,177,52,0.3)] animate-float relative z-10 mx-auto"
+          style="width: 150%;"
+        />
+      </div>
+
+      <h1
+        class="font-serif text-4xl md:text-6xl font-bold uppercase tracking-[0.2em] text-transparent bg-clip-text bg-gradient-to-b from-[#f8b134] to-[#bf8418] leading-tight whitespace-normal md:whitespace-nowrap px-4"
+      >
+        "Señor. ¡Que vea!"
+      </h1>
+    </div>
+    
+    <p class="text-xl md:text-2xl text-blue-300 font-medium max-w-2xl mx-auto mb-12">
+      Estamos preparando toda la información e inscripciones para el próximo retiro.
+    </p>
+
+    <div class="inline-block px-8 py-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm mb-12">
+      <p class="text-white/60 font-bold uppercase tracking-widest text-sm">
+        Próximamente disponible
+      </p>
+    </div>
+
+    {/* Video Gallery Section (Dynamic) */}
+    {videoFiles.length > 0 && (
+      <section
+        class="w-full max-w-6xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative mt-8 bg-black/40 backdrop-blur-md p-6"
+      >
+        <div class="text-center mb-6">
+            <h2 class="text-2xl md:text-3xl font-serif font-bold text-white text-blue-300">
+                Galería de Videos
+            </h2>
+        </div>
+        <div class={`grid gap-6 ${videoFiles.length === 1 ? 'grid-cols-1 max-w-4xl mx-auto' : 'grid-cols-1 md:grid-cols-2'}`}>
+          {videoFiles.map((video) => (
+            <div class="rounded-xl overflow-hidden bg-black border border-white/10 shadow-lg flex flex-col justify-center">
+              <video
+                class="w-full h-auto object-contain"
+                controls
+                playsinline
+                poster="/bartimeo.png"
+                style={{ maxHeight: '500px' }}
+              >
+                <source src={`/videos/${video}`} type="video/mp4" />
+                Tu navegador no soporta videos.
+              </video>
+              <div class="p-3 text-center bg-white/5 border-t border-white/10">
+                <p class="text-white/70 text-xs font-mono truncate">{video}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+  </main>
+</Layout>
