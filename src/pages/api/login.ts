@@ -66,7 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
                 payedTickets: String(userRow.payed_tickets || 0),
                 score: String(userRow.total_score || 0),
                 parroquiasVistitadas: userRow.visited_parroquias_ids || "",
-                visited_parroquias_json: userRow.visited_parroquias_json || [],
+                visited_parroquias_json: JSON.stringify(userRow.visited_parroquias_json || []),
                 preguntasVistas: userRow.answered_preguntas_ids || "",
                 referencia: userRow.referencia || "",
                 'tickets-numbers': userRow.ticket_numbers || ""

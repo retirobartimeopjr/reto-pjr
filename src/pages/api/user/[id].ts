@@ -37,7 +37,7 @@ export const GET: APIRoute = async ({ params }) => {
             username: userRow.username,
             score: String(userRow.total_score || 0),
             parroquiasVistitadas: userRow.visited_parroquias_ids || "",
-            visited_parroquias_json: userRow.visited_parroquias_json || [],
+            visited_parroquias_json: JSON.stringify(userRow.visited_parroquias_json || []),
             phone: userRow.phone,
             ticketsFixed: userRow.tickets_fixed || "",
             payedTickets: String(userRow.payed_tickets || 0),

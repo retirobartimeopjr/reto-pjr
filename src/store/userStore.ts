@@ -15,6 +15,7 @@ export type UserProfile = {
     referencia: string;
     isAuthenticated: string; 
     'tickets-numbers': string;
+    visited_parroquias_json: string;
 };
 
 // Default empty state
@@ -30,6 +31,7 @@ const initialState: UserProfile = {
     referencia: '',
     isAuthenticated: 'false',
     'tickets-numbers': '',
+    visited_parroquias_json: '[]',
 };
 
 // Persistent store to keep session alive across reloads

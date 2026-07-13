@@ -11,7 +11,7 @@ export const GET: APIRoute = async () => {
                 v.flag_reason,
                 u.username,
                 u.phone,
-                p.nombre as parroquia_name
+                p.name as parroquia_name
             FROM user_parroquia_visits v
             JOIN users u ON v.user_id = u.id
             JOIN parroquias p ON v.parroquia_id = p.id

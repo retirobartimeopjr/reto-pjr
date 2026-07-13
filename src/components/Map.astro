@@ -335,6 +335,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
             >. ¿Confirmas visita?
           </p>
           <div
+            id="photo-upload-section"
             class="mb-2 md:mb-4 text-left p-2 md:p-3 bg-gray-50 rounded-xl border border-gray-100 overflow-y-auto custom-scrollbar"
           >
             <p class="text-xs md:text-sm text-gray-700 mb-2 md:mb-3 font-medium leading-relaxed">
@@ -888,7 +889,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
                  
                  <div class="flex flex-col gap-2 mt-3">
                    <button 
-                      onclick="window.validateAndConfirm('${loc.id || loc.name}', '${loc.name}')"
+                      onclick="window.handleParishClick('${loc.id ?? loc.name}', '${loc.name}')"
                       class="w-full bg-gradient-to-r from-[#f8b134] to-[#eeb045] text-[#640010] font-bold py-2 px-4 rounded-lg text-sm hover:shadow-md transition-all active:scale-95"
                    >
                       📍 Confirmar Visita
@@ -1040,7 +1041,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       console.log('Parroquia:', parroquiaName, parroquiaId)
 
       // 1. Mark as confirmed locally (Optimistic)
-      confirmedParishes.add(parroquiaId || parroquiaName)
+      confirmedParishes.add((parroquiaId ?? parroquiaName).toString())
 
       // 2. Call API
       const response = await fetch('/api/visit', {
@@ -1107,15 +1108,23 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           }, 3000)
         }
 
-        // 4. Update User Data (OPTIMISTIC & Immediate)
         const newScore = parseInt(user.score || 0) + localReward
         const newVisited =
           (user.parroquiasVistitadas || '') + (user.parroquiasVistitadas ? ',' : '') + parroquiaId
+
+        let currentVisitsJson = []
+        try {
+          currentVisitsJson = typeof user.visited_parroquias_json === 'string' 
+            ? JSON.parse(user.visited_parroquias_json) 
+            : (user.visited_parroquias_json || [])
+        } catch(e) {}
+        currentVisitsJson.push({ id: parseInt(parroquiaId), date: new Date().toISOString() })
 
         const optimisitcUser = {
           ...user,
           score: newScore.toString(),
           parroquiasVistitadas: newVisited,
+          visited_parroquias_json: JSON.stringify(currentVisitsJson)
         }
 
         // Update global stores immediately
@@ -1143,19 +1152,131 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         } else {
           alert('Hubo un error registrando tu visita. Intenta de nuevo.')
         }
-        confirmedParishes.delete(parroquiaId || parroquiaName)
+        confirmedParishes.delete((parroquiaId ?? parroquiaName).toString())
       }
     } catch (e) {
       console.error('Execute Visit Error:', e)
       //alert('Error de conexión - Contacta a 3123415728')
-      confirmedParishes.delete(parroquiaId || parroquiaName)
+      confirmedParishes.delete((parroquiaId ?? parroquiaName).toString())
+    }
+  }
+
+  window.handleParishClick = (parroquiaId, parroquiaName) => {
+    const loc = locations.find((l) => (l.id ?? l.name).toString() === parroquiaId.toString() || l.name === parroquiaName)
+    if (!loc) return
+    const pid = (loc.id ?? loc.parroquiaid ?? loc.name).toString()
+    
+    if (!isUserLoggedIn()) {
+      showLoginRequiredModal()
+      return
+    }
+
+    const user = getUserData()
+    if (!user) return
+
+    const visitedString = user.parroquiasVistitadas || ''
+    const visitedIds = visitedString.split(',').map((id) => id.trim())
+    
+    const visitCount = visitedIds.filter(id => id === pid).length + (confirmedParishes.has(pid) ? 1 : 0)
+
+    const visitedJsonString = user.visited_parroquias_json || []
+    let visitedArr = []
+    try {
+      visitedArr = typeof visitedJsonString === 'string' ? JSON.parse(visitedJsonString) : visitedJsonString
+    } catch(e) { console.error('Error parseando json', e) }
+    const getLocalDate = (d) => {
+      if (!d || isNaN(d.getTime())) return '';
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${day}`;
+    };
+    
+    const today = getLocalDate(new Date());
+
+    let visitedToday = confirmedParishes.has(pid)
+    if (!visitedToday && Array.isArray(visitedArr)) {
+        visitedToday = visitedArr.some(v => {
+            if (!v || v.id === undefined || !v.date) return false;
+            const visitDate = getLocalDate(new Date(v.date));
+            return v.id.toString() === pid && visitDate === today;
+        })
+    }
+
+    if (visitCount > 0) {
+      const visitedModal = document.getElementById('already-visited-modal')
+      if (visitedModal) {
+        const title = visitedModal.querySelector('h3')
+        const desc = visitedModal.querySelector('p')
+        let extraBtn = document.getElementById('btn-extra-points')
+
+        if (visitedToday) {
+            if (title && desc) {
+                title.textContent = `¡Ya visitaste esta parroquia hoy!`
+                desc.innerHTML = `Has visitado esta parroquia <b>${visitCount} ${visitCount === 1 ? 'vez' : 'veces'}</b>. Sigue peregrinando y visítala nuevamente mañana.`
+            }
+            if (extraBtn) extraBtn.classList.add('hidden')
+        } else {
+            if (title && desc) {
+                title.textContent = `¡Ya visitaste esta parroquia!`
+                desc.innerHTML = `Has visitado esta parroquia <b>${visitCount} ${visitCount === 1 ? 'vez' : 'veces'}</b>. Puedes seguir peregrinando, o registrar otra visita para sumar <b>10 puntos extra</b>.`
+            }
+            if (!extraBtn) {
+              extraBtn = document.createElement('button')
+              extraBtn.id = 'btn-extra-points'
+              extraBtn.className = 'w-full bg-[#f8b134] text-white font-bold py-3 rounded-xl hover:bg-[#d9972b] transition-colors shadow-lg mb-3'
+              extraBtn.textContent = 'Sumar 10 puntos extra'
+              const closeBtn = document.getElementById('btn-close-visited')
+              if (closeBtn && closeBtn.parentNode) {
+                closeBtn.parentNode.insertBefore(extraBtn, closeBtn)
+              }
+            }
+            extraBtn.classList.remove('hidden')
+            extraBtn.onclick = () => {
+              visitedModal.classList.add('hidden')
+              window.validateAndConfirm(pid, loc.name, true) // Bypass check distance/movement but with force
+            }
+        }
+
+        visitedModal.classList.remove('hidden')
+        
+        const closeBtn = document.getElementById('btn-close-visited')
+        if (closeBtn) {
+          closeBtn.textContent = 'Volver al mapa'
+          closeBtn.onclick = () => {
+            visitedModal.classList.add('hidden')
+          }
+        }
+      }
+      return
+    }
+
+    // Not visited, normal flow
+    if (!userCoords.lat) {
+      alert('Necesitamos tu ubicación para confirmar.')
+      startLocationTracking()
+      return
+    }
+
+    const dKm = calculateDistance(
+      userCoords.lat,
+      userCoords.lon,
+      loc.center?.lat || loc.lat,
+      loc.center?.lng || loc.lng
+    )
+    const dMeters = dKm * 1000
+
+    if (dMeters <= PROXIMITY_THRESHOLD_M) {
+      showProximityModal(loc, pid, false)
+    } else {
+      showDistanceModal(dMeters)
     }
   }
 
   // Triggered by User Interaction (Popup Button or Floating Button)
   window.validateAndConfirm = (parroquiaId, parroquiaName, forceBypass = false) => {
     // 1. Find Location Data
-    const loc = locations.find((l) => (l.id || l.name) === parroquiaId || l.name === parroquiaName)
+    const loc = locations.find((l) => (l.id ?? l.name).toString() === parroquiaId.toString() || l.name === parroquiaName)
     if (!loc) return
 
     // 2. Check Distance
@@ -1362,15 +1483,14 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         const pid = (loc.id || loc.parroquiaid || loc.name).toString()
         return !visitedIds.includes(pid) && !confirmedParishes.has(pid)
       })
-      currentProximityLoc = unvisited || inRangeLocations[0]
+      currentProximityLoc = unvisited ?? inRangeLocations[0]
     }
 
     if (currentProximityLoc) {
-      const pid = currentProximityLoc.id || currentProximityLoc.name
-
+      const pid = (currentProximityLoc.id ?? currentProximityLoc.parroquiaid ?? currentProximityLoc.name).toString()
       // 1. Auto-Open Modal on First Detection
       if (!hasShownInitialModal) {
-        showProximityModal(currentProximityLoc, pid)
+        window.handleParishClick(pid, currentProximityLoc.name)
         hasShownInitialModal = true // Only once per session/page load
       }
     }
@@ -1388,11 +1508,11 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     // Logic: Show ONLY if in range AND popup is NOT open
     // (And logically not confirmed, which is handled by checkProximity returning null for confirmed ones)
     if (currentProximityLoc && !isPopupOpen) {
-      const pid = currentProximityLoc.id || currentProximityLoc.name
+      const pid = (currentProximityLoc.id ?? currentProximityLoc.name).toString()
       floatingBtn.classList.remove('hidden')
 
       // Ensure click handler
-      floatingBtn.onclick = () => window.validateAndConfirm(pid, currentProximityLoc.name)
+      floatingBtn.onclick = () => window.handleParishClick(pid, currentProximityLoc.name)
       if (floatingName) floatingName.textContent = currentProximityLoc.name
     } else {
       floatingBtn.classList.add('hidden')
@@ -1408,71 +1528,6 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     const user = getUserData()
     if (!user) return
 
-    const visitedString = user.parroquiasVistitadas || ''
-    const visitedIds = visitedString.split(',').map((id) => id.trim())
-    const targetId = (pid || loc.name).toString()
-
-    const visitCount = visitedIds.filter(id => id === targetId).length + (confirmedParishes.has(targetId) ? 1 : 0)
-
-    const visitedJsonString = user.visited_parroquias_json || []
-    const visitedArr = typeof visitedJsonString === 'string' ? JSON.parse(visitedJsonString) : visitedJsonString
-    const today = new Date().toISOString().split('T')[0]
-
-    let visitedToday = confirmedParishes.has(targetId)
-    if (!visitedToday && Array.isArray(visitedArr)) {
-        visitedToday = visitedArr.some(v => v.id.toString() === targetId && new Date(v.date).toISOString().split('T')[0] === today)
-    }
-
-    if (!forceBypass && visitCount > 0) {
-      const visitedModal = document.getElementById('already-visited-modal')
-      if (visitedModal) {
-        const title = visitedModal.querySelector('h3')
-        const desc = visitedModal.querySelector('p')
-        let extraBtn = document.getElementById('btn-extra-points')
-
-        if (visitedToday) {
-            if (title && desc) {
-                title.textContent = `¡Ya visitaste esta parroquia hoy!`
-                desc.innerHTML = `Has visitado esta parroquia <b>${visitCount} ${visitCount === 1 ? 'vez' : 'veces'}</b>. Sigue peregrinando y visítala nuevamente mañana.`
-            }
-            if (extraBtn) extraBtn.classList.add('hidden')
-        } else {
-            if (title && desc) {
-                title.textContent = `¡Ya visitaste esta parroquia!`
-                desc.innerHTML = `Has visitado esta parroquia <b>${visitCount} ${visitCount === 1 ? 'vez' : 'veces'}</b>. Puedes seguir peregrinando, o registrar otra visita para sumar <b>10 puntos extra</b>.`
-            }
-            if (!extraBtn) {
-              extraBtn = document.createElement('button')
-              extraBtn.id = 'btn-extra-points'
-              extraBtn.className = 'w-full bg-[#f8b134] text-white font-bold py-3 rounded-xl hover:bg-[#d9972b] transition-colors shadow-lg mb-3'
-              extraBtn.textContent = 'Sumar 10 puntos extra'
-              const closeBtn = document.getElementById('btn-close-visited')
-              if (closeBtn && closeBtn.parentNode) {
-                closeBtn.parentNode.insertBefore(extraBtn, closeBtn)
-              }
-            }
-            extraBtn.classList.remove('hidden')
-            extraBtn.onclick = () => {
-              visitedModal.classList.add('hidden')
-              window.validateAndConfirm(pid, loc.name, true) // Recall with bypass!
-            }
-        }
-
-        visitedModal.classList.remove('hidden')
-        
-        const closeBtn = document.getElementById('btn-close-visited')
-        if (closeBtn) {
-          closeBtn.textContent = 'Volver al mapa'
-          closeBtn.onclick = () => {
-            visitedModal.classList.add('hidden')
-          }
-        }
-      } else {
-        alert(`¡Ya has visitado esta parroquia ${visitCount} veces!`)
-      }
-      return
-    }
-
     const modal = document.getElementById('proximity-modal')
     if (modal.classList.contains('hidden')) {
       const nameEl = document.getElementById('modal-parish-name')
@@ -1487,24 +1542,39 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
       const btnConfirm = document.getElementById('btn-confirm-arrival')
       const btnCancel = document.getElementById('btn-cancel-arrival')
+      const photoSection = document.getElementById('photo-upload-section')
 
-      if (btnConfirm && btnCancel) {
-        btnConfirm.onclick = async () => {
-          // Redundant safely check
-          if (!isUserLoggedIn()) {
+      if (btnConfirm && btnCancel && photoSection) {
+        if (!forceBypass) {
+          // STATE 1: Just arrived / Clicked map
+          photoSection.classList.add('hidden')
+          btnConfirm.textContent = '📍 Confirmar Visita'
+          
+          btnConfirm.onclick = () => {
             modal.classList.add('hidden')
-            showLoginRequiredModal()
-            return
+            window.validateAndConfirm(pid, loc.name, false)
           }
+        } else {
+          // STATE 2: Movement verified, ready for photo
+          photoSection.classList.remove('hidden')
+          btnConfirm.textContent = '📸 Subir Evidencia'
 
-          const user = getUserData()
-          if (!user) {
-            alert('Error obteniendo datos del usuario')
-            return
-          }
+          btnConfirm.onclick = async () => {
+            // Redundant safely check
+            if (!isUserLoggedIn()) {
+              modal.classList.add('hidden')
+              showLoginRequiredModal()
+              return
+            }
 
-          const fileInput = document.getElementById('photo-upload-input')
-          const file = fileInput.files?.[0]
+            const user = getUserData()
+            if (!user) {
+              alert('Error obteniendo datos del usuario')
+              return
+            }
+
+            const fileInput = document.getElementById('photo-upload-input')
+            const file = fileInput.files?.[0]
 
           if (!file) {
             alert('Por favor selecciona o toma una foto para confirmar tu visita.')
@@ -1588,7 +1658,9 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
             fileInput.value = ''
           }
         }
-        btnCancel.onclick = () => {
+      } // End of else block
+      
+      btnCancel.onclick = () => {
           modal.classList.add('hidden')
         }
       }
@@ -1709,7 +1781,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
               (loc) => `
                 <div 
                   class="p-3 hover:bg-gray-50 cursor-pointer flex items-center gap-3 transition-colors"
-                  onclick="window.flyToParish('${loc.id || loc.name}', ${loc.center?.lat || loc.lat}, ${loc.center?.lng || loc.lng})"
+                  onclick="window.flyToParish('${loc.id ?? loc.name}', ${loc.center?.lat || loc.lat}, ${loc.center?.lng || loc.lng})"
                 >
                    <div class="w-2 h-2 rounded-full bg-[#f8b134]"></div>
                    <div>

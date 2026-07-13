@@ -132,4 +132,15 @@ Desarrollo:
 - Configuración dinámica del Umbral de Proximidad (\`PROXIMITY_THRESHOLD_M\`), editable por los administradores directamente desde \`/coordi\` (vía \`/api/appConfig\`).
 - Panel de Visitas Sospechosas en \`/coordi\` para listar usuarios con actividad irregular.
 - Mejora de Solapamiento (Overlap) de Geocercas: Ahora el mapa prioriza de forma inteligente detectar la parroquia que el usuario aún NO ha visitado, si es que se encuentra dentro del rango de dos parroquias simultáneamente.
+--------------------------------------------------------------------
+FASE 12: Migración de Almacenamiento de Evidencias (Firebase Storage -> AWS S3)
+--------------------------------------------------------------------
+Motivo: Eliminar por completo el uso de Firebase Storage para guardar las fotos de los usuarios ("evidencias" de visitas) centralizando todos los activos (assets) en AWS S3 para reducir dependencias y mejorar control y costos.
+Desarrollo:
+- Creación de un bucket en AWS S3 (`bartimeo-assets-prod`) y configuración de reglas CORS para permitir la subida directa desde los navegadores web de los usuarios (método PUT).
+- Instalación de la SDK oficial de AWS (`@aws-sdk/client-s3` y `@aws-sdk/s3-request-presigner`).
+- Creación del endpoint `/api/s3/presign` que utiliza las llaves de acceso IAM de AWS (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`) para firmar y generar una URL temporal y segura (Presigned URL) sin exponer credenciales al cliente.
+- Refactorización completa del mapa (`Map.astro`) para interceptar la foto tomada por la cámara, solicitar la firma al backend, y subir la imagen directamente al bucket de Amazon.
+- Inyección de las credenciales y configuración del bucket en los entornos `.env.local` y producción (`.env` del EC2 por SSH).
+- Solución profunda de bugs relacionados a cómo se serializaban los arreglos de JSON (`visited_parroquias_json`) en la base de datos local del navegador (`nanostores/persistent`), garantizando que la memoria retenga el historial estricto con fechas locales (no UTC) tras recargar la página.
 ====================================================================
