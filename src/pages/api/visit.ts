@@ -21,7 +21,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         }
 
         const body = await request.json();
-        const { parroquiaId, userLogInfo, photoPath } = body;
+        const { parroquiaId, userLogInfo, photoPath, flagged: clientFlagged, flagReason: clientFlagReason } = body;
 
         // El userId PROVIENE EXCLUSIVAMENTE DEL TOKEN VERIFICADO, no confiamos en el cliente.
         const userId = jwtPayload.userId;
@@ -42,6 +42,26 @@ export const POST: APIRoute = async ({ request, cookies }) => {
             }), { status: 400 });
         }
 
+        let finalFlagged = !!clientFlagged;
+        let finalFlagReason = clientFlagReason || '';
+
+        // Anti-spoofing check: less than 60 seconds since ANY last visit
+        const lastVisitRes = await query(
+            'SELECT visited_at FROM user_parroquia_visits WHERE user_id = $1 ORDER BY visited_at DESC LIMIT 1',
+            [userId]
+        );
+        
+        if (lastVisitRes.rowCount > 0) {
+            const lastVisitTime = new Date(lastVisitRes.rows[0].visited_at).getTime();
+            const now = Date.now();
+            if (now - lastVisitTime < 60000) { // less than 60 seconds
+                finalFlagged = true;
+                finalFlagReason = finalFlagReason 
+                    ? finalFlagReason + ' | Tiempo entre visitas menor a 60s' 
+                    : 'Tiempo entre visitas menor a 60s';
+            }
+        }
+
         // 1. Validar que la Parroquia exista y obtener su puntaje (reward)
         const parishRes = await query('SELECT reward FROM parroquias WHERE id = $1', [parseInt(parroquiaId)]);
         
@@ -52,35 +72,43 @@ export const POST: APIRoute = async ({ request, cookies }) => {
             }), { status: 404 });
         }
         
-        const rewardPoints = parishRes.rows[0].reward || 0;
+        let rewardPoints = parishRes.rows[0].reward || 0;
+        
+        // 2. Verificar si el usuario ya ha visitado esta parroquia anteriormente
+        const previousVisitsRes = await query(
+            'SELECT COUNT(*) as count FROM user_parroquia_visits WHERE user_id = $1 AND parroquia_id = $2',
+            [userId, parseInt(parroquiaId)]
+        );
+        const previousVisitsCount = parseInt(previousVisitsRes.rows[0].count);
+
+        if (previousVisitsCount > 0) {
+            rewardPoints = 10; // Puntos fijos por visita repetida
+        }
+
         const visitId = crypto.randomUUID(); // Usamos UUID nativo de Node.js
 
-        // 2. Insertar la visita (Postgres evitará automáticamente los duplicados con UNIQUE CONSTRAINT)
+        // 3. Insertar la visita
         try {
             await query(`
-                INSERT INTO user_parroquia_visits (id, user_id, parroquia_id, points_awarded, photo_url)
-                VALUES ($1, $2, $3, $4, $5)
-            `, [visitId, userId, parseInt(parroquiaId), rewardPoints, photoPath || null]);
+                INSERT INTO user_parroquia_visits (id, user_id, parroquia_id, points_awarded, photo_url, flagged, flag_reason)
+                VALUES ($1, $2, $3, $4, $5, $6, $7)
+            `, [visitId, userId, parseInt(parroquiaId), rewardPoints, photoPath || null, finalFlagged, finalFlagReason || null]);
 
-            console.log(`✅ [VISIT POSTGRES] Visita registrada para Usuario ${userId} en Parroquia ${parroquiaId}. Puntos: ${rewardPoints}`);
+            console.log(`✅ [VISIT POSTGRES] Visita registrada para Usuario ${userId} en Parroquia ${parroquiaId}. Puntos: ${rewardPoints} (Visita #${previousVisitsCount + 1})`);
             
             return new Response(JSON.stringify({
                 success: true,
                 message: 'Visita registrada y puntos sumados',
-                visitId: visitId
+                visitId: visitId,
+                pointsAwarded: rewardPoints
             }), { status: 200 });
 
         } catch (err: any) {
-            // El código de error 23505 en Postgres significa Unique Violation (Duplicado)
-            if (err.code === '23505') {
-                 console.log(`⚠️ [VISIT DUPLICATE] El usuario ${userId} intentó visitar de nuevo la parroquia ${parroquiaId}`);
-                 return new Response(JSON.stringify({
-                    success: false,
-                    code: 'DUPLICATE_VISIT',
-                    error: 'Ya has visitado esta parroquia'
-                }), { status: 409 });
-            }
-            throw err; // Si es otro error, lo capturará el catch global
+            console.error("❌ [VISIT API ERROR Postgres]", err);
+            return new Response(JSON.stringify({
+                success: false,
+                error: 'Error registrando la visita en la base de datos'
+            }), { status: 500 });
         }
 
     } catch (error: any) {

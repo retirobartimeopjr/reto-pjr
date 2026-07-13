@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ParroquiasManager from './ParroquiasManager';
+import FlaggedVisitsManager from './FlaggedVisitsManager';
 
 export default function AdminPanel() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11,6 +12,7 @@ export default function AdminPanel() {
     // Estado del Reto
     const [isActive, setIsActive] = useState(true);
     const [message, setMessage] = useState("¡El Reto ha terminado!");
+    const [proximityThreshold, setProximityThreshold] = useState(350);
     const [statusFeedback, setStatusFeedback] = useState('');
 
     // Fetch initial state
@@ -22,6 +24,7 @@ export default function AdminPanel() {
                     const data = await res.json();
                     setIsActive(data.active);
                     setMessage(data.message || "¡El Reto ha terminado!");
+                    if (data.proximity_threshold) setProximityThreshold(data.proximity_threshold);
                 }
             } catch (e) {
                 console.error("Error fetching config:", e);
@@ -48,6 +51,7 @@ export default function AdminPanel() {
                 setIsAuthenticated(true);
                 setIsActive(data.state.active);
                 setMessage(data.state.message);
+                if (data.state.proximity_threshold) setProximityThreshold(data.state.proximity_threshold);
             } else {
                 setLoginError(data.error || 'Error de autenticación');
             }
@@ -65,13 +69,14 @@ export default function AdminPanel() {
             const res = await fetch('/api/appConfig', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password, active: newActiveState, message })
+                body: JSON.stringify({ username, password, active: newActiveState ?? isActive, message, proximity_threshold: proximityThreshold })
             });
             const data = await res.json();
 
             if (res.ok) {
                 setIsActive(data.state.active);
                 setMessage(data.state.message);
+                if (data.state.proximity_threshold) setProximityThreshold(data.state.proximity_threshold);
                 setStatusFeedback('Estado actualizado correctamente ✅');
                 setTimeout(() => setStatusFeedback(''), 3000);
             } else {
@@ -186,12 +191,36 @@ export default function AdminPanel() {
                         </button>
                     </div>
 
+                    {/* Proximity Threshold */}
+                    <div className="space-y-4">
+                        <div>
+                            <label className="text-zinc-400 text-sm font-bold block mb-2">Radio de Proximidad del GPS (metros)</label>
+                            <input
+                                type="number"
+                                value={proximityThreshold}
+                                onChange={e => setProximityThreshold(Number(e.target.value))}
+                                className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-brand text-lg text-center"
+                                placeholder="Ej: 350"
+                            />
+                        </div>
+                        <button
+                            onClick={() => handleUpdateState(isActive)}
+                            disabled={loading}
+                            className="w-full border border-brand/50 text-brand font-bold py-3 rounded-xl hover:bg-brand/10 transition"
+                        >
+                            Guardar Radio de Proximidad
+                        </button>
+                    </div>
+
                     {statusFeedback && (
                         <div className="p-4 bg-brand/10 border border-brand/30 text-brand text-center rounded-xl font-bold animate-in fade-in zoom-in">
                             {statusFeedback}
                         </div>
                     )}
                 </div>
+
+                {/* --- SECCIÓN VISITAS SOSPECHOSAS --- */}
+                <FlaggedVisitsManager />
 
                 {/* --- NUEVA SECCIÓN DE PARROQUIAS --- */}
                 <ParroquiasManager />

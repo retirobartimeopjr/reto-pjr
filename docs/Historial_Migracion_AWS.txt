@@ -120,4 +120,16 @@ Desarrollo:
 - Funcionalidad de Búsqueda inteligente por nombre/ciudad para centrar el mapa.
 - Interfaz interactiva de Pin arrastrable (Rojo) para capturar Lat/Lng precisos de la nueva parroquia, rellenar atributos (nombre, vicaría, reward) y editar parroquias clickeadas.
 - Modificación en la renderización de Astro (`client:only="react"`) para aislar los mapas de React de los errores de hidratación de Node/SSR.
+--------------------------------------------------------------------
+FASE 11: Seguridad Avanzada Anti-Spoofing y Configuración Dinámica del Mapa
+--------------------------------------------------------------------
+Motivo: Prevenir que los usuarios hagan trampa simulando su ubicación GPS (spoofing) o visiten la misma parroquia repetidas veces en el mismo día. Además, permitir a los administradores ajustar la tolerancia del mapa en tiempo real.
+Desarrollo:
+- Modificación de la BD (\`user_parroquia_visits\`) agregando columnas \`flagged\` y \`flag_reason\` para rastrear visitas sospechosas.
+- Implementación de límite de visitas: El backend ahora retorna un historial con fechas exactas (\`visited_parroquias_json\`), bloqueando la obtención de puntos extra si la parroquia ya fue visitada ese mismo día.
+- Lógica de verificación de movimiento: El mapa GPS detecta inactividad y exige movimiento físico. Si falla 3 veces consecutivas, permite el registro pero genera un flag en base de datos.
+- Prevención de teletransportación a nivel de Backend: Validación en \`/api/visit\` comprobando que el tiempo transcurrido desde la última visita a CUALQUIER parroquia sea mayor a 60 segundos. Si es menor, genera un flag automático por posible manipulación de ubicación.
+- Configuración dinámica del Umbral de Proximidad (\`PROXIMITY_THRESHOLD_M\`), editable por los administradores directamente desde \`/coordi\` (vía \`/api/appConfig\`).
+- Panel de Visitas Sospechosas en \`/coordi\` para listar usuarios con actividad irregular.
+- Mejora de Solapamiento (Overlap) de Geocercas: Ahora el mapa prioriza de forma inteligente detectar la parroquia que el usuario aún NO ha visitado, si es que se encuentra dentro del rango de dos parroquias simultáneamente.
 ====================================================================

@@ -719,7 +719,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
   // Constants
   const NEARBY_RADIUS_KM = 2
-  const PROXIMITY_THRESHOLD_M = 350
+  let PROXIMITY_THRESHOLD_M = 350
   let lastProximityCheck = 0 // timestamp
   let confirmedParishes = new Set() // Prevent multi-trigger
 
@@ -727,6 +727,9 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   let hasShownInitialModal = false
   let isPopupOpen = false
   let currentProximityLoc = null // Holds the location object if in range
+  let movementFailCount = 0 // Track movement verification failures
+  window.isFlaggedVisit = false
+  window.flagReason = ""
 
   const colors = {
     'san pedro': '#f97316',
@@ -742,6 +745,13 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   function initPage() {
     $mapElement = document.querySelector('#map')
     nearbySection = document.querySelector('#nearby-section')
+
+    // Fetch dynamic config
+    fetch('/api/appConfig').then(res => res.json()).then(config => {
+      if (config && config.proximity_threshold) {
+        PROXIMITY_THRESHOLD_M = config.proximity_threshold
+      }
+    }).catch(e => console.error('Failed to load app config', e))
 
     if ($mapElement) {
       // Limpieza crucial para Astro View Transitions
@@ -1029,26 +1039,6 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       console.log('User Info:', user)
       console.log('Parroquia:', parroquiaName, parroquiaId)
 
-      // Check if already visited
-      const visitedString = user.parroquiasVistitadas || ''
-      const visitedIds = visitedString.split(',').map((id) => id.trim())
-      const targetId = (parroquiaId || parroquiaName).toString()
-
-      if (visitedIds.includes(targetId) || confirmedParishes.has(targetId)) {
-        // Show Already Visited Modal
-        const modal = document.getElementById('already-visited-modal')
-        if (modal) {
-          modal.classList.remove('hidden')
-          // Close logic
-          document.getElementById('btn-close-visited').onclick = () => {
-            modal.classList.add('hidden')
-          }
-        } else {
-          alert('¡Ya has visitado esta parroquia! Sigue explorando otras.')
-        }
-        return // STOP execution
-      }
-
       // 1. Mark as confirmed locally (Optimistic)
       confirmedParishes.add(parroquiaId || parroquiaName)
 
@@ -1061,8 +1051,14 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           parroquiaId: parroquiaId,
           userLogInfo: user,
           photoPath: photoPath,
+          flagged: window.isFlaggedVisit,
+          flagReason: window.flagReason
         }),
       })
+
+      // Reset global flags after using them
+      window.isFlaggedVisit = false;
+      window.flagReason = "";
 
       const result = await response.json()
 
@@ -1077,12 +1073,15 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           zIndex: 10000,
         })
 
-        // Find the specific parish in local data to be absolutely sure about the reward
-        let localReward = result.pointsAwarded || 10
-        if (typeof locations !== 'undefined') {
-          const foundParish = locations.find((l) => l.id == parroquiaId)
-          if (foundParish && foundParish.reward) {
-            localReward = parseInt(foundParish.reward)
+        // Priorizar pointsAwarded del servidor (vital para visitas repetidas)
+        let localReward = result.pointsAwarded
+        if (localReward === undefined) {
+          localReward = 10
+          if (typeof locations !== 'undefined') {
+            const foundParish = locations.find((l) => l.id == parroquiaId)
+            if (foundParish && foundParish.reward) {
+              localReward = parseInt(foundParish.reward)
+            }
           }
         }
 
@@ -1154,7 +1153,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   }
 
   // Triggered by User Interaction (Popup Button or Floating Button)
-  window.validateAndConfirm = (parroquiaId, parroquiaName) => {
+  window.validateAndConfirm = (parroquiaId, parroquiaName, forceBypass = false) => {
     // 1. Find Location Data
     const loc = locations.find((l) => (l.id || l.name) === parroquiaId || l.name === parroquiaName)
     if (!loc) return
@@ -1176,7 +1175,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
     if (dMeters <= PROXIMITY_THRESHOLD_M) {
       // Success: Iniciar verificación de movimiento anti-spoofing
-      startMovementVerification(loc, parroquiaId)
+      startMovementVerification(loc, parroquiaId, forceBypass)
     } else {
       // Failure: Show Distance Warning
       showDistanceModal(dMeters)
@@ -1185,7 +1184,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
   let verificationWatchId = null
 
-  function startMovementVerification(loc, parroquiaId) {
+  function startMovementVerification(loc, parroquiaId, forceBypass = false) {
     const modal = document.getElementById('movement-verification-modal')
     const activeState = document.getElementById('movement-active-state')
     const errorState = document.getElementById('movement-error-state')
@@ -1225,7 +1224,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     if (btnRetry) {
       btnRetry.onclick = () => {
         if (intervalId) clearInterval(intervalId);
-        startMovementVerification(loc, parroquiaId)
+        startMovementVerification(loc, parroquiaId, forceBypass)
       }
     }
 
@@ -1288,32 +1287,40 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         const errTitle = errorState.querySelector('h3')
         const errP = errorState.querySelector('p')
 
+        function handleMovementFailure(titleText, descText) {
+          movementFailCount++;
+          if (movementFailCount >= 3) {
+            // Bypass on 3rd fail
+            window.isFlaggedVisit = true;
+            window.flagReason = "Falló verificación de movimiento 3 veces: " + titleText;
+            movementFailCount = 0; // reset
+            modal.classList.add('hidden');
+            showProximityModal(loc, parroquiaId, forceBypass);
+          } else {
+            if (errTitle && errP) {
+              errTitle.textContent = titleText;
+              errP.textContent = descText + ` (Intento ${movementFailCount}/3)`;
+            }
+            activeState.classList.remove('flex');
+            activeState.classList.add('hidden');
+            errorState.classList.remove('hidden');
+            errorState.classList.add('flex');
+          }
+        }
+
         if (boundingDist > 0.0000001) {
           if (finalDistMeters <= PROXIMITY_THRESHOLD_M) {
             // Success! Hubo movimiento y sigue en la zona
+            movementFailCount = 0; // reset
             modal.classList.add('hidden')
-            showProximityModal(loc, parroquiaId)
+            showProximityModal(loc, parroquiaId, forceBypass)
           } else {
             // Failed! Se salió del perímetro
-            if (errTitle && errP) {
-              errTitle.textContent = '¡Te alejaste demasiado!'
-              errP.textContent = 'Al caminar, saliste del radio de la parroquia. Regresa y vuelve a intentarlo.'
-            }
-            activeState.classList.remove('flex')
-            activeState.classList.add('hidden')
-            errorState.classList.remove('hidden')
-            errorState.classList.add('flex')
+            handleMovementFailure('¡Te alejaste demasiado!', 'Al caminar, saliste del radio de la parroquia. Regresa y vuelve a intentarlo.')
           }
         } else {
           // Failed! Totalmente estático
-          if (errTitle && errP) {
-            errTitle.textContent = '¡No detectamos movimiento!'
-            errP.textContent = 'Tu ubicación GPS no cambió. Debes dar unos pasos durante 15 segundos para confirmar tu ubicación real.'
-          }
-          activeState.classList.remove('flex')
-          activeState.classList.add('hidden')
-          errorState.classList.remove('hidden')
-          errorState.classList.add('flex')
+          handleMovementFailure('¡No detectamos movimiento!', 'Tu ubicación GPS no cambió. Debes dar unos pasos durante 15 segundos para confirmar tu ubicación real.')
         }
       }
     }, 1000)
@@ -1332,11 +1339,11 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   }
 
   function checkProximity(lat, lon) {
-    const inRangeLocation = locations.find((loc) => {
-      const pid = loc.id || loc.parroquiaid || loc.name
-      // If confirmed, treat as "visited" (don't auto-trigger new visit logic for it)
-      if (confirmedParishes.has(pid)) return false
+    const user = getUserData()
+    const visitedString = user ? user.parroquiasVistitadas || '' : ''
+    const visitedIds = visitedString.split(',').map((id) => id.trim())
 
+    const inRangeLocations = locations.filter((loc) => {
       const dKm = calculateDistance(
         lat,
         lon,
@@ -1347,8 +1354,16 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       return dMeters <= PROXIMITY_THRESHOLD_M
     })
 
-    // Update State
-    currentProximityLoc = inRangeLocation || null
+    if (inRangeLocations.length === 0) {
+      currentProximityLoc = null
+    } else {
+      // Prioritize unvisited locations!
+      const unvisited = inRangeLocations.find(loc => {
+        const pid = (loc.id || loc.parroquiaid || loc.name).toString()
+        return !visitedIds.includes(pid) && !confirmedParishes.has(pid)
+      })
+      currentProximityLoc = unvisited || inRangeLocations[0]
+    }
 
     if (currentProximityLoc) {
       const pid = currentProximityLoc.id || currentProximityLoc.name
@@ -1384,7 +1399,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     }
   }
 
-  function showProximityModal(loc, pid) {
+  function showProximityModal(loc, pid, forceBypass = false) {
     if (!isUserLoggedIn()) {
       showLoginRequiredModal()
       return
@@ -1397,18 +1412,63 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     const visitedIds = visitedString.split(',').map((id) => id.trim())
     const targetId = (pid || loc.name).toString()
 
-    if (visitedIds.includes(targetId) || confirmedParishes.has(targetId)) {
+    const visitCount = visitedIds.filter(id => id === targetId).length + (confirmedParishes.has(targetId) ? 1 : 0)
+
+    const visitedJsonString = user.visited_parroquias_json || []
+    const visitedArr = typeof visitedJsonString === 'string' ? JSON.parse(visitedJsonString) : visitedJsonString
+    const today = new Date().toISOString().split('T')[0]
+
+    let visitedToday = confirmedParishes.has(targetId)
+    if (!visitedToday && Array.isArray(visitedArr)) {
+        visitedToday = visitedArr.some(v => v.id.toString() === targetId && new Date(v.date).toISOString().split('T')[0] === today)
+    }
+
+    if (!forceBypass && visitCount > 0) {
       const visitedModal = document.getElementById('already-visited-modal')
       if (visitedModal) {
+        const title = visitedModal.querySelector('h3')
+        const desc = visitedModal.querySelector('p')
+        let extraBtn = document.getElementById('btn-extra-points')
+
+        if (visitedToday) {
+            if (title && desc) {
+                title.textContent = `¡Ya visitaste esta parroquia hoy!`
+                desc.innerHTML = `Has visitado esta parroquia <b>${visitCount} ${visitCount === 1 ? 'vez' : 'veces'}</b>. Sigue peregrinando y visítala nuevamente mañana.`
+            }
+            if (extraBtn) extraBtn.classList.add('hidden')
+        } else {
+            if (title && desc) {
+                title.textContent = `¡Ya visitaste esta parroquia!`
+                desc.innerHTML = `Has visitado esta parroquia <b>${visitCount} ${visitCount === 1 ? 'vez' : 'veces'}</b>. Puedes seguir peregrinando, o registrar otra visita para sumar <b>10 puntos extra</b>.`
+            }
+            if (!extraBtn) {
+              extraBtn = document.createElement('button')
+              extraBtn.id = 'btn-extra-points'
+              extraBtn.className = 'w-full bg-[#f8b134] text-white font-bold py-3 rounded-xl hover:bg-[#d9972b] transition-colors shadow-lg mb-3'
+              extraBtn.textContent = 'Sumar 10 puntos extra'
+              const closeBtn = document.getElementById('btn-close-visited')
+              if (closeBtn && closeBtn.parentNode) {
+                closeBtn.parentNode.insertBefore(extraBtn, closeBtn)
+              }
+            }
+            extraBtn.classList.remove('hidden')
+            extraBtn.onclick = () => {
+              visitedModal.classList.add('hidden')
+              window.validateAndConfirm(pid, loc.name, true) // Recall with bypass!
+            }
+        }
+
         visitedModal.classList.remove('hidden')
+        
         const closeBtn = document.getElementById('btn-close-visited')
         if (closeBtn) {
+          closeBtn.textContent = 'Volver al mapa'
           closeBtn.onclick = () => {
             visitedModal.classList.add('hidden')
           }
         }
       } else {
-        alert('¡Ya has visitado esta parroquia!')
+        alert(`¡Ya has visitado esta parroquia ${visitCount} veces!`)
       }
       return
     }
@@ -1468,48 +1528,64 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
               throw new Error('Solo se permiten archivos de imagen.')
             }
 
-            // Using comprobantes/ directory to bypass strict Firebase Storage rules for /visitas
-            // since users are not authenticated via standard Firebase Auth mechanism
-            const storagePath = `visitas/visita_${pid}_${user.docId}_${Date.now()}.${fileExtension}`
-            const storageRef = ref(storage, storagePath)
+            // --- SUBIDA A AWS S3 ---
+            const presignRes = await fetch('/api/s3/presign', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                fileName: file.name,
+                fileType: file.type,
+                folder: 'visits',
+                parroquiaName: loc.name,
+                username: user.username || user.phone
+              })
+            });
+            
+            const presignData = await presignRes.json();
+            if (!presignData.success) {
+              throw new Error(presignData.error || 'Error obteniendo URL de subida');
+            }
 
-            const uploadTask = uploadBytesResumable(storageRef, file)
+            // Simular progreso
+            let simulatedProgress = 0;
+            const progressInterval = setInterval(() => {
+              simulatedProgress += 10;
+              if (simulatedProgress > 90) simulatedProgress = 90;
+              if (progressSpan) progressSpan.textContent = simulatedProgress + '%';
+            }, 300);
 
-            uploadTask.on(
-              'state_changed',
-              (snapshot) => {
-                const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-                if (progressSpan) progressSpan.textContent = progress + '%'
-              },
-              (error) => {
-                console.error('Error subiendo imagen:', error)
-                alert('Hubo un error al subir la imagen.')
-                btnConfirm.disabled = false
-                btnConfirm.textContent = '¡Sí, estoy aquí!'
-                btnCancel.disabled = false
-                if (statusDiv) statusDiv.classList.add('hidden')
-              },
-              async () => {
-                // Success
-                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+            // Subir a S3
+            const uploadRes = await fetch(presignData.uploadUrl, {
+              method: 'PUT',
+              body: file,
+              headers: { 'Content-Type': file.type }
+            });
 
-                window.executeVisit(pid, loc.name, downloadURL)
+            clearInterval(progressInterval);
 
-                // Reset modal state
-                modal.classList.add('hidden')
-                btnConfirm.disabled = false
-                btnConfirm.textContent = '¡Sí, estoy aquí!'
-                btnCancel.disabled = false
-                if (statusDiv) statusDiv.classList.add('hidden')
-                fileInput.value = ''
-              }
-            )
+            if (!uploadRes.ok) {
+              throw new Error('Error subiendo archivo a S3');
+            }
+
+            if (progressSpan) progressSpan.textContent = '100%';
+            const downloadURL = presignData.publicUrl;
+
+            window.executeVisit(pid, loc.name, downloadURL);
+
+            modal.classList.add('hidden')
+            btnConfirm.disabled = false
+            btnConfirm.textContent = '¡Sí, estoy aquí!'
+            btnCancel.disabled = false
+            if (statusDiv) statusDiv.classList.add('hidden')
+            fileInput.value = ''
+
           } catch (error) {
             alert(error.message || 'Error al procesar la imagen')
             btnConfirm.disabled = false
             btnConfirm.textContent = '¡Sí, estoy aquí!'
             btnCancel.disabled = false
             if (statusDiv) statusDiv.classList.add('hidden')
+            fileInput.value = ''
           }
         }
         btnCancel.onclick = () => {

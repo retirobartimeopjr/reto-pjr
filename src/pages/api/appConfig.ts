@@ -4,19 +4,24 @@ import bcrypt from 'bcryptjs';
 
 export const GET: APIRoute = async () => {
     try {
-        const res = await query('SELECT value FROM app_config WHERE key = $1', ['challenge_state']);
+        const res = await query("SELECT key, value FROM app_config WHERE key IN ('challenge_state', 'proximity_threshold')");
         
-        if (res.rowCount === 0) {
-            return new Response(JSON.stringify({
-                active: true,
-                message: "Estado por defecto: Activo"
-            }), {
-                status: 200,
-                headers: { 'Content-Type': 'application/json' }
-            });
+        const config: any = {
+            active: true,
+            message: "Estado por defecto: Activo",
+            proximity_threshold: 350
+        };
+
+        for (const row of res.rows) {
+            if (row.key === 'challenge_state') {
+                config.active = row.value.active ?? true;
+                config.message = row.value.message ?? config.message;
+            } else if (row.key === 'proximity_threshold') {
+                config.proximity_threshold = Number(row.value) || 350;
+            }
         }
 
-        return new Response(JSON.stringify(res.rows[0].value), {
+        return new Response(JSON.stringify(config), {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
         });
@@ -32,15 +37,12 @@ export const GET: APIRoute = async () => {
 export const POST: APIRoute = async ({ request }) => {
     try {
         const body = await request.json();
-        const { username, password, active, message } = body;
+        const { username, password, active, message, proximity_threshold } = body;
 
-        // "username" sigue siendo el teléfono por simplicidad como solicitó el usuario,
-        // pero lo renombramos a nivel logico en la DB a 'username' para el admin panel
         if (!username || !password) {
             return new Response(JSON.stringify({ error: 'Credenciales incompletas' }), { status: 400 });
         }
 
-        // 1. Obtener hash del administrador
         const adminRes = await query('SELECT password FROM admins WHERE username = $1', [username]);
         
         if (adminRes.rowCount === 0) {
@@ -48,22 +50,28 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         const hashedPassword = adminRes.rows[0].password;
-
-        // 2. Validar contraseña con bcrypt
         const isValid = await bcrypt.compare(password, hashedPassword);
 
         if (!isValid) {
             return new Response(JSON.stringify({ error: 'Credenciales inválidas' }), { status: 401 });
         }
 
-        // 3. Actualizar Estado
-        const newState = { active: !!active, message: message || "Reto pausado temporalmente" };
+        const newState: any = { active: !!active, message: message || "Reto pausado temporalmente" };
         
         await query(`
             INSERT INTO app_config (key, value) 
             VALUES ('challenge_state', $1::jsonb)
             ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
         `, [JSON.stringify(newState)]);
+
+        if (proximity_threshold !== undefined) {
+            await query(`
+                INSERT INTO app_config (key, value) 
+                VALUES ('proximity_threshold', $1::jsonb)
+                ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+            `, [JSON.stringify(Number(proximity_threshold))]);
+            newState.proximity_threshold = Number(proximity_threshold);
+        }
 
         return new Response(JSON.stringify({ success: true, state: newState }), {
             status: 200,
