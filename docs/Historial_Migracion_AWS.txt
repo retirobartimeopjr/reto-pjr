@@ -89,12 +89,35 @@ Desarrollo (En curso):
 - Envío del código compilado (Astro SSR) y gestión del proceso con PM2 (`ecosystem.config.cjs`).
 
 --------------------------------------------------------------------
-FASE 8 (FUTURA): Panel de Administración Dinámico (/coordi)
+FASE 8: Panel de Administración Dinámico (/coordi) y Control de Estado
 --------------------------------------------------------------------
 Motivo: Controlar el estado de la competencia (Activo/Inactivo) y los 
 mensajes de la interfaz de forma remota sin hacer despliegues de código 
 ni depender de fechas en duro.
-Desarrollo (Pendiente):
-- Tabla `app_config` en Postgres.
-- Interfaz gráfica en Astro/React y endpoints de control.
+Desarrollo:
+- Implementación de la tabla `app_config` en Postgres para estado dinámico.
+- Panel en `/coordi` con autenticación básica (admins).
+- Endpoints `GET` y `POST` `/api/appConfig` para leer y escribir el estado global con el Master Switch.
+
+--------------------------------------------------------------------
+FASE 9: Auditoría de Seguridad, Hardening y Fixes SSR (Vite)
+--------------------------------------------------------------------
+Motivo: Endurecer la aplicación frente a vulnerabilidades comunes del OWASP Top 10 (IDOR, fuerza bruta, passwords expuestos).
+Desarrollo:
+- Reemplazo de contraseñas de administradores por Hashes utilizando `bcryptjs` y ejecución del script de migración local (`hash_passwords.ts`).
+- Implementación de autenticación fuerte con JWT (JSON Web Tokens) en cookies seguras (`HttpOnly`) para proteger los endpoints `/login`, `/visit` y `/submitReferral`.
+- Remediación de IDOR asegurando que las acciones lean el `userId` desde el token JWT y no desde el request body.
+- Securización en infraestructura: Rate Limiting y cabeceras de seguridad en Nginx, variables de entorno sensibles en PM2 (`ecosystem.config.cjs`).
+- Refactor del acceso a variables de entorno (`import.meta.env` y `process.env`) usando el helper `getRuntimeEnv` para evitar el inlining estático de Vite y que el servidor SSR se comunique con Postgres dinámicamente.
+
+--------------------------------------------------------------------
+FASE 10: Módulo Georreferenciado de Gestión de Parroquias
+--------------------------------------------------------------------
+Motivo: Permitir a los administradores desde `/coordi` agregar o modificar las parroquias dinámicamente en Postgres sin hardcodear archivos JSON.
+Desarrollo:
+- Integración de API `POST` y `PUT` en `/api/parroquias` para persistir la data geográfica de cada templo.
+- Creación del `ParroquiasManager.tsx` implementando `react-leaflet` y conexión a la API abierta de Nominatim de OpenStreetMap.
+- Funcionalidad de Búsqueda inteligente por nombre/ciudad para centrar el mapa.
+- Interfaz interactiva de Pin arrastrable (Rojo) para capturar Lat/Lng precisos de la nueva parroquia, rellenar atributos (nombre, vicaría, reward) y editar parroquias clickeadas.
+- Modificación en la renderización de Astro (`client:only="react"`) para aislar los mapas de React de los errores de hidratación de Node/SSR.
 ====================================================================
