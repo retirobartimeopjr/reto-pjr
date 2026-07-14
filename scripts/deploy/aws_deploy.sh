@@ -50,9 +50,8 @@ ssh -i $KEY_IDENTIFIER $REMOTE_USER@$REMOTE_IP << 'EOF'
     # Save the PM2 list
     pm2 save
 
-    # Recargar configuración de Nginx
-    echo "🌐 Reloading Nginx configuration..."
-    sudo nginx -s reload
+    # Nota: Ya no recargamos Nginx porque estamos usando Cloudflare Tunnels (cloudflared)
+    # que enruta directamente al puerto 3000 de forma segura.
 EOF
 
 echo "✅ Deployment complete!"

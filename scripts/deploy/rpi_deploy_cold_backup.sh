@@ -47,6 +47,11 @@ ssh "$REMOTE_HOST" << EOF
         pm2 delete bartimeo
         pm2 save
     fi
-    echo "✅ Código sincronizado. La Raspberry Pi está lista como copia de seguridad en frío."
+    
+    echo "☁️  Deshabilitando Cloudflare Tunnels (cloudflared) en la Raspberry Pi..."
+    sudo systemctl stop cloudflared || true
+    sudo systemctl disable cloudflared || true
+    
+    echo "✅ Código sincronizado. La Raspberry Pi está lista como copia de seguridad en frío (sin conflictos de red)."
 EOF
 
