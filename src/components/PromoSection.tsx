@@ -35,7 +35,7 @@ export default function PromoSection() {
             {/* Context */}
             <div className="text-center border-b border-white/10 pb-6">
               <p className="text-lg md:text-xl text-white/90 leading-relaxed font-light">
-                Esta es una iniciativa pastoral <span className="text-brand font-medium">que busca recolectar fondos</span> para el IV Retiro de nuestros jovenes Bartimeo.
+                Esta es una iniciativa pastoral <span className="text-brand font-medium">que busca recolectar fondos</span> para el V Retiro de nuestros jovenes Bartimeo.
               </p>
 
               <div className="mt-6 flex justify-center">

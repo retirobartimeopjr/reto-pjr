@@ -249,7 +249,7 @@ export default function LoginModule() {
             {!mounted || user.isAuthenticated !== 'true' ? (
                 <div className="flex items-center gap-3">
                     <a
-                        href="https://forms.gle/HMvueg96JV3gqNmB6"
+                        href="https://forms.gle/mxGXY55yQbdAEx5G9"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-5 py-2 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-full text-[#3d0000] text-sm font-sans font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-stretch-jump"
@@ -274,12 +274,12 @@ export default function LoginModule() {
             ) : (
                 <div className="flex items-center gap-3">
                     <a
-                        href="https://forms.gle/HMvueg96JV3gqNmB6"
+                        href="https://forms.gle/mxGXY55yQbdAEx5G9"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="px-4 py-1.5 bg-[#f8b134] hover:bg-[#fbd07e] border border-[#f8b134] rounded-full text-[#3d0000] text-xs font-sans font-bold transition-all duration-300 flex items-center gap-2 group cursor-pointer shadow-[0_0_15px_rgba(248,177,52,0.3)] hover:shadow-[0_0_20px_rgba(248,177,52,0.5)] animate-soft-bounce"
                     >
-                        <span>¡Inscríbete al IV Retiro!</span>
+                        <span>¡Inscríbete al V Retiro!</span>
                     </a>
 
                     <button

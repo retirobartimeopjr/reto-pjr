@@ -143,4 +143,15 @@ Desarrollo:
 - Refactorización completa del mapa (`Map.astro`) para interceptar la foto tomada por la cámara, solicitar la firma al backend, y subir la imagen directamente al bucket de Amazon.
 - Inyección de las credenciales y configuración del bucket en los entornos `.env.local` y producción (`.env` del EC2 por SSH).
 - Solución profunda de bugs relacionados a cómo se serializaban los arreglos de JSON (`visited_parroquias_json`) en la base de datos local del navegador (`nanostores/persistent`), garantizando que la memoria retenga el historial estricto con fechas locales (no UTC) tras recargar la página.
+--------------------------------------------------------------------
+FASE 13: Resolución de conflictos de red (Cloudflare Tunnels) y PM2 Entorno
+--------------------------------------------------------------------
+Motivo: Solucionar caída total de la página web (Error 502 Bad Gateway) en producción intermitente y constante tras realizar despliegues con el script maestro.
+Desarrollo:
+- Corrección de PM2 y Dotenv: PM2 no cargaba automáticamente el archivo `.env` del servidor en tiempo de ejecución, lo que provocaba que la conexión a PostgreSQL fallara (intentaba conectar a localhost en lugar de la IP de la VPC de AWS). Se instaló `dotenv` y se configuró dentro de `ecosystem.config.cjs` para inyectar dinámicamente las credenciales seguras.
+- Limpieza de túneles Cloudflare (Ghost Connectors): Se identificó que la Raspberry Pi (servidor de respaldo) mantenía vivo un agente de `cloudflared` compitiendo y robando tráfico legítimo al servidor AWS EC2 dentro del mismo ID de Túnel, lo que generaba errores 502 Bad Gateway intermitentes al enrutar a una máquina caída. Se depuró la conexión antigua usando `cloudflared tunnel cleanup`.
+- Eliminación de Nginx: Se descartó Nginx por completo del ecosistema de producción, ya que Cloudflare Edge gestiona WAF, SSL y balanceo de carga. Ahora el túnel (Zero Trust) de Cloudflare conecta directamente al puerto 3000 (PM2) de la instancia de Amazon de manera 100% encriptada sin abrir puertos públicos (80/443).
+- Optimización de scripts de despliegue: 
+  1) Se eliminó de `aws_deploy.sh` el comando residual `sudo nginx -s reload`. 
+  2) Se modificó `rpi_deploy_cold_backup.sh` para forzar a la Raspberry Pi a detener y deshabilitar (`disable`) el servicio `cloudflared` local durante cada despliegue, garantizando su rol estricto como "Cold Backup" e imposibilitando conflictos de red futuros.
 ====================================================================
