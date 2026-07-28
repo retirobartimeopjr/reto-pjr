@@ -29,6 +29,7 @@ interface Parroquia {
     vicaria: string;
     center: { lat: number; lng: number };
     reward: number;
+    code?: string;
 }
 
 // Map Click Handler Component
@@ -52,11 +53,17 @@ function MapViewUpdater({ center }: { center: { lat: number; lng: number } | nul
     return null;
 }
 
-export default function ParroquiasManager() {
+export default function ParroquiasManager({ username = '', password = '' }: { username?: string, password?: string }) {
     const [parroquias, setParroquias] = useState<Parroquia[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearching, setIsSearching] = useState(false);
     const [mapCenter, setMapCenter] = useState<{ lat: number; lng: number } | null>(null);
+    
+    // Directorio State
+    const [dirSearch, setDirSearch] = useState('');
+    const [selectedDirParroquia, setSelectedDirParroquia] = useState<Parroquia | null>(null);
+    const [parroquiaVisitors, setParroquiaVisitors] = useState<any[]>([]);
+    const [loadingVisitors, setLoadingVisitors] = useState(false);
     
     // Form State
     const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -140,6 +147,34 @@ export default function ParroquiasManager() {
         setPinLocation(null);
     };
 
+    const handleViewVisitors = async (p: Parroquia) => {
+        setSelectedDirParroquia(p);
+        setLoadingVisitors(true);
+        setParroquiaVisitors([]);
+        try {
+            const res = await fetch('/api/parroquiaDetails', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password, action: 'visitors', parroquiaId: p.id })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setParroquiaVisitors(data);
+            } else {
+                console.error("Error fetching visitors:", data.error);
+            }
+        } catch (e) {
+            console.error("Connection error:", e);
+        } finally {
+            setLoadingVisitors(false);
+        }
+    };
+
+    const filteredDir = parroquias.filter(p => 
+        p.name.toLowerCase().includes(dirSearch.toLowerCase()) || 
+        (p.code && p.code.toLowerCase().includes(dirSearch.toLowerCase()))
+    );
+
     const handleSave = async () => {
         if (!name || !pinLocation) {
             setFeedback('Falta el nombre o seleccionar un punto en el mapa');
@@ -188,25 +223,25 @@ export default function ParroquiasManager() {
     }, {} as Record<string, number>);
 
     return (
-        <div className="bg-[#1a1a1a] rounded-3xl p-6 md:p-8 border border-white/10 mt-8 space-y-6">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-white/10 pb-6">
+        <div className="space-y-6">
+            <div className="bg-[#161616] rounded-3xl p-6 md:p-8 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 className="text-2xl font-bold text-brand">Gestión de Parroquias</h2>
+                    <h2 className="text-xl font-bold text-white">Gestión de Parroquias</h2>
                     <p className="text-zinc-400 text-sm mt-1">Busca, agrega y modifica puntos en el mapa.</p>
                 </div>
                 <div className="flex flex-wrap gap-2 text-xs font-mono">
-                    <span className="bg-brand/20 text-brand px-3 py-1 rounded-full border border-brand/30">
+                    <span className="bg-brand/10 text-brand px-3 py-1.5 rounded-full border border-brand/20">
                         Total: {parroquias.length}
                     </span>
                     {Object.entries(countByVicaria).map(([vic, count]) => (
-                        <span key={vic} className="bg-white/5 text-zinc-300 px-3 py-1 rounded-full border border-white/10">
+                        <span key={vic} className="bg-white/5 text-zinc-400 px-3 py-1.5 rounded-full border border-white/10">
                             {vic}: {count}
                         </span>
                     ))}
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Panel Izquierdo: Formulario y Búsqueda */}
                 <div className="lg:col-span-1 space-y-6">
                     {/* Búsqueda */}
@@ -216,7 +251,7 @@ export default function ParroquiasManager() {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Buscar ciudad, barrio o dirección..."
-                            className="flex-grow bg-[#222] border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-brand"
+                            className="flex-grow bg-[#161616] border border-white/5 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-brand/50"
                         />
                         <button
                             type="submit"
@@ -228,7 +263,7 @@ export default function ParroquiasManager() {
                     </form>
 
                     {/* Formulario de Parroquia */}
-                    <div className="bg-[#222] p-5 rounded-2xl border border-white/5 space-y-4 relative">
+                    <div className="bg-[#161616] p-6 rounded-3xl border border-white/5 space-y-4 relative">
                         {selectedId && (
                             <button 
                                 onClick={resetForm}
@@ -246,7 +281,7 @@ export default function ParroquiasManager() {
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 placeholder="Ej: Parroquia San José..."
-                                className="w-full bg-[#111] border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:border-brand"
+                                className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-brand text-sm"
                             />
                         </div>
 
@@ -256,7 +291,7 @@ export default function ParroquiasManager() {
                                 <select
                                     value={vicaria}
                                     onChange={(e) => setVicaria(e.target.value)}
-                                    className="w-full bg-[#111] border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:border-brand text-sm"
+                                    className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-brand text-sm"
                                 >
                                     {vicariasOptions.map(v => <option key={v} value={v}>{v}</option>)}
                                 </select>
@@ -267,12 +302,12 @@ export default function ParroquiasManager() {
                                     type="number"
                                     value={reward}
                                     onChange={(e) => setReward(parseInt(e.target.value) || 0)}
-                                    className="w-full bg-[#111] border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:border-brand"
+                                    className="w-full bg-[#0a0a0a] border border-white/10 rounded-xl p-3 text-white focus:outline-none focus:border-brand text-sm"
                                 />
                             </div>
                         </div>
 
-                        <div className="bg-[#111] p-3 rounded-lg border border-white/5">
+                        <div className="bg-[#0a0a0a] p-4 rounded-xl border border-white/5">
                             <label className="text-xs text-zinc-400 font-bold block mb-1">Coordenadas (Pin Rojo)</label>
                             <p className="text-sm font-mono text-zinc-300 break-all">
                                 {pinLocation ? `${pinLocation.lat.toFixed(5)}, ${pinLocation.lng.toFixed(5)}` : 'Haz click en el mapa para ubicarla'}
@@ -366,6 +401,123 @@ export default function ParroquiasManager() {
                     )}
                 </div>
             </div>
+
+            {/* Directorio de Parroquias */}
+            <div className="bg-[#161616] rounded-3xl p-6 border border-white/5 space-y-6">
+                <div>
+                    <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-brand" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" /></svg>
+                        Directorio y Auditoría
+                    </h3>
+                    <input
+                        type="text"
+                        value={dirSearch}
+                        onChange={(e) => setDirSearch(e.target.value)}
+                        placeholder="Buscar por nombre o código (ej. P-001)..."
+                        className="w-full bg-[#0a0a0a] border border-white/5 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-brand/50 mb-4"
+                    />
+                </div>
+                
+                <div className="overflow-x-auto rounded-xl border border-white/5 bg-[#0a0a0a]">
+                    <table className="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr className="border-b border-white/5 text-zinc-500 text-xs uppercase tracking-wider">
+                                <th className="p-4 font-bold">Código</th>
+                                <th className="p-4 font-bold">Parroquia</th>
+                                <th className="p-4 font-bold">Vicaria</th>
+                                <th className="p-4 font-bold text-center">Recompensa</th>
+                                <th className="p-4 font-bold text-right">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-white/5">
+                            {filteredDir.map(p => (
+                                <tr key={p.id} className="hover:bg-white/5 transition">
+                                    <td className="p-4 font-mono text-zinc-400">{p.code || '-'}</td>
+                                    <td className="p-4 font-medium text-white">{p.name}</td>
+                                    <td className="p-4 text-zinc-400">{p.vicaria}</td>
+                                    <td className="p-4 text-brand font-mono text-center">+{p.reward}</td>
+                                    <td className="p-4 text-right">
+                                        <button
+                                            onClick={() => handleViewVisitors(p)}
+                                            className="px-3 py-1.5 rounded-lg text-xs font-bold transition border bg-brand/10 border-brand/30 text-brand hover:bg-brand/20"
+                                        >
+                                            Ver Visitantes
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                            {filteredDir.length === 0 && (
+                                <tr>
+                                    <td colSpan={5} className="p-8 text-center text-zinc-500 italic">No se encontraron parroquias en el directorio.</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {/* Parroquia Visitors Modal */}
+            {selectedDirParroquia && (
+                <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+                    <div className="bg-[#161616] border border-white/10 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+                        <div className="p-6 border-b border-white/5 flex justify-between items-center">
+                            <div>
+                                <h3 className="text-xl font-bold text-white">{selectedDirParroquia.name}</h3>
+                                <p className="text-sm text-zinc-400 mt-1 font-mono">
+                                    {selectedDirParroquia.code || 'Sin código'} • {selectedDirParroquia.vicaria}
+                                </p>
+                            </div>
+                            <button 
+                                onClick={() => setSelectedDirParroquia(null)}
+                                className="text-zinc-500 hover:text-white transition"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                            </button>
+                        </div>
+                        
+                        <div className="p-6 overflow-y-auto">
+                            <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-brand" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" /></svg>
+                                Historial de Visitantes
+                            </h4>
+                            
+                            <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden">
+                                {loadingVisitors ? (
+                                    <p className="p-6 text-center text-sm text-brand animate-pulse">Cargando visitantes...</p>
+                                ) : parroquiaVisitors.length === 0 ? (
+                                    <p className="p-6 text-center text-sm text-zinc-500">Nadie ha visitado esta parroquia aún.</p>
+                                ) : (
+                                    <table className="w-full text-left border-collapse text-sm">
+                                        <thead>
+                                            <tr className="border-b border-white/5 text-zinc-500 text-xs uppercase tracking-wider">
+                                                <th className="p-4 font-bold">Participante</th>
+                                                <th className="p-4 font-bold text-center">Puntos Obtenidos</th>
+                                                <th className="p-4 font-bold text-right">Fecha de Escaneo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-white/5">
+                                            {parroquiaVisitors.map((v, i) => (
+                                                <tr key={i} className="hover:bg-white/5 transition">
+                                                    <td className="p-4">
+                                                        <div className="text-white font-bold">{v.username || 'Anónimo'}</div>
+                                                        <div className="text-xs text-zinc-500 mt-1">
+                                                            {v.phone ? `📱 ${v.phone}` : ''} {v.cedula ? ` | 🪪 ${v.cedula}` : ''}
+                                                        </div>
+                                                    </td>
+                                                    <td className="p-4 text-brand font-mono font-bold text-center">+{v.points_awarded}</td>
+                                                    <td className="p-4 text-right text-zinc-400 text-xs">
+                                                        {new Date(v.visited_at).toLocaleString('es-CO')}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -4,7 +4,7 @@ import { query } from '../../lib/db';
 export const GET: APIRoute = async () => {
     try {
         const res = await query(`
-            SELECT id, name, vicaria, latitude, longitude, reward 
+            SELECT id, code, name, vicaria, latitude, longitude, reward 
             FROM parroquias
             WHERE latitude IS NOT NULL AND longitude IS NOT NULL
         `);
@@ -12,6 +12,7 @@ export const GET: APIRoute = async () => {
         const parroquias = res.rows.map(row => {
             return {
                 id: row.id.toString(), // Mantenemos string id por compatibilidad con el frontend
+                code: row.code || '',
                 name: row.name,
                 center: { 
                     lat: Number(row.latitude), 

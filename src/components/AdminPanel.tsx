@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import ParroquiasManager from './ParroquiasManager';
 import FlaggedVisitsManager from './FlaggedVisitsManager';
+import UsersManager from './UsersManager';
+import MessagingPanel from './MessagingPanel';
 
 export default function AdminPanel() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,6 +16,10 @@ export default function AdminPanel() {
     const [message, setMessage] = useState("¡El Reto ha terminado!");
     const [proximityThreshold, setProximityThreshold] = useState(350);
     const [statusFeedback, setStatusFeedback] = useState('');
+
+    // UI State
+    const [activeTab, setActiveTab] = useState<'general' | 'visitas' | 'parroquias' | 'participantes' | 'mensajeria'>('general');
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     // Fetch initial state
     useEffect(() => {
@@ -131,28 +137,43 @@ export default function AdminPanel() {
         );
     }
 
-    return (
-        <div className="min-h-screen bg-[#111] p-4 md:p-8 text-white">
-            <div className="max-w-7xl mx-auto space-y-6">
-                
-                {/* Header */}
-                <div className="bg-[#1a1a1a] rounded-3xl p-6 border border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 max-w-2xl mx-auto w-full">
-                    <div>
-                        <h1 className="text-2xl font-bold text-brand">Centro de Control</h1>
-                        <p className="text-zinc-400">Hola, {username}. Estás en vivo.</p>
+    const renderContent = () => {
+        if (activeTab === 'visitas') {
+            return <FlaggedVisitsManager />;
+        }
+        if (activeTab === 'parroquias') {
+            return <ParroquiasManager username={username} password={password} />;
+        }
+        if (activeTab === 'participantes') {
+            return <UsersManager username={username} password={password} />;
+        }
+        if (activeTab === 'mensajeria') {
+            return <MessagingPanel username={username} password={password} />;
+        }
+        
+        // General Tab (Bento Dashboard)
+        return (
+            <div className="space-y-6">
+                {/* Header Profile / Status */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="md:col-span-2 bg-[#161616] rounded-3xl p-6 border border-white/5 flex flex-col justify-between relative overflow-hidden">
+                        <div className="absolute top-0 right-0 p-32 bg-brand/5 blur-[100px] rounded-full pointer-events-none"></div>
+                        <div>
+                            <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-1">Visión General</h2>
+                            <h1 className="text-3xl font-serif text-white mb-2">Centro de Control</h1>
+                            <p className="text-zinc-400">Hola, <span className="text-brand font-medium">{username}</span>. Estás administrando el evento en vivo.</p>
+                        </div>
+                        <div className="mt-8 flex items-center gap-3">
+                            <div className={`px-4 py-2 rounded-full border text-sm font-mono flex items-center gap-2 ${isActive ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-red-500/10 border-red-500/30 text-red-400'}`}>
+                                <span className={`w-2.5 h-2.5 rounded-full ${isActive ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></span>
+                                {isActive ? 'RETO ONLINE - Sistema Activo' : 'RETO BLOQUEADO - Acceso Restringido'}
+                            </div>
+                        </div>
                     </div>
-                    <div className="px-4 py-2 bg-black/50 rounded-full border border-white/5 text-sm font-mono flex items-center gap-2">
-                        <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></span>
-                        {isActive ? 'RETO ONLINE' : 'RETO BLOQUEADO'}
-                    </div>
-                </div>
 
-                {/* Main Controls */}
-                <div className="bg-[#1a1a1a] rounded-3xl p-8 border border-white/10 space-y-8 max-w-2xl mx-auto w-full">
-                    
-                    {/* The Big Switch */}
-                    <div className="flex flex-col items-center p-8 bg-black/30 rounded-2xl border border-white/5">
-                        <h2 className="text-xl font-bold mb-6 text-center">Master Switch</h2>
+                    {/* Master Switch */}
+                    <div className="bg-[#161616] rounded-3xl p-6 border border-white/5 flex flex-col items-center justify-center text-center">
+                        <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-6">Master Switch</h2>
                         <button
                             onClick={() => handleUpdateState(!isActive)}
                             disabled={loading}
@@ -161,70 +182,168 @@ export default function AdminPanel() {
                             } border-2`}
                         >
                             <div className={`w-13 h-13 bg-white rounded-full shadow-lg transition-transform duration-300 flex items-center justify-center ${
-                                isActive ? 'translate-x-16 bg-green-500 shadow-green-500/50' : 'translate-x-0 bg-red-500 shadow-red-500/50'
+                                isActive ? 'translate-x-16 bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.5)]' : 'translate-x-0 bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.5)]'
                             }`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                             </div>
                         </button>
-                        <p className="mt-4 font-bold text-zinc-400">
-                            {isActive ? 'El reto está corriendo normalmente' : 'El reto está BLOQUEADO para todos'}
-                        </p>
                     </div>
+                </div>
 
-                    {/* Custom Message */}
-                    <div className="space-y-4">
-                        <div>
-                            <label className="text-zinc-400 text-sm font-bold block mb-2">Mensaje de Bloqueo (Se mostrará cuando apagues el reto)</label>
-                            <textarea
-                                value={message}
-                                onChange={e => setMessage(e.target.value)}
-                                className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-brand h-32 resize-none text-lg text-center"
-                                placeholder="Ej: Reto pausado temporalmente..."
-                            />
-                        </div>
+                {/* Configuration Bento Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Mensaje de Bloqueo */}
+                    <div className="bg-[#161616] rounded-3xl p-6 border border-white/5 flex flex-col h-full">
+                        <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4">Mensaje de Bloqueo</h2>
+                        <p className="text-xs text-zinc-400 mb-3">Texto que verán los usuarios si el sistema está apagado.</p>
+                        <textarea
+                            value={message}
+                            onChange={e => setMessage(e.target.value)}
+                            className="flex-1 w-full bg-[#0a0a0a] border border-white/5 rounded-2xl p-4 text-white focus:outline-none focus:border-brand/50 resize-none text-sm min-h-[100px]"
+                            placeholder="Ej: Reto pausado temporalmente..."
+                        />
                         <button
                             onClick={() => handleUpdateState(isActive)}
                             disabled={loading}
-                            className="w-full border border-white/20 text-white font-bold py-3 rounded-xl hover:bg-white/5 transition"
+                            className="w-full mt-4 bg-white/5 border border-white/10 text-white font-bold py-3 rounded-xl hover:bg-white/10 transition text-sm"
                         >
-                            Guardar solo el mensaje
+                            Guardar Mensaje
                         </button>
                     </div>
 
-                    {/* Proximity Threshold */}
-                    <div className="space-y-4">
-                        <div>
-                            <label className="text-zinc-400 text-sm font-bold block mb-2">Radio de Proximidad del GPS (metros)</label>
+                    {/* Radio GPS */}
+                    <div className="bg-[#161616] rounded-3xl p-6 border border-white/5 flex flex-col h-full">
+                        <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4">Configuración GPS</h2>
+                        <p className="text-xs text-zinc-400 mb-3">Radio de proximidad para Check-In válido (en metros).</p>
+                        <div className="flex-1 flex flex-col justify-center">
                             <input
                                 type="number"
                                 value={proximityThreshold}
                                 onChange={e => setProximityThreshold(Number(e.target.value))}
-                                className="w-full bg-black/50 border border-white/10 rounded-xl p-4 text-white focus:outline-none focus:border-brand text-lg text-center"
-                                placeholder="Ej: 350"
+                                className="w-full bg-[#0a0a0a] border border-white/5 rounded-2xl p-6 text-white focus:outline-none focus:border-brand/50 text-4xl text-center font-bold"
+                                placeholder="350"
                             />
                         </div>
                         <button
                             onClick={() => handleUpdateState(isActive)}
                             disabled={loading}
-                            className="w-full border border-brand/50 text-brand font-bold py-3 rounded-xl hover:bg-brand/10 transition"
+                            className="w-full mt-4 bg-brand/10 border border-brand/30 text-brand font-bold py-3 rounded-xl hover:bg-brand/20 transition text-sm"
                         >
-                            Guardar Radio de Proximidad
+                            Guardar Distancia
                         </button>
                     </div>
-
-                    {statusFeedback && (
-                        <div className="p-4 bg-brand/10 border border-brand/30 text-brand text-center rounded-xl font-bold animate-in fade-in zoom-in">
-                            {statusFeedback}
-                        </div>
-                    )}
                 </div>
 
-                {/* --- SECCIÓN VISITAS SOSPECHOSAS --- */}
-                <FlaggedVisitsManager />
-
-                {/* --- NUEVA SECCIÓN DE PARROQUIAS --- */}
-                <ParroquiasManager />
+                {statusFeedback && (
+                    <div className="p-4 bg-brand/10 border border-brand/30 text-brand text-center rounded-xl font-bold text-sm">
+                        {statusFeedback}
+                    </div>
+                )}
             </div>
+        );
+    };
+
+    return (
+        <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col md:flex-row font-sans">
+            
+            {/* Mobile Header */}
+            <div className="md:hidden flex items-center justify-between p-4 bg-[#111] border-b border-white/5 z-20">
+                <div className="font-serif text-xl text-brand font-bold">Coordi.</div>
+                <button 
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="p-2 bg-white/5 rounded-lg border border-white/10"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+                    </svg>
+                </button>
+            </div>
+
+            {/* Sidebar Navigation */}
+            <aside className={`
+                fixed inset-y-0 left-0 z-10 w-64 bg-[#111] border-r border-white/5 transform transition-transform duration-300 ease-in-out
+                md:relative md:translate-x-0 flex flex-col
+                ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+            `}>
+                <div className="p-6 hidden md:block">
+                    <div className="font-serif text-2xl text-brand font-bold tracking-tight">Bartimeo</div>
+                    <div className="text-xs text-zinc-500 font-bold uppercase tracking-widest mt-1">Coordi Journal</div>
+                </div>
+
+                <div className="flex-1 py-6 px-4 space-y-2 overflow-y-auto mt-16 md:mt-0">
+                    <button 
+                        onClick={() => { setActiveTab('general'); setIsMobileMenuOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-sm font-medium ${
+                            activeTab === 'general' ? 'bg-white/10 text-white' : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                        }`}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg>
+                        Vista General
+                    </button>
+                    
+                    <button 
+                        onClick={() => { setActiveTab('visitas'); setIsMobileMenuOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-sm font-medium ${
+                            activeTab === 'visitas' ? 'bg-white/10 text-white' : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                        }`}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                        Alertas Sospechosas
+                    </button>
+
+                    <button 
+                        onClick={() => { setActiveTab('participantes'); setIsMobileMenuOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-sm font-medium ${
+                            activeTab === 'participantes' ? 'bg-white/10 text-white' : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                        }`}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        Participantes
+                    </button>
+
+                    <button 
+                        onClick={() => { setActiveTab('parroquias'); setIsMobileMenuOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-sm font-medium ${
+                            activeTab === 'parroquias' ? 'bg-white/10 text-white' : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                        }`}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        Mapa Parroquias
+                    </button>
+
+                    <button 
+                        onClick={() => { setActiveTab('mensajeria'); setIsMobileMenuOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-sm font-medium ${
+                            activeTab === 'mensajeria' ? 'bg-brand/10 text-brand' : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                        }`}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        Mensajería
+                    </button>
+                </div>
+
+                <div className="p-4 border-t border-white/5">
+                    <button className="w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-zinc-500 hover:text-white transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </aside>
+
+            {/* Main Content Area */}
+            <main className="flex-1 h-screen overflow-y-auto p-4 md:p-8 bg-[#0a0a0a]">
+                <div className="max-w-5xl mx-auto">
+                    {renderContent()}
+                </div>
+            </main>
+            
+            {/* Overlay for mobile menu */}
+            {isMobileMenuOpen && (
+                <div 
+                    className="fixed inset-0 bg-black/50 z-0 md:hidden" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                ></div>
+            )}
         </div>
     );
 }

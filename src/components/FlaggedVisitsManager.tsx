@@ -37,11 +37,11 @@ export default function FlaggedVisitsManager() {
     }, []);
 
     return (
-        <div className="bg-[#1a1a1a] rounded-3xl p-6 border border-white/10 mt-8">
-            <div className="flex justify-between items-center mb-6">
+        <div className="space-y-6">
+            <div className="bg-[#161616] rounded-3xl p-6 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 className="text-2xl font-bold text-brand flex items-center gap-2">
-                        <span>⚠️</span> Visitas Sospechosas
+                    <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                        <span className="text-red-500">⚠️</span> Visitas Sospechosas
                     </h2>
                     <p className="text-zinc-400 text-sm mt-1">
                         Registros que requieren revisión (teletransportación o falla de cámara)
@@ -50,51 +50,53 @@ export default function FlaggedVisitsManager() {
                 <button
                     onClick={fetchVisits}
                     disabled={loading}
-                    className="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl transition text-sm font-bold disabled:opacity-50"
+                    className="px-4 py-2 bg-white/5 border border-white/10 hover:bg-white/10 rounded-xl transition text-sm font-bold disabled:opacity-50 text-white"
                 >
-                    {loading ? 'Cargando...' : 'Actualizar'}
+                    {loading ? 'Cargando...' : 'Actualizar Lista'}
                 </button>
             </div>
 
             {error && (
-                <div className="p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl mb-4">
+                <div className="p-4 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl text-sm font-bold">
                     {error}
                 </div>
             )}
 
-            <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                    <thead>
-                        <tr className="border-b border-white/10 text-zinc-400 text-sm">
-                            <th className="p-3 font-medium">Usuario</th>
-                            <th className="p-3 font-medium">Teléfono</th>
-                            <th className="p-3 font-medium">Parroquia</th>
-                            <th className="p-3 font-medium">Fecha/Hora</th>
-                            <th className="p-3 font-medium">Razón</th>
-                        </tr>
-                    </thead>
-                    <tbody className="text-sm divide-y divide-white/5">
-                        {visits.length === 0 && !loading ? (
-                            <tr>
-                                <td colSpan={5} className="p-8 text-center text-zinc-500 italic">
-                                    No hay visitas sospechosas reportadas.
-                                </td>
+            <div className="bg-[#161616] rounded-3xl border border-white/5 overflow-hidden">
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                        <thead>
+                            <tr className="border-b border-white/5 text-zinc-500 text-xs uppercase tracking-wider">
+                                <th className="p-4 font-bold">Usuario</th>
+                                <th className="p-4 font-bold">Teléfono</th>
+                                <th className="p-4 font-bold">Parroquia</th>
+                                <th className="p-4 font-bold">Fecha/Hora</th>
+                                <th className="p-4 font-bold">Razón</th>
                             </tr>
-                        ) : (
-                            visits.map((visit) => (
-                                <tr key={visit.id} className="hover:bg-white/5 transition">
-                                    <td className="p-3 font-bold text-white">{visit.username}</td>
-                                    <td className="p-3 text-zinc-300 font-mono">{visit.phone}</td>
-                                    <td className="p-3 text-brand">{visit.parroquia_name}</td>
-                                    <td className="p-3 text-zinc-400">
-                                        {new Date(visit.visited_at).toLocaleString('es-CO')}
+                        </thead>
+                        <tbody className="text-sm divide-y divide-white/5">
+                            {visits.length === 0 && !loading ? (
+                                <tr>
+                                    <td colSpan={5} className="p-8 text-center text-zinc-500 italic">
+                                        No hay visitas sospechosas reportadas.
                                     </td>
-                                    <td className="p-3 text-red-400">{visit.flag_reason}</td>
                                 </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                            ) : (
+                                visits.map((visit) => (
+                                    <tr key={visit.id} className="hover:bg-white/5 transition">
+                                        <td className="p-4 font-bold text-white">{visit.username}</td>
+                                        <td className="p-4 text-zinc-400 font-mono text-xs">{visit.phone}</td>
+                                        <td className="p-4 text-brand font-medium">{visit.parroquia_name}</td>
+                                        <td className="p-4 text-zinc-400 text-xs">
+                                            {new Date(visit.visited_at).toLocaleString('es-CO')}
+                                        </td>
+                                        <td className="p-4 text-red-400 font-medium text-xs">{visit.flag_reason}</td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

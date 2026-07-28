@@ -19,6 +19,7 @@ export const GET: APIRoute = async ({ request }) => {
         const boardRes = await query(`
             SELECT username, calculated_score 
             FROM user_stats 
+            WHERE is_active = true
             ORDER BY calculated_score DESC 
             LIMIT 10
         `);
