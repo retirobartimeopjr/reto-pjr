@@ -2,6 +2,8 @@ import { atom, onMount } from 'nanostores';
 
 export const isChallengeActive = atom<boolean>(true);
 export const challengeMessage = atom<string>("¡El Reto ha terminado!");
+export const challengeStartTime = atom<number | null>(null);
+export const challengeEndTime = atom<number | null>(null);
 
 // Este flag evita múltiples intervalos si el componente se monta varias veces en Astro/React
 let isPolling = false;
@@ -21,6 +23,16 @@ onMount(isChallengeActive, () => {
                 isChallengeActive.set(data.active);
                 if (data.message) {
                     challengeMessage.set(data.message);
+                }
+                if (data.challenge_start_time) {
+                    challengeStartTime.set(new Date(data.challenge_start_time).getTime());
+                } else {
+                    challengeStartTime.set(null);
+                }
+                if (data.challenge_end_time) {
+                    challengeEndTime.set(new Date(data.challenge_end_time).getTime());
+                } else {
+                    challengeEndTime.set(null);
                 }
             }
         } catch (e) {

@@ -4,12 +4,14 @@ import bcrypt from 'bcryptjs';
 
 export const GET: APIRoute = async () => {
     try {
-        const res = await query("SELECT key, value FROM app_config WHERE key IN ('challenge_state', 'proximity_threshold')");
+        const res = await query("SELECT key, value FROM app_config WHERE key IN ('challenge_state', 'proximity_threshold', 'challenge_start_time', 'challenge_end_time')");
         
         const config: any = {
             active: true,
             message: "Estado por defecto: Activo",
-            proximity_threshold: 350
+            proximity_threshold: 350,
+            challenge_start_time: null,
+            challenge_end_time: null
         };
 
         for (const row of res.rows) {
@@ -18,6 +20,10 @@ export const GET: APIRoute = async () => {
                 config.message = row.value.message ?? config.message;
             } else if (row.key === 'proximity_threshold') {
                 config.proximity_threshold = Number(row.value) || 350;
+            } else if (row.key === 'challenge_start_time') {
+                config.challenge_start_time = row.value; // Store as ISO string
+            } else if (row.key === 'challenge_end_time') {
+                config.challenge_end_time = row.value; // Store as ISO string
             }
         }
 
@@ -37,7 +43,7 @@ export const GET: APIRoute = async () => {
 export const POST: APIRoute = async ({ request }) => {
     try {
         const body = await request.json();
-        const { username, password, active, message, proximity_threshold } = body;
+        const { username, password, active, message, proximity_threshold, challenge_start_time, challenge_end_time } = body;
 
         if (!username || !password) {
             return new Response(JSON.stringify({ error: 'Credenciales incompletas' }), { status: 400 });
@@ -71,6 +77,24 @@ export const POST: APIRoute = async ({ request }) => {
                 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
             `, [JSON.stringify(Number(proximity_threshold))]);
             newState.proximity_threshold = Number(proximity_threshold);
+        }
+
+        if (challenge_start_time !== undefined) {
+            await query(`
+                INSERT INTO app_config (key, value) 
+                VALUES ('challenge_start_time', $1::jsonb)
+                ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+            `, [JSON.stringify(challenge_start_time)]);
+            newState.challenge_start_time = challenge_start_time;
+        }
+
+        if (challenge_end_time !== undefined) {
+            await query(`
+                INSERT INTO app_config (key, value) 
+                VALUES ('challenge_end_time', $1::jsonb)
+                ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+            `, [JSON.stringify(challenge_end_time)]);
+            newState.challenge_end_time = challenge_end_time;
         }
 
         return new Response(JSON.stringify({ success: true, state: newState }), {

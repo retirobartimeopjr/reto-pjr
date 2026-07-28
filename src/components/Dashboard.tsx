@@ -36,36 +36,43 @@ export default function Dashboard() {
                         <h2 className="text-4xl md:text-5xl font-serif text-white mb-4">{user.username}</h2>
 
                         {/* SCORE - Enhanced Visuals */}
-                        <div className="inline-flex flex-col items-center md:items-start p-4 bg-gradient-to-r from-[#f8b134]/20 to-transparent border border-[#f8b134]/30 rounded-2xl">
-                            <span className="text-[#f8b134] text-xs font-bold tracking-widest uppercase mb-1">Tu Puntaje Actual</span>
-                            <div className="flex items-baseline gap-2">
-                                <span className="text-4xl md:text-5xl font-black text-[#f8b134] drop-shadow-[0_0_10px_rgba(248,177,52,0.5)]">
+                        <div className="relative inline-flex flex-col items-center md:items-start p-5 md:p-6 bg-gradient-to-br from-[#f8b134]/20 to-[#f8b134]/5 border border-[#f8b134]/40 rounded-3xl shadow-[0_0_30px_rgba(248,177,52,0.15)] overflow-hidden mt-2">
+                            <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#f8b134]/20 rounded-full blur-2xl"></div>
+                            <span className="text-[#f8b134] text-xs md:text-sm font-black tracking-[0.2em] uppercase mb-1 drop-shadow-md z-10">Tu Puntaje Actual</span>
+                            <div className="flex items-baseline gap-2 z-10">
+                                <span className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#ffdb8b] to-[#f8b134] drop-shadow-[0_2px_10px_rgba(248,177,52,0.4)]">
                                     {user.score}
                                 </span>
-                                <span className="text-sm text-[#f8b134]/60 font-serif italic">pts</span>
+                                <span className="text-lg text-[#f8b134]/80 font-serif italic font-bold">pts</span>
                             </div>
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-4 w-full md:w-auto">
-                        {/* Stats Grid - Cleaner Look */}
-                        <div className="grid grid-cols-3 gap-3 w-full md:w-auto">
+                    <div className="flex flex-col gap-4 w-full md:w-auto mt-6 md:mt-0">
+                        {/* Stats Grid - Premium Look */}
+                        <div className="grid grid-cols-3 gap-2 md:gap-4 w-full md:w-auto">
                             {/* Stat 1 */}
-                            <div className="flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 transition-colors border border-white/10 p-4 rounded-2xl min-w-[100px] aspect-square">
-                                <span className="text-3xl font-bold text-white mb-2">{payedCount}</span>
-                                <span className="text-[10px] uppercase text-white/50 text-center leading-tight">Boletas<br />Pagadas</span>
+                            <div className="relative flex flex-col items-center justify-center bg-gradient-to-b from-blue-500/10 to-blue-500/5 hover:from-blue-500/20 transition-all border border-blue-500/30 p-3 md:p-5 rounded-2xl overflow-hidden group shadow-lg">
+                                <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500/10 rounded-bl-full blur-xl group-hover:bg-blue-500/20 transition-all"></div>
+                                <span className="text-2xl md:text-3xl mb-1 md:mb-2 drop-shadow-md">🎫</span>
+                                <span className="text-3xl md:text-4xl font-black text-white drop-shadow-[0_0_10px_rgba(59,130,246,0.8)] mb-1">{payedCount}</span>
+                                <span className="text-[9px] md:text-xs uppercase tracking-widest text-blue-200/90 font-bold text-center leading-tight">Boletas<br />Pagadas</span>
                             </div>
 
                             {/* Stat 2 */}
-                            <div className="flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 transition-colors border border-white/10 p-4 rounded-2xl min-w-[100px] aspect-square">
-                                <span className="text-3xl font-bold text-white mb-2">{visitedCount}</span>
-                                <span className="text-[10px] uppercase text-white/50 text-center leading-tight">Visitas<br />Parroquias</span>
+                            <div className="relative flex flex-col items-center justify-center bg-gradient-to-b from-emerald-500/10 to-emerald-500/5 hover:from-emerald-500/20 transition-all border border-emerald-500/30 p-3 md:p-5 rounded-2xl overflow-hidden group shadow-lg">
+                                <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/10 rounded-bl-full blur-xl group-hover:bg-emerald-500/20 transition-all"></div>
+                                <span className="text-2xl md:text-3xl mb-1 md:mb-2 drop-shadow-md">📍</span>
+                                <span className="text-3xl md:text-4xl font-black text-white drop-shadow-[0_0_10px_rgba(16,185,129,0.8)] mb-1">{visitedCount}</span>
+                                <span className="text-[9px] md:text-xs uppercase tracking-widest text-emerald-200/90 font-bold text-center leading-tight">Visitas<br />Parroquias</span>
                             </div>
 
                             {/* Stat 3 */}
-                            <div className="flex flex-col items-center justify-center bg-white/5 hover:bg-white/10 transition-colors border border-white/10 p-4 rounded-2xl min-w-[100px] aspect-square">
-                                <span className="text-3xl font-bold text-white mb-2">{questionsCount}</span>
-                                <span className="text-[10px] uppercase text-white/50 text-center leading-tight">Bartipreguntas<br />Respondidas</span>
+                            <div className="relative flex flex-col items-center justify-center bg-gradient-to-b from-purple-500/10 to-purple-500/5 hover:from-purple-500/20 transition-all border border-purple-500/30 p-3 md:p-5 rounded-2xl overflow-hidden group shadow-lg">
+                                <div className="absolute top-0 right-0 w-16 h-16 bg-purple-500/10 rounded-bl-full blur-xl group-hover:bg-purple-500/20 transition-all"></div>
+                                <span className="text-2xl md:text-3xl mb-1 md:mb-2 drop-shadow-md">🧠</span>
+                                <span className="text-3xl md:text-4xl font-black text-white drop-shadow-[0_0_10px_rgba(168,85,247,0.8)] mb-1">{questionsCount}</span>
+                                <span className="text-[9px] md:text-xs uppercase tracking-widest text-purple-200/90 font-bold text-center leading-tight">Trivias<br />Resueltas</span>
                             </div>
                         </div>
                     </div>

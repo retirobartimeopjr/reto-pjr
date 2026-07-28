@@ -14,7 +14,9 @@ export default function AdminPanel() {
     // Estado del Reto
     const [isActive, setIsActive] = useState(true);
     const [message, setMessage] = useState("¡El Reto ha terminado!");
-    const [proximityThreshold, setProximityThreshold] = useState(350);
+    const [proximityThreshold, setProximityThreshold] = useState<number>(350);
+    const [challengeStartTime, setChallengeStartTime] = useState<string>('');
+    const [challengeEndTime, setChallengeEndTime] = useState<string>('');
     const [statusFeedback, setStatusFeedback] = useState('');
 
     // UI State
@@ -31,6 +33,23 @@ export default function AdminPanel() {
                     setIsActive(data.active);
                     setMessage(data.message || "¡El Reto ha terminado!");
                     if (data.proximity_threshold) setProximityThreshold(data.proximity_threshold);
+                    if (data.challenge_start_time) {
+                        // Format the ISO string to YYYY-MM-DDThh:mm for datetime-local input
+                        const dateObj = new Date(data.challenge_start_time);
+                        if (!isNaN(dateObj.getTime())) {
+                            const tzOffset = dateObj.getTimezoneOffset() * 60000; // offset in milliseconds
+                            const localISOTime = (new Date(dateObj.getTime() - tzOffset)).toISOString().slice(0, 16);
+                            setChallengeStartTime(localISOTime);
+                        }
+                    }
+                    if (data.challenge_end_time) {
+                        const dateObj = new Date(data.challenge_end_time);
+                        if (!isNaN(dateObj.getTime())) {
+                            const tzOffset = dateObj.getTimezoneOffset() * 60000;
+                            const localISOTime = (new Date(dateObj.getTime() - tzOffset)).toISOString().slice(0, 16);
+                            setChallengeEndTime(localISOTime);
+                        }
+                    }
                 }
             } catch (e) {
                 console.error("Error fetching config:", e);
@@ -46,10 +65,11 @@ export default function AdminPanel() {
 
         // Hacemos un POST "dummy" solo para verificar si las credenciales son válidas, o enviamos un estado neutro
         try {
+            const payload: any = { username, password, active: isActive, message };
             const res = await fetch('/api/appConfig', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password, active: isActive, message })
+                body: JSON.stringify(payload)
             });
             const data = await res.json();
 
@@ -58,11 +78,27 @@ export default function AdminPanel() {
                 setIsActive(data.state.active);
                 setMessage(data.state.message);
                 if (data.state.proximity_threshold) setProximityThreshold(data.state.proximity_threshold);
+                if (data.state.challenge_start_time) {
+                    const dateObj = new Date(data.state.challenge_start_time);
+                    if (!isNaN(dateObj.getTime())) {
+                        const tzOffset = dateObj.getTimezoneOffset() * 60000;
+                        const localISOTime = (new Date(dateObj.getTime() - tzOffset)).toISOString().slice(0, 16);
+                        setChallengeStartTime(localISOTime);
+                    }
+                }
+                if (data.state.challenge_end_time) {
+                    const dateObj = new Date(data.state.challenge_end_time);
+                    if (!isNaN(dateObj.getTime())) {
+                        const tzOffset = dateObj.getTimezoneOffset() * 60000;
+                        const localISOTime = (new Date(dateObj.getTime() - tzOffset)).toISOString().slice(0, 16);
+                        setChallengeEndTime(localISOTime);
+                    }
+                }
             } else {
-                setLoginError(data.error || 'Error de autenticación');
+                setLoginError(data.error || 'Login fallido');
             }
-        } catch (error) {
-            setLoginError('Error de conexión');
+        } catch (e) {
+            setLoginError('Error de red al iniciar sesión');
         } finally {
             setLoading(false);
         }
@@ -72,24 +108,35 @@ export default function AdminPanel() {
         setLoading(true);
         setStatusFeedback('');
         try {
+            const isoStartTime = challengeStartTime ? new Date(challengeStartTime).toISOString() : null;
+            const isoEndTime = challengeEndTime ? new Date(challengeEndTime).toISOString() : null;
+            
+            const payload: any = {
+                username,
+                password,
+                active: newActiveState,
+                message,
+                proximityThreshold,
+                challenge_start_time: isoStartTime,
+                challenge_end_time: isoEndTime
+            };
+
             const res = await fetch('/api/appConfig', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password, active: newActiveState ?? isActive, message, proximity_threshold: proximityThreshold })
+                body: JSON.stringify(payload)
             });
             const data = await res.json();
-
             if (res.ok) {
                 setIsActive(data.state.active);
                 setMessage(data.state.message);
-                if (data.state.proximity_threshold) setProximityThreshold(data.state.proximity_threshold);
-                setStatusFeedback('Estado actualizado correctamente ✅');
+                setStatusFeedback('Configuración actualizada correctamente');
                 setTimeout(() => setStatusFeedback(''), 3000);
             } else {
-                setStatusFeedback(`Error: ${data.error}`);
+                setStatusFeedback('Error: ' + (data.error || 'No se pudo actualizar'));
             }
-        } catch (error) {
-            setStatusFeedback('Error de conexión');
+        } catch (e) {
+            setStatusFeedback('Error de red al actualizar estado');
         } finally {
             setLoading(false);
         }
@@ -138,8 +185,10 @@ export default function AdminPanel() {
     }
 
     const renderContent = () => {
+        if (!isAuthenticated) return null;
+
         if (activeTab === 'visitas') {
-            return <FlaggedVisitsManager />;
+            return <FlaggedVisitsManager username={username} password={password} />;
         }
         if (activeTab === 'parroquias') {
             return <ParroquiasManager username={username} password={password} />;
@@ -191,7 +240,49 @@ export default function AdminPanel() {
                 </div>
 
                 {/* Configuration Bento Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Inicio del Reto */}
+                    <div className="bg-[#161616] rounded-3xl p-6 border border-white/5 flex flex-col h-full">
+                        <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4">Inicio Oficial del Reto</h2>
+                        <p className="text-xs text-zinc-400 mb-3">Fecha y hora en la que se habilitarán las trivias, el mapa y se revelarán los puntajes ocultos en el ranking.</p>
+                        <div className="flex-1 flex flex-col justify-center">
+                            <input
+                                type="datetime-local"
+                                value={challengeStartTime}
+                                onChange={e => setChallengeStartTime(e.target.value)}
+                                className="w-full bg-[#0a0a0a] border border-white/5 rounded-2xl p-4 text-white focus:outline-none focus:border-brand/50 text-sm md:text-base font-bold text-center"
+                            />
+                        </div>
+                        <button
+                            onClick={() => handleUpdateState(isActive)}
+                            disabled={loading}
+                            className="w-full mt-4 bg-brand/10 border border-brand/30 text-brand font-bold py-3 rounded-xl hover:bg-brand/20 transition text-sm"
+                        >
+                            Guardar Fecha/Hora
+                        </button>
+                    </div>
+
+                    {/* Fin del Reto */}
+                    <div className="bg-[#161616] rounded-3xl p-6 border border-white/5 flex flex-col h-full">
+                        <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4">Fin Oficial del Reto</h2>
+                        <p className="text-xs text-zinc-400 mb-3">Fecha y hora en la que se bloquearán las interacciones y el reto finalizará oficialmente.</p>
+                        <div className="flex-1 flex flex-col justify-center">
+                            <input
+                                type="datetime-local"
+                                value={challengeEndTime}
+                                onChange={e => setChallengeEndTime(e.target.value)}
+                                className="w-full bg-[#0a0a0a] border border-white/5 rounded-2xl p-4 text-white focus:outline-none focus:border-red-500/50 text-sm md:text-base font-bold text-center"
+                            />
+                        </div>
+                        <button
+                            onClick={() => handleUpdateState(isActive)}
+                            disabled={loading}
+                            className="w-full mt-4 bg-red-500/10 border border-red-500/30 text-red-500 font-bold py-3 rounded-xl hover:bg-red-500/20 transition text-sm"
+                        >
+                            Guardar Fecha/Hora de Fin
+                        </button>
+                    </div>
+
                     {/* Mensaje de Bloqueo */}
                     <div className="bg-[#161616] rounded-3xl p-6 border border-white/5 flex flex-col h-full">
                         <h2 className="text-sm font-bold text-zinc-500 uppercase tracking-widest mb-4">Mensaje de Bloqueo</h2>

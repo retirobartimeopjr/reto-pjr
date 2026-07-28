@@ -2,9 +2,12 @@ import { useStore } from '@nanostores/react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { isLoginOpen, userStore } from '../store/userStore';
+import { challengeStartTime, challengeEndTime } from '../store/challengeStore';
 
 export default function BartiPregunta() {
     const user = useStore(userStore);
+    const start_time = useStore(challengeStartTime);
+    const end_time = useStore(challengeEndTime);
     const [showLoginWarning, setShowLoginWarning] = useState(false);
     const [loading, setLoading] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState<any>(null);
@@ -34,6 +37,18 @@ export default function BartiPregunta() {
 
         if (user.isAuthenticated !== 'true') {
             setShowLoginWarning(true);
+            return;
+        }
+
+        if (start_time && Date.now() < start_time) {
+            setTriviaFeedback({ type: 'error', message: '¡Ten paciencia! El reto aún no ha comenzado. Las Bartipreguntas estarán disponibles pronto.' });
+            setIsOpen(true);
+            return;
+        }
+
+        if (end_time && Date.now() >= end_time) {
+            setTriviaFeedback({ type: 'error', message: '¡El reto ha finalizado! Ya no es posible responder más preguntas.' });
+            setIsOpen(true);
             return;
         }
 

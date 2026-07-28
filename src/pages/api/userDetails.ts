@@ -49,7 +49,8 @@ export const POST: APIRoute = async ({ request }) => {
                 p.name, 
                 p.code, 
                 v.visited_at, 
-                v.points_awarded 
+                v.points_awarded,
+                v.photo_url
             FROM user_parroquia_visits v
             JOIN parroquias p ON v.parroquia_id = p.id
             WHERE v.user_id = $1

@@ -749,8 +749,16 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
     // Fetch dynamic config
     fetch('/api/appConfig').then(res => res.json()).then(config => {
-      if (config && config.proximity_threshold) {
-        PROXIMITY_THRESHOLD_M = config.proximity_threshold
+      if (config) {
+        if (config.proximity_threshold) {
+          PROXIMITY_THRESHOLD_M = config.proximity_threshold
+        }
+        if (config.challenge_start_time) {
+          window.CHALLENGE_START_TIME = new Date(config.challenge_start_time).getTime()
+        }
+        if (config.challenge_end_time) {
+          window.CHALLENGE_END_TIME = new Date(config.challenge_end_time).getTime()
+        }
       }
     }).catch(e => console.error('Failed to load app config', e))
 
@@ -854,21 +862,36 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       },
     })
 
+    const user = getUserData()
+    const visitedString = user ? user.parroquiasVistitadas || '' : ''
+    const visitedIds = visitedString.split(',').map((id) => id.trim())
+
     locations.forEach((loc) => {
       const lat = loc.center?.lat || loc.lat
       const lon = loc.center?.lng || loc.lng
       if (!lat || !lon) return
 
-      const color = getColorForVicaria(loc.vicaria)
+      const pid = (loc.id ?? loc.parroquiaid ?? loc.name).toString()
+      const isVisited = visitedIds.includes(pid) || confirmedParishes.has(pid)
+
+      let bgStyle = `background-color: ${getColorForVicaria(loc.vicaria)}; border: 2px solid white;`
+      let shapeClass = 'rounded-lg'
+      let innerHtml = `<img src="/parroquia.png" alt="Parroquia" class="w-8 h-8 object-contain filter drop-shadow-sm" />`
+
+      if (isVisited) {
+          bgStyle = `background: linear-gradient(135deg, #fcd34d 0%, #b45309 100%); clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);`
+          shapeClass = ''
+          innerHtml = `<span class="text-3xl drop-shadow-md pb-1">🏆</span>`
+      }
 
       // Custom Marker Icon
       const svgIcon = `
-            <div class="marker-container relative w-[45px] h-[55px]">
+            <div class="marker-container relative w-[45px] h-[55px] ${isVisited ? 'drop-shadow-[0_0_10px_rgba(251,191,36,0.6)]' : ''}">
               <div class="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-[30px] h-2 bg-[radial-gradient(ellipse,rgba(0,0,0,0.3)_0%,transparent_70%)]"></div>
-              <div class="absolute inset-0 rounded-lg overflow-hidden flex items-center justify-center shadow-lg" style="background-color: ${color}; border: 2px solid white;">
-                 <img src="/parroquia.png" alt="Parroquia" class="w-8 h-8 object-contain filter drop-shadow-sm" />
+              <div class="absolute inset-0 ${shapeClass} overflow-hidden flex items-center justify-center shadow-lg" style="${bgStyle}">
+                 ${innerHtml}
               </div>
-              <div class="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/30 to-transparent rounded-t-lg pointer-events-none"></div>
+              <div class="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/30 to-transparent ${shapeClass ? 'rounded-t-lg' : ''} pointer-events-none" style="${isVisited ? 'clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);' : ''}"></div>
             </div>
           `
       const customIcon = L.divIcon({
@@ -1275,6 +1298,16 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
   // Triggered by User Interaction (Popup Button or Floating Button)
   window.validateAndConfirm = (parroquiaId, parroquiaName, forceBypass = false) => {
+    // 0. Check if challenge started or ended
+    if (window.CHALLENGE_START_TIME && Date.now() < window.CHALLENGE_START_TIME) {
+      alert('¡Ten paciencia! El reto aún no ha comenzado. Espera a que termine la cuenta regresiva.');
+      return;
+    }
+    if (window.CHALLENGE_END_TIME && Date.now() >= window.CHALLENGE_END_TIME) {
+      alert('¡El reto ha finalizado! Ya no es posible validar más visitas.');
+      return;
+    }
+
     // 1. Find Location Data
     const loc = locations.find((l) => (l.id ?? l.name).toString() === parroquiaId.toString() || l.name === parroquiaName)
     if (!loc) return
@@ -1557,7 +1590,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         } else {
           // STATE 2: Movement verified, ready for photo
           photoSection.classList.remove('hidden')
-          btnConfirm.textContent = '📸 Subir Evidencia'
+          btnConfirm.textContent = '✅ Completar Visita'
 
           btnConfirm.onclick = async () => {
             // Redundant safely check
@@ -1590,7 +1623,58 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           const progressSpan = document.getElementById('upload-progress')
           if (statusDiv) statusDiv.classList.remove('hidden')
 
+          // Función para comprimir imagen en el cliente
+          const compressImage = (file, maxWidth = 1200, quality = 0.7) => {
+            return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(file);
+              reader.onload = event => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                  let width = img.width;
+                  let height = img.height;
+                  
+                  if (width > maxWidth) {
+                    height = Math.round((height * maxWidth) / width);
+                    width = maxWidth;
+                  }
+                  
+                  const canvas = document.createElement('canvas');
+                  canvas.width = width;
+                  canvas.height = height;
+                  const ctx = canvas.getContext('2d');
+                  ctx.drawImage(img, 0, 0, width, height);
+                  
+                  canvas.toBlob(blob => {
+                    if (!blob) {
+                      reject(new Error('Canvas is empty'));
+                      return;
+                    }
+                    const newFileName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
+                    const compressedFile = new File([blob], newFileName, {
+                      type: 'image/webp',
+                      lastModified: Date.now(),
+                    });
+                    resolve(compressedFile);
+                  }, 'image/webp', quality);
+                };
+                img.onerror = error => reject(error);
+              };
+              reader.onerror = error => reject(error);
+            });
+          };
+
           try {
+            // Compress file if it's an image
+            try {
+              if (file.type.startsWith('image/')) {
+                 file = await compressImage(file);
+              }
+            } catch(e) {
+               console.error("Compression failed", e);
+            }
+
             // Upload photo
             const validExtensions = ['jpg', 'jpeg', 'png', 'webp', 'heic', 'heif']
             const fileExtension = file.name.split('.').pop()?.toLowerCase() || ''

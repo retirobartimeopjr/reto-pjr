@@ -14,20 +14,64 @@ export const GET: APIRoute = async ({ request }) => {
             isRegistered = checkRes.rowCount !== null && checkRes.rowCount > 0;
         }
 
-        // 2. Fetch top 10 users from user_stats (already sorted by PostgreSQL!)
-        // Postgres maneja el ordenamiento de 100,000 registros en un abrir y cerrar de ojos
-        const boardRes = await query(`
-            SELECT username, calculated_score 
-            FROM user_stats 
-            WHERE is_active = true
-            ORDER BY calculated_score DESC 
-            LIMIT 10
-        `);
+        let queryText = '';
 
-        // 3. Format response (Hide scores if not registered)
+        if (isRegistered) {
+            // Fetch 10 users centered around the registered user
+            queryText = `
+                WITH RankedUsers AS (
+                    SELECT user_id, username, calculated_score,
+                           ROW_NUMBER() OVER (
+                               ORDER BY 
+                                   calculated_score DESC, 
+                                   parroquias_visitadas DESC, 
+                                   respuestas_correctas DESC, 
+                                   username ASC
+                           ) as rank
+                    FROM user_stats
+                    WHERE is_active = true
+                )
+                SELECT * FROM RankedUsers
+                WHERE rank BETWEEN 
+                    GREATEST(1, COALESCE((SELECT rank FROM RankedUsers WHERE user_id = $1), 1) - 4)
+                    AND 
+                    GREATEST(10, COALESCE((SELECT rank FROM RankedUsers WHERE user_id = $1), 1) + 5)
+                ORDER BY rank ASC
+                LIMIT 10
+            `;
+        } else {
+            // Fetch last 10 users with > 0 points
+            queryText = `
+                WITH RankedUsers AS (
+                    SELECT username, calculated_score,
+                           ROW_NUMBER() OVER (
+                               ORDER BY 
+                                   calculated_score DESC, 
+                                   parroquias_visitadas DESC, 
+                                   respuestas_correctas DESC, 
+                                   username ASC
+                           ) as rank
+                    FROM user_stats
+                    WHERE is_active = true
+                ),
+                BottomUsers AS (
+                    SELECT * FROM RankedUsers
+                    WHERE calculated_score > 0
+                    ORDER BY rank DESC
+                    LIMIT 10
+                )
+                SELECT * FROM BottomUsers
+                ORDER BY rank ASC
+            `;
+        }
+
+        const boardRes = await query(queryText, isRegistered && uid ? [uid] : []);
+
+        // 3. Format response (Send scores and real rank)
         const topUsers = boardRes.rows.map(u => ({
             username: u.username || 'Anónimo',
-            score: isRegistered ? Number(u.calculated_score || 0) : null
+            score: Number(u.calculated_score || 0),
+            rank: Number(u.rank)
         }));
 
         return new Response(JSON.stringify(topUsers), {

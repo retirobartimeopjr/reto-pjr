@@ -26,6 +26,7 @@ interface UserDetails {
         code: string;
         visited_at: string;
         points_awarded: number;
+        photo_url?: string;
     }[];
 }
 
@@ -46,6 +47,10 @@ export default function UsersManager({ username, password }: { username: string,
     const [emailBody, setEmailBody] = useState('');
     const [sendingEmail, setSendingEmail] = useState(false);
     const [emailFeedback, setEmailFeedback] = useState<{type: 'success'|'error', msg: string} | null>(null);
+
+    // Photo Modal State
+    const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+    const [loadingPhoto, setLoadingPhoto] = useState(false);
 
     const fetchUsers = async (query = '') => {
         setLoading(true);
@@ -127,6 +132,30 @@ export default function UsersManager({ username, password }: { username: string,
             setFeedback('Error al cargar detalles del usuario');
         } finally {
             setLoadingDetails(false);
+        }
+    };
+
+    const handleOpenPhoto = async (url: string) => {
+        setLoadingPhoto(true);
+        // Show placeholder or spinner immediately
+        setSelectedPhoto('loading');
+        
+        try {
+            const res = await fetch('/api/s3/presignGet', {
+                method: 'POST',
+                body: JSON.stringify({ fileUrl: url }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            if (res.ok && data.url) {
+                setSelectedPhoto(data.url);
+            } else {
+                setSelectedPhoto(url); // Fallback
+            }
+        } catch (e) {
+            setSelectedPhoto(url); // Fallback
+        } finally {
+            setLoadingPhoto(false);
         }
     };
 
@@ -362,9 +391,18 @@ export default function UsersManager({ username, password }: { username: string,
                                             </thead>
                                             <tbody className="divide-y divide-white/5">
                                                 {selectedUser.visited_parroquias?.map((visit, i) => (
-                                                    <tr key={i} className="hover:bg-white/5 transition">
+                                                    <tr 
+                                                        key={i} 
+                                                        className={`transition ${visit.photo_url ? 'hover:bg-white/10 cursor-pointer' : 'hover:bg-white/5'}`}
+                                                        onClick={() => visit.photo_url && handleOpenPhoto(visit.photo_url)}
+                                                    >
                                                         <td className="p-3">
-                                                            <div className="text-white font-medium">{visit.name}</div>
+                                                            <div className="text-white font-medium flex items-center gap-2">
+                                                                {visit.name}
+                                                                {visit.photo_url && (
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                                                )}
+                                                            </div>
                                                             <div className="text-xs text-zinc-500 font-mono mt-0.5">{visit.code || 'S/C'}</div>
                                                         </td>
                                                         <td className="p-3 text-brand font-mono text-center">+{visit.points_awarded}</td>
@@ -446,6 +484,33 @@ export default function UsersManager({ username, password }: { username: string,
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+            {/* Photo Modal */}
+            {selectedPhoto && (
+                <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md" onClick={() => setSelectedPhoto(null)}>
+                    <div className="relative max-w-4xl max-h-screen w-full flex justify-center items-center">
+                        <button 
+                            onClick={() => setSelectedPhoto(null)}
+                            className="absolute -top-12 right-0 text-white hover:text-brand bg-white/10 hover:bg-white/20 p-2 rounded-full backdrop-blur-md transition"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                        </button>
+                        
+                        {selectedPhoto === 'loading' ? (
+                            <div className="flex flex-col items-center gap-4">
+                                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand"></div>
+                                <p className="text-brand font-bold">Obteniendo acceso seguro a la imagen...</p>
+                            </div>
+                        ) : (
+                            <img 
+                                src={selectedPhoto} 
+                                alt="Comprobante de Visita" 
+                                className="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-white/10" 
+                                onClick={(e) => e.stopPropagation()} 
+                            />
+                        )}
                     </div>
                 </div>
             )}

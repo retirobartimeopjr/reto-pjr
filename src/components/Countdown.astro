@@ -5,127 +5,154 @@
 <div id="countdown-timer" class="w-full my-4">
   <div class="flex flex-col items-center gap-2">
     <h3
+      id="countdown-title"
       class="text-[#f8b134] uppercase tracking-widest text-sm font-black text-center mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
     >
       Contador para el fin de la competencia y comienzo de nuestro V Retiro!!
     </h3>
 
     <div
-      class="flex flex-wrap justify-center gap-1 sm:gap-2 md:gap-3 text-center w-full max-w-[300px]"
+      class="flex flex-wrap justify-center gap-2 sm:gap-4 md:gap-6 text-center w-full max-w-[500px] mt-4"
     >
       <!-- Days -->
-      <div class="flex flex-col items-center gap-1">
+      <div class="flex flex-col items-center gap-2">
         <div
-          class="relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 bg-black/30 border border-white/10 rounded-md flex items-center justify-center backdrop-blur-sm"
+          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-gradient-to-b from-white/10 to-white/5 border border-white/20 rounded-xl flex items-center justify-center backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-white/10"
         >
-          <span id="days" class="text-lg sm:text-xl md:text-2xl font-black text-[#f8b134] font-mono"
+          <span id="days" class="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#fcd34d] to-[#f59e0b] font-mono drop-shadow-lg"
             >00</span
           >
         </div>
-        <span class="text-[8px] text-white/50 uppercase tracking-wider">Días</span>
+        <span class="text-[9px] sm:text-[10px] text-white/70 uppercase tracking-[0.2em] font-bold">Días</span>
       </div>
 
-      <div class="flex items-center text-white/20 text-lg -mt-4">:</div>
+      <div class="flex items-center text-white/30 text-2xl sm:text-4xl -mt-6 font-light animate-pulse">:</div>
 
       <!-- Hours -->
-      <div class="flex flex-col items-center gap-1">
+      <div class="flex flex-col items-center gap-2">
         <div
-          class="relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 bg-black/30 border border-white/10 rounded-md flex items-center justify-center backdrop-blur-sm"
+          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-gradient-to-b from-white/10 to-white/5 border border-white/20 rounded-xl flex items-center justify-center backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-white/10"
         >
           <span
             id="hours"
-            class="text-lg sm:text-xl md:text-2xl font-black text-[#f8b134] font-mono">00</span
+            class="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#fcd34d] to-[#f59e0b] font-mono drop-shadow-lg">00</span
           >
         </div>
-        <span class="text-[8px] text-white/50 uppercase tracking-wider">Hrs</span>
+        <span class="text-[9px] sm:text-[10px] text-white/70 uppercase tracking-[0.2em] font-bold">Hrs</span>
       </div>
 
-      <div class="flex items-center text-white/20 text-lg -mt-4">:</div>
+      <div class="flex items-center text-white/30 text-2xl sm:text-4xl -mt-6 font-light animate-pulse">:</div>
 
       <!-- Minutes -->
-      <div class="flex flex-col items-center gap-1">
+      <div class="flex flex-col items-center gap-2">
         <div
-          class="relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 bg-black/30 border border-white/10 rounded-md flex items-center justify-center backdrop-blur-sm"
+          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-gradient-to-b from-white/10 to-white/5 border border-white/20 rounded-xl flex items-center justify-center backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-white/10"
         >
           <span
             id="minutes"
-            class="text-lg sm:text-xl md:text-2xl font-black text-[#f8b134] font-mono">00</span
+            class="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#fcd34d] to-[#f59e0b] font-mono drop-shadow-lg">00</span
           >
         </div>
-        <span class="text-[8px] text-white/50 uppercase tracking-wider">Min</span>
+        <span class="text-[9px] sm:text-[10px] text-white/70 uppercase tracking-[0.2em] font-bold">Min</span>
       </div>
 
-      <div class="flex items-center text-white/20 text-lg -mt-4">:</div>
+      <div class="flex items-center text-white/30 text-2xl sm:text-4xl -mt-6 font-light animate-pulse">:</div>
 
       <!-- Seconds -->
-      <div class="flex flex-col items-center gap-1">
+      <div class="flex flex-col items-center gap-2">
         <div
-          class="relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 bg-black/30 border border-white/10 rounded-md flex items-center justify-center backdrop-blur-sm"
+          class="relative w-14 h-16 sm:w-16 sm:h-20 md:w-20 md:h-24 bg-gradient-to-b from-white/10 to-white/5 border border-white/20 rounded-xl flex items-center justify-center backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-white/10"
         >
           <span
             id="seconds"
-            class="text-lg sm:text-xl md:text-2xl font-black text-[#f8b134] font-mono">00</span
+            class="text-3xl sm:text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#fcd34d] to-[#f59e0b] font-mono drop-shadow-lg">00</span
           >
         </div>
-        <span class="text-[8px] text-white/50 uppercase tracking-wider">Seg</span>
+        <span class="text-[9px] sm:text-[10px] text-white/70 uppercase tracking-[0.2em] font-bold">Seg</span>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  function updateCountdown() {
-    const targetDate = new Date('2026-03-19T18:00:00').getTime()
-
-    // Check immediately on load — if already past the deadline, lock right away
-    if (Date.now() >= targetDate) {
-      const timerEl = document.getElementById('countdown-timer')
-      if (timerEl) {
-        timerEl.innerHTML = `
-          <div class="text-center animate-pulse py-4">
-            <p class="text-[#f8b134] text-2xl font-black font-serif drop-shadow-[0_2px_8px_rgba(248,177,52,0.5)]">🏆 ¡El Reto ha terminado!</p>
-            <p class="text-white/70 text-sm mt-2">Gracias a todos los participantes</p>
-          </div>`
+  async function initCountdown() {
+    try {
+      const res = await fetch('/api/appConfig')
+      if (res.ok) {
+        const data = await res.json()
+        const startDate = data.challenge_start_time ? new Date(data.challenge_start_time).getTime() : 0
+        const endDate = data.challenge_end_time ? new Date(data.challenge_end_time).getTime() : new Date('2026-03-19T18:00:00').getTime()
+        
+        startCountdown(startDate, endDate)
       }
-      return
+    } catch(e) {
+      console.error('Error fetching config', e)
     }
+  }
 
-    const interval = setInterval(() => {
+  function startCountdown(startDate, endDate) {
+    const timerEl = document.getElementById('countdown-timer')
+    const titleEl = document.getElementById('countdown-title')
+
+    const updateUI = () => {
       const now = new Date().getTime()
-      const distance = targetDate - now
+      
+      let targetDate = 0;
+      let isCountingToStart = false;
 
-      // Ya no bloqueamos la UI
-
-      if (distance < 0) {
-        clearInterval(interval)
-        const timerEl = document.getElementById('countdown-timer')
-        if (timerEl) {
-          timerEl.innerHTML = `
-            <div class="text-center animate-pulse py-4">
-              <p class="text-[#f8b134] text-2xl font-black font-serif drop-shadow-[0_2px_8px_rgba(248,177,52,0.5)]">🏆 ¡El Reto ha terminado!</p>
-              <p class="text-white/70 text-sm mt-2">Gracias a todos los participantes</p>
-            </div>`
-        }
-        return
+      // Determine phase
+      if (startDate > 0 && now < startDate) {
+          // Counting to start
+          targetDate = startDate;
+          isCountingToStart = true;
+          if (titleEl) titleEl.innerText = "CONTADOR PARA EL INICIO DEL RETO";
+      } else if (now < endDate) {
+          // Counting to end
+          targetDate = endDate;
+          if (titleEl) titleEl.innerText = "¡EL RETO HA COMENZADO!";
+      } else {
+          // Challenge ended
+          if (timerEl) {
+              timerEl.innerHTML = `
+                <div class="text-center animate-pulse py-4">
+                  <p class="text-[#f8b134] text-2xl font-black font-serif drop-shadow-[0_2px_8px_rgba(248,177,52,0.5)]">🏆 ¡El Reto ha terminado!</p>
+                  <p class="text-white/70 text-sm mt-2">Gracias a todos los participantes</p>
+                </div>`
+          }
+          return true // Finished
       }
+
+      if (timerEl) timerEl.classList.remove('hidden')
+
+      const distance = targetDate - now
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24))
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
       const seconds = Math.floor((distance % (1000 * 60)) / 1000)
 
-      const elDays = document.getElementById('days')
-      const elHours = document.getElementById('hours')
-      const elMinutes = document.getElementById('minutes')
-      const elSeconds = document.getElementById('seconds')
+      const dEl = document.getElementById('days')
+      const hEl = document.getElementById('hours')
+      const mEl = document.getElementById('minutes')
+      const sEl = document.getElementById('seconds')
 
-      if (elDays) elDays.innerText = days.toString().padStart(2, '0')
-      if (elHours) elHours.innerText = hours.toString().padStart(2, '0')
-      if (elMinutes) elMinutes.innerText = minutes.toString().padStart(2, '0')
-      if (elSeconds) elSeconds.innerText = seconds.toString().padStart(2, '0')
+      if (dEl) dEl.innerText = days.toString().padStart(2, '0')
+      if (hEl) hEl.innerText = hours.toString().padStart(2, '0')
+      if (mEl) mEl.innerText = minutes.toString().padStart(2, '0')
+      if (sEl) sEl.innerText = seconds.toString().padStart(2, '0')
+      
+      return false // Not finished
+    }
+
+    if (updateUI()) return; // If already finished, don't start interval
+
+    const interval = setInterval(() => {
+      if (updateUI()) {
+        clearInterval(interval)
+      }
     }, 1000)
   }
 
-  updateCountdown()
-  document.addEventListener('astro:page-load', updateCountdown)
+  // Initialize
+  initCountdown()
 </script>

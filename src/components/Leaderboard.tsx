@@ -1,11 +1,12 @@
-
 import { useStore } from '@nanostores/react';
 import { useEffect, useRef, useState } from 'react';
 import { userStore } from '../store/userStore';
+import { challengeStartTime } from '../store/challengeStore';
 
 type UserRank = {
     username: string;
     score: number | null;
+    rank?: number;
     trend?: 'up' | 'down';
 };
 
@@ -13,6 +14,7 @@ export default function Leaderboard() {
     const [ranking, setRanking] = useState<UserRank[]>([]);
     const [loading, setLoading] = useState(true);
     const user = useStore(userStore);
+    const start_time = useStore(challengeStartTime);
     const previousRankingRef = useRef<Map<string, number>>(new Map());
 
     useEffect(() => {
@@ -26,6 +28,7 @@ export default function Leaderboard() {
                 const res = await fetch(`/api/leaderboard${queryParams}`);
                 if (!res.ok) throw new Error("Failed to fetch");
                 const data: UserRank[] = await res.json();
+
 
                 // OPTIMISTIC PATCH: If current user has a higher score locally than in DB (due to recent visit), patch it
                 if (user && user.username) {
@@ -88,8 +91,10 @@ export default function Leaderboard() {
             </h3>
 
             <div className="flex flex-col gap-3">
-                {ranking.map((user, index) => {
-                    const rank = index + 1;
+                {ranking.map((rankUser, index) => {
+                    const rank = rankUser.rank ?? (index + 1);
+                    const isCurrentUser = rankUser.username === user.username;
+                    
                     let cardStyle = "bg-white/5 border-white/10";
                     let rankBadgeStyle = "bg-white/10 text-white/50";
                     let scoreStyle = "text-[#f8b134]";
@@ -112,10 +117,18 @@ export default function Leaderboard() {
                         icon = <span className="text-2xl mr-2">🥉</span>;
                     }
 
+                    if (isCurrentUser) {
+                        cardStyle = "bg-gradient-to-r from-[#f8b134]/30 to-[#f8b134]/5 border-[#f8b134] shadow-[0_0_15px_rgba(248,177,52,0.3)] ring-1 ring-[#f8b134] scale-[1.02] z-10";
+                        if (rank > 3) {
+                           rankBadgeStyle = "bg-[#f8b134] text-black font-bold shadow-lg shadow-[#f8b134]/50";
+                           scoreStyle = "text-[#f8b134] drop-shadow-[0_0_5px_rgba(248,177,52,0.8)]";
+                        }
+                    }
+
                     return (
                         <div
                             key={index}
-                            className={`relative flex items-center p-4 rounded-2xl border transition-all duration-300 hover:scale-[1.02] ${cardStyle}`}
+                            className={`relative flex items-center p-4 rounded-2xl border transition-all duration-300 ${!isCurrentUser ? 'hover:scale-[1.02]' : ''} ${cardStyle}`}
                         >
                             {/* Rank Badge */}
                             <div className={`w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full text-xl font-mono ${rankBadgeStyle}`}>
@@ -126,24 +139,31 @@ export default function Leaderboard() {
                             <div className="ml-4 flex-grow min-w-0">
                                 <div className="flex items-center">
                                     {icon}
-                                    <h4 className={`text-lg md:text-xl font-bold truncate ${rank <= 3 ? 'text-white' : 'text-white/90'}`}>
-                                        {user.username}
+                                    <h4 className={`text-lg md:text-xl font-bold truncate ${rank <= 3 || isCurrentUser ? 'text-white' : 'text-white/90'} ${isCurrentUser ? 'drop-shadow-md' : ''}`}>
+                                        {rankUser.username}
+                                        {isCurrentUser && <span className="ml-2 text-xs bg-[#f8b134] text-black px-2 py-1 rounded-full uppercase tracking-widest font-black shadow-[0_0_8px_rgba(248,177,52,0.6)]">Tú</span>}
                                     </h4>
                                 </div>
                             </div>
 
                             {/* Score */}
                             <div className="flex flex-col items-end justify-center flex-shrink-0 ml-4 min-h-[50px]">
-                                {user.score !== null ? (
-                                    <>
-                                        <span className={`text-2xl md:text-3xl font-black ${scoreStyle}`}>
-                                            {user.score}
-                                        </span>
-                                        <span className="text-[10px] uppercase tracking-widest text-white/40">Puntos</span>
-                                    </>
+                                {rankUser.score !== null ? (
+                                    (!start_time || Date.now() >= start_time || isCurrentUser) ? (
+                                        <>
+                                            <span className={`text-2xl md:text-3xl font-black ${scoreStyle}`}>
+                                                {rankUser.score}
+                                            </span>
+                                            <span className="text-[10px] uppercase tracking-widest text-white/40">Puntos</span>
+                                        </>
+                                    ) : (
+                                        <div className="flex flex-col items-center justify-center opacity-0">
+                                            <span className="text-xl">-</span>
+                                        </div>
+                                    )
                                 ) : (
                                     <div className="flex items-center justify-center w-12 h-12 rounded-full bg-white/5 border border-white/10">
-                                        {user.trend === 'down' ? (
+                                        {rankUser.trend === 'down' ? (
                                             <svg className="w-6 h-6 text-red-500 drop-shadow-[0_0_5px_rgba(239,68,68,0.5)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                                             </svg>

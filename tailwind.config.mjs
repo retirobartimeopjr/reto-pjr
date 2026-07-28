@@ -22,12 +22,20 @@ export default {
             animation: {
                 'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                 'float': 'float 6s ease-in-out infinite',
+                'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
             },
             keyframes: {
                 float: {
                     '0%, 100%': { transform: 'translateY(0)' },
                     '50%': { transform: 'translateY(-20px)' },
                 },
+                heartbeat: {
+                    '0%, 100%': { transform: 'scale(1)' },
+                    '14%': { transform: 'scale(1.05)' },
+                    '28%': { transform: 'scale(1)' },
+                    '42%': { transform: 'scale(1.05)' },
+                    '70%': { transform: 'scale(1)' },
+                }
             },
             boxShadow: {
                 'glow': '0 0 20px rgba(248, 177, 52, 0.5)',
