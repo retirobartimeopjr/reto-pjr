@@ -9,6 +9,8 @@ export const GET: APIRoute = async ({ url }) => {
     }
 
     try {
+        const isPractice = url.searchParams.get('isPractice') === 'true';
+
         // 1. Verificamos el límite diario del usuario en Postgres
         const userRes = await query('SELECT daily_trivia_count, last_trivia_date FROM users WHERE id = $1', [userId]);
         
@@ -16,14 +18,6 @@ export const GET: APIRoute = async ({ url }) => {
             return new Response(JSON.stringify({ error: "Usuario no encontrado" }), { status: 404 });
         }
 
-        const userData = userRes.rows[0];
-        
-        const today = new Date().toLocaleString("en-US", { timeZone: "America/Bogota" }).split(",")[0]; 
-        // En Postgres, last_trivia_date es un campo Date real. Al traerlo a JS se convierte a objeto Date.
-        // Lo formamos al formato local de bogotá para ser consistentes, o validamos por fechas de Postgres.
-        
-        // Más fácil: si en SQL `last_trivia_date = CURRENT_DATE`, el daily count aplica.
-        // Consultemos nuevamente pero pidiendo a Postgres que compare la fecha:
         const limitCheckRes = await query(`
             SELECT 
                 daily_trivia_count,
@@ -38,7 +32,7 @@ export const GET: APIRoute = async ({ url }) => {
             dailyCount = limitData.daily_trivia_count || 0;
         }
 
-        if (dailyCount >= 10) {
+        if (!isPractice && dailyCount >= 10) {
             return new Response(JSON.stringify({
                 empty: true,
                 limitReached: true,
