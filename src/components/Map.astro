@@ -78,13 +78,20 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
               stroke-width="2"
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
-          {/* Autocomplete Dropdown */}
           <div
             id="search-results"
             class="hidden absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl overflow-hidden max-h-60 overflow-y-auto border border-gray-100 divide-y divide-gray-100"
           >
             {/* Results injected by JS */}
           </div>
+        </div>
+
+        {/* Points Filter Pills */}
+        <div class="mt-2 flex gap-2 overflow-x-auto no-scrollbar pb-1" id="points-filter-container">
+          <button class="points-filter-btn active bg-[#f8b134] text-black px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-md border border-[#f8b134] transition-colors" data-points="all">Todas</button>
+          <button class="points-filter-btn bg-white/90 text-gray-700 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-md border border-gray-200 hover:bg-gray-50 transition-colors" data-points="200">200 pts</button>
+          <button class="points-filter-btn bg-white/90 text-gray-700 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-md border border-gray-200 hover:bg-gray-50 transition-colors" data-points="500">500 pts</button>
+          <button class="points-filter-btn bg-white/90 text-gray-700 px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap shadow-md border border-gray-200 hover:bg-gray-50 transition-colors" data-points="800">800 pts</button>
         </div>
       </div>
 
@@ -709,6 +716,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   let $mapElement = null
   let mapInstance = null
   let markersCluster = null
+  let currentPointsFilter = 'all'
   let userMarker = null
   let nearbySection = null
 
@@ -867,12 +875,19 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     const visitedIds = visitedString.split(',').map((id) => id.trim())
 
     locations.forEach((loc) => {
+      // Aplicar Filtro de Puntos
+      if (currentPointsFilter !== 'all') {
+        const locPoints = String(loc.reward || 200);
+        if (locPoints !== currentPointsFilter) return;
+      }
+
       const lat = loc.center?.lat || loc.lat
       const lon = loc.center?.lng || loc.lng
       if (!lat || !lon) return
 
       const pid = (loc.id ?? loc.parroquiaid ?? loc.name).toString()
       const isVisited = visitedIds.includes(pid) || confirmedParishes.has(pid)
+      const points = loc.reward || 200
 
       let bgStyle = `background-color: ${getColorForVicaria(loc.vicaria)}; border: 2px solid white;`
       let shapeClass = 'rounded-lg'
@@ -892,6 +907,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
                  ${innerHtml}
               </div>
               <div class="absolute top-0 left-0 right-0 h-[40%] bg-gradient-to-b from-white/30 to-transparent ${shapeClass ? 'rounded-t-lg' : ''} pointer-events-none" style="${isVisited ? 'clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);' : ''}"></div>
+              <div class="absolute -top-3 -right-3 bg-[#640010] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-md border border-white/50 animate-pulse">${points}</div>
             </div>
           `
       const customIcon = L.divIcon({
@@ -907,8 +923,11 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         `
             <div class="font-sans min-w-[200px] text-center">
               <div class="p-2">
-                 <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">${loc.vicaria || 'Vicaria'}</span>
-                 <h3 class="text-lg font-bold text-gray-900 mt-1 mb-2">${loc.name}</h3>
+                 <div class="flex items-center justify-between mb-1">
+                     <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">${loc.vicaria || 'Vicaria'}</span>
+                     <span class="text-xs font-bold bg-[#f8b134]/20 text-[#d9901c] px-2 py-0.5 rounded-full">⭐ ${points} pts</span>
+                 </div>
+                 <h3 class="text-lg font-bold text-gray-900 mb-2">${loc.name}</h3>
                  
                  <div class="flex flex-col gap-2 mt-3">
                    <button 
@@ -1840,6 +1859,24 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   }
 
   function setupUIControls() {
+    // Points Filter Logic
+    const filterBtns = document.querySelectorAll('.points-filter-btn')
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement
+        // Update active state
+        filterBtns.forEach(b => b.classList.remove('active', 'bg-[#f8b134]', 'text-black', 'border-[#f8b134]'))
+        filterBtns.forEach(b => b.classList.add('bg-white/90', 'text-gray-700', 'border-gray-200'))
+        
+        target.classList.remove('bg-white/90', 'text-gray-700', 'border-gray-200')
+        target.classList.add('active', 'bg-[#f8b134]', 'text-black', 'border-[#f8b134]')
+        
+        // Update filter and re-render markers
+        currentPointsFilter = target.dataset.points || 'all'
+        renderMarkersWithClustering()
+      })
+    })
+
     // Search Functionality
     const searchInput = document.getElementById('parish-search')
     const searchResults = document.getElementById('search-results')

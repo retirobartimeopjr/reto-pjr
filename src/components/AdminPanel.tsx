@@ -116,7 +116,7 @@ export default function AdminPanel() {
                 password,
                 active: newActiveState,
                 message,
-                proximityThreshold,
+                proximity_threshold: proximityThreshold,
                 challenge_start_time: isoStartTime,
                 challenge_end_time: isoEndTime
             };

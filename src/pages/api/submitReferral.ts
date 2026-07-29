@@ -32,12 +32,9 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         const targetPhone = String(referralPhone).replace(/\D/g, '').trim(); 
         const newPhone = newUserPhone ? String(newUserPhone).replace(/\D/g, '').trim() : null; 
 
-        // 1. Validar que la persona que invitó realmente exista
+        // 1. Verificar si el referente existe
         const referrerRes = await query('SELECT id FROM users WHERE phone = $1', [targetPhone]);
-
-        if (referrerRes.rowCount === 0) {
-            return new Response(JSON.stringify({ success: false, error: "El número de quien te invitó no está registrado." }), { status: 404 });
-        }
+        const referrerExists = referrerRes.rowCount > 0;
 
         // 2. Identificar al usuario a ser referido (Debe ser el mismo que está logueado, a menos que sea un nuevo pre-registro, lo cual en este flujo ya debería estar registrado porque tiene token JWT)
         let userData: any = null;
@@ -64,6 +61,25 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
         // 3. EJECUTAR ESCRITURA
         await query(`UPDATE users SET referencia = $1 WHERE id = $2`, [targetPhone, userData.id]);
+
+        if (referrerExists) {
+            // Asignar puntos al referente
+            const refPointsRes = await query(`SELECT value FROM app_config WHERE key = 'referral_points'`);
+            const pts = refPointsRes.rowCount > 0 ? Number(refPointsRes.rows[0].value) : 150;
+            
+            await query(`
+                INSERT INTO user_referrals (referrer_phone, referred_phone, points_awarded)
+                VALUES ($1, $2, $3)
+                ON CONFLICT (referrer_phone, referred_phone) DO NOTHING
+            `, [targetPhone, userData.phone, pts]);
+        } else {
+            // Mandar a cola fantasma
+            await query(`
+                INSERT INTO pending_referrals (referrer_phone, new_user_phone)
+                VALUES ($1, $2)
+                ON CONFLICT (referrer_phone, new_user_phone) DO NOTHING
+            `, [targetPhone, userData.phone]);
+        }
 
         return new Response(JSON.stringify({
             success: true,

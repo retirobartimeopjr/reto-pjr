@@ -10,10 +10,24 @@ export default function Referidos() {
     const [toast, setToast] = useState<{ type: 'success' | 'error' | null, text: string }>({ type: null, text: '' });
     const [showConfirm, setShowConfirm] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const [referredNames, setReferredNames] = useState<string[]>([]);
 
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    useEffect(() => {
+        if (user.isAuthenticated === 'true' && user.phone) {
+            fetch(`/api/myReferralsList?phone=${user.phone}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success && data.names) {
+                        setReferredNames(data.names);
+                    }
+                })
+                .catch(err => console.error("Error fetching referrals:", err));
+        }
+    }, [user.isAuthenticated, user.phone]);
 
     // Auto-dismiss toast
     useEffect(() => {
@@ -216,6 +230,27 @@ Puedes participar y ayudarme de una manera muy sencilla:
                             </div>
                         </div>
                     </div>
+
+                    {/* SECTION 3: REFERRED USERS LIST */}
+                    {referredNames.length > 0 && (
+                        <div className="mt-8 bg-[#1a1a1a] p-5 rounded-xl border border-white/5 shadow-lg max-w-2xl mx-auto">
+                            <h4 className="text-[#f8b134] text-sm font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                                Personas que te han invitado
+                            </h4>
+                            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {referredNames.map((name, idx) => (
+                                    <li key={idx} className="bg-black/30 px-4 py-2 rounded-lg border border-white/5 flex items-center gap-3">
+                                        <div className="w-2 h-2 rounded-full bg-[#f8b134]/70"></div>
+                                        <span className="text-white/90 font-medium capitalize">{name}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+
                 </div>
             </div>
 

@@ -40,10 +40,10 @@ export const GET: APIRoute = async ({ request }) => {
                 LIMIT 10
             `;
         } else {
-            // Fetch last 10 users with > 0 points
+            // Fetch worst 10 users prioritizing those with > 0 points
             queryText = `
                 WITH RankedUsers AS (
-                    SELECT username, calculated_score,
+                    SELECT user_id, username, calculated_score,
                            ROW_NUMBER() OVER (
                                ORDER BY 
                                    calculated_score DESC, 
@@ -54,13 +54,14 @@ export const GET: APIRoute = async ({ request }) => {
                     FROM user_stats
                     WHERE is_active = true
                 ),
-                BottomUsers AS (
+                BottomTen AS (
                     SELECT * FROM RankedUsers
-                    WHERE calculated_score > 0
-                    ORDER BY rank DESC
+                    ORDER BY 
+                        CASE WHEN calculated_score > 0 THEN 0 ELSE 1 END ASC,
+                        rank DESC
                     LIMIT 10
                 )
-                SELECT * FROM BottomUsers
+                SELECT * FROM BottomTen
                 ORDER BY rank ASC
             `;
         }
@@ -83,6 +84,6 @@ export const GET: APIRoute = async ({ request }) => {
 
     } catch (error) {
         console.error("❌ Postgres Leaderboard API Error:", error);
-        return new Response(JSON.stringify({ error: 'Server Error' }), { status: 500 });
+        return new Response(JSON.stringify({ error: String(error), stack: error.stack }), { status: 500 });
     }
 };

@@ -31,7 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
             SELECT 
                 us.user_id, us.username, us.calculated_score, us.parroquias_visitadas, 
                 us.respuestas_enviadas, us.respuestas_correctas,
-                u.phone, u.cedula, u.referidos, u.email
+                u.phone, u.cedula, u.referidos, u.email, u.is_active, u.deactivation_reason
             FROM user_stats us
             JOIN users u ON us.user_id = u.id
             WHERE us.user_id = $1
@@ -58,6 +58,36 @@ export const POST: APIRoute = async ({ request }) => {
         `, [targetUserId]);
 
         userDetails.visited_parroquias = visitsRes.rows;
+
+        // 4. Fetch Receipts
+        const receiptsRes = await query(`
+            SELECT receipt_url 
+            FROM ticket_registers 
+            WHERE phone = $1 AND receipt_url IS NOT NULL
+        `, [userDetails.phone]);
+
+        userDetails.receipts = receiptsRes.rows.map(row => row.receipt_url);
+
+        // 5. Fetch Referrals and their Receipts
+        const referralsRes = await query(`
+            SELECT 
+                ur.referred_phone, 
+                u.username as referred_name,
+                (
+                    SELECT array_agg(tr.receipt_url) 
+                    FROM ticket_registers tr 
+                    WHERE tr.phone = ur.referred_phone AND tr.receipt_url IS NOT NULL
+                ) as receipts
+            FROM user_referrals ur
+            LEFT JOIN users u ON ur.referred_phone = u.phone
+            WHERE ur.referrer_phone = $1
+        `, [userDetails.phone]);
+
+        userDetails.referralsList = referralsRes.rows.map(row => ({
+            phone: row.referred_phone,
+            name: row.referred_name || 'Desconocido',
+            receipts: row.receipts || []
+        }));
 
         return new Response(JSON.stringify(userDetails), { status: 200, headers: { "Content-Type": "application/json" } });
 
