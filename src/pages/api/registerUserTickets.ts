@@ -14,16 +14,23 @@ export const POST: APIRoute = async ({ request }) => {
             paymentValue, 
             selectedTickets, 
             receiptUrl, 
-            referral 
+            referral,
+            forceInactive
         } = body;
 
         if (!name || !phone || !selectedTickets || !Array.isArray(selectedTickets) || selectedTickets.length === 0) {
             return new Response(JSON.stringify({ success: false, error: 'Faltan datos requeridos (nombre, teléfono, boletas).' }), { status: 400 });
         }
 
-        const estadoPago = (Number(paymentValue) >= selectedTickets.length * 10000) ? 'yes' : 'no';
-        const isActive = estadoPago === 'yes';
-        const deactivationReason = isActive ? null : 'Boleta pendiente de pago';
+        let estadoPago = (Number(paymentValue) >= selectedTickets.length * 10000) ? 'yes' : 'no';
+        let isActive = estadoPago === 'yes';
+        let deactivationReason = isActive ? null : 'Boleta pendiente de pago';
+
+        if (forceInactive) {
+            isActive = false;
+            estadoPago = 'no';
+            deactivationReason = 'Revisión Manual Requerida (Falló Validación IA o Timeout)';
+        }
 
         // 1. Upsert User (Buscar por teléfono)
         const userRes = await query(`SELECT id, username, email FROM users WHERE phone = $1`, [phone]);

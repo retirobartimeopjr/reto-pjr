@@ -10,6 +10,9 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
     const [step, setStep] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [aiRetryCount, setAiRetryCount] = useState(0);
+    const [isValidatingAI, setIsValidatingAI] = useState(false);
+    const [aiForceInactive, setAiForceInactive] = useState(false);
 
     // Form Data
     const [name, setName] = useState('');
@@ -63,61 +66,6 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
         }
     };
 
-    const handleNext = () => {
-        setError('');
-        if (step === 1) {
-            if (!name.trim() || !phone.trim()) {
-                setError('Nombre y Teléfono son obligatorios.');
-                return;
-            }
-            const cleanPhone = phone.replace(/\s+/g, '');
-            if (!/^\+?\d{7,15}$/.test(cleanPhone)) {
-                setError('Por favor, ingresa un número de teléfono válido (7 a 15 dígitos).');
-                return;
-            }
-        } else if (step === 2) {
-            if (selectedTickets.length === 0) {
-                setError('Debes seleccionar al menos una boleta.');
-                return;
-            }
-        } else if (step === 3) {
-            if (!hasTransferred) {
-                setError('Debes confirmar que ya realizaste la transferencia.');
-                return;
-            }
-        } else if (step === 4) {
-            if (!paymentMethod || !paymentValue.trim() || !receiptFile) {
-                setError('Método, valor transferido y comprobante son obligatorios.');
-                return;
-            }
-            const numericValue = parseInt(paymentValue.replace(/\D/g, ''), 10);
-            const totalRequired = selectedTickets.length * ticketPrice;
-            if (isNaN(numericValue) || numericValue < totalRequired) {
-                setError(`El valor transferido debe ser al menos de $${totalRequired.toLocaleString('es-CO')} por las ${selectedTickets.length} boletas.`);
-                return;
-            }
-        }
-        setStep(s => s + 1);
-    };
-
-    const handlePrev = () => {
-        setError('');
-        setStep(s => s - 1);
-    };
-
-    const toggleTicket = (ticket: number) => {
-        if (selectedTickets.includes(ticket)) {
-            setSelectedTickets(selectedTickets.filter(t => t !== ticket));
-        } else {
-            // max 10 tickets per transaction to prevent abuse
-            if (selectedTickets.length >= 10) {
-                setError('Máximo 10 boletas por transacción.');
-                return;
-            }
-            setSelectedTickets([...selectedTickets, ticket].sort((a, b) => a - b));
-        }
-    };
-
     const compressImage = (file: File, maxWidth = 1200, quality = 0.7): Promise<File> => {
         return new Promise((resolve) => {
             if (!file.type.startsWith('image/')) {
@@ -161,6 +109,167 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
             };
             reader.onerror = () => resolve(file);
         });
+    };
+
+    const handleNext = async () => {
+        setError('');
+        if (step === 1) {
+            if (!name.trim() || !phone.trim()) {
+                setError('Nombre y Teléfono son obligatorios.');
+                return;
+            }
+            const cleanPhone = phone.replace(/\s+/g, '');
+            if (!/^\+?\d{7,15}$/.test(cleanPhone)) {
+                setError('Por favor, ingresa un número de teléfono válido (7 a 15 dígitos).');
+                return;
+            }
+            if (referral) {
+                const cleanReferral = referral.replace(/\s+/g, '');
+                if (cleanReferral === cleanPhone) {
+                    setError('Oye, no puedes usarte a ti mismo como referido 😉.');
+                    return;
+                }
+            }
+        } else if (step === 2) {
+            if (selectedTickets.length === 0) {
+                setError('Debes seleccionar al menos una boleta.');
+                return;
+            }
+            
+            // VERIFICAR CONCURRENCIA: Evitar que avancen si la boleta acaba de ser tomada
+            setLoading(true);
+            try {
+                const res = await fetch('/api/checkTickets', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tickets: selectedTickets })
+                });
+                const data = await res.json();
+                
+                if (!data.success) {
+                    setError(data.error || 'Una boleta seleccionada ya no está disponible.');
+                    // Actualizar boletas disponibles inmediatamente
+                    const resAvailable = await fetch('/api/tickets');
+                    const dataAvailable = await resAvailable.json();
+                    if (dataAvailable.success) {
+                        setAvailableTickets(dataAvailable.available);
+                        // Limpiar las que ya no están
+                        setSelectedTickets(prev => prev.filter(t => dataAvailable.available.includes(t)));
+                    }
+                    setLoading(false);
+                    return;
+                }
+            } catch (err) {
+                console.error("Error verificando boletas", err);
+            }
+            setLoading(false);
+        } else if (step === 3) {
+            if (!hasTransferred) {
+                setError('Debes confirmar que ya realizaste la transferencia.');
+                return;
+            }
+        } else if (step === 4) {
+            if (!paymentMethod || !paymentValue.trim() || !receiptFile) {
+                setError('El Valor transferido y comprobante son obligatorios.');
+                return;
+            }
+            const numericValue = parseInt(paymentValue.replace(/\D/g, ''), 10);
+            const totalRequired = selectedTickets.length * ticketPrice;
+            if (isNaN(numericValue) || numericValue < totalRequired) {
+                setError(`El valor transferido debe ser al menos de $${totalRequired.toLocaleString('es-CO')} por las ${selectedTickets.length} boletas.`);
+                return;
+            }
+
+            // 1.5 Validate with Gemini AI
+            if (paymentMethod !== 'Otros' && receiptFile) {
+                setIsValidatingAI(true);
+                
+                // Play audio cue
+                const audio = new Audio('/ia.mp3');
+                audio.play().catch(e => console.log('Audio autoplay prevented:', e));
+
+                try {
+                    // Compress image before converting to base64
+                    const compressedFile = await compressImage(receiptFile, 800, 0.6); // smaller dimensions and quality for faster AI
+
+                    // Convert file to base64
+                    const base64Data = await new Promise<string>((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(compressedFile);
+                        reader.onload = () => {
+                            if (typeof reader.result === 'string') {
+                                resolve(reader.result.split(',')[1]);
+                            } else {
+                                reject('Failed to read file');
+                            }
+                        };
+                        reader.onerror = error => reject(error);
+                    });
+
+                    const expectedAmount = selectedTickets.length * ticketPrice;
+                    const aiController = new AbortController();
+                    const aiTimeout = setTimeout(() => aiController.abort(), 25000); // 25 seconds timeout
+
+                    const aiRes = await fetch('/api/gemini/validateReceipt', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            base64Image: base64Data, 
+                            mimeType: receiptFile.type,
+                            expectedAmount 
+                        }),
+                        signal: aiController.signal
+                    });
+
+                    clearTimeout(aiTimeout);
+                    const aiData = await aiRes.json();
+                    
+                    if (aiData.success) {
+                        if (!aiData.isValid) {
+                            if (aiRetryCount < 2) {
+                                setError(`🤖 IA Bartimeo: ${aiData.reason || 'El comprobante no es válido.'}`);
+                                setReceiptFile(null);
+                                setAiRetryCount(prev => prev + 1);
+                                setIsValidatingAI(false);
+                                return; // Detener flujo en paso 4
+                            } else {
+                                // Tercer fallo: dejar pasar pero inactivar
+                                setAiForceInactive(true);
+                            }
+                        }
+                    } else {
+                        // Error de servidor (límite superado, API caída, etc.): dejar pasar pero inactivar
+                        console.error("Fallo del servidor de la IA:", aiData.error);
+                        setAiForceInactive(true);
+                    }
+                } catch (e: any) {
+                    console.error("AI Validation Error or Timeout", e);
+                    // Si hay error de red o timeout, dejar pasar pero ocultar
+                    setAiForceInactive(true);
+                } finally {
+                    setIsValidatingAI(false);
+                }
+            }
+        }
+        setStep(s => s + 1);
+    };
+
+    const handlePrev = () => {
+        setError('');
+        setStep(s => s - 1);
+    };
+
+    const toggleTicket = (ticket: number) => {
+        if (selectedTickets.includes(ticket)) {
+            setSelectedTickets(selectedTickets.filter(t => t !== ticket));
+        } else {
+            // max 10 tickets per transaction to prevent abuse
+            if (selectedTickets.length >= 10) {
+                setError('Máximo 10 boletas por transacción.');
+                return;
+            }
+            setSelectedTickets([...selectedTickets, ticket].sort((a, b) => a - b));
+        }
     };
 
     const uploadReceiptToS3 = async (file: File) => {
@@ -215,7 +324,7 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name, phone, email, paymentMethod, paymentValue,
-                    selectedTickets, receiptUrl: finalReceiptUrl, referral
+                    selectedTickets, receiptUrl: finalReceiptUrl, referral, forceInactive: aiForceInactive
                 })
             });
 
@@ -231,6 +340,7 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
             setError(err.message || 'Error inesperado.');
         } finally {
             setLoading(false);
+            setIsValidatingAI(false);
         }
     };
 
@@ -247,7 +357,27 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                     </svg>
                 </button>
 
-                <div className="flex-1 overflow-y-auto no-scrollbar">
+                <div className="flex-1 overflow-y-auto no-scrollbar relative">
+                    {/* AI Validating Overlay */}
+                    <AnimatePresence>
+                        {isValidatingAI && (
+                            <motion.div 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col items-center justify-center rounded-xl border border-[#f8b134]/30"
+                            >
+                                <div className="relative flex flex-col items-center justify-center">
+                                    <div className="w-16 h-16 rounded-full border-4 border-[#f8b134]/20 border-t-[#f8b134] animate-spin mb-4" />
+                                    <h3 className="text-xl font-bold text-[#f8b134] text-center px-4 font-mono animate-pulse">
+                                        Bartimeo AI<br/>Analizando...
+                                    </h3>
+                                    <p className="text-white/50 text-xs mt-2">Revisando tu comprobante</p>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
                     {/* Header */}
                     {step < 5 && (
                         <div className="mb-6">
@@ -523,8 +653,9 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                 {step < 6 && (
                     <div className="mt-6 pt-4 border-t border-white/10 flex flex-col gap-3">
                         {error && (
-                            <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-200 text-xs flex items-center gap-2">
-                                ⚠️ {error}
+                            <div className="p-5 bg-red-600/30 border-2 border-red-500 rounded-xl text-white font-bold text-lg flex flex-col items-center justify-center text-center gap-2 shadow-[0_0_20px_rgba(239,68,68,0.4)] animate-pulse">
+                                <span className="text-3xl">⚠️</span>
+                                <span>{error}</span>
                             </div>
                         )}
                         <div className="flex gap-3">
@@ -535,18 +666,46 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                             )}
 
                             {step < 5 ? (
-                                <button type="button" onClick={handleNext} className="flex-1 bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:from-[#fbd07e] hover:to-[#dca336] text-black font-bold py-3 rounded-xl shadow-lg hover:shadow-[#f8b134]/20 transition-all flex justify-center items-center gap-2">
+                                <button type="button" onClick={handleNext} disabled={loading} className="flex-1 bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:from-[#fbd07e] hover:to-[#dca336] text-black font-bold py-3 rounded-xl shadow-lg hover:shadow-[#f8b134]/20 transition-all flex justify-center items-center gap-2">
                                     Siguiente
                                 </button>
                             ) : (
-                                <button type="button" onClick={handleSubmit} disabled={loading} className="flex-1 bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:from-[#fbd07e] hover:to-[#dca336] text-black font-bold py-3 rounded-xl shadow-lg hover:shadow-[#f8b134]/20 transition-all flex justify-center items-center gap-2 disabled:opacity-70">
-                                    {loading ? 'Procesando...' : 'Finalizar Registro'}
+                                <button type="button" onClick={handleSubmit} disabled={loading || isValidatingAI} className="flex-1 bg-gradient-to-r from-[#f8b134] to-[#bf8418] hover:from-[#fbd07e] hover:to-[#dca336] text-black font-bold py-3 rounded-xl shadow-lg hover:shadow-[#f8b134]/20 transition-all flex justify-center items-center gap-2 disabled:opacity-70">
+                                    {isValidatingAI ? 'La IA está validando...' : loading ? 'Procesando...' : 'Finalizar Registro'}
                                 </button>
                             )}
                         </div>
                     </div>
                 )}
             </motion.div>
+
+            {isValidatingAI && (
+                <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex flex-col items-center justify-center p-4">
+                    <div className="relative w-64 h-64 mb-4 border-4 border-dashed border-[#f8b134] rounded-xl overflow-hidden">
+                        <div className="absolute top-0 left-0 w-full h-2 bg-red-500 shadow-[0_0_15px_rgba(239,68,68,1)] animate-scanner-laser"></div>
+                        {receiptFile ? (
+                            <div className="w-full h-full flex items-center justify-center text-white">
+                                <img src={URL.createObjectURL(receiptFile)} alt="Comprobante" className="w-full h-full object-cover opacity-50" />
+                            </div>
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center text-white">Escaneando...</div>
+                        )}
+                    </div>
+                    <h2 className="text-xl font-bold text-white mb-2 text-center">Barti-IA Analizando...</h2>
+                    <p className="text-gray-300 text-center text-sm max-w-xs mb-6">Verificando tu comprobante en tiempo real con Inteligencia Artificial.</p>
+                    
+                    {/* Barra de progreso visual */}
+                    <div className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden">
+                        <div className="h-full bg-[#f8b134] rounded-full" style={{ animation: 'aiProgress 25s linear forwards' }}></div>
+                    </div>
+                    <style dangerouslySetInnerHTML={{__html: `
+                        @keyframes aiProgress {
+                            0% { width: 0%; }
+                            100% { width: 100%; }
+                        }
+                    `}} />
+                </div>
+            )}
         </div>
     );
 }
