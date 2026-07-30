@@ -26,7 +26,18 @@ try {
 
   <main class="min-h-screen pt-24 pb-12 px-4 flex flex-col items-center justify-start relative z-10 overflow-hidden text-center">
     <!-- Background Elements -->
-    <div class="absolute inset-0 z-[-1] overflow-hidden pointer-events-none fixed">
+    <div
+      class="fixed inset-0 w-full h-full -z-10"
+      style={{
+        backgroundImage:
+          "linear-gradient(to bottom, rgba(100, 0, 16, 0.85), rgba(100, 0, 16, 0.6)), url('/foto.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+    </div>
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/noise.svg')] opacity-20 mix-blend-overlay"></div>
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-blue-500/10 blur-[120px] rounded-full"></div>
     </div>
@@ -54,14 +65,60 @@ try {
       </h1>
     </div>
     
-    <p class="text-xl md:text-2xl text-blue-300 font-medium max-w-2xl mx-auto mb-12">
-      Estamos preparando toda la información e inscripciones para el próximo retiro.
-    </p>
+    <div class="w-full max-w-3xl mx-auto bg-black/50 backdrop-blur-lg border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl mb-12 text-left mt-4">
+      <div class="text-center mb-8">
+        <h2 class="text-brand font-black text-2xl md:text-3xl tracking-widest mb-2 uppercase">V Retiro Bartimeo</h2>
+        <h3 class="text-white/90 text-lg md:text-xl font-bold uppercase tracking-wider mb-4">Parroquia Jesucristo Redentor</h3>
+        <p class="text-3xl md:text-5xl font-serif text-[#fbd07e] font-black drop-shadow-lg mb-6">¡BIENVENIDOS!</p>
+        <p class="text-white/80 text-lg leading-relaxed max-w-xl mx-auto">
+          Formulario de inscripción al V Retiro Bartimeo <br/>
+          <span class="text-sm opacity-75">(dirigido a jóvenes que asistirán por primera vez al retiro).</span>
+        </p>
+      </div>
 
-    <div class="inline-block px-8 py-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm mb-12">
-      <p class="text-white/60 font-bold uppercase tracking-widest text-sm">
-        Próximamente disponible
-      </p>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 space-y-4 mb-8">
+        <h4 class="text-[#f8b134] font-bold text-xl md:text-2xl mb-4 flex items-center gap-2">
+          <span>📍</span> Datos clave del retiro:
+        </h4>
+        
+        <ul class="space-y-4 text-white/90 text-lg">
+          <li class="flex flex-col md:flex-row md:items-start gap-1 md:gap-3">
+            <span class="font-bold text-white min-w-[100px]">Edades:</span> 
+            <span class="font-light">15 a 17 años.</span>
+          </li>
+          <li class="flex flex-col md:flex-row md:items-start gap-1 md:gap-3">
+            <span class="font-bold text-white min-w-[100px]">Fechas:</span> 
+            <span class="font-light">25, 26 y 27 de septiembre de 2026.</span>
+          </li>
+          <li class="flex flex-col md:flex-row md:items-start gap-1 md:gap-3">
+            <span class="font-bold text-white min-w-[100px]">Lugar:</span> 
+            <span class="font-light">Casa CELAM (Consejo Episcopal Latinoamericano), Cra. 72 #169D-75.</span>
+          </li>
+          <li class="flex flex-col md:flex-row md:items-center gap-1 md:gap-3">
+            <span class="font-bold text-white min-w-[100px]">Valor:</span> 
+            <span class="font-black text-2xl text-[#fbd07e]">$500.000 COP</span>
+          </li>
+        </ul>
+
+        <div class="mt-6 pt-6 border-t border-white/10 text-center">
+          <p class="text-red-400 font-bold uppercase tracking-widest text-lg animate-pulse mb-2">¡Cupos limitados!</p>
+          <p class="text-white/60 text-sm italic">Se recomienda inscribirse antes del 4 de septiembre de 2026.</p>
+        </div>
+      </div>
+
+      <div class="flex justify-center">
+        <a 
+          href="https://forms.gle/mxGXY55yQbdAEx5G9"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group relative inline-flex items-center justify-center px-8 py-4 md:px-12 md:py-5 font-bold text-white transition-all duration-200 bg-gradient-to-r from-[#f8b134] to-[#bf8418] rounded-full hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(248,177,52,0.5)] border-2 border-white/30 hover:border-white w-full md:w-auto text-center"
+        >
+          <span class="text-xl md:text-2xl drop-shadow-md">¡Inscríbete al Retiro!</span>
+          <svg class="w-6 h-6 ml-3 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
     </div>
 
     {/* Video Gallery Section (Dynamic) */}

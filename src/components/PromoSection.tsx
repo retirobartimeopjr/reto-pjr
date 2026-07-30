@@ -77,18 +77,52 @@ export default function PromoSection() {
             </div>
 
             {/* Prizes Section - Clean & Direct */}
-            <div className="bg-gradient-to-r from-brand/10 to-transparent p-6 rounded-lg border-l-4 border-brand">
-              <h3 className="text-xl md:text-2xl font-serif font-bold text-white mb-3">
-                Los Premios
+            <div className="bg-gradient-to-br from-black/80 to-brand/20 p-6 md:p-8 rounded-2xl border-2 border-brand/50 shadow-[0_0_30px_rgba(248,177,52,0.15)] flex flex-col gap-6 mt-10">
+              
+              <h3 className="text-3xl md:text-4xl font-serif font-black text-brand mb-2 text-center drop-shadow-md tracking-wide">
+                LOS PREMIOS
               </h3>
-              <ul className="space-y-3 text-lg md:text-xl text-white/90 font-light list-disc list-inside marker:text-brand">
-                <li>
-                  <span className="font-medium text-white">Gran Premio:</span> <span className="font-bold text-[#f8b134]">$2.000.000 COP</span> para el peregrino con más puntos acumulados al final.
-                </li>
-                <li>
-                  <span className="font-medium text-white">Segundo Premio:</span> Sorteo de un <span className="font-bold text-[#f8b134]">Bono por $500.000 COP</span> en nuestra tienda <em>"El Rinconcito de Jesús"</em> (P. Jesucristo Redentor).
-                </li>
-              </ul>
+              
+              <div className="space-y-4">
+                {/* 1st Prize */}
+                <div className="bg-white/5 p-5 rounded-xl border border-white/10 flex flex-row items-center gap-4 justify-between relative overflow-hidden group">
+                  <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-brand/20 to-transparent pointer-events-none"></div>
+                  <div className="flex flex-col gap-1 z-10 w-2/3">
+                    <span className="text-white/70 font-semibold tracking-wider text-sm uppercase">1er Lugar (Gran Premio)</span>
+                    <span className="font-black text-4xl text-[#fbd07e] drop-shadow-lg tracking-tighter">$2.000.000 COP</span>
+                    <span className="text-white/80 font-light text-sm mt-1">Para el peregrino con más puntos acumulados al final.</span>
+                  </div>
+                  <div className="z-10 w-1/3 flex justify-end">
+                    <img src="/dospalos.png" alt="2 Millones" className="w-24 md:w-32 h-auto object-contain drop-shadow-[0_0_15px_rgba(248,177,52,0.4)] group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                </div>
+
+                {/* 2nd Prize */}
+                <div className="bg-white/5 p-5 rounded-xl border border-white/10 flex flex-row items-center gap-4 justify-between relative overflow-hidden group">
+                  <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white/10 to-transparent pointer-events-none"></div>
+                  <div className="flex flex-col gap-1 z-10 w-2/3">
+                    <span className="text-white/70 font-semibold tracking-wider text-sm uppercase">2do Lugar</span>
+                    <span className="font-black text-3xl text-white/90 drop-shadow-md tracking-tighter">$1.000.000 COP</span>
+                    <span className="text-white/80 font-light text-sm mt-1">Para el segundo peregrino con más puntos.</span>
+                  </div>
+                  <div className="z-10 w-1/3 flex justify-end">
+                    <img src="/unpalo.png" alt="1 Millón" className="w-24 md:w-32 h-auto object-contain drop-shadow-lg group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                </div>
+
+                {/* Raffle */}
+                <div className="bg-brand/10 p-5 rounded-xl border border-brand/30 flex flex-row items-center gap-4 justify-between relative overflow-hidden group">
+                  <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-brand/20 to-transparent pointer-events-none"></div>
+                  <div className="flex flex-col gap-1 z-10 w-2/3">
+                    <span className="text-brand font-semibold tracking-wider text-sm uppercase">Gran Sorteo Final (Rifa)</span>
+                    <span className="font-black text-3xl text-[#fbd07e] drop-shadow-md tracking-tighter">$500.000 COP</span>
+                    <span className="text-white/80 font-light text-sm mt-1">Sorteo entre participantes el día final del Reto.</span>
+                  </div>
+                  <div className="z-10 w-1/3 flex justify-end">
+                    <img src="/mediopalo.png" alt="500 Mil" className="w-24 md:w-32 h-auto object-contain drop-shadow-[0_0_15px_rgba(248,177,52,0.3)] group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="text-center pt-2">

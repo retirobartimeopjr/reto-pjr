@@ -7,11 +7,24 @@ import HomeHeader from '../components/home/HomeHeader.astro';
   <HomeHeader />
 
   <main class="min-h-screen pt-24 pb-12 px-4 flex flex-col items-center justify-center relative z-10 overflow-hidden">
-    <!-- Background Elements -->
-    <div class="absolute inset-0 z-[-1] overflow-hidden pointer-events-none">
-      <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#f8b134]/20 blur-[100px] rounded-full"></div>
-      <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#bf8418]/20 blur-[100px] rounded-full"></div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('/noise.svg')] opacity-20 mix-blend-overlay"></div>
+    <!-- Background Video -->
+    <div class="fixed inset-0 z-[-2] overflow-hidden bg-black">
+      <video
+        autoplay
+        loop
+        muted
+        playsinline
+        class="w-full h-full object-cover opacity-50"
+      >
+        <source src="/videos/bartifondo_bg.mp4" type="video/mp4" />
+      </video>
+    </div>
+    
+    <!-- Background Overlay -->
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+      <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#f8b134]/10 blur-[100px] rounded-full"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#bf8418]/10 blur-[100px] rounded-full"></div>
+      <div class="absolute inset-0 bg-[url('/noise.svg')] opacity-30 mix-blend-overlay"></div>
     </div>
 
     <!-- Script de Redirección Automática (Client-Side) -->
@@ -43,42 +56,42 @@ import HomeHeader from '../components/home/HomeHeader.astro';
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 w-full max-w-4xl animate-fade-in-up" style="animation-delay: 0.2s;">
       
       <!-- BOTÓN EL RETO -->
-      <a href="/reto" class="animate-bounce-soft group relative block w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(248,177,52,0.3)] transition-all duration-300 hover:-translate-y-4 hover:scale-105 active:scale-90 border-[3px] border-[#f8b134]/50 hover:border-[#f8b134]">
-        <!-- Fondo Glassmorphism -->
-        <div class="absolute inset-0 bg-gradient-to-br from-[#f8b134]/40 to-[#bf8418]/20 backdrop-blur-xl z-0"></div>
-        <div class="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay z-0"></div>
+      <a href="/reto" class="animate-bounce-soft group relative block w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(248,177,52,0.3)] transition-all duration-300 hover:-translate-y-4 hover:scale-105 active:scale-90 border-[2px] border-[#f8b134]/50 hover:border-[#f8b134] isolate [mask-image:-webkit-radial-gradient(white,black)]">
+        <!-- Fondo Sólido/Glassmorphism Más Fuerte -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#dca336]/75 to-[#bf8418]/65 backdrop-blur-xl z-0"></div>
+        <div class="absolute inset-0 bg-[url('/noise.svg')] opacity-30 mix-blend-overlay z-0"></div>
         
         <!-- Imagen Sutil de Fondo (Trofeo) -->
-        <div class="absolute inset-0 z-0 flex items-center justify-center opacity-30 group-hover:opacity-50 transition-opacity duration-500 transform group-hover:scale-110">
+        <div class="absolute inset-0 z-0 flex items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity duration-500 transform group-hover:scale-110">
           <img src="/trofeo.webp" alt="Trofeo" class="w-[80%] h-[80%] object-contain drop-shadow-2xl mix-blend-luminosity" />
         </div>
         
         <!-- Glow hover -->
-        <div class="absolute inset-0 bg-gradient-to-tr from-[#f8b134]/0 via-[#f8b134]/20 to-[#f8b134]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-tr from-[#f8b134]/0 via-[#f8b134]/30 to-[#f8b134]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none"></div>
 
         <div class="relative z-10 h-full flex items-center justify-center p-6 text-center">
-          <h2 class="text-5xl md:text-7xl font-serif font-black text-white tracking-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] transform group-hover:scale-110 transition-transform duration-300">
+          <h2 class="text-5xl md:text-7xl font-serif font-black text-white tracking-tight drop-shadow-[0_6px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-110 transition-transform duration-300">
             El Reto
           </h2>
         </div>
       </a>
 
       <!-- BOTÓN EL RETIRO -->
-      <a href="/retiro" class="animate-bounce-soft-delayed group relative block w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(255,255,255,0.2)] transition-all duration-300 hover:-translate-y-4 hover:scale-105 active:scale-90 border-[3px] border-white/40 hover:border-white">
-        <!-- Fondo Glassmorphism -->
-        <div class="absolute inset-0 bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-xl z-0"></div>
-        <div class="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-overlay z-0"></div>
+      <a href="/retiro" class="animate-bounce-soft-delayed group relative block w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-4 hover:scale-105 active:scale-90 border-[2px] border-white/30 hover:border-white/80 isolate [mask-image:-webkit-radial-gradient(white,black)]">
+        <!-- Fondo Sólido/Glassmorphism Más Fuerte -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#640010]/75 to-[#3d000a]/65 backdrop-blur-xl z-0"></div>
+        <div class="absolute inset-0 bg-[url('/noise.svg')] opacity-30 mix-blend-overlay z-0"></div>
         
         <!-- Imagen Sutil de Fondo (Sagrado Corazón) -->
-        <div class="absolute inset-0 z-0 flex items-center justify-center opacity-30 group-hover:opacity-50 transition-opacity duration-500 transform group-hover:scale-110">
+        <div class="absolute inset-0 z-0 flex items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity duration-500 transform group-hover:scale-110">
           <img src="/sagrado-coraz-n-de-jes-s-e1464966918869_c.webp" alt="Sagrado Corazón" class="w-[80%] h-[80%] object-contain drop-shadow-2xl mix-blend-luminosity rounded-full" />
         </div>
         
         <!-- Glow hover -->
-        <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0 pointer-events-none"></div>
 
         <div class="relative z-10 h-full flex items-center justify-center p-6 text-center">
-          <h2 class="text-5xl md:text-7xl font-serif font-black text-white tracking-tight drop-shadow-[0_4px_8px_rgba(0,0,0,0.6)] transform group-hover:scale-110 transition-transform duration-300">
+          <h2 class="text-5xl md:text-7xl font-serif font-black text-white tracking-tight drop-shadow-[0_6px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-110 transition-transform duration-300">
             El Retiro
           </h2>
         </div>
