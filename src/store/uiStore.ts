@@ -9,3 +9,5 @@ export const isLoginOpen = atom(false);
 // Los React islands lo consumen vía useChallengeLock.ts
 // ==================================================================
 export const isChallengeOver = atom<boolean>(false);
+
+export const isLeaderboardInView = atom<boolean>(false);

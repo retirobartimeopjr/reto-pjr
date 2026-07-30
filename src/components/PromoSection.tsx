@@ -1,10 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function PromoSection() {
   const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Si el contenedor sale completamente de la pantalla
+        if (!entry.isIntersecting) {
+          setIsOpen(false); // Lo cerramos automáticamente
+        }
+      },
+      { threshold: 0 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto mb-8 animate-fade-in-up px-4 md:px-0 font-sans">
+    <div className="w-full max-w-4xl mx-auto mb-8 animate-fade-in-up px-4 md:px-0 font-sans" ref={containerRef}>
       {/* Trigger Button - Sober & Clear */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -48,32 +67,59 @@ export default function PromoSection() {
             </div>
 
             {/* Steps / Instructions Group */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              
               {/* Step 1 */}
-              <div className="bg-white/5 p-5 rounded-lg border border-white/5 flex flex-col gap-3">
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="text-3xl">📍</span>
-                  <h3 className="text-lg md:text-xl font-bold text-brand uppercase tracking-wider">Paso 1: Visita</h3>
+              <div className="bg-gradient-to-b from-white/10 to-white/5 p-6 rounded-2xl border border-white/10 flex flex-col gap-3 shadow-lg relative overflow-hidden group hover:border-[#f8b134]/50 transition-all duration-300">
+                <div className="absolute -right-2 -top-2 text-8xl opacity-10 group-hover:scale-110 transition-transform duration-500 pointer-events-none">🤝</div>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-3xl bg-white/10 w-12 h-12 flex items-center justify-center rounded-full shadow-inner z-10">🤝</span>
+                  <h3 className="text-xl md:text-2xl font-black text-brand uppercase tracking-widest z-10">Paso 1: Invita</h3>
                 </div>
-                <p className="text-base md:text-lg text-white/80 leading-snug">
-                  Ve a las Parroquias participantes y confirma tu visita.
-                  <br />
-                  <span className="text-brand/90 font-bold block mt-2">+ 200 Puntos por templo</span>
+                <p className="text-base md:text-lg text-white/90 leading-snug font-medium relative z-10">
+                  Invita a otros y diles que anoten tu número de teléfono cuando se registren.
                 </p>
+                <div className="relative z-10 mt-auto pt-2">
+                  <span className="text-[#fbd07e] font-black block text-lg bg-black/30 p-2 rounded-lg text-center border border-brand/30 shadow-inner tracking-wide">
+                    + 150 Puntos por referido
+                  </span>
+                </div>
               </div>
 
               {/* Step 2 */}
-              <div className="bg-white/5 p-5 rounded-lg border border-white/5 flex flex-col gap-3">
-                <div className="flex items-center gap-3 mb-1">
-                  <span className="text-3xl">🧠</span>
-                  <h3 className="text-lg md:text-xl font-bold text-brand uppercase tracking-wider">Paso 2: Responde</h3>
+              <div className="bg-gradient-to-b from-white/10 to-white/5 p-6 rounded-2xl border border-white/10 flex flex-col gap-3 shadow-lg relative overflow-hidden group hover:border-[#f8b134]/50 transition-all duration-300">
+                <div className="absolute -right-2 -top-2 text-8xl opacity-10 group-hover:scale-110 transition-transform duration-500 pointer-events-none">📍</div>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-3xl bg-white/10 w-12 h-12 flex items-center justify-center rounded-full shadow-inner z-10">📍</span>
+                  <h3 className="text-xl md:text-2xl font-black text-brand uppercase tracking-widest z-10">Paso 2: Peregrina</h3>
                 </div>
-                <p className="text-base md:text-lg text-white/80 leading-snug">
-                  Contesta las BartiPreguntas sobre nuestra fe.
-                  <br />
-                  <span className="text-brand/90 font-bold block mt-2">+ 20 Puntos por acierto</span>
+                <p className="text-base md:text-lg text-white/90 leading-snug font-medium relative z-10">
+                  Ve a las Parroquias o Santuarios participantes y confirma tu visita allí.
                 </p>
+                <div className="relative z-10 mt-auto pt-2">
+                  <span className="text-[#fbd07e] font-black block text-lg bg-black/30 p-2 rounded-lg text-center border border-brand/30 shadow-inner tracking-wide">
+                    + 200, 500, 800 pts
+                  </span>
+                </div>
               </div>
+
+              {/* Step 3 */}
+              <div className="bg-gradient-to-b from-white/10 to-white/5 p-6 rounded-2xl border border-white/10 flex flex-col gap-3 shadow-lg relative overflow-hidden group hover:border-[#f8b134]/50 transition-all duration-300">
+                <div className="absolute -right-2 -top-2 text-8xl opacity-10 group-hover:scale-110 transition-transform duration-500 pointer-events-none">🧠</div>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-3xl bg-white/10 w-12 h-12 flex items-center justify-center rounded-full shadow-inner z-10">🧠</span>
+                  <h3 className="text-xl md:text-2xl font-black text-brand uppercase tracking-widest z-10">Paso 3: Responde</h3>
+                </div>
+                <p className="text-base md:text-lg text-white/90 leading-snug font-medium relative z-10">
+                  Contesta las Bartipreguntas sobre nuestra fe.
+                </p>
+                <div className="relative z-10 mt-auto pt-2">
+                  <span className="text-[#fbd07e] font-black block text-lg bg-black/30 p-2 rounded-lg text-center border border-brand/30 shadow-inner tracking-wide">
+                    + 20 Puntos por acierto
+                  </span>
+                </div>
+              </div>
+
             </div>
 
             {/* Prizes Section - Clean & Direct */}
