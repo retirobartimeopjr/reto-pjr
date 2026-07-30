@@ -1,17 +1,46 @@
 import type { APIRoute } from 'astro';
 import { query } from '../../../lib/db';
 import crypto from 'crypto';
+import { jwtVerify } from 'jose';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, cookies }) => {
     try {
+        const token = cookies.get('auth_token')?.value;
+        if (!token) {
+            return new Response(JSON.stringify({ error: 'No autorizado.' }), { status: 401 });
+        }
+        const secret = new TextEncoder().encode(import.meta.env.JWT_SECRET || process.env.JWT_SECRET);
+        const { payload } = await jwtVerify(token, secret);
+        const userId = payload.userId as string;
+
         const body = await request.json();
-        const { userId, preguntaId, respuesta, isPractice } = body;
+        const { preguntaId, respuesta, isPractice } = body;
 
         if (!userId || !preguntaId || !respuesta) {
             return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
         }
 
-        // 1. Verificar la pregunta en Postgres
+        // 1. Verificar límite diario antes de hacer nada (solo si no es práctica)
+        if (!isPractice) {
+            const limitRes = await query(`
+                SELECT daily_trivia_count, last_trivia_date 
+                FROM users 
+                WHERE id = $1
+            `, [userId]);
+            
+            if (limitRes.rowCount > 0) {
+                const user = limitRes.rows[0];
+                const nowBogota = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Bogota"}));
+                const lastDate = user.last_trivia_date ? new Date(user.last_trivia_date) : null;
+                const isToday = lastDate && (lastDate.getFullYear() === nowBogota.getFullYear() && lastDate.getMonth() === nowBogota.getMonth() && lastDate.getDate() === nowBogota.getDate());
+                
+                if (isToday && user.daily_trivia_count >= 10) {
+                    return new Response(JSON.stringify({ error: "Límite diario de 10 preguntas alcanzado." }), { status: 429 });
+                }
+            }
+        }
+
+        // 2. Verificar la pregunta en Postgres
         const preguntaRes = await query('SELECT respuesta_correcta, reward FROM preguntas WHERE id = $1', [parseInt(preguntaId)]);
 
         if (preguntaRes.rowCount === 0) {

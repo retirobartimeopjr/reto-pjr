@@ -45,7 +45,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         let finalFlagged = !!clientFlagged;
         let finalFlagReason = clientFlagReason || '';
 
-        // Anti-spoofing check: less than 60 seconds since ANY last visit
+        // Anti-spoofing check: less than 3 minutes (180,000 ms) since ANY last visit
         const lastVisitRes = await query(
             'SELECT visited_at FROM user_parroquia_visits WHERE user_id = $1 ORDER BY visited_at DESC LIMIT 1',
             [userId]
@@ -54,12 +54,28 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         if (lastVisitRes.rowCount > 0) {
             const lastVisitTime = new Date(lastVisitRes.rows[0].visited_at).getTime();
             const now = Date.now();
-            if (now - lastVisitTime < 60000) { // less than 60 seconds
-                finalFlagged = true;
-                finalFlagReason = finalFlagReason 
-                    ? finalFlagReason + ' | Tiempo entre visitas menor a 60s' 
-                    : 'Tiempo entre visitas menor a 60s';
+            if (now - lastVisitTime < 120000) { // less than 3 minutes
+                return new Response(JSON.stringify({
+                    success: false,
+                    error: 'Debes esperar al menos 3 minutos entre cada registro de visita.'
+                }), { status: 429 });
             }
+        }
+
+        // Anti-spam check: Max 1 visit per parish per day
+        const todayVisitRes = await query(`
+            SELECT COUNT(*) as count 
+            FROM user_parroquia_visits 
+            WHERE user_id = $1 
+            AND parroquia_id = $2 
+            AND DATE(visited_at AT TIME ZONE 'America/Bogota') = DATE(CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')
+        `, [userId, parseInt(parroquiaId)]);
+
+        if (parseInt(todayVisitRes.rows[0].count) > 0) {
+            return new Response(JSON.stringify({
+                success: false,
+                error: 'Solo puedes registrar una visita por parroquia por día.'
+            }), { status: 429 });
         }
 
         // 1. Validar que la Parroquia exista y obtener su puntaje (reward)
