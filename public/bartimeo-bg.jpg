@@ -1,0 +1,6 @@
+{
+  "error": {
+    "code": 402,
+    "message": "The billing account for the owning project is disabled in state closed The billing account for the owning project is disabled in state closed"
+  }
+}

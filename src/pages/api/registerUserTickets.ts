@@ -95,6 +95,24 @@ export const POST: APIRoute = async ({ request }) => {
             receiptUrl || null
         ]);
         
+        // 3.5 Asociar la venta al servidor si fue invitado
+        if (body.serverId) {
+            const ticketObj = {
+                id: Date.now().toString(),
+                nombre_comprador: userNameToUse,
+                numeros_boleta: selectedTickets.join(', '),
+                cantidad: selectedTickets.length,
+                medio_pago: paymentMethod,
+                fecha: new Date().toISOString()
+            };
+            
+            await query(`
+                UPDATE servidores 
+                SET tickets_sold = tickets_sold || $1::jsonb 
+                WHERE id = $2
+            `, [JSON.stringify([ticketObj]), body.serverId]);
+        }
+        
         // 4. Procesar Referido (Si no es el mismo)
         if (referral) {
             const targetReferral = String(referral).replace(/\D/g, '').trim();

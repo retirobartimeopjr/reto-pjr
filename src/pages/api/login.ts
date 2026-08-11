@@ -21,14 +21,13 @@ export const POST: APIRoute = async ({ request }) => {
         const sql = `
             SELECT 
                 u.id, u.phone, u.username, u.referencia, 
-                (SELECT COUNT(*) FROM tickets WHERE user_id = u.id AND payed = 'yes') AS payed_tickets,
+                u.payed_tickets,
                 (SELECT STRING_AGG(parroquia_id::TEXT, ',') FROM user_parroquia_visits WHERE user_id = u.id) AS visited_parroquias_ids,
                 (SELECT json_agg(json_build_object('id', parroquia_id, 'date', visited_at)) FROM user_parroquia_visits WHERE user_id = u.id) AS visited_parroquias_json,
                 (SELECT STRING_AGG(pregunta_id::TEXT, ',') FROM user_trivia_answers WHERE user_id = u.id) AS answered_preguntas_ids,
                 (SELECT STRING_AGG(ticket_number::TEXT, ',') FROM tickets WHERE user_id = u.id) AS ticket_numbers,
                 (SELECT STRING_AGG(fixed::TEXT, ',') FROM tickets WHERE user_id = u.id) AS tickets_fixed,
-                COALESCE((SELECT SUM(points_awarded) FROM user_parroquia_visits WHERE user_id = u.id), 0) +
-                COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0) AS total_score
+                u.total_points AS total_score
             FROM users u
             WHERE u.phone = $1 LIMIT 1;
         `;

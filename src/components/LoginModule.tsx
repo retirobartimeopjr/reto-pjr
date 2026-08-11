@@ -109,6 +109,21 @@ export default function LoginModule() {
     // Register flow state
     const [showRegisterFlow, setShowRegisterFlow] = useState(false);
     const [showThankYou, setShowThankYou] = useState(false);
+
+    React.useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const savedData = localStorage.getItem('registerData');
+            if (savedData) {
+                try {
+                    const parsed = JSON.parse(savedData);
+                    if (parsed.step > 1 && parsed.step < 6) {
+                        setShowRegisterFlow(true);
+                    }
+                } catch (e) {}
+            }
+        }
+    }, []);
+
     
     const handleRegister = () => {
         setShowRegisterFlow(true);

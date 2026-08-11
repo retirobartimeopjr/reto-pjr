@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request }) => {
             return new Response(JSON.stringify({ success: false, error: 'No image data provided' }), { status: 400 });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
         const prompt = `
             Actúa como un auditor financiero amigable. 
@@ -45,10 +45,10 @@ export const POST: APIRoute = async ({ request }) => {
 
         const result = await model.generateContent([prompt, imagePart]);
         const responseText = result.response.text();
-        
+
         // Limpiar el texto en caso de que Gemini devuelva markdown
         const cleanedText = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
-        
+
         let aiResult;
         try {
             aiResult = JSON.parse(cleanedText);

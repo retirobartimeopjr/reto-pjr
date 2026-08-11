@@ -85,13 +85,38 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
             {/* Results injected by JS */}
           </div>
         </div>
+      </div>
 
-        {/* Points Filter Pills */}
-        <div class="mt-2 flex flex-wrap gap-2 pb-1" id="points-filter-container">
-          <button class="points-filter-btn active bg-[#f8b134] text-black px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap shadow-md border border-[#f8b134] transition-colors active:scale-95" data-points="all">Todas</button>
-          <button class="points-filter-btn bg-white/90 text-gray-700 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap shadow-md border border-gray-200 hover:bg-gray-50 transition-colors active:scale-95" data-points="200">200 pts</button>
-          <button class="points-filter-btn bg-white/90 text-gray-700 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap shadow-md border border-gray-200 hover:bg-gray-50 transition-colors active:scale-95" data-points="500">500 pts</button>
-          <button class="points-filter-btn bg-white/90 text-gray-700 px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap shadow-md border border-gray-200 hover:bg-gray-50 transition-colors active:scale-95" data-points="800">800 pts</button>
+      {/* Points Filter Pills - Dropdown Style */}
+      <div class="absolute bottom-6 left-4 z-[1000] font-sans">
+        <style>
+          #points-filter-container.collapsed .points-filter-btn:not(.active) {
+            display: none;
+          }
+          #points-filter-container .chevron {
+            transition: transform 0.3s;
+          }
+          #points-filter-container:not(.collapsed) .active .chevron {
+            transform: rotate(180deg);
+          }
+        </style>
+        <div class="flex flex-col gap-2 pb-1 collapsed" id="points-filter-container">
+          <button class="points-filter-btn bg-white/90 text-gray-700 px-4 py-3 rounded-full text-sm font-bold shadow-md border border-gray-200 hover:bg-gray-50 transition-colors active:scale-95 flex items-center justify-between gap-3 min-w-[120px]" data-points="800">
+            <span>800 pts</span>
+            <svg class="w-4 h-4 chevron opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+          </button>
+          <button class="points-filter-btn bg-white/90 text-gray-700 px-4 py-3 rounded-full text-sm font-bold shadow-md border border-gray-200 hover:bg-gray-50 transition-colors active:scale-95 flex items-center justify-between gap-3 min-w-[120px]" data-points="500">
+            <span>500 pts</span>
+            <svg class="w-4 h-4 chevron opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+          </button>
+          <button class="points-filter-btn bg-white/90 text-gray-700 px-4 py-3 rounded-full text-sm font-bold shadow-md border border-gray-200 hover:bg-gray-50 transition-colors active:scale-95 flex items-center justify-between gap-3 min-w-[120px]" data-points="200">
+            <span>200 pts</span>
+            <svg class="w-4 h-4 chevron opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+          </button>
+          <button class="points-filter-btn active bg-[#f8b134] text-black px-4 py-3 rounded-full text-sm font-bold shadow-md border border-[#f8b134] transition-colors active:scale-95 flex items-center justify-between gap-3 min-w-[120px]" data-points="all">
+            <span>Todas</span>
+            <svg class="w-4 h-4 chevron opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+          </button>
         </div>
       </div>
 
@@ -670,38 +695,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   </div>
 </section>
 
-<!-- Leaflet CSS -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""
-/>
 
-<!-- Leaflet MarkerCluster CSS -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
-  crossorigin=""
-/>
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
-  crossorigin=""
-/>
-
-<!-- Leaflet JS -->
-<script
-  is:inline
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-  crossorigin=""></script>
-
-<!-- Leaflet MarkerCluster JS -->
-<script
-  is:inline
-  src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"
-  crossorigin=""></script>
 
 <script>
   import confetti from 'canvas-confetti'
@@ -751,6 +745,17 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     initPage()
   })
 
+  document.addEventListener('astro:before-swap', () => {
+    if (mapInstance) {
+      try {
+        mapInstance.off();
+        mapInstance.remove();
+      } catch(e) {}
+      mapInstance = null;
+      window.mapInitialized = false;
+    }
+  });
+
   function initPage() {
     $mapElement = document.querySelector('#map')
     nearbySection = document.querySelector('#nearby-section')
@@ -774,7 +779,12 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       // Limpieza crucial para Astro View Transitions
       // Si ya existía un mapa (ej. fuimos a otra página y volvimos), lo destruimos antes de recrearlo en el nuevo nodo DOM.
       if (mapInstance) {
-        mapInstance.remove()
+        try {
+          mapInstance.off();
+          mapInstance.remove()
+        } catch (e) {
+          console.warn("Leaflet map remove warning:", e);
+        }
         mapInstance = null
       }
       window.mapInitialized = false
@@ -833,6 +843,14 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
 
     // 6. Populate nearby list with default/IP location initially
     updateNearbyList(centerLat, centerLon)
+
+    // Ensure Leaflet calculates the container size correctly after DOM settles
+    // This fixes the issue where the map tiles or markers do not show on first load
+    setTimeout(() => {
+      if (mapInstance) {
+        mapInstance.invalidateSize();
+      }
+    }, 400);
   }
 
   // ... (renderMarkersWithClustering remains same) ...
@@ -1626,7 +1644,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
             }
 
             const fileInput = document.getElementById('photo-upload-input')
-            const file = fileInput.files?.[0]
+            let file = fileInput.files?.[0]
 
           if (!file) {
             alert('Por favor selecciona o toma una foto para confirmar tu visita.')
@@ -1859,21 +1877,44 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   }
 
   function setupUIControls() {
-    // Points Filter Logic
+    // Points Filter Logic (Dropdown style)
+    const filterContainer = document.getElementById('points-filter-container')
     const filterBtns = document.querySelectorAll('.points-filter-btn')
+    
+    // Hide dropdown if clicked outside
+    document.addEventListener('click', (e) => {
+      if (filterContainer && !filterContainer.contains(e.target as Node)) {
+        filterContainer.classList.add('collapsed')
+      }
+    })
+
     filterBtns.forEach((btn) => {
       btn.addEventListener('click', (e) => {
-        const target = e.target as HTMLElement
-        // Update active state
-        filterBtns.forEach(b => b.classList.remove('active', 'bg-[#f8b134]', 'text-black', 'border-[#f8b134]'))
-        filterBtns.forEach(b => b.classList.add('bg-white/90', 'text-gray-700', 'border-gray-200'))
+        const target = e.currentTarget as HTMLElement
         
-        target.classList.remove('bg-white/90', 'text-gray-700', 'border-gray-200')
-        target.classList.add('active', 'bg-[#f8b134]', 'text-black', 'border-[#f8b134]')
-        
-        // Update filter and re-render markers
-        currentPointsFilter = target.dataset.points || 'all'
-        renderMarkersWithClustering()
+        if (filterContainer?.classList.contains('collapsed')) {
+          // Open dropdown
+          filterContainer.classList.remove('collapsed')
+        } else {
+          // Select and close
+          filterBtns.forEach(b => {
+            b.classList.remove('active', 'bg-[#f8b134]', 'text-black', 'border-[#f8b134]')
+            b.classList.add('bg-white/90', 'text-gray-700', 'border-gray-200')
+            b.querySelector('.chevron')?.classList.replace('opacity-80', 'opacity-50')
+          })
+          
+          target.classList.remove('bg-white/90', 'text-gray-700', 'border-gray-200')
+          target.classList.add('active', 'bg-[#f8b134]', 'text-black', 'border-[#f8b134]')
+          target.querySelector('.chevron')?.classList.replace('opacity-50', 'opacity-80')
+          
+          // Move target to the bottom of the container
+          if (filterContainer) filterContainer.appendChild(target)
+          if (filterContainer) filterContainer.classList.add('collapsed')
+          
+          // Update filter and re-render markers
+          currentPointsFilter = target.dataset.points || 'all'
+          renderMarkersWithClustering()
+        }
       })
     })
 

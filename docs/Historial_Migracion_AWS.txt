@@ -155,3 +155,14 @@ Desarrollo:
   1) Se eliminó de `aws_deploy.sh` el comando residual `sudo nginx -s reload`. 
   2) Se modificó `rpi_deploy_cold_backup.sh` para forzar a la Raspberry Pi a detener y deshabilitar (`disable`) el servicio `cloudflared` local durante cada despliegue, garantizando su rol estricto como "Cold Backup" e imposibilitando conflictos de red futuros.
 ====================================================================
+--------------------------------------------------------------------
+FASE 14: Gestión de Servidores, Ventas Especiales y Fixes de UI
+--------------------------------------------------------------------
+Motivo: Implementar el módulo de ventas a "No Competidores" y gestión administrativa de servidores, además de resolver bugs de renderizado con Astro View Transitions.
+Desarrollo:
+- Implementación de backend CRUD en `/api/coordi/servidores` para administrar la participación en el V Retiro (`is_v_retiro`) y visualización detallada en el panel administrativo (`ServersManager.tsx`).
+- Creación de flujo de Venta a No-Competidores en `MetasReto.tsx` que exige adjuntar comprobante de pago hacia AWS S3 y sugiere inteligentemente boletas libres (desde la 300 en adelante, o con un fallback rotativo al resto si no existen mayores a 300).
+- Solución de múltiples errores de Typescript y compilación de Vite (`fileInputRef` duplicado, llaves no balanceadas que causaban bloqueos en el build).
+- Sincronización del Itinerario 2026: Corrección para forzar la zona horaria `America/Bogota` (Colombia) en el SSR, evitando que el indicador visual de "Hoy" pase a ser el día siguiente prematuramente basándose en el UTC de AWS.
+- Fix Crítico de Leaflet en Astro: Resolución del "Mapa Negro/Transparente" al navegar entre vistas. Se movió la carga de CSS y JS de Leaflet al `<head>` global en `Layout.astro`, se añadió `mapInstance.invalidateSize()` con retraso para garantizar el renderizado tras cargar el DOM, y se enganchó el evento `astro:before-swap` para destruir de raíz y de manera segura la instancia del mapa previa a la navegación y evitar fallos por elementos desanclados.
+====================================================================

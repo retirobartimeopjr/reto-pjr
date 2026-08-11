@@ -8,8 +8,16 @@ export default function PromoSection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         // Si el contenedor sale completamente de la pantalla
-        if (!entry.isIntersecting) {
+        if (!entry.isIntersecting && isOpen) {
           setIsOpen(false); // Lo cerramos automáticamente
+          
+          // Desplazar suavemente al ranking para evitar el salto brusco en celular
+          setTimeout(() => {
+            const leaderboard = document.getElementById('leaderboard');
+            if (leaderboard) {
+              leaderboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 50); // Pequeño retraso para permitir que React aplique el cambio de altura primero
         }
       },
       { threshold: 0 }
@@ -20,7 +28,7 @@ export default function PromoSection() {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [isOpen]);
 
   return (
     <div className="w-full max-w-4xl mx-auto mb-8 animate-fade-in-up px-4 md:px-0 font-sans" ref={containerRef}>
@@ -44,7 +52,7 @@ export default function PromoSection() {
 
       {/* Expanded Content - Instructions Focus */}
       <div
-        className={`transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? 'max-h-[2000px] opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'
+        className={`transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? 'max-h-[5000px] opacity-100 mt-4' : 'max-h-0 opacity-0 mt-0'
           }`}
       >
         <div className="relative p-6 md:p-8 bg-black/60 backdrop-blur-xl rounded-xl border border-white/10 shadow-2xl">

@@ -135,7 +135,7 @@ export const POST: APIRoute = async ({ request }) => {
             const userPhoneRes = await query(`SELECT phone FROM users WHERE id = $1`, [targetUserId]);
             if (userPhoneRes.rowCount > 0) {
                 const phone = userPhoneRes.rows[0].phone;
-                await query(`DELETE FROM user_referrals WHERE referrer_phone = $1 OR referred_phone = $1`, [phone]);
+                await query(`DELETE FROM user_referrals WHERE referrer_phone = $1`, [phone]);
                 await query(`DELETE FROM pending_referrals WHERE referrer_phone = $1 OR new_user_phone = $1`, [phone]);
             }
 

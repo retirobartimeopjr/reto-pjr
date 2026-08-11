@@ -1,5 +1,6 @@
-const fs = require('fs');
-const { Client } = require('pg');
+import fs from 'fs';
+import pg from 'pg';
+const { Client } = pg;
 
 async function run() {
     const client = new Client({
@@ -14,7 +15,7 @@ async function run() {
         await client.connect();
         console.log("Connected to PostgreSQL");
         
-        const sql = fs.readFileSync('/Users/jesus.traslavina/.gemini/antigravity-ide/brain/8ddad56c-0f61-4abe-b280-c152eff937c6/scratch/migration.sql', 'utf8');
+        const sql = fs.readFileSync('/Users/jesus.traslavina/Desktop/BARTIMEO/gemini/bartimeo/bartimeo-app/scratch_00X_create_bartimeo.sql', 'utf8');
         await client.query(sql);
         console.log("Migration executed successfully!");
     } catch (e) {

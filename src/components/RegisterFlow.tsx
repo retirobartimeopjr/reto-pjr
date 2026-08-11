@@ -35,10 +35,137 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
     // Config
     const [ticketPrice, setTicketPrice] = useState(20000);
 
+    const confirmRef = React.useRef<HTMLDivElement>(null);
+    const nequiRef = React.useRef<HTMLDivElement>(null);
+    const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+    const [isAutoScrolling, setIsAutoScrolling] = useState(false);
+
+    // Nuevos estados para servidor
+    const [serversList, setServersList] = useState<any[]>([]);
+    const [wasInvited, setWasInvited] = useState<boolean | null>(null);
+    const [selectedServerId, setSelectedServerId] = useState('');
+    const [serverSearchQuery, setServerSearchQuery] = useState('');
+
+    const scrollToBottom = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTo({
+                top: scrollContainerRef.current.scrollHeight + 1000, // Extra padding to ensure it hits the absolute bottom
+                behavior: 'smooth'
+            });
+        }
+    };
+
     useEffect(() => {
         fetchAvailableTickets();
         fetchConfig();
+        
+        // Fetch servidores
+        const fetchServers = async () => {
+            try {
+                const res = await fetch('/api/servidores');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success) {
+                        setServersList(data.data);
+                    }
+                }
+            } catch (err) {}
+        };
+        fetchServers();
+        
+        // Restore from localStorage
+        const savedData = localStorage.getItem('registerData');
+        if (savedData) {
+            try {
+                const parsed = JSON.parse(savedData);
+                if (parsed.step && parsed.step < 6) setStep(parsed.step);
+                if (parsed.name) setName(parsed.name);
+                if (parsed.phone) setPhone(parsed.phone);
+                if (parsed.email) setEmail(parsed.email);
+                if (parsed.referral) setReferral(parsed.referral);
+                if (parsed.selectedTickets) setSelectedTickets(parsed.selectedTickets);
+                if (parsed.paymentMethod) setPaymentMethod(parsed.paymentMethod);
+                if (parsed.paymentValue) setPaymentValue(parsed.paymentValue);
+                if (parsed.hasTransferred !== undefined) setHasTransferred(parsed.hasTransferred);
+            } catch (e) {}
+        }
     }, []);
+
+    useEffect(() => {
+        // Save to localStorage whenever important form data changes
+        if (step < 6) {
+            localStorage.setItem('registerData', JSON.stringify({
+                step, name, phone, email, referral, selectedTickets, paymentMethod, paymentValue, hasTransferred
+            }));
+        } else {
+            localStorage.removeItem('registerData');
+        }
+
+        // Auto-scroll to Nequi number on step 3
+        if (step === 3) {
+            setTimeout(() => {
+                if (!nequiRef.current || !scrollContainerRef.current) return;
+                
+                const container = scrollContainerRef.current;
+                const target = nequiRef.current;
+                
+                setIsAutoScrolling(true);
+                
+                const start = container.scrollTop;
+                // Target position: slightly above center so the Wompi button is also somewhat visible
+                const targetTop = target.offsetTop - (container.offsetHeight / 3);
+                const maxScroll = container.scrollHeight - container.offsetHeight;
+                const end = Math.max(0, Math.min(targetTop, maxScroll));
+                const change = end - start;
+                const duration = 2000; // 2 seconds (very slow and smooth)
+                let startTime: number | null = null;
+                
+                const animateScroll = (currentTime: number) => {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    const progress = Math.min(timeElapsed / duration, 1);
+                    
+                    // easeInOutCubic for very smooth start and end
+                    const ease = progress < 0.5 
+                        ? 4 * progress * progress * progress 
+                        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+                    
+                    container.scrollTop = start + change * ease;
+                    
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animateScroll);
+                    } else {
+                        setIsAutoScrolling(false);
+                    }
+                };
+                
+                requestAnimationFrame(animateScroll);
+                
+            }, 600); // Wait for Framer Motion animation to finish
+        }
+    }, [step, name, phone, email, referral, selectedTickets, paymentMethod, paymentValue, hasTransferred]);
+
+    useEffect(() => {
+        // Auto-scroll to the bottom if an error appears so the buttons aren't pushed off-screen
+        if (error) {
+            setTimeout(scrollToBottom, 100);
+        }
+    }, [error]);
+
+    useEffect(() => {
+        // Pre-fill payment value with the calculated amount when reaching step 4
+        if (step === 4 && !paymentValue && selectedTickets.length > 0) {
+            const calculated = selectedTickets.length * ticketPrice;
+            // set it exactly as the user would type it (just the numbers is better for parsing, but formatting is nicer)
+            setPaymentValue(calculated.toString());
+        }
+    }, [step, paymentValue, selectedTickets.length, ticketPrice]);
+
+    useEffect(() => {
+        if (step === 5 && acceptedTerms) {
+            setTimeout(scrollToBottom, 100);
+        }
+    }, [step, acceptedTerms]);
 
     const fetchConfig = async () => {
         try {
@@ -80,18 +207,18 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                 img.onload = () => {
                     let width = img.width;
                     let height = img.height;
-                    
+
                     if (width > maxWidth) {
                         height = Math.round((height * maxWidth) / width);
                         width = maxWidth;
                     }
-                    
+
                     const canvas = document.createElement('canvas');
                     canvas.width = width;
                     canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     if (ctx) ctx.drawImage(img, 0, 0, width, height);
-                    
+
                     canvas.toBlob(blob => {
                         if (!blob) {
                             resolve(file);
@@ -135,7 +262,7 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                 setError('Debes seleccionar al menos una boleta.');
                 return;
             }
-            
+
             // VERIFICAR CONCURRENCIA: Evitar que avancen si la boleta acaba de ser tomada
             setLoading(true);
             try {
@@ -145,7 +272,7 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                     body: JSON.stringify({ tickets: selectedTickets })
                 });
                 const data = await res.json();
-                
+
                 if (!data.success) {
                     setError(data.error || 'Una boleta seleccionada ya no está disponible.');
                     // Actualizar boletas disponibles inmediatamente
@@ -166,8 +293,13 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
         } else if (step === 3) {
             if (!hasTransferred) {
                 setError('Debes confirmar que ya realizaste la transferencia.');
+                setTimeout(() => {
+                    confirmRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
                 return;
             }
+            // Pre-fill payment value precisely when transitioning to step 4
+            setPaymentValue((selectedTickets.length * ticketPrice).toString());
         } else if (step === 4) {
             if (!paymentMethod || !paymentValue.trim() || !receiptFile) {
                 setError('El Valor transferido y comprobante son obligatorios.');
@@ -183,7 +315,7 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
             // 1.5 Validate with Gemini AI
             if (paymentMethod !== 'Otros' && receiptFile) {
                 setIsValidatingAI(true);
-                
+
                 // Play audio cue
                 const audio = new Audio('/ia.mp3');
                 audio.play().catch(e => console.log('Audio autoplay prevented:', e));
@@ -213,17 +345,17 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                     const aiRes = await fetch('/api/gemini/validateReceipt', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
-                            base64Image: base64Data, 
+                        body: JSON.stringify({
+                            base64Image: base64Data,
                             mimeType: receiptFile.type,
-                            expectedAmount 
+                            expectedAmount
                         }),
                         signal: aiController.signal
                     });
 
                     clearTimeout(aiTimeout);
                     const aiData = await aiRes.json();
-                    
+
                     if (aiData.success) {
                         if (!aiData.isValid) {
                             if (aiRetryCount < 2) {
@@ -294,7 +426,7 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
             headers: { 'Content-Type': file.type },
             body: file
         });
-        
+
         if (!uploadRes.ok) throw new Error("Error subiendo el archivo al servidor");
 
         return publicUrl;
@@ -303,6 +435,16 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
     const handleSubmit = async () => {
         if (!acceptedTerms) {
             setError('Debes aceptar la política de tratamiento de datos.');
+            return;
+        }
+
+        if (wasInvited === null) {
+            setError('Debes indicar si hiciste el registro por tu cuenta o fuiste invitado.');
+            return;
+        }
+
+        if (wasInvited && !selectedServerId) {
+            setError('Debes seleccionar el servidor que te invitó.');
             return;
         }
 
@@ -319,12 +461,15 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
             }
 
             // 2. Register
+            const selectedServer = serversList.find(s => s.id === selectedServerId);
             const res = await fetch('/api/registerUserTickets', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name, phone, email, paymentMethod, paymentValue,
-                    selectedTickets, receiptUrl: finalReceiptUrl, referral, forceInactive: aiForceInactive
+                    selectedTickets, receiptUrl: finalReceiptUrl, referral, forceInactive: aiForceInactive,
+                    serverId: wasInvited ? selectedServerId : null,
+                    serverName: wasInvited && selectedServer ? selectedServer.server_name : null
                 })
             });
 
@@ -357,11 +502,11 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                     </svg>
                 </button>
 
-                <div className="flex-1 overflow-y-auto no-scrollbar relative">
+                <div ref={scrollContainerRef} className={`flex-1 no-scrollbar relative ${isAutoScrolling ? 'overflow-hidden pointer-events-none' : 'overflow-y-auto'}`}>
                     {/* AI Validating Overlay */}
                     <AnimatePresence>
                         {isValidatingAI && (
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
@@ -370,7 +515,7 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                                 <div className="relative flex flex-col items-center justify-center">
                                     <div className="w-16 h-16 rounded-full border-4 border-[#f8b134]/20 border-t-[#f8b134] animate-spin mb-4" />
                                     <h3 className="text-xl font-bold text-[#f8b134] text-center px-4 font-mono animate-pulse">
-                                        Bartimeo AI<br/>Analizando...
+                                        Bartimeo AI<br />Analizando...
                                     </h3>
                                     <p className="text-white/50 text-xs mt-2">Revisando tu comprobante</p>
                                 </div>
@@ -433,8 +578,8 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                                                     key={num}
                                                     onClick={() => toggleTicket(num)}
                                                     className={`aspect-square rounded-lg flex items-center justify-center font-bold text-sm transition-all duration-300 ${selectedTickets.includes(num)
-                                                            ? 'bg-gradient-to-br from-[#ffda8c] via-[#f8b134] to-[#dca336] text-black shadow-[0_0_20px_rgba(248,177,52,0.9)] scale-110 ring-2 ring-[#ffda8c] z-10'
-                                                            : 'bg-white/10 text-white/80 hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]'
+                                                        ? 'bg-gradient-to-br from-[#ffda8c] via-[#f8b134] to-[#dca336] text-black shadow-[0_0_20px_rgba(248,177,52,0.9)] scale-110 ring-2 ring-[#ffda8c] z-10'
+                                                        : 'bg-white/10 text-white/80 hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]'
                                                         }`}
                                                 >
                                                     {num}
@@ -470,22 +615,43 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                                 <div className="bg-[#722F37] border border-white/10 rounded-2xl p-5 shadow-2xl relative overflow-hidden">
                                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
 
-                                    <p className="text-white/90 mb-4 text-xs font-medium text-center relative z-10">
-                                        Transfiere por Nequi o Llave Bre-B al mismo número:
-                                    </p>
-
-                                    <div className="flex justify-center items-center gap-4 mb-4 relative z-10">
-                                        <div className="bg-white/10 p-1.5 rounded-lg backdrop-blur-sm">
-                                            <img src="/nequi.png" alt="Nequi" className="h-6 object-contain drop-shadow-md" />
-                                        </div>
-                                        <div className="w-px h-6 bg-white/20"></div>
-                                        <div className="flex items-center gap-2 bg-white/10 p-1.5 pr-3 rounded-lg backdrop-blur-sm">
-                                            <span className="text-white font-bold text-sm drop-shadow-sm">BreB</span>
-                                            <img src="/breve.avif" alt="Bre-B" className="h-4 object-contain rounded-full shadow-sm" />
-                                        </div>
+                                    <div className="bg-black/20 p-3 rounded-xl mb-4 border border-white/5 shadow-inner relative z-10">
+                                        <p className="text-white text-sm font-medium text-center leading-relaxed">
+                                            <span className="text-[#f8b134] font-bold text-base block mb-1">PASO 1: HAZ TU PAGO 📱</span>
+                                            Ve a tu app de Nequi/Bre-B para transferir o toca el botón de Wompi abajo.<br/>
+                                            <span className="text-[#f8b134] font-bold text-base block mt-3 mb-1">PASO 2: VUELVE Y CONFIRMA ✅</span>
+                                            Regresa a esta página y marca la casilla de confirmación para continuar.
+                                        </p>
                                     </div>
 
-                                    <div className="space-y-1 relative z-10 text-center mb-6">
+                                    <div className="flex justify-center items-center gap-4 mb-4 relative z-10">
+                                        <a onClick={(e) => {
+                                            e.preventDefault();
+                                            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                                            if (isMobile) {
+                                                window.location.href = 'nequi://';
+                                            } else {
+                                                window.open('https://www.nequi.com.co/', '_blank');
+                                            }
+                                        }} className="bg-white/10 p-1.5 rounded-lg backdrop-blur-sm hover:bg-white/20 hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-sm">
+                                            <img src="/nequi.png" alt="Nequi" className="h-6 object-contain drop-shadow-md" />
+                                        </a>
+                                        <div className="w-px h-6 bg-white/20"></div>
+                                        <a onClick={(e) => {
+                                            e.preventDefault();
+                                            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                                            if (isMobile) {
+                                                window.location.href = 'nequi://';
+                                            } else {
+                                                window.open('https://www.nequi.com.co/', '_blank');
+                                            }
+                                        }} className="flex items-center gap-2 bg-white/10 p-1.5 pr-3 rounded-lg backdrop-blur-sm hover:bg-white/20 hover:scale-105 active:scale-95 transition-all cursor-pointer shadow-sm">
+                                            <span className="text-white font-bold text-sm drop-shadow-sm">BreB</span>
+                                            <img src="/breve.avif" alt="Bre-B" className="h-4 object-contain rounded-full shadow-sm" />
+                                        </a>
+                                    </div>
+
+                                    <div ref={nequiRef} className="space-y-1 relative z-10 text-center mb-6">
                                         <p className="text-xs font-medium text-white/90 drop-shadow-md">Por favor transferir a Nicolas Borrero<br /><span className="text-[10px] text-white/70">(Líder Joven de Bartimeo)</span></p>
                                         <div
                                             className="bg-black/20 rounded-xl py-3 px-5 inline-block cursor-pointer hover:bg-black/30 transition-colors group active:scale-95 mt-2"
@@ -519,7 +685,8 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                                     </a>
                                 </div>
 
-                                <div 
+                                <div
+                                    ref={confirmRef}
                                     className={`mt-6 p-5 rounded-2xl border-2 transition-all cursor-pointer flex items-center gap-4 relative overflow-hidden ${hasTransferred ? 'bg-gradient-to-r from-[#ffda8c] via-[#f8b134] to-[#dca336] border-[#ffda8c] shadow-[0_0_30px_rgba(248,177,52,0.6)] scale-[1.02] ring-2 ring-[#ffda8c]/80' : 'bg-[#f8b134]/5 border-[#f8b134]/30 hover:bg-[#f8b134]/10 hover:border-[#f8b134]/50 shadow-lg'}`}
                                     onClick={() => setHasTransferred(!hasTransferred)}
                                     role="checkbox"
@@ -542,7 +709,7 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                         {step === 4 && (
                             <motion.div key="step4" initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -20, opacity: 0 }} className="space-y-4">
                                 <h3 className="text-xl font-bold text-white text-center mb-4">Detalles de tu aporte</h3>
-                                
+
                                 <div>
                                     <label className="block text-xs uppercase tracking-wider text-white/50 mb-1">Medio de Pago Usado *</label>
                                     <select value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#f8b134]/50 focus:ring-1 focus:ring-[#f8b134]/50 transition-all font-sans appearance-none">
@@ -576,9 +743,9 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                                                 <p className="text-green-400 text-base font-bold truncate">✅ {receiptFile.name}</p>
                                                 <p className="text-white/60 text-xs mt-0.5">{(receiptFile.size / 1024 / 1024).toFixed(2)} MB</p>
                                             </div>
-                                            <button 
-                                                onClick={(e) => { e.preventDefault(); setReceiptFile(null); }} 
-                                                className="p-2.5 bg-red-500/10 text-red-400 hover:bg-red-500/30 hover:text-red-200 hover:scale-105 active:scale-95 rounded-lg transition-all border border-red-500/20 shadow-sm flex flex-col items-center justify-center gap-1" 
+                                            <button
+                                                onClick={(e) => { e.preventDefault(); setReceiptFile(null); }}
+                                                className="p-2.5 bg-red-500/10 text-red-400 hover:bg-red-500/30 hover:text-red-200 hover:scale-105 active:scale-95 rounded-lg transition-all border border-red-500/20 shadow-sm flex flex-col items-center justify-center gap-1"
                                                 title="Eliminar archivo"
                                             >
                                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -612,7 +779,7 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                                     <div className="flex justify-between"><span className="text-white/50">Valor:</span> <span className="text-white">${paymentValue}</span></div>
                                 </div>
 
-                                <div 
+                                <div
                                     className={`mt-6 p-5 rounded-2xl border-2 transition-all cursor-pointer flex items-start gap-4 relative overflow-hidden ${acceptedTerms ? 'bg-gradient-to-r from-[#ffda8c] via-[#f8b134] to-[#dca336] border-[#ffda8c] shadow-[0_0_30px_rgba(248,177,52,0.6)] scale-[1.02] ring-2 ring-[#ffda8c]/80' : 'bg-[#f8b134]/5 border-[#f8b134]/30 hover:bg-[#f8b134]/10 hover:border-[#f8b134]/50 shadow-lg'}`}
                                     onClick={() => setAcceptedTerms(!acceptedTerms)}
                                     role="checkbox"
@@ -628,6 +795,64 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                                         Autorizo de manera libre, expresa y voluntaria a los jóvenes del Retiro Bartimeo para recolectar, almacenar y usar mis datos personales con la finalidad exclusiva de gestionar mi proceso de inscripción y contactarme para temas relacionados con el Reto Bartimeo, de conformidad con la Ley 1581 de 2012. He leído y acepto la política de tratamiento de datos.
                                     </span>
                                 </div>
+
+                                {acceptedTerms && (
+                                    <div className="mt-8 space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                                        <div className="space-y-3">
+                                            <p className="text-white/80 text-sm font-bold text-center mb-3">¿Cómo realizaste tu registro?</p>
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <button 
+                                                    className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-2 text-center shadow-lg active:scale-95 ${wasInvited === false ? 'bg-[#f8b134]/20 border-[#f8b134] text-[#f8b134] shadow-[0_0_15px_rgba(248,177,52,0.3)]' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                                                    onClick={() => { setWasInvited(false); setTimeout(scrollToBottom, 100); }}
+                                                >
+                                                    <span className="text-3xl drop-shadow-md">👤</span>
+                                                    <span className="text-xs font-bold uppercase tracking-wider">Por mi cuenta</span>
+                                                </button>
+                                                <button 
+                                                    className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center justify-center gap-2 text-center shadow-lg active:scale-95 ${wasInvited === true ? 'bg-[#f8b134]/20 border-[#f8b134] text-[#f8b134] shadow-[0_0_15px_rgba(248,177,52,0.3)]' : 'bg-white/5 border-white/10 text-white/50 hover:bg-white/10'}`}
+                                                    onClick={() => { setWasInvited(true); setTimeout(scrollToBottom, 100); }}
+                                                >
+                                                    <span className="text-3xl drop-shadow-md">🤝</span>
+                                                    <span className="text-xs font-bold uppercase tracking-wider">Fui invitado</span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        {wasInvited === true && (
+                                            <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-3 animate-in fade-in duration-300">
+                                                <label className="block text-xs uppercase tracking-wider text-white/50 mb-1">¿Qué servidor te invitó?</label>
+                                                <div className="relative">
+                                                    <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                                    <input 
+                                                        type="text" 
+                                                        placeholder="Buscar por nombre..." 
+                                                        value={serverSearchQuery}
+                                                        onChange={e => setServerSearchQuery(e.target.value)}
+                                                        className="w-full bg-black/20 border border-white/10 rounded-lg pl-10 pr-4 py-2.5 text-white placeholder-white/30 focus:border-[#f8b134]/50 focus:ring-1 focus:ring-[#f8b134]/50 transition-all font-sans text-sm outline-none"
+                                                    />
+                                                </div>
+                                                <div className="max-h-40 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
+                                                    {serversList
+                                                        .filter(s => s.server_name.toLowerCase().includes(serverSearchQuery.toLowerCase()))
+                                                        .map(s => (
+                                                            <button 
+                                                                key={s.id}
+                                                                onClick={() => setSelectedServerId(s.id)}
+                                                                className={`w-full text-left px-4 py-2.5 rounded-lg transition-colors text-sm flex items-center justify-between ${selectedServerId === s.id ? 'bg-[#f8b134]/20 text-[#f8b134] font-bold border border-[#f8b134]/30' : 'text-white/80 hover:bg-white/10 border border-transparent'}`}
+                                                            >
+                                                                <span>{s.server_name}</span>
+                                                                {selectedServerId === s.id && <svg className="w-4 h-4 text-[#f8b134]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>}
+                                                            </button>
+                                                        ))
+                                                    }
+                                                    {serversList.filter(s => s.server_name.toLowerCase().includes(serverSearchQuery.toLowerCase())).length === 0 && (
+                                                        <p className="text-white/40 text-center py-4 text-sm">No se encontraron servidores.</p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </motion.div>
                         )}
 
@@ -693,12 +918,13 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
                     </div>
                     <h2 className="text-xl font-bold text-white mb-2 text-center">Barti-IA Analizando...</h2>
                     <p className="text-gray-300 text-center text-sm max-w-xs mb-6">Verificando tu comprobante en tiempo real con Inteligencia Artificial.</p>
-                    
+
                     {/* Barra de progreso visual */}
                     <div className="w-64 h-2 bg-gray-800 rounded-full overflow-hidden">
                         <div className="h-full bg-[#f8b134] rounded-full" style={{ animation: 'aiProgress 25s linear forwards' }}></div>
                     </div>
-                    <style dangerouslySetInnerHTML={{__html: `
+                    <style dangerouslySetInnerHTML={{
+                        __html: `
                         @keyframes aiProgress {
                             0% { width: 0%; }
                             100% { width: 100%; }
