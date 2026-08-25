@@ -4,7 +4,10 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
 async function run() {
-  const client = new Client({ connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL });
+  const client = new Client({ 
+    connectionString: process.env.POSTGRES_URL || process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+  });
   await client.connect();
 
   console.log("Creating sync_user_stats function...");
@@ -27,7 +30,8 @@ async function run() {
                 payed_tickets = (SELECT COUNT(*) FROM tickets WHERE user_id = u.id AND payed = 'yes'),
                 pending_pay = (SELECT COUNT(*) FROM tickets WHERE user_id = u.id AND (payed != 'yes' OR payed IS NULL)),
                 total_points = COALESCE((SELECT SUM(points_awarded) FROM user_parroquia_visits WHERE user_id = u.id), 0) +
-                               COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0)
+                               COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0) +
+                               COALESCE((SELECT SUM(points_awarded) FROM user_referrals WHERE referrer_phone = u.phone), 0)
             WHERE u.id = target_id;
         END IF;
 
@@ -55,7 +59,11 @@ async function run() {
 
         IF target_phone IS NOT NULL THEN
             UPDATE users u
-            SET referidos = (SELECT COUNT(*) FROM user_referrals WHERE referrer_phone = target_phone)
+            SET 
+                referidos = (SELECT COUNT(*) FROM user_referrals WHERE referrer_phone = target_phone),
+                total_points = COALESCE((SELECT SUM(points_awarded) FROM user_parroquia_visits WHERE user_id = u.id), 0) +
+                               COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0) +
+                               COALESCE((SELECT SUM(points_awarded) FROM user_referrals WHERE referrer_phone = target_phone), 0)
             WHERE u.phone = target_phone;
         END IF;
 
@@ -104,7 +112,8 @@ async function run() {
         payed_tickets = (SELECT COUNT(*) FROM tickets WHERE user_id = u.id AND payed = 'yes'),
         pending_pay = (SELECT COUNT(*) FROM tickets WHERE user_id = u.id AND (payed != 'yes' OR payed IS NULL)),
         total_points = COALESCE((SELECT SUM(points_awarded) FROM user_parroquia_visits WHERE user_id = u.id), 0) +
-                       COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0),
+                       COALESCE((SELECT SUM(snapshot_reward) FROM user_trivia_answers WHERE user_id = u.id AND is_correct = true), 0) +
+                       COALESCE((SELECT SUM(points_awarded) FROM user_referrals WHERE referrer_phone = u.phone), 0),
         referidos = (SELECT COUNT(*) FROM user_referrals WHERE referrer_phone = u.phone);
   `);
   

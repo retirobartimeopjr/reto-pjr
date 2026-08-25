@@ -92,7 +92,21 @@ import HomeHeader from '../components/home/HomeHeader.astro'
         >
         </div>
 
-        <div class="relative z-10 h-full flex items-center justify-center p-6 text-center">
+        <div class="relative z-10 h-full flex flex-col items-center justify-center p-6 text-center">
+          <!-- Reloj Militar Granate (Absolute para no descentrar) -->
+          <div class="absolute top-8 left-0 w-full flex flex-col items-center justify-center pointer-events-none z-20">
+            <div id="reto-clock-label" class="text-xs md:text-sm text-[#8b0000] uppercase tracking-[0.2em] font-black opacity-0 transition-opacity duration-500 mb-1 drop-shadow-sm" style="text-shadow: 0 0 4px rgba(139,0,0,0.3);">
+              INICIA EN
+            </div>
+            <div 
+              id="reto-digital-clock" 
+              class="font-mono text-xl md:text-2xl font-bold text-[#8b0000] tracking-[0.1em] opacity-0 transition-opacity duration-500"
+              style="text-shadow: 0 0 8px rgba(139,0,0,0.4);"
+            >
+              00:00:00:00
+            </div>
+          </div>
+
           <h2
             class="text-5xl md:text-7xl font-serif font-black text-white tracking-tight drop-shadow-[0_6px_12px_rgba(0,0,0,0.8)] transform group-hover:scale-110 transition-transform duration-300"
           >
@@ -106,6 +120,12 @@ import HomeHeader from '../components/home/HomeHeader.astro'
         href="/retiro"
         class="animate-bounce-soft-delayed group relative block w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all duration-300 hover:-translate-y-4 hover:scale-105 active:scale-90 border-[2px] border-white/30 hover:border-white/80 isolate [mask-image:-webkit-radial-gradient(white,black)]"
       >
+        <!-- Ribbon Ultimos Cupos -->
+        <div class="absolute top-0 right-0 z-30 w-32 h-32 overflow-hidden pointer-events-none">
+          <div class="absolute top-10 -right-8 w-48 text-center origin-center transform rotate-45 bg-gradient-to-r from-[#f8b134] via-[#ffe082] to-[#bf8418] text-[#3d000a] font-black text-xs md:text-sm py-1 shadow-xl border-y border-white/60 uppercase tracking-widest drop-shadow-lg">
+            ¡Últimos Cupos!
+          </div>
+        </div>
         <!-- Fondo Sólido/Glassmorphism Más Fuerte -->
         <div
           class="absolute inset-0 bg-gradient-to-br from-[#640010]/75 to-[#3d000a]/65 backdrop-blur-xl z-0"
@@ -139,6 +159,71 @@ import HomeHeader from '../components/home/HomeHeader.astro'
         </div>
       </a>
     </div>
+    <script>
+      async function initRetoClock() {
+        try {
+          const res = await fetch('/api/appConfig')
+          if (res.ok) {
+            const data = await res.json()
+            const startDate = data.challenge_start_time ? new Date(data.challenge_start_time).getTime() : 0
+            const endDate = data.challenge_end_time ? new Date(data.challenge_end_time).getTime() : new Date('2026-03-19T18:00:00').getTime()
+            startRetoClock(startDate, endDate)
+          }
+        } catch(e) {
+          console.error('Error fetching config', e)
+        }
+      }
+
+      function startRetoClock(startDate: number, endDate: number) {
+        const clockEl = document.getElementById('reto-digital-clock')
+        const labelEl = document.getElementById('reto-clock-label')
+        if (!clockEl || !labelEl) return
+
+        const updateClock = () => {
+          const now = new Date().getTime()
+          
+          let targetDate = 0;
+
+          if (startDate > 0 && now < startDate) {
+              targetDate = startDate;
+              labelEl.innerText = "INICIA EN";
+          } else if (now < endDate) {
+              targetDate = endDate;
+              labelEl.innerText = "FINALIZA EN";
+          } else {
+              clockEl.innerText = "00:00:00:00"
+              labelEl.innerText = "EL RETO HA TERMINADO"
+              clockEl.classList.remove('opacity-0')
+              labelEl.classList.remove('opacity-0')
+              return true 
+          }
+
+          clockEl.classList.remove('opacity-0')
+          labelEl.classList.remove('opacity-0')
+
+          const distance = targetDate - now
+
+          const days = Math.floor(distance / (1000 * 60 * 60 * 24))
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000)
+
+          clockEl.innerText = `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+          
+          return false
+        }
+
+        if (updateClock()) return; 
+
+        const interval = setInterval(() => {
+          if (updateClock()) {
+            clearInterval(interval)
+          }
+        }, 1000)
+      }
+
+      initRetoClock()
+    </script>
   </main>
 </Layout>
 

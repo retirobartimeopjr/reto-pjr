@@ -1,11 +1,19 @@
 import type { APIRoute } from 'astro';
 import { query } from '../../lib/db';
+import { getServerTicketAllocations } from '../../lib/serverTickets';
 
 export const GET: APIRoute = async () => {
     try {
         const res = await query("SELECT id, full_name as server_name, tickets_sold, avatar_url FROM servidores WHERE is_v_retiro = true ORDER BY full_name ASC");
         
-        return new Response(JSON.stringify({ success: true, data: res.rows }), {
+        const allocations = await getServerTicketAllocations();
+
+        const serversWithAllocations = res.rows.map(server => ({
+            ...server,
+            assigned_tickets: allocations[server.server_name] || []
+        }));
+
+        return new Response(JSON.stringify({ success: true, data: serversWithAllocations }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
         });
@@ -28,7 +36,6 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         if (action === 'add_server') {
-            // Añadir un nuevo servidor (no hacemos ON CONFLICT DO NOTHING porque full_name no es UNIQUE en el nuevo esquema, pero podríamos comprobar)
             const exists = await query("SELECT id FROM servidores WHERE full_name = $1", [server_name.trim()]);
             if (exists.rows.length === 0) {
                 await query(
@@ -38,6 +45,50 @@ export const POST: APIRoute = async ({ request }) => {
             }
             return new Response(JSON.stringify({ success: true }), { status: 200, headers: { 'Content-Type': 'application/json' } });
             
+        } else if (action === 'link_phone') {
+            const { phone } = body;
+            if (!phone) return new Response(JSON.stringify({ success: false, error: 'Falta el número de teléfono' }), { status: 400 });
+
+            // Buscar usuario en el reto por teléfono
+            const userRes = await query(`SELECT id, username, phone FROM users WHERE phone = $1 OR phone LIKE '%' || $1`, [phone.trim()]);
+            if (userRes.rows.length === 0) {
+                return new Response(JSON.stringify({ success: false, error: 'No se encontró ningún competidor registrado con ese número de teléfono.' }), { status: 404 });
+            }
+            const user = userRes.rows[0];
+
+            // Buscar boletas que tenga este usuario asignadas
+            const ticketsRes = await query(`SELECT ticket_number, payed FROM tickets WHERE user_id = $1`, [user.id]);
+            if (ticketsRes.rows.length === 0) {
+                return new Response(JSON.stringify({ success: false, error: 'El competidor está registrado pero no tiene ninguna boleta asignada aún.' }), { status: 400 });
+            }
+
+            const ticketNumbers = ticketsRes.rows.map((t: any) => t.ticket_number).join(', ');
+
+            // Formatear como venta para el servidor
+            const newTicket = {
+                id: Date.now().toString(),
+                numeros_boleta: ticketNumbers,
+                nombre_comprador: user.username,
+                telefono_comprador: user.phone,
+                cantidad: ticketsRes.rows.length,
+                medio_pago: 'Ya registrado',
+                fecha: new Date().toISOString()
+            };
+
+            const updateRes = await query(
+                `UPDATE servidores 
+                 SET tickets_sold = tickets_sold || $1::jsonb 
+                 WHERE full_name = $2
+                 RETURNING *`,
+                [JSON.stringify([newTicket]), server_name]
+            );
+
+            if (updateRes.rowCount === 0) {
+                 return new Response(JSON.stringify({ success: false, error: 'Servidor no encontrado' }), { status: 404 });
+            }
+
+            return new Response(JSON.stringify({ success: true, data: updateRes.rows[0], user_name: user.username }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+
         } else if (action === 'add_ticket') {
             // Añadir una boleta vendida a un servidor
             if (!ticket || !ticket.nombre_comprador || !ticket.numeros_boleta || !ticket.cantidad || !ticket.medio_pago) {
@@ -111,8 +162,8 @@ export const POST: APIRoute = async ({ request }) => {
 
         } else if (action === 'register_no_competitor') {
             const { ticket } = body;
-            if (!server_name || !ticket || !ticket.nombre_comprador || !ticket.numeros_boleta || !ticket.receipt_url) {
-                return new Response(JSON.stringify({ success: false, error: 'Faltan datos requeridos o el comprobante' }), { status: 400 });
+            if (!server_name || !ticket || !ticket.nombre_comprador || !ticket.telefono_comprador || !ticket.numeros_boleta || !ticket.receipt_url) {
+                return new Response(JSON.stringify({ success: false, error: 'Faltan datos requeridos, el teléfono, o el comprobante' }), { status: 400 });
             }
 
             const requestedTickets = ticket.numeros_boleta.split(',').map((n: string) => parseInt(n.trim(), 10)).filter((n: number) => !isNaN(n));
@@ -128,40 +179,58 @@ export const POST: APIRoute = async ({ request }) => {
                 }
             }
 
-            // 1. Bloquear tickets
-            const updatePlaceholders = requestedTickets.map((_, i) => `$${i + 2}`).join(', ');
+            // 0. Encontrar o crear usuario
+            const phone = ticket.telefono_comprador.trim();
+            const crypto = await import('crypto');
+            
+            let userRes = await query('SELECT id FROM users WHERE phone = $1', [phone]);
+            let userId = null;
+
+            if (userRes.rowCount > 0) {
+                userId = userRes.rows[0].id;
+            } else {
+                userId = crypto.randomUUID();
+                await query(`
+                    INSERT INTO users (id, phone, username, referencia, tickets_quantity, payed_tickets, total_points, daily_trivia_count)
+                    VALUES ($1, $2, $3, $4, 0, 0, 0, 0)
+                `, [userId, phone, ticket.nombre_comprador, server_name]);
+            }
+
+            // 1. Bloquear tickets y asignar al usuario
+            const updatePlaceholders = requestedTickets.map((_, i) => `$${i + 1}`).join(', ');
             await query(`
                 UPDATE tickets 
-                SET user_id = 'no-competitor', payed = 'yes', updated_at = CURRENT_TIMESTAMP
+                SET user_id = '${userId}', payed = 'yes', updated_at = CURRENT_TIMESTAMP
                 WHERE ticket_number IN (${updatePlaceholders})
-            `, ['no-competitor', ...requestedTickets]);
+            `, requestedTickets);
 
             // 2. Registro de auditoria con comprobante
-            const crypto = await import('crypto');
             const registerId = crypto.randomUUID();
+            const regPlaceholders = requestedTickets.map((_, i) => `$${i + 8}`).join(', ');
             await query(`
-                INSERT INTO ticket_registers (id, ticket_number, phone, username, payed, status, user_id, imported_at, receipt_url, payment_value)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, $8, $9)
+                INSERT INTO ticket_registers (id, ticket_number, phone, username, payed, status, user_id, imported_at, receipt_url)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, $8)
             `, [
                 registerId,
                 requestedTickets[0], 
-                '0000000000', 
-                ticket.nombre_comprador + ' (No Competidor)',
+                phone, 
+                ticket.nombre_comprador,
                 'yes',
                 'OK',
-                'no-competitor',
-                ticket.receipt_url,
-                ticket.costo_pagado || 0
+                userId,
+                ticket.receipt_url
             ]);
 
             // 3. Sumar a la meta del servidor
             const newTicketObj = {
                 id: Date.now().toString(),
                 nombre_comprador: ticket.nombre_comprador,
+                telefono_comprador: phone,
                 numeros_boleta: requestedTickets.join(', '),
                 cantidad: requestedTickets.length,
                 medio_pago: ticket.medio_pago || 'Otro',
                 costo_pagado: ticket.costo_pagado || 0,
+                receipt_url: ticket.receipt_url,
                 fecha: new Date().toISOString()
             };
 

@@ -5,23 +5,30 @@ import { jwtVerify } from 'jose';
 
 export const POST: APIRoute = async ({ request, cookies }) => {
     try {
-        const token = cookies.get('auth_token')?.value;
-        if (!token) {
-            return new Response(JSON.stringify({ error: 'No autorizado.' }), { status: 401 });
-        }
-        const secret = new TextEncoder().encode(import.meta.env.JWT_SECRET || process.env.JWT_SECRET);
-        const { payload } = await jwtVerify(token, secret);
-        const userId = payload.userId as string;
-
         const body = await request.json();
-        const { preguntaId, respuesta, isPractice } = body;
+        const { preguntaId, respuesta, isPractice, isGuest } = body;
 
-        if (!userId || !preguntaId || !respuesta) {
+        let userId = '';
+        if (!isGuest) {
+            const token = cookies.get('auth_token')?.value;
+            if (!token) {
+                return new Response(JSON.stringify({ error: 'No autorizado.' }), { status: 401 });
+            }
+            const secret = new TextEncoder().encode(import.meta.env.JWT_SECRET || process.env.JWT_SECRET);
+            const { payload } = await jwtVerify(token, secret);
+            userId = payload.userId as string;
+
+            if (!userId) {
+                return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+            }
+        }
+
+        if (!preguntaId || !respuesta) {
             return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
         }
 
-        // 1. Verificar límite diario antes de hacer nada (solo si no es práctica)
-        if (!isPractice) {
+        // 1. Verificar límite diario antes de hacer nada (solo si no es práctica y no es guest)
+        if (!isPractice && !isGuest) {
             const limitRes = await query(`
                 SELECT daily_trivia_count, last_trivia_date 
                 FROM users 
@@ -54,6 +61,20 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         // 2. Validar Respuesta
         const isCorrect = String(respuesta).trim() === String(correctAnswer).trim();
 
+        // Si es guest, simplemente retornamos sin guardar nada
+        if (isGuest) {
+            return new Response(JSON.stringify({
+                success: true,
+                isCorrect: isCorrect,
+                reward: 0,
+                correctAnswer: correctAnswer,
+                dailyCount: 0
+            }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
+            });
+        }
+
         // 3. Guardar la respuesta (con restricción Unique para evitar trampas)
         const answerId = crypto.randomUUID();
         let newCount = 1;
@@ -77,10 +98,10 @@ export const POST: APIRoute = async ({ request, cookies }) => {
             const updateRes = await query(`
                 UPDATE users 
                 SET daily_trivia_count = CASE 
-                        WHEN last_trivia_date = CURRENT_DATE THEN daily_trivia_count + 1 
+                        WHEN last_trivia_date = (CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')::DATE THEN daily_trivia_count + 1 
                         ELSE 1 
                     END,
-                    last_trivia_date = CURRENT_DATE
+                    last_trivia_date = (CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')::DATE
                 WHERE id = $1
                 RETURNING daily_trivia_count;
             `, [userId]);

@@ -22,12 +22,12 @@ export const POST: APIRoute = async ({ request }) => {
             SELECT 
                 u.id, u.phone, u.username, u.referencia, 
                 u.payed_tickets,
-                (SELECT STRING_AGG(parroquia_id::TEXT, ',') FROM user_parroquia_visits WHERE user_id = u.id) AS visited_parroquias_ids,
+                (SELECT STRING_AGG(DISTINCT parroquia_id::TEXT, ',') FROM user_parroquia_visits WHERE user_id = u.id) AS visited_parroquias_ids,
                 (SELECT json_agg(json_build_object('id', parroquia_id, 'date', visited_at)) FROM user_parroquia_visits WHERE user_id = u.id) AS visited_parroquias_json,
                 (SELECT STRING_AGG(pregunta_id::TEXT, ',') FROM user_trivia_answers WHERE user_id = u.id) AS answered_preguntas_ids,
                 (SELECT STRING_AGG(ticket_number::TEXT, ',') FROM tickets WHERE user_id = u.id) AS ticket_numbers,
                 (SELECT STRING_AGG(fixed::TEXT, ',') FROM tickets WHERE user_id = u.id) AS tickets_fixed,
-                u.total_points AS total_score
+                (SELECT calculated_score FROM user_stats WHERE user_id = u.id) AS total_score
             FROM users u
             WHERE u.phone = $1 LIMIT 1;
         `;

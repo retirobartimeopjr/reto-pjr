@@ -111,7 +111,7 @@ export default function LoginModule() {
     const [showThankYou, setShowThankYou] = useState(false);
 
     React.useEffect(() => {
-        if (typeof window !== 'undefined') {
+        if (typeof window !== 'undefined' && window.location.pathname === '/reto') {
             const savedData = localStorage.getItem('registerData');
             if (savedData) {
                 try {

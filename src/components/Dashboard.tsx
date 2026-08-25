@@ -1,7 +1,7 @@
 
 import { useStore } from '@nanostores/react';
 import { useEffect, useState } from 'react';
-import { userStore } from '../store/userStore';
+import { userStore, refreshUserData } from '../store/userStore';
 
 export default function Dashboard() {
     const user = useStore(userStore);
@@ -10,6 +10,11 @@ export default function Dashboard() {
 
     useEffect(() => {
         setMounted(true);
+        // Refrescar los datos del servidor cada vez que carga la app 
+        // para evitar que el usuario se quede con la cache local vieja.
+        if (userStore.get().isAuthenticated === 'true') {
+            refreshUserData();
+        }
     }, []);
 
     if (!mounted || user.isAuthenticated !== 'true') {
@@ -17,7 +22,7 @@ export default function Dashboard() {
     }
 
     const payedCount = Number(user.payedTickets) || 0;
-    const visitedCount = user.parroquiasVistitadas ? user.parroquiasVistitadas.split(',').filter(Boolean).length : 0;
+    const visitedCount = user.parroquiasVistitadas ? new Set(user.parroquiasVistitadas.split(',').filter(Boolean)).size : 0;
     const questionsCount = user.preguntasVistas ? user.preguntasVistas.split(',').filter(Boolean).length : 0;
 
 

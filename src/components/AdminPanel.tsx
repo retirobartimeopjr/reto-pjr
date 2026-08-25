@@ -6,6 +6,7 @@ import MessagingPanel from './MessagingPanel';
 import CalendarManager from './CalendarManager';
 import ServersManager from './ServersManager';
 import BartimeosManager from './BartimeosManager';
+import PastParticipantsManager from './PastParticipantsManager';
 
 export default function AdminPanel() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,7 +24,7 @@ export default function AdminPanel() {
     const [statusFeedback, setStatusFeedback] = useState('');
 
     // UI State
-    const [activeTab, setActiveTab] = useState<'general' | 'visitas' | 'parroquias' | 'participantes' | 'mensajeria' | 'calendario' | 'servidores' | 'bartimeos'>('general');
+    const [activeTab, setActiveTab] = useState<'general' | 'visitas' | 'parroquias' | 'participantes' | 'mensajeria' | 'calendario' | 'servidores' | 'bartimeos' | 'pasados'>('general');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     // Fetch initial state
@@ -210,6 +211,9 @@ export default function AdminPanel() {
         }
         if (activeTab === 'bartimeos') {
             return <BartimeosManager username={username} password={password} />;
+        }
+        if (activeTab === 'pasados') {
+            return <PastParticipantsManager />;
         }
         
         // General Tab (Bento Dashboard)
@@ -452,6 +456,16 @@ export default function AdminPanel() {
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                         Coord. V Retiro
+                    </button>
+                    
+                    <button 
+                        onClick={() => { setActiveTab('pasados'); setIsMobileMenuOpen(false); }}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-sm font-medium ${
+                            activeTab === 'pasados' ? 'bg-purple-500/10 text-purple-400' : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                        }`}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        Participantes Pasados
                     </button>
                 </div>
 

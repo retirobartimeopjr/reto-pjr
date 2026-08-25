@@ -65,6 +65,10 @@ export default function ParroquiasManager({ username = '', password = '' }: { us
     const [parroquiaVisitors, setParroquiaVisitors] = useState<any[]>([]);
     const [loadingVisitors, setLoadingVisitors] = useState(false);
     
+    // Manual Visit State
+    const [manualCedula, setManualCedula] = useState('');
+    const [isAddingVisit, setIsAddingVisit] = useState(false);
+
     // Form State
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [name, setName] = useState('');
@@ -167,6 +171,63 @@ export default function ParroquiasManager({ username = '', password = '' }: { us
             console.error("Connection error:", e);
         } finally {
             setLoadingVisitors(false);
+        }
+    };
+
+    const handleAddVisit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!manualCedula.trim() || !selectedDirParroquia) return;
+
+        setIsAddingVisit(true);
+        try {
+            const res = await fetch('/api/parroquiaDetails', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    username, 
+                    password, 
+                    action: 'add_visit', 
+                    parroquiaId: selectedDirParroquia.id,
+                    userCedula: manualCedula.trim()
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setManualCedula('');
+                handleViewVisitors(selectedDirParroquia); // reload list
+                alert('Visita agregada correctamente.');
+            } else {
+                alert(`Error: ${data.error}`);
+            }
+        } catch (e) {
+            alert('Error de conexión.');
+        } finally {
+            setIsAddingVisit(false);
+        }
+    };
+
+    const handleDeleteVisit = async (visitId: string) => {
+        if (!confirm('¿Estás seguro de eliminar esta visita? Se descontarán los puntos al usuario.')) return;
+
+        try {
+            const res = await fetch('/api/parroquiaDetails', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    username, 
+                    password, 
+                    action: 'delete_visit', 
+                    visitId
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                if (selectedDirParroquia) handleViewVisitors(selectedDirParroquia);
+            } else {
+                alert(`Error: ${data.error}`);
+            }
+        } catch (e) {
+            alert('Error de conexión.');
         }
     };
 
@@ -476,10 +537,29 @@ export default function ParroquiasManager({ username = '', password = '' }: { us
                         </div>
                         
                         <div className="p-6 overflow-y-auto">
-                            <h4 className="text-white font-bold mb-4 flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-brand" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" /></svg>
-                                Historial de Visitantes
-                            </h4>
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                                <h4 className="text-white font-bold flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-brand" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" /></svg>
+                                    Historial de Visitantes
+                                </h4>
+                                
+                                <form onSubmit={handleAddVisit} className="flex gap-2 w-full md:w-auto">
+                                    <input
+                                        type="text"
+                                        placeholder="Cédula o celular..."
+                                        value={manualCedula}
+                                        onChange={(e) => setManualCedula(e.target.value)}
+                                        className="bg-[#0a0a0a] border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand/50 w-full md:w-48"
+                                    />
+                                    <button
+                                        type="submit"
+                                        disabled={isAddingVisit || !manualCedula.trim()}
+                                        className="bg-brand text-black px-3 py-2 rounded-lg text-sm font-bold hover:bg-brand/80 disabled:opacity-50 whitespace-nowrap"
+                                    >
+                                        {isAddingVisit ? 'Agregando...' : '+ Visita'}
+                                    </button>
+                                </form>
+                            </div>
                             
                             <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden">
                                 {loadingVisitors ? (
@@ -492,12 +572,13 @@ export default function ParroquiasManager({ username = '', password = '' }: { us
                                             <tr className="border-b border-white/5 text-zinc-500 text-xs uppercase tracking-wider">
                                                 <th className="p-4 font-bold">Participante</th>
                                                 <th className="p-4 font-bold text-center">Puntos Obtenidos</th>
-                                                <th className="p-4 font-bold text-right">Fecha de Escaneo</th>
+                                                <th className="p-4 font-bold text-center">Fecha de Escaneo</th>
+                                                <th className="p-4 font-bold text-right">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-white/5">
                                             {parroquiaVisitors.map((v, i) => (
-                                                <tr key={i} className="hover:bg-white/5 transition">
+                                                <tr key={i} className="hover:bg-white/5 transition group">
                                                     <td className="p-4">
                                                         <div className="text-white font-bold">{v.username || 'Anónimo'}</div>
                                                         <div className="text-xs text-zinc-500 mt-1">
@@ -505,8 +586,16 @@ export default function ParroquiasManager({ username = '', password = '' }: { us
                                                         </div>
                                                     </td>
                                                     <td className="p-4 text-brand font-mono font-bold text-center">+{v.points_awarded}</td>
-                                                    <td className="p-4 text-right text-zinc-400 text-xs">
+                                                    <td className="p-4 text-center text-zinc-400 text-xs">
                                                         {new Date(v.visited_at).toLocaleString('es-CO')}
+                                                    </td>
+                                                    <td className="p-4 text-right">
+                                                        <button 
+                                                            onClick={() => handleDeleteVisit(v.visit_id)}
+                                                            className="text-red-400 hover:text-red-300 text-xs font-bold px-2 py-1 bg-red-500/10 hover:bg-red-500/20 rounded transition opacity-0 group-hover:opacity-100"
+                                                        >
+                                                            Eliminar
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             ))}

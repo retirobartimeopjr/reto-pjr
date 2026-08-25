@@ -50,11 +50,7 @@ export default function BartiPregunta() {
     };
 
     const handleOpenTrivia = async () => {
-
-        if (user.isAuthenticated !== 'true') {
-            setShowLoginWarning(true);
-            return;
-        }
+        const isGuest = user.isAuthenticated !== 'true';
 
         if (end_time && Date.now() >= end_time) {
             setTriviaFeedback({ type: 'error', message: '¡El reto ha finalizado! Ya no es posible responder más preguntas.' });
@@ -71,7 +67,7 @@ export default function BartiPregunta() {
         setTimeLeft(30);
 
         try {
-            const res = await fetch(`/api/trivia/question?userId=${user.docId}&isPractice=${isPractice}`);
+            const res = await fetch(`/api/trivia/question?userId=${user.docId || 'guest'}&isPractice=${isPractice}&isGuest=${isGuest}`);
             const data = await res.json();
 
             if (data.empty) {
@@ -112,15 +108,18 @@ export default function BartiPregunta() {
 
         const isPractice = start_time ? Date.now() < start_time : false;
 
+        const isGuest = user.isAuthenticated !== 'true';
+
         try {
             const res = await fetch('/api/trivia/answer', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    userId: user.docId,
+                    userId: user.docId || 'guest',
                     preguntaId: currentQuestion.id,
                     respuesta: answer,
-                    isPractice: isPractice
+                    isPractice: isPractice,
+                    isGuest: isGuest
                 })
             });
             const result = await res.json();
@@ -130,13 +129,13 @@ export default function BartiPregunta() {
                     // CORRECT!
                     setTriviaFeedback({
                         type: 'success',
-                        message: isPractice ? '¡Respuesta Correcta! (Práctica)' : '¡Respuesta Correcta!',
+                        message: isGuest ? '¡Respuesta Correcta! (Prueba: Regístrate para sumar puntos)' : (isPractice ? '¡Respuesta Correcta! (Práctica)' : '¡Respuesta Correcta!'),
                         reward: result.reward
                     });
                     triggerConfetti();
 
-                    // Optimistic Update (Only if not practice)
-                    if (!isPractice) {
+                    // Optimistic Update (Only if not practice and not guest)
+                    if (!isPractice && !isGuest) {
                         const newScore = (parseInt(user.score) || 0) + (result.reward || 0);
                         userStore.set({
                             ...user,
@@ -162,7 +161,7 @@ export default function BartiPregunta() {
                     }
                 }
             } else {
-                setTriviaFeedback({ type: 'error', message: 'Error validando respuesta.' });
+                setTriviaFeedback({ type: 'error', message: result.error || 'Error validando respuesta.' });
             }
 
         } catch (error) {

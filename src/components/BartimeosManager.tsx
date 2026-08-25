@@ -482,13 +482,26 @@ export default function BartimeosManager({ username, password }: { username: str
                             {/* Generador de Mensaje WA */}
                             {(() => {
                                 const firstName = selectedBartimeo.nombre_completo.split(' ')[0] || 'tu hijo/a';
+                                
+                                // Adivinar género para 'aceptado/a'
+                                let aceptado = 'aceptado/a';
+                                const nameLower = firstName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                                const femaleNames = ['maria', 'ana', 'laura', 'sara', 'sarah', 'sofia', 'isabella', 'isabela', 'camila', 'valeria', 'valentina', 'luciana', 'mariana', 'daniela', 'angela', 'adriana', 'amelia', 'carmen', 'diana', 'emilia', 'gabriela', 'juana', 'juliana', 'natalia', 'paula', 'silvana', 'victoria', 'lizeth', 'carolina'];
+                                const maleNames = ['juan', 'jose', 'carlos', 'luis', 'santiago', 'sebastian', 'nicolas', 'daniel', 'david', 'felipe', 'andres', 'mateo', 'samuel', 'tomas', 'martin', 'simon', 'alejandro', 'camilo', 'cristian', 'diego', 'emilio', 'gabriel', 'jesus', 'manuel'];
+
+                                if (femaleNames.includes(nameLower) || nameLower.endsWith('a') || nameLower.endsWith('z')) {
+                                    aceptado = 'aceptada';
+                                } else if (maleNames.includes(nameLower) || nameLower.endsWith('o') || nameLower.endsWith('n') || nameLower.endsWith('s') || nameLower.endsWith('r') || nameLower.endsWith('l') || nameLower.endsWith('d') || nameLower.endsWith('e')) {
+                                    aceptado = 'aceptado';
+                                }
+
                                 const getWpLink = (phone: string, acudienteName: string) => {
                                     if (!phone) return '#';
                                     const acudFirstName = (acudienteName || 'Acudiente').split(' ')[0];
-                                    const msg = `🎉 ¡Hola ${acudFirstName}! Nos alegra muchísimo contarte que ${firstName} ha sido aceptado para participar en el *V Retiro Bartimeo* 🤍🙏. Te contamos que *ya hemos enviado a tu correo electrónico toda la información correspondiente al retiro*, incluyendo documentos pendientes, valor de la inversión, medios de pago y fechas importantes. Te agradecemos revisarlo con atención y quedamos muy atentos a cualquier inquietud. ¡Estamos muy felices de poder vivir esta experiencia junto a ${firstName}! 🥰✨`;
+                                    const msg = `\uD83C\uDF89 ¡Hola ${acudFirstName}! Nos alegra muchísimo contarte que ${firstName} ha sido ${aceptado} para participar en el *V Retiro Bartimeo* \uD83E\uDD0D\uD83D\uDE4F. Te contamos que *ya hemos enviado a tu correo electrónico toda la información correspondiente al retiro*, incluyendo documentos pendientes, valor de la inversión, medios de pago y fechas importantes. Te agradecemos revisarlo con atención y quedamos muy atentos a cualquier inquietud. ¡Estamos muy felices de poder vivir esta experiencia junto a ${firstName}! \uD83E\uDD70\u2728`;
                                     const cleanPhone = phone.replace(/\\D/g, '');
                                     const finalPhone = cleanPhone.startsWith('57') ? cleanPhone : (cleanPhone.length === 10 ? `57${cleanPhone}` : cleanPhone);
-                                    return `https://wa.me/${finalPhone}?text=${encodeURIComponent(msg)}`;
+                                    return `https://api.whatsapp.com/send/?phone=${finalPhone}&text=${encodeURIComponent(msg)}&type=phone_number&app_absent=0`;
                                 };
 
                                 return (

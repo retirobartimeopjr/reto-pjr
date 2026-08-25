@@ -111,6 +111,22 @@ export const POST: APIRoute = async ({ request }) => {
                 return new Response(JSON.stringify({ error: 'Usuario no encontrado' }), { status: 404 });
             }
 
+            // Si estamos activando al usuario, asumimos que su pago fue verificado y aprobado.
+            // Actualizamos sus boletas pendientes a pagadas.
+            if (newActiveState) {
+                await query(`
+                    UPDATE tickets 
+                    SET payed = 'yes', updated_at = CURRENT_TIMESTAMP 
+                    WHERE user_id = $1 AND (payed = 'no' OR payed IS NULL)
+                `, [targetUserId]);
+                
+                await query(`
+                    UPDATE ticket_registers
+                    SET payed = 'yes'
+                    WHERE user_id = $1 AND (payed = 'no' OR payed IS NULL)
+                `, [targetUserId]);
+            }
+
             return new Response(JSON.stringify({ success: true, user: updateRes.rows[0] }), { status: 200, headers: { "Content-Type": "application/json" } });
         }
 

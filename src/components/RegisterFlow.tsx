@@ -193,6 +193,22 @@ export default function RegisterFlow({ onClose }: RegisterFlowProps) {
         }
     };
 
+    // Revalidate saved tickets against current availability
+    useEffect(() => {
+        if (availableTickets.length > 0 && selectedTickets.length > 0) {
+            const validTickets = selectedTickets.filter(t => availableTickets.includes(t));
+            if (validTickets.length !== selectedTickets.length) {
+                setSelectedTickets(validTickets);
+                if (validTickets.length === 0) {
+                    setPaymentValue('0');
+                    setStep(2);
+                } else {
+                    setPaymentValue((validTickets.length * ticketPrice).toString());
+                }
+            }
+        }
+    }, [availableTickets]);
+
     const compressImage = (file: File, maxWidth = 1200, quality = 0.7): Promise<File> => {
         return new Promise((resolve) => {
             if (!file.type.startsWith('image/')) {

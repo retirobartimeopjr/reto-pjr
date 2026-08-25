@@ -1169,8 +1169,10 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
         }
 
         const newScore = parseInt(user.score || 0) + localReward
-        const newVisited =
-          (user.parroquiasVistitadas || '') + (user.parroquiasVistitadas ? ',' : '') + parroquiaId
+        let newVisited = user.parroquiasVistitadas || ''
+        if (!newVisited.split(',').includes(parroquiaId.toString())) {
+            newVisited = newVisited + (newVisited ? ',' : '') + parroquiaId
+        }
 
         let currentVisitsJson = []
         try {
@@ -1210,7 +1212,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
             }
           }
         } else {
-          alert('Hubo un error registrando tu visita. Intenta de nuevo.')
+          alert(result.error || 'Hubo un error registrando tu visita. Intenta de nuevo.')
         }
         confirmedParishes.delete((parroquiaId ?? parroquiaName).toString())
       }
@@ -1221,7 +1223,7 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     }
   }
 
-  window.handleParishClick = (parroquiaId, parroquiaName) => {
+  window.handleParishClick = async (parroquiaId, parroquiaName) => {
     const loc = locations.find((l) => (l.id ?? l.name).toString() === parroquiaId.toString() || l.name === parroquiaName)
     if (!loc) return
     const pid = (loc.id ?? loc.parroquiaid ?? loc.name).toString()
@@ -1231,8 +1233,17 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       return
     }
 
-    const user = getUserData()
+    let user = getUserData()
     if (!user) return
+
+    // Refresh user data silently from the backend before showing the modal
+    // This ensures that if a visit was manually deleted or updated on another device, the UI respects the backend truth.
+    if (user.docId) {
+        try {
+            await fetchAndRefeshSingleUser(user.docId);
+            user = getUserData(); // Get fresh data
+        } catch(e) {}
+    }
 
     const visitedString = user.parroquiasVistitadas || ''
     const visitedIds = visitedString.split(',').map((id) => id.trim())
@@ -1463,56 +1474,11 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           verificationWatchId = null
         }
 
-        // Medir cualquier minúsculo cambio en las coordenadas
-        const boundingDist = calculateDistance(minLat, minLon, maxLat, maxLon)
-        
-        // Verificar que la ÚLTIMA coordenada (tras caminar) siga dentro del perímetro
-        const finalDistKm = calculateDistance(
-          lastLat,
-          lastLon,
-          loc.center?.lat || loc.lat,
-          loc.center?.lng || loc.lng
-        )
-        const finalDistMeters = finalDistKm * 1000
-
-        const errTitle = errorState.querySelector('h3')
-        const errP = errorState.querySelector('p')
-
-        function handleMovementFailure(titleText, descText) {
-          movementFailCount++;
-          if (movementFailCount >= 3) {
-            // Bypass on 3rd fail
-            window.isFlaggedVisit = true;
-            window.flagReason = "Falló verificación de movimiento 3 veces: " + titleText;
-            movementFailCount = 0; // reset
-            modal.classList.add('hidden');
-            showProximityModal(loc, parroquiaId, forceBypass);
-          } else {
-            if (errTitle && errP) {
-              errTitle.textContent = titleText;
-              errP.textContent = descText + ` (Intento ${movementFailCount}/3)`;
-            }
-            activeState.classList.remove('flex');
-            activeState.classList.add('hidden');
-            errorState.classList.remove('hidden');
-            errorState.classList.add('flex');
-          }
-        }
-
-        if (boundingDist > 0.0000001) {
-          if (finalDistMeters <= PROXIMITY_THRESHOLD_M) {
-            // Success! Hubo movimiento y sigue en la zona
-            movementFailCount = 0; // reset
-            modal.classList.add('hidden')
-            showProximityModal(loc, parroquiaId, forceBypass)
-          } else {
-            // Failed! Se salió del perímetro
-            handleMovementFailure('¡Te alejaste demasiado!', 'Al caminar, saliste del radio de la parroquia. Regresa y vuelve a intentarlo.')
-          }
-        } else {
-          // Failed! Totalmente estático
-          handleMovementFailure('¡No detectamos movimiento!', 'Tu ubicación GPS no cambió. Debes dar unos pasos durante 15 segundos para confirmar tu ubicación real.')
-        }
+        // Ya no verificamos que realmente se haya movido (boundingDist) ni que siga en el radio
+        // Simplemente asume éxito después de esperar 15 segundos para dar una mejor UX
+        movementFailCount = 0; // reset
+        modal.classList.add('hidden');
+        showProximityModal(loc, parroquiaId, true);
       }
     }, 1000)
   }

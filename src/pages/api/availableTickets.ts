@@ -1,9 +1,17 @@
 import type { APIRoute } from 'astro';
 import { query } from '../../lib/db';
+import { getServerTicketAllocations } from '../../lib/serverTickets';
 
 export const GET: APIRoute = async () => {
     try {
-        // 1. Obtener todas las boletas disponibles
+        // 1. Obtener asignaciones de servidores para bloquearlas
+        const allocations = await getServerTicketAllocations();
+        const reservedTickets = new Set<number>();
+        for (const server in allocations) {
+            allocations[server].forEach(t => reservedTickets.add(t));
+        }
+
+        // 2. Obtener todas las boletas disponibles (que no tengan dueño)
         let res = await query(`
             SELECT ticket_number 
             FROM tickets 
@@ -11,7 +19,9 @@ export const GET: APIRoute = async () => {
             ORDER BY ticket_number ASC
         `);
         
-        let availableTickets = res.rows.map((row: any) => row.ticket_number);
+        let availableTickets = res.rows
+            .map((row: any) => row.ticket_number)
+            .filter((t: number) => !reservedTickets.has(t));
 
         // 2. Reposición inteligente (si hay menos de 50 disponibles)
         if (availableTickets.length < 50) {
