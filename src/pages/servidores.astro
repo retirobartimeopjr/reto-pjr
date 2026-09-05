@@ -456,7 +456,7 @@ const is2026 = currentYear === 2026;
   </div>
 
   <main>
-    {calendarData.months?.filter((m: any) => m.id === "08" || m.id === "09" || m.id === "10").map((month: any) => {
+    {calendarData.months?.filter((m: any) => !m.hidden).map((month: any) => {
       // Calculate Monday-first empty days
       const originalEmpty = month.emptyDaysStart || 0;
       const mondayEmpty = (originalEmpty + 6) % 7;

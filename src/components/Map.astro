@@ -830,8 +830,8 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
     })
 
     // 3. Tile Layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap &copy; CARTO',
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
       maxZoom: 20,
     }).addTo(mapInstance)
 
@@ -1120,6 +1120,18 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
       // Reset global flags after using them
       window.isFlaggedVisit = false;
       window.flagReason = "";
+
+      if (response.status === 401 || response.status === 400) {
+        alert("Tu sesión ha expirado. Por favor ingresa de nuevo.");
+        localStorage.clear();
+        if (window.bartimeoUserStore && window.userStoreInitialState) {
+          window.bartimeoUserStore.set(window.userStoreInitialState);
+        }
+        if (window.isLoginOpen) {
+          window.isLoginOpen.set(true);
+        }
+        return;
+      }
 
       const result = await response.json()
 
@@ -1586,7 +1598,24 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
           photoSection.classList.add('hidden')
           btnConfirm.textContent = '📍 Confirmar Visita'
           
-          btnConfirm.onclick = () => {
+          btnConfirm.onclick = async () => {
+            try {
+                const user = getUserData();
+                const res = await fetch(`/api/session-check?userId=${user?.docId || ''}`);
+                if (res.status === 401 || res.status === 400) {
+                    modal.classList.add('hidden');
+                    alert("Tu sesión ha expirado. Por favor ingresa de nuevo.");
+                    localStorage.clear();
+                    if (window.bartimeoUserStore && window.userStoreInitialState) {
+                      window.bartimeoUserStore.set(window.userStoreInitialState);
+                    }
+                    if (window.isLoginOpen) window.isLoginOpen.set(true);
+                    else showLoginRequiredModal();
+                    return;
+                }
+            } catch(e) {
+                console.warn('Session check failed', e);
+            }
             modal.classList.add('hidden')
             window.validateAndConfirm(pid, loc.name, false)
           }
@@ -1608,6 +1637,24 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
               alert('Error obteniendo datos del usuario')
               return
             }
+
+            try {
+                const res = await fetch(`/api/session-check?userId=${user?.docId || ''}`);
+                if (res.status === 401 || res.status === 400) {
+                    modal.classList.add('hidden');
+                    alert("Tu sesión ha expirado. Por favor ingresa de nuevo.");
+                    localStorage.clear();
+                    if (window.bartimeoUserStore && window.userStoreInitialState) {
+                      window.bartimeoUserStore.set(window.userStoreInitialState);
+                    }
+                    if (window.isLoginOpen) window.isLoginOpen.set(true);
+                    else showLoginRequiredModal();
+                    return;
+                }
+            } catch(e) {
+                console.warn('Session check failed', e);
+            }
+
 
             const fileInput = document.getElementById('photo-upload-input')
             let file = fileInput.files?.[0]
@@ -1827,6 +1874,15 @@ const hasUserLocation = !!Astro.request.headers.get('cf-iplatitude')
   function showSuccessAnimation() {
     const overlay = document.getElementById('success-overlay')
     if (!overlay) return
+
+    // Play Victory Sound
+    try {
+      const victorySound = new Audio('/victory.mp3');
+      victorySound.volume = 0.3; // 30% volume
+      victorySound.play().catch(e => console.error("Error playing victory sound:", e));
+    } catch (err) {
+      console.warn("Audio playback not supported or blocked", err);
+    }
 
     overlay.classList.remove('hidden')
 

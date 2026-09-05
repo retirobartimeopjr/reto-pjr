@@ -24,8 +24,9 @@ export default function AdminPanel() {
     const [statusFeedback, setStatusFeedback] = useState('');
 
     // UI State
-    const [activeTab, setActiveTab] = useState<'general' | 'visitas' | 'parroquias' | 'participantes' | 'mensajeria' | 'calendario' | 'servidores' | 'bartimeos' | 'pasados'>('general');
+    const [activeTab, setActiveTab] = useState<'general' | 'visitas' | 'parroquias' | 'participantes' | 'mensajeria' | 'calendario' | 'servidores' | 'bartimeos' | 'pasados'>('bartimeos');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isDesktopMenuOpen, setIsDesktopMenuOpen] = useState(true);
 
     // Fetch initial state
     useEffect(() => {
@@ -244,13 +245,34 @@ export default function AdminPanel() {
                             disabled={loading}
                             className={`w-32 h-16 rounded-full p-1 transition-all duration-300 relative ${
                                 isActive ? 'bg-green-500/20 border-green-500/50' : 'bg-red-500/20 border-red-500/50'
-                            } border-2`}
+                            } border-2 mb-6`}
                         >
                             <div className={`w-13 h-13 bg-white rounded-full shadow-lg transition-transform duration-300 flex items-center justify-center ${
                                 isActive ? 'translate-x-16 bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.5)]' : 'translate-x-0 bg-red-500 shadow-[0_0_15px_rgba(239,68,68,0.5)]'
                             }`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                             </div>
+                        </button>
+                        
+                        {/* Botón para probar envío de reporte */}
+                        <button
+                            onClick={async () => {
+                                const btn = document.getElementById('btn-test-report');
+                                if(btn) btn.innerText = 'Enviando...';
+                                try {
+                                    const res = await fetch('/api/triggerDailyReport', { method: 'POST' });
+                                    if(res.ok) alert('Reporte de prueba enviado exitosamente a tu correo.');
+                                    else alert('Hubo un error al enviar el reporte.');
+                                } catch(e) {
+                                    alert('Error de conexión.');
+                                } finally {
+                                    if(btn) btn.innerText = 'Enviar Reporte de Prueba';
+                                }
+                            }}
+                            id="btn-test-report"
+                            className="bg-brand/10 border border-brand/30 text-brand px-4 py-2 rounded-lg text-sm font-bold hover:bg-brand/20 transition-colors w-full"
+                        >
+                            Enviar Reporte de Prueba
                         </button>
                     </div>
                 </div>
@@ -368,11 +390,12 @@ export default function AdminPanel() {
 
             {/* Sidebar Navigation */}
             <aside className={`
-                fixed inset-y-0 left-0 z-10 w-64 bg-[#111] border-r border-white/5 transform transition-transform duration-300 ease-in-out
-                md:relative md:translate-x-0 flex flex-col
-                ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+                fixed inset-y-0 left-0 z-30 bg-[#111] border-r border-white/5 transform transition-all duration-300 ease-in-out
+                flex flex-col overflow-hidden
+                md:relative ${isDesktopMenuOpen ? 'w-64 md:w-64' : 'w-0 md:w-0'}
+                ${isMobileMenuOpen ? 'translate-x-0 w-64' : '-translate-x-full md:translate-x-0'}
             `}>
-                <div className="p-6 hidden md:block">
+                <div className="p-6 hidden md:block whitespace-nowrap">
                     <div className="font-serif text-2xl text-brand font-bold tracking-tight">Bartimeo</div>
                     <div className="text-xs text-zinc-500 font-bold uppercase tracking-widest mt-1">Coordi Journal</div>
                 </div>
@@ -478,8 +501,19 @@ export default function AdminPanel() {
             </aside>
 
             {/* Main Content Area */}
-            <main className="flex-1 h-screen overflow-y-auto p-4 md:p-8 bg-[#0a0a0a]">
-                <div className="max-w-5xl mx-auto">
+            <main className="flex-1 h-screen overflow-y-auto p-4 md:p-8 bg-[#0a0a0a] relative">
+                {/* Desktop Toggle Button */}
+                <button 
+                    onClick={() => setIsDesktopMenuOpen(!isDesktopMenuOpen)}
+                    className="hidden md:flex absolute top-6 left-6 z-50 p-2 bg-[#111] border border-white/10 rounded-lg hover:bg-white/5 transition shadow-lg text-zinc-400 hover:text-white"
+                    title={isDesktopMenuOpen ? "Ocultar menú" : "Mostrar menú"}
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isDesktopMenuOpen ? "M4 6h16M4 12h16M4 18h16" : "M4 6h16M4 12h16M4 18h16"} />
+                    </svg>
+                </button>
+
+                <div className="max-w-5xl mx-auto mt-12 md:mt-0">
                     {renderContent()}
                 </div>
             </main>

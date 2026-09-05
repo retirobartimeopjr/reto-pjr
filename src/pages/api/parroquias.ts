@@ -83,3 +83,59 @@ export const PUT: APIRoute = async ({ request }) => {
         return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
     }
 }
+
+export const DELETE: APIRoute = async ({ request }) => {
+    try {
+        const data = await request.json();
+        const { id } = data;
+
+        if (!id) {
+            return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+        }
+
+        // Primero eliminamos las visitas asociadas (esto disparará el trigger que descuenta los puntos a los usuarios)
+        await query(`
+            DELETE FROM user_parroquia_visits
+            WHERE parroquia_id = $1
+        `, [id]);
+
+        // Luego eliminamos la parroquia
+        const res = await query(`
+            DELETE FROM parroquias 
+            WHERE id = $1
+            RETURNING id
+        `, [id]);
+
+        if (res.rowCount === 0) {
+            return new Response(JSON.stringify({ error: "Parroquia no encontrada" }), { status: 404 });
+        }
+
+        return new Response(JSON.stringify({ success: true }), { status: 200 });
+    } catch (error) {
+        console.error("❌ Error eliminando parroquia:", error);
+        return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+    }
+}
+
+export const PATCH: APIRoute = async ({ request }) => {
+    try {
+        const data = await request.json();
+        const { ids, reward } = data;
+
+        if (!ids || !Array.isArray(ids) || reward === undefined) {
+            return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
+        }
+
+        const res = await query(`
+            UPDATE parroquias 
+            SET reward = $1
+            WHERE id = ANY($2::int[])
+            RETURNING id
+        `, [reward, ids.map((id: string | number) => typeof id === 'string' ? parseInt(id, 10) : id)]);
+
+        return new Response(JSON.stringify({ success: true, count: res.rowCount }), { status: 200 });
+    } catch (error) {
+        console.error("❌ Error bulk actualizando parroquias:", error);
+        return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+    }
+}

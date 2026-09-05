@@ -18,6 +18,17 @@ const isLocked = true;
 ---
 
 <Layout title="Reto Bartimeo 2026">
+  {/* SPLASH SCREEN INTRO */}
+  <div id="intro-splash" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#3d000a] transition-colors duration-[2000ms] cursor-pointer">
+    <div class="absolute inset-0 flex flex-col items-center justify-center gap-8">
+      <img src="/bartimeo-logo.png" id="intro-splash-logo" class="w-[80vw] md:w-[60vw] max-w-[500px] h-auto object-contain drop-shadow-[0_0_30px_rgba(248,177,52,0.5)] origin-center transition-all duration-[2000ms] ease-in-out" />
+      <div id="splash-hint" class="flex items-center gap-2 text-white text-base md:text-lg tracking-widest animate-pulse font-bold drop-shadow-[0_0_15px_rgba(248,177,52,0.8)] transition-opacity duration-300 bg-black/50 px-8 py-3 rounded-full border border-[#f8b134]/50 backdrop-blur-md mt-4">
+        <span class="text-xl">👆</span>
+        <span>TOCA PARA ENTRAR</span>
+      </div>
+    </div>
+  </div>
+
   {/* Fondo fijo para evitar problemas de scroll en móvil */}
   <div
     class="fixed inset-0 w-full h-full -z-10"
@@ -53,11 +64,14 @@ const isLocked = true;
               class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] md:w-[60%] max-w-[400px] opacity-40 blur-sm mix-blend-screen pointer-events-none drop-shadow-[0_0_20px_rgba(248,177,52,0.3)]"
             />
             <div class="relative z-10 flex flex-col items-center gap-3 mt-4">
-                <img
-                  src="/logosingle.png"
-                  alt="Logo Single"
-                  class="w-24 md:w-32 h-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] animate-float"
-                />
+                <div class="animate-float">
+                  <img
+                    src="/logosingle.png"
+                    id="hero-logo-single"
+                    alt="Logo Single"
+                    class="w-24 md:w-32 h-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] opacity-0 transition-opacity duration-300"
+                  />
+                </div>
                 <div class="bg-gradient-to-r from-[#f8b134] via-[#fbd07e] to-[#bf8418] text-[#3d000a] font-serif text-xl md:text-3xl px-6 py-1.5 rounded-full shadow-[0_0_35px_rgba(248,177,52,0.9)] border border-[#ffda8c]/50 transform hover:scale-105 transition-transform tracking-wide mt-2">
                   Reto Bartimeo 2.0
                 </div>
@@ -150,6 +164,64 @@ const isLocked = true;
   <EndOfChallengeModal client:load />
 </Layout>
 
+<script>
+  document.addEventListener('astro:page-load', () => {
+    if (window.location.pathname !== '/reto' && window.location.pathname !== '/reto/') return;
+
+    const splash = document.getElementById('intro-splash');
+    const splashLogo = document.getElementById('intro-splash-logo');
+    const heroLogo = document.getElementById('hero-logo-single');
+    const hint = document.getElementById('splash-hint');
+    const bgMusic = document.getElementById('bg-music') as HTMLAudioElement;
+
+    if (!splash || !splashLogo || !heroLogo) return;
+
+    const startAnimation = () => {
+      if (splash.classList.contains('animating')) return;
+      splash.classList.add('animating');
+
+      if (hint) hint.style.opacity = '0';
+
+      const targetRect = heroLogo.getBoundingClientRect();
+      const splashRect = splashLogo.getBoundingClientRect();
+
+      const scale = targetRect.height / splashRect.height;
+      const targetCenterX = targetRect.left + targetRect.width / 2;
+      const targetCenterY = targetRect.top + targetRect.height / 2;
+      const splashCenterX = splashRect.left + splashRect.width / 2;
+      const splashCenterY = splashRect.top + splashRect.height / 2;
+
+      const tx = targetCenterX - splashCenterX;
+      const ty = targetCenterY - splashCenterY;
+
+      splashLogo.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+      splash.style.backgroundColor = 'transparent';
+      splash.style.pointerEvents = 'none';
+
+      setTimeout(() => {
+        splash.style.opacity = '0';
+        heroLogo.classList.remove('opacity-0');
+        heroLogo.classList.add('animate-bounce-short');
+        
+        setTimeout(() => splash.remove(), 300);
+      }, 2000);
+    };
+
+    if (bgMusic) {
+      if (!bgMusic.paused && bgMusic.currentTime > 0) {
+        startAnimation();
+      } else {
+        bgMusic.addEventListener('play', startAnimation, { once: true });
+        splash.addEventListener('click', () => {
+          bgMusic.play().catch(console.error);
+        });
+      }
+    } else {
+      startAnimation();
+    }
+  });
+</script>
+
 <style>
   .text-gold-texture {
     background: linear-gradient(to bottom, #f8b134, #bf8418);
@@ -192,5 +264,16 @@ const isLocked = true;
     animation-delay: 0.2s;
     opacity: 0;
     animation-fill-mode: forwards;
+  }
+
+  @keyframes bounceShort {
+    0% { transform: translateY(0) scale(1); }
+    40% { transform: translateY(-30px) scale(1.15); }
+    60% { transform: translateY(10px) scale(0.95); }
+    80% { transform: translateY(-10px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); }
+  }
+  .animate-bounce-short {
+    animation: bounceShort 0.8s cubic-bezier(0.28, 0.84, 0.42, 1) forwards;
   }
 </style>

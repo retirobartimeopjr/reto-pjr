@@ -8,10 +8,16 @@ REMOTE_PATH="~/reto-pjr/"
 
 echo "🚀 Starting deployment to $REMOTE_IP..."
 
-# 1. Sync local changes to the remote server
+# 1. Bump version automatically
+echo "🔄 Bumping application version..."
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+NEW_VERSION=$(date +"%Y.%m.%d.%H%M")
+echo "export const APP_VERSION = '$NEW_VERSION';" > "$PROJECT_ROOT/src/config/version.ts"
+echo "✅ Version updated to $NEW_VERSION"
+
+# 2. Sync local changes to the remote server
 # We exclude node_modules, .git, and other local-only files to save time and bandwidth
 echo "📦 Syncing files..."
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 rsync -avz --delete \
   --exclude '.git' \

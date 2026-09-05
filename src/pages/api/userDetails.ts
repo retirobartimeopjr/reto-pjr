@@ -89,6 +89,20 @@ export const POST: APIRoute = async ({ request }) => {
             receipts: row.receipts || []
         }));
 
+        // 6. Fetch Daily Trivia Stats
+        const dailyStatsRes = await query(`
+            SELECT 
+                to_char(answered_at AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota', 'YYYY-MM-DD') as date, 
+                COUNT(*) as count 
+            FROM user_trivia_answers 
+            WHERE user_id = $1 
+              AND answered_at >= '2026-08-24'
+            GROUP BY date
+            ORDER BY date DESC
+        `, [targetUserId]);
+
+        userDetails.daily_trivia_stats = dailyStatsRes.rows;
+
         return new Response(JSON.stringify(userDetails), { status: 200, headers: { "Content-Type": "application/json" } });
 
     } catch (error) {

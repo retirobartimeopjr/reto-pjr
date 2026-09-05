@@ -71,10 +71,10 @@ async function main() {
             }
         });
 
-        console.log("Enviando correo a:", process.env.EMAIL_USER);
+        console.log("Enviando correo a: jedatrasfu@gmail.com");
         await transporter.sendMail({
             from: `"Bartimeo App" <${process.env.EMAIL_USER}>`,
-            to: process.env.EMAIL_USER,
+            to: "jedatrasfu@gmail.com",
             subject: `📊 Reporte de Puntajes /RETO - ${new Date().toLocaleDateString('es-CO', { timeZone: 'America/Bogota' })}`,
             html: html
         });

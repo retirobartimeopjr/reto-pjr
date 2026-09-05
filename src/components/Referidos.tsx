@@ -1,7 +1,7 @@
 import { useStore } from '@nanostores/react';
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { refreshUserData, userStore } from '../store/userStore';
+import { refreshUserData, userStore, logoutUser, isLoginOpen } from '../store/userStore';
 
 export default function Referidos() {
     const user = useStore(userStore);
@@ -83,6 +83,14 @@ export default function Referidos() {
                     referralPhone: targetPhone
                 })
             });
+
+            if (response.status === 401) {
+                logoutUser();
+                isLoginOpen.set(true);
+                showToast('error', 'Tu sesión ha expirado. Por favor ingresa de nuevo.');
+                setLoading(false);
+                return;
+            }
 
             const result = await response.json();
 

@@ -1,16 +1,63 @@
 import { useStore } from '@nanostores/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { isLoginOpen, userStore } from '../store/userStore';
+import { isLoginOpen, userStore, logoutUser } from '../store/userStore';
 import { challengeStartTime, challengeEndTime } from '../store/challengeStore';
 
 export default function BartiPregunta() {
     const user = useStore(userStore);
-    const start_time = useStore(challengeStartTime);
+    const start_time = parseInt(import.meta.env.PUBLIC_START_TIME || '0');
     const end_time = useStore(challengeEndTime);
+    
+    // Audio References
+    const timerAudioRef = useRef<HTMLAudioElement | null>(null);
+    const sfxAudioRef = useRef<HTMLAudioElement | null>(null);
+
+    useEffect(() => {
+        // We initialize audio on client side only
+        if (typeof window !== 'undefined') {
+            timerAudioRef.current = new Audio('/timer.mp3');
+            sfxAudioRef.current = new Audio();
+        }
+        return () => {
+            if (timerAudioRef.current) {
+                timerAudioRef.current.pause();
+                timerAudioRef.current.currentTime = 0;
+            }
+        };
+    }, []);
+    
+    // Remaining Questions & Time Calculation
+    const [timeLeftTo5AM, setTimeLeftTo5AM] = useState<string>('');
+    const maxQuestions = 10;
+    const remainingQuestions = user.isAuthenticated === 'true' 
+        ? Math.max(0, maxQuestions - parseInt(user.daily_trivia_count || '0'))
+        : maxQuestions;
+
+    useEffect(() => {
+        const calculateTimeLeft = () => {
+            const now = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Bogota"}));
+            let next5AM = new Date(now);
+            next5AM.setHours(5, 0, 0, 0);
+            
+            if (now.getHours() >= 5) {
+                next5AM.setDate(next5AM.getDate() + 1);
+            }
+            
+            const diffMs = next5AM.getTime() - now.getTime();
+            const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            setTimeLeftTo5AM(`${diffHrs}h ${diffMins}m`);
+        };
+
+        calculateTimeLeft();
+        const interval = setInterval(calculateTimeLeft, 60000); // Update every minute
+        return () => clearInterval(interval);
+    }, []);
+
     const [showLoginWarning, setShowLoginWarning] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [currentQuestion, setCurrentQuestion] = useState<any>(null);
+    const [currentQuestion, setCurrentQuestion] = useState<{ id: number, pregunta: string, opciones: string[], reward: number } | null>(null);
     const [triviaFeedback, setTriviaFeedback] = useState<{ type: 'success' | 'error' | 'timeout' | null, message: string, reward?: number, correctAnswer?: string }>({ type: null, message: '' });
     const [isOpen, setIsOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
@@ -52,6 +99,11 @@ export default function BartiPregunta() {
     const handleOpenTrivia = async () => {
         const isGuest = user.isAuthenticated !== 'true';
 
+        if (isGuest) {
+            setShowLoginWarning(true);
+            return;
+        }
+
         if (end_time && Date.now() >= end_time) {
             setTriviaFeedback({ type: 'error', message: '¡El reto ha finalizado! Ya no es posible responder más preguntas.' });
             setIsOpen(true);
@@ -68,12 +120,21 @@ export default function BartiPregunta() {
 
         try {
             const res = await fetch(`/api/trivia/question?userId=${user.docId || 'guest'}&isPractice=${isPractice}&isGuest=${isGuest}`);
+            
+            if (res.status === 401 || res.status === 400) {
+                logoutUser();
+                isLoginOpen.set(true);
+                setTriviaFeedback({ type: 'error', message: 'Tu sesión ha expirado. Por favor ingresa de nuevo.' });
+                return;
+            }
+
             const data = await res.json();
 
             if (data.empty) {
                 // Check if it's due to daily limit or no more questions
                 if (data.limitReached) {
                     setTriviaFeedback({ type: 'error', message: data.message });
+                    userStore.set({ ...user, daily_trivia_count: "10" });
                 } else {
                     setTriviaFeedback({ type: 'error', message: data.message });
                 }
@@ -81,6 +142,10 @@ export default function BartiPregunta() {
                 setTriviaFeedback({ type: 'error', message: 'Error cargando pregunta.' });
             } else {
                 setCurrentQuestion(data);
+                if (timerAudioRef.current) {
+                    timerAudioRef.current.currentTime = 0;
+                    timerAudioRef.current.play().catch(e => console.error("Timer audio failed", e));
+                }
             }
         } catch (error) {
             console.error(error);
@@ -102,9 +167,22 @@ export default function BartiPregunta() {
         }, 100);
     };
 
+    const handleClose = () => {
+        if (timerAudioRef.current) {
+            timerAudioRef.current.pause();
+            timerAudioRef.current.currentTime = 0;
+        }
+        setIsOpen(false);
+    };
+
     const handleAnswer = async (answer: string) => {
         if (!currentQuestion) return;
         setLoading(true);
+
+        if (timerAudioRef.current) {
+            timerAudioRef.current.pause();
+            timerAudioRef.current.currentTime = 0;
+        }
 
         const isPractice = start_time ? Date.now() < start_time : false;
 
@@ -122,11 +200,36 @@ export default function BartiPregunta() {
                     isGuest: isGuest
                 })
             });
+            
+            if (res.status === 401) {
+                logoutUser();
+                isLoginOpen.set(true);
+                setTriviaFeedback({ type: 'error', message: 'Tu sesión ha expirado. Por favor ingresa de nuevo.' });
+                return;
+            }
+
+            if (res.status === 429) {
+                const errorData = await res.json();
+                setTriviaFeedback({ type: 'error', message: errorData.error || 'Límite alcanzado.' });
+                userStore.set({ ...user, daily_trivia_count: "10" });
+                return;
+            }
+
+            if (res.status === 409) {
+                const errorData = await res.json();
+                setTriviaFeedback({ type: 'error', message: errorData.error || 'Ya has respondido esta pregunta.' });
+                return;
+            }
+
             const result = await res.json();
 
             if (result.success) {
                 if (result.isCorrect) {
                     // CORRECT!
+                    if (sfxAudioRef.current) {
+                        sfxAudioRef.current.src = '/correct.mp3';
+                        sfxAudioRef.current.play().catch(e => console.error(e));
+                    }
                     setTriviaFeedback({
                         type: 'success',
                         message: isGuest ? '¡Respuesta Correcta! (Prueba: Regístrate para sumar puntos)' : (isPractice ? '¡Respuesta Correcta! (Práctica)' : '¡Respuesta Correcta!'),
@@ -140,12 +243,17 @@ export default function BartiPregunta() {
                         userStore.set({
                             ...user,
                             score: newScore.toString(),
-                            preguntasVistas: (user.preguntasVistas || "") + "," + currentQuestion.id
+                            preguntasVistas: (user.preguntasVistas || "") + "," + currentQuestion.id,
+                            daily_trivia_count: result.dailyCount ? String(result.dailyCount) : user.daily_trivia_count
                         });
                     }
 
                 } else {
                     // INCORRECT OR TIMEOUT
+                    if (sfxAudioRef.current) {
+                        sfxAudioRef.current.src = '/error.mp3';
+                        sfxAudioRef.current.play().catch(e => console.error(e));
+                    }
                     setTriviaFeedback({ 
                         type: answer === 'TIMEOUT' ? 'timeout' : 'error', 
                         message: answer === 'TIMEOUT' ? '¡Se acabó el tiempo!' : (isPractice ? 'Respuesta Incorrecta (Práctica)' : 'Respuesta Incorrecta'), 
@@ -156,7 +264,8 @@ export default function BartiPregunta() {
                     if (!isPractice) {
                         userStore.set({
                             ...user,
-                            preguntasVistas: (user.preguntasVistas || "") + "," + currentQuestion.id
+                            preguntasVistas: (user.preguntasVistas || "") + "," + currentQuestion.id,
+                            daily_trivia_count: result.dailyCount ? String(result.dailyCount) : user.daily_trivia_count
                         });
                     }
                 }
@@ -191,13 +300,18 @@ export default function BartiPregunta() {
 
                     {/* Left: Text Content */}
                     <div className="flex flex-col items-start text-left shrink">
-                        <div className="flex items-center gap-2 mb-2">
+                        <div className="flex flex-wrap items-center gap-2 mb-2">
                             <span className="bg-black/90 text-[#f8b134] px-3 py-1 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.2em] shadow-lg border border-white/10 backdrop-blur-md">
                                 Trivia Diaria
                             </span>
-                            {start_time && Date.now() < start_time && (
+                            {start_time > 0 && Date.now() < start_time && (
                                 <span className="bg-blue-600/90 text-white px-3 py-1 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.2em] shadow-lg border border-white/10 animate-pulse">
                                     Modo Práctica
+                                </span>
+                            )}
+                            {user.isAuthenticated === 'true' && (
+                                <span className={`px-3 py-1 rounded-full text-[10px] md:text-xs font-black uppercase tracking-[0.2em] shadow-lg border border-white/10 ${remainingQuestions > 0 ? 'bg-emerald-600/90 text-white' : 'bg-red-600/90 text-white'}`}>
+                                    {remainingQuestions} restantes
                                 </span>
                             )}
                         </div>
@@ -207,6 +321,11 @@ export default function BartiPregunta() {
                         <p className="text-black/90 font-extrabold text-lg md:text-xl leading-tight mt-1 max-w-[200px] md:max-w-[250px]">
                             ¡Responde al Llamado y Gana Puntos! <span className="inline-block animate-bounce">📣</span>
                         </p>
+                        {user.isAuthenticated === 'true' && (
+                            <div className="mt-3 flex items-center gap-1.5 text-black/70 text-xs md:text-sm font-bold bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm border border-black/10">
+                                ⏱️ Renueva en: {timeLeftTo5AM}
+                            </div>
+                        )}
                     </div>
 
                     {/* Right: Image */}
@@ -264,7 +383,7 @@ export default function BartiPregunta() {
                         <div className="bg-[#1a1a1a] border border-[#f8b134]/30 w-full max-w-md rounded-2xl p-6 shadow-2xl relative">
                             {/* Close Button */}
                             <button
-                                onClick={() => setIsOpen(false)}
+                                onClick={handleClose}
                                 className="absolute top-4 right-4 text-white/50 hover:text-white"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
@@ -275,7 +394,7 @@ export default function BartiPregunta() {
                                         <span className="inline-block px-3 py-1 bg-[#f8b134]/20 text-[#f8b134] text-xs font-bold rounded-full">
                                             TRIVIA DIARIA
                                         </span>
-                                        {start_time && Date.now() < start_time && (
+                                        {start_time > 0 && Date.now() < start_time && (
                                             <span className="inline-block px-3 py-1 bg-blue-600/20 text-blue-400 text-xs font-bold rounded-full">
                                                 PRÁCTICA
                                             </span>

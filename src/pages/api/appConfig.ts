@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 export const GET: APIRoute = async () => {
     try {
-        const res = await query("SELECT key, value FROM app_config WHERE key IN ('challenge_state', 'proximity_threshold', 'challenge_start_time', 'challenge_end_time', 'referral_points', 'ticket_price')");
+        const res = await query("SELECT key, value FROM app_config WHERE key IN ('challenge_state', 'proximity_threshold', 'challenge_start_time', 'challenge_end_time', 'referral_points', 'ticket_price', 'presupuesto_medias_becas', 'payment_deadline_date')");
         
         const config: any = {
             active: true,
@@ -13,7 +13,9 @@ export const GET: APIRoute = async () => {
             challenge_start_time: null,
             challenge_end_time: null,
             referral_points: 150,
-            ticket_price: 20000
+            ticket_price: 20000,
+            presupuesto_medias_becas: 0,
+            payment_deadline_date: "4 DE SEPTIEMBRE"
         };
 
         for (const row of res.rows) {
@@ -30,6 +32,10 @@ export const GET: APIRoute = async () => {
                 config.referral_points = Number(row.value) || 150;
             } else if (row.key === 'ticket_price') {
                 config.ticket_price = Number(row.value) || 20000;
+            } else if (row.key === 'presupuesto_medias_becas') {
+                config.presupuesto_medias_becas = Number(row.value) || 0;
+            } else if (row.key === 'payment_deadline_date') {
+                config.payment_deadline_date = String(row.value).replace(/['"]+/g, '');
             }
         }
 
@@ -49,7 +55,7 @@ export const GET: APIRoute = async () => {
 export const POST: APIRoute = async ({ request }) => {
     try {
         const body = await request.json();
-        const { username, password, active, message, proximity_threshold, challenge_start_time, challenge_end_time, referral_points, ticket_price } = body;
+        const { username, password, active, message, proximity_threshold, challenge_start_time, challenge_end_time, referral_points, ticket_price, presupuesto_medias_becas, payment_deadline_date } = body;
 
         if (!username || !password) {
             return new Response(JSON.stringify({ error: 'Credenciales incompletas' }), { status: 400 });
@@ -119,6 +125,24 @@ export const POST: APIRoute = async ({ request }) => {
                 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
             `, [JSON.stringify(Number(ticket_price))]);
             newState.ticket_price = Number(ticket_price);
+        }
+
+        if (presupuesto_medias_becas !== undefined) {
+            await query(`
+                INSERT INTO app_config (key, value) 
+                VALUES ('presupuesto_medias_becas', $1::jsonb)
+                ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+            `, [JSON.stringify(Number(presupuesto_medias_becas))]);
+            newState.presupuesto_medias_becas = Number(presupuesto_medias_becas);
+        }
+
+        if (payment_deadline_date !== undefined) {
+            await query(`
+                INSERT INTO app_config (key, value) 
+                VALUES ('payment_deadline_date', $1::jsonb)
+                ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
+            `, [JSON.stringify(payment_deadline_date)]);
+            newState.payment_deadline_date = payment_deadline_date;
         }
 
         return new Response(JSON.stringify({ success: true, state: newState }), {

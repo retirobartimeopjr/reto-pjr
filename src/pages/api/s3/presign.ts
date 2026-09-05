@@ -44,14 +44,14 @@ export const POST: APIRoute = async ({ request }) => {
             const cleanUser = (username || 'Usuario').replace(/[^a-zA-Z0-9]/g, '_');
             fileKey += `${cleanUser}_${timestamp}.${extension}`;
         } else {
-            fileKey += `${timestamp}_${fileName}`;
+            const cleanFile = fileName.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, '_');
+            fileKey += `${timestamp}_${cleanFile}.${extension}`;
         }
 
         const command = new PutObjectCommand({
             Bucket: bucketName,
             Key: fileKey,
             ContentType: fileType,
-            // ACL: 'public-read' // Omitido porque AWS suele bloquear ACLs por defecto, lo mejor es una Bucket Policy
         });
 
         // Generar URL firmada válida por 5 minutos

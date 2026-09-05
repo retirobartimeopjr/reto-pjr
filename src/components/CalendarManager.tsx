@@ -181,7 +181,22 @@ export default function CalendarManager({ username, password }: CalendarManagerP
                 {currentMonth ? (
                     <div>
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-3xl font-serif text-white">{currentMonth.name} <span className="text-white/30">2026</span></h2>
+                            <div className="flex items-center gap-4">
+                                <h2 className="text-3xl font-serif text-white">{currentMonth.name} <span className="text-white/30">2026</span></h2>
+                                <label className="flex items-center gap-2 cursor-pointer bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/10 transition">
+                                    <input 
+                                        type="checkbox" 
+                                        checked={currentMonth.hidden || false}
+                                        onChange={(e) => {
+                                            const newData = { ...calendarData };
+                                            newData.months[selectedMonthIdx].hidden = e.target.checked;
+                                            setCalendarData(newData);
+                                        }}
+                                        className="w-4 h-4 accent-[#f8b134]"
+                                    />
+                                    <span className="text-sm font-medium text-white/70">Ocultar mes</span>
+                                </label>
+                            </div>
                             <button 
                                 onClick={() => handleAddCard(selectedMonthIdx)}
                                 className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition text-sm font-bold flex items-center gap-2"

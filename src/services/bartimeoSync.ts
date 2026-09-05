@@ -1,4 +1,4 @@
-import { getAuth } from '../lib/googleSheets';
+import { getAuth, paintRowsGreen, getSheetColors } from '../lib/googleSheets';
 import { google } from 'googleapis';
 import { query } from '../lib/db';
 import crypto from 'crypto';
@@ -204,6 +204,15 @@ export async function syncBartimeosFromSheets(triggeredBy: string) {
             throw new Error("No hay datos en la hoja.");
         }
 
+        // Obtener colores
+        let rowColors: Record<number, string> = {};
+        try {
+            rowColors = await getSheetColors(sheetName);
+        } catch (colorFetchErr) {
+            console.error("Error fetching row colors:", colorFetchErr);
+            warnings.push("No se pudieron obtener los colores de las filas.");
+        }
+
         const headers = rows[0].map(h => String(h));
         const mappedIndices: Record<string, parseInt> = {};
         const unmappedHeaders = [];
@@ -224,11 +233,16 @@ export async function syncBartimeosFromSheets(triggeredBy: string) {
         const dataRows = rows.slice(1);
         rowsRead = dataRows.length;
 
+        try {
+            await query('ALTER TABLE bartimeo ADD COLUMN IF NOT EXISTS row_color VARCHAR(50);');
+        } catch(e){}
+
         await query('BEGIN');
 
         for (let i = 0; i < dataRows.length; i++) {
             const row = dataRows[i];
             const sheet_row = i + 2;
+            const row_color = rowColors[sheet_row] || null;
             
             // Build raw object
             const rawObj: Record<string, any> = {};
@@ -298,6 +312,8 @@ export async function syncBartimeosFromSheets(triggeredBy: string) {
 
                 autoriza_datos: normalizeBoolean(getVal('autoriza_datos')),
                 autoriza_imagen: normalizeBoolean(getVal('autoriza_imagen')),
+                
+                row_color
             };
 
             const hashInput = JSON.stringify(record) + JSON.stringify(rawObj);
@@ -312,10 +328,10 @@ export async function syncBartimeosFromSheets(triggeredBy: string) {
                     acudiente1_nombre, acudiente1_parentesco, acudiente1_telefono, acudiente1_email,
                     acudiente2_nombre, acudiente2_parentesco, acudiente2_email, acudiente2_telefono,
                     doc_identidad_url, doc_identidad_file_id, eps, eps_certificado_url, eps_certificado_file_id,
-                    autoriza_datos, autoriza_imagen, raw, content_hash
+                    autoriza_datos, autoriza_imagen, row_color, raw, content_hash
                 ) VALUES (
                     $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,
-                    $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35
+                    $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36
                 ) ON CONFLICT (documento_identidad) DO UPDATE SET
                     sheet_row = EXCLUDED.sheet_row,
                     marca_temporal = EXCLUDED.marca_temporal,
@@ -349,6 +365,7 @@ export async function syncBartimeosFromSheets(triggeredBy: string) {
                     eps_certificado_file_id = EXCLUDED.eps_certificado_file_id,
                     autoriza_datos = EXCLUDED.autoriza_datos,
                     autoriza_imagen = EXCLUDED.autoriza_imagen,
+                    row_color = EXCLUDED.row_color,
                     raw = EXCLUDED.raw,
                     content_hash = EXCLUDED.content_hash,
                     last_synced_at = now(),
@@ -363,21 +380,40 @@ export async function syncBartimeosFromSheets(triggeredBy: string) {
                 record.acudiente1_nombre, record.acudiente1_parentesco, record.acudiente1_telefono, record.acudiente1_email,
                 record.acudiente2_nombre, record.acudiente2_parentesco, record.acudiente2_email, record.acudiente2_telefono,
                 record.doc_identidad_url, record.doc_identidad_file_id, record.eps, record.eps_certificado_url, record.eps_certificado_file_id,
-                record.autoriza_datos, record.autoriza_imagen,
+                record.autoriza_datos, record.autoriza_imagen, record.row_color,
                 JSON.stringify(rawObj), content_hash
             ];
 
             const upsertRes = await query(upsertQuery, params);
             const isInserted = upsertRes.rows[0].inserted;
-            const isUpdated = !isInserted && record.content_hash !== rawObj.content_hash; // We check hash in code to count properly
+            const isUpdated = !isInserted && record.content_hash !== rawObj.content_hash;
 
             if (isInserted) rowsInserted++;
-            else rowsUpdated++; // We just count it as updated for simplicity if it wasn't inserted, or we can check actual change.
-            // Actually let's do real update count by checking if the hash changed vs DB:
-            // Since we can't easily access the old hash here without a SELECT, we just increment rowsUpdated if it wasn't inserted.
+            else if (isUpdated) rowsUpdated++;
         }
 
         await query('COMMIT');
+        
+        // Al final, revisar quiénes ya pagaron algo (total > 0) y pintar sus filas de verde
+        try {
+            const fullyPaidRes = await query(`
+                SELECT b.sheet_row
+                FROM bartimeo b
+                JOIN bartimeo_payments bp ON b.id = bp.bartimeo_id
+                GROUP BY b.id, b.sheet_row
+                HAVING SUM(bp.amount) > 0 AND b.sheet_row IS NOT NULL
+            `);
+            
+            const rowsToPaint = fullyPaidRes.rows.map(r => parseInt(r.sheet_row)).filter(n => !isNaN(n));
+            
+            if (rowsToPaint.length > 0) {
+                await paintRowsGreen(rowsToPaint);
+            }
+        } catch (colorErr: any) {
+            console.error("Error painting rows green:", colorErr);
+            warnings.push("Error actualizando colores en Google Sheets: " + colorErr.message);
+        }
+
         status = 'ok';
 
     } catch (error: any) {

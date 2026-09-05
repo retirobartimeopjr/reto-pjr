@@ -68,7 +68,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
             FROM user_parroquia_visits 
             WHERE user_id = $1 
             AND parroquia_id = $2 
-            AND DATE(visited_at AT TIME ZONE 'America/Bogota') = DATE(CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')
+            AND DATE(visited_at AT TIME ZONE 'UTC' AT TIME ZONE 'America/Bogota') = DATE(CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')
         `, [userId, parseInt(parroquiaId)]);
 
         if (parseInt(todayVisitRes.rows[0].count) > 0) {

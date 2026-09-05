@@ -17,7 +17,9 @@ export const GET: APIRoute = async ({ params }) => {
                 (SELECT STRING_AGG(pregunta_id::TEXT, ',') FROM user_trivia_answers WHERE user_id = u.id) AS answered_preguntas_ids,
                 (SELECT STRING_AGG(ticket_number::TEXT, ',') FROM tickets WHERE user_id = u.id) AS ticket_numbers,
                 (SELECT STRING_AGG(fixed::TEXT, ',') FROM tickets WHERE user_id = u.id) AS tickets_fixed,
-                (SELECT calculated_score FROM user_stats WHERE user_id = u.id) AS total_score
+                (SELECT calculated_score FROM user_stats WHERE user_id = u.id) AS total_score,
+                u.daily_trivia_count,
+                (u.last_trivia_date = (CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')::DATE) as is_today
             FROM users u
             WHERE u.id = $1;
         `;
@@ -43,7 +45,8 @@ export const GET: APIRoute = async ({ params }) => {
             preguntasVistas: userRow.answered_preguntas_ids || "",
             referencia: userRow.referencia || "",
             isAuthenticated: "true",
-            'tickets-numbers': userRow.ticket_numbers || ""
+            'tickets-numbers': userRow.ticket_numbers || "",
+            daily_trivia_count: userRow.is_today ? String(userRow.daily_trivia_count || 0) : "0"
         }), {
             status: 200,
             headers: {

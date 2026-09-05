@@ -16,6 +16,7 @@ export type UserProfile = {
     isAuthenticated: string; 
     'tickets-numbers': string;
     visited_parroquias_json: string;
+    daily_trivia_count: string;
 };
 
 // Default empty state
@@ -32,6 +33,7 @@ const initialState: UserProfile = {
     isAuthenticated: 'false',
     'tickets-numbers': '',
     visited_parroquias_json: '[]',
+    daily_trivia_count: '0',
 };
 
 // Persistent store to keep session alive across reloads
@@ -44,6 +46,8 @@ export const isLoginOpen = atom(false);
 // GLOBAL EXPOSURE (Critical for Astro Island communication)
 if (typeof window !== 'undefined') {
     (window as any).bartimeoUserStore = userStore;
+    (window as any).isLoginOpen = isLoginOpen;
+    (window as any).userStoreInitialState = initialState;
 }
 
 // CENTRALIZED HELPERS

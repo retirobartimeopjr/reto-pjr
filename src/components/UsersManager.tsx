@@ -36,6 +36,10 @@ interface UserDetails {
         points_awarded: number;
         photo_url?: string;
     }[];
+    daily_trivia_stats?: {
+        date: string;
+        count: string;
+    }[];
 }
 
 export default function UsersManager({ username, password }: { username: string, password: string }) {
@@ -80,6 +84,10 @@ export default function UsersManager({ username, password }: { username: string,
     // Photo Modal State
     const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
     const [loadingPhoto, setLoadingPhoto] = useState(false);
+
+    // Extra Trivia State
+    const [extraTriviaAmount, setExtraTriviaAmount] = useState('10');
+    const [addingExtraTrivia, setAddingExtraTrivia] = useState(false);
 
     const fetchUsers = async (query = '') => {
         setLoading(true);
@@ -142,6 +150,43 @@ export default function UsersManager({ username, password }: { username: string,
             }
         } catch (e) {
             console.error("Error fetching config:", e);
+        }
+    };
+
+    const handleAddExtraTrivia = async (userId: string) => {
+        const amount = parseInt(extraTriviaAmount);
+        if (isNaN(amount) || amount <= 0) {
+            alert('Ingresa una cantidad válida de preguntas.');
+            return;
+        }
+        
+        if (!confirm(`¿Dar ${amount} preguntas extra a este usuario hoy?`)) return;
+
+        setAddingExtraTrivia(true);
+        try {
+            const res = await fetch('/api/manageUsers', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    username, 
+                    password, 
+                    action: 'add_extra_trivia', 
+                    targetUserId: userId,
+                    extraAmount: amount
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                alert(`¡Se le han dado ${amount} preguntas extra!`);
+                setSelectedUser(null);
+                fetchUsers(searchQuery);
+            } else {
+                alert(`Error: ${data.error}`);
+            }
+        } catch (e) {
+            alert('Error dando preguntas extra.');
+        } finally {
+            setAddingExtraTrivia(false);
         }
     };
 
@@ -497,7 +542,7 @@ export default function UsersManager({ username, password }: { username: string,
         <div className="space-y-6 relative">
             <div className="bg-[#161616] rounded-3xl p-6 md:p-8 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 className="text-xl font-bold text-white">Gestión de Participantes</h2>
+                    <h2 className="text-xl font-bold text-white">Gestión de Participantes ({users.length})</h2>
                     <p className="text-zinc-400 text-sm mt-1">Busca usuarios por nombre, cédula o teléfono y audita sus puntos.</p>
                 </div>
                 <button 
@@ -797,10 +842,58 @@ export default function UsersManager({ username, password }: { username: string,
                                 <div className="bg-[#0a0a0a] border border-white/5 p-4 rounded-2xl flex flex-col items-center justify-center text-center">
                                     <span className="text-xl font-bold text-white">{selectedUser.respuestas_correctas}/{selectedUser.respuestas_enviadas}</span>
                                     <span className="text-xs text-zinc-500 font-bold uppercase mt-1">Trivia OK</span>
+                                    
+                                    <div className="mt-3 flex w-full gap-1 items-center justify-center">
+                                        <input 
+                                            type="number" 
+                                            min="1"
+                                            value={extraTriviaAmount}
+                                            onChange={(e) => setExtraTriviaAmount(e.target.value)}
+                                            className="w-10 bg-white/10 text-white text-center text-[10px] py-1 rounded outline-none border border-white/10 focus:border-[#f8b134]/50"
+                                            title="Cantidad extra"
+                                        />
+                                        <button 
+                                            onClick={() => handleAddExtraTrivia(selectedUser.user_id)}
+                                            disabled={addingExtraTrivia}
+                                            className="px-2 py-1 bg-[#f8b134] text-black text-[9px] font-bold rounded hover:bg-[#dca336] transition-colors whitespace-nowrap"
+                                        >
+                                            {addingExtraTrivia ? '...' : '+ Vida'}
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="bg-[#0a0a0a] border border-white/5 p-4 rounded-2xl flex flex-col items-center justify-center text-center">
                                     <span className="text-xl font-bold text-white">{selectedUser.referidos || 0}</span>
                                     <span className="text-xs text-zinc-500 font-bold uppercase mt-1">Referidos</span>
+                                </div>
+                            </div>
+
+                            {/* Daily Trivia Stats */}
+                            <div className="mb-8">
+                                <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-brand" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" /></svg>
+                                    Estadísticas de Trivia
+                                </h4>
+                                <div className="bg-[#0a0a0a] border border-white/5 rounded-2xl overflow-hidden">
+                                    {(!selectedUser.daily_trivia_stats || selectedUser.daily_trivia_stats.length === 0) ? (
+                                        <p className="p-6 text-center text-sm text-zinc-500">No ha respondido trivias aún.</p>
+                                    ) : (
+                                        <table className="w-full text-left border-collapse text-sm">
+                                            <thead>
+                                                <tr className="border-b border-white/5 text-zinc-500 text-xs">
+                                                    <th className="p-3 font-medium">Fecha</th>
+                                                    <th className="p-3 font-medium text-right">Preguntas Respondidas</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-white/5">
+                                                {selectedUser.daily_trivia_stats.map((stat, i) => (
+                                                    <tr key={i} className="hover:bg-white/5 transition">
+                                                        <td className="p-3 text-white font-medium">{stat.date}</td>
+                                                        <td className="p-3 text-brand text-right font-bold">{stat.count}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    )}
                                 </div>
                             </div>
 

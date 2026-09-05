@@ -69,9 +69,9 @@ export const POST: APIRoute = async ({ request }) => {
             }
 
             if (sortBy === 'referrals') {
-                sql += ` ORDER BY u.referidos DESC LIMIT 50`;
+                sql += ` ORDER BY u.referidos DESC LIMIT 1000`;
             } else {
-                sql += ` ORDER BY us.calculated_score DESC LIMIT 50`; // Limit to 50 for performance
+                sql += ` ORDER BY us.calculated_score DESC LIMIT 1000`; // Increased limit to show more users in admin
             }
 
             const usersRes = await query(sql, params);
@@ -128,6 +128,21 @@ export const POST: APIRoute = async ({ request }) => {
             }
 
             return new Response(JSON.stringify({ success: true, user: updateRes.rows[0] }), { status: 200, headers: { "Content-Type": "application/json" } });
+        }
+
+        if (action === 'add_extra_trivia') {
+            if (!targetUserId || typeof body.extraAmount !== 'number') {
+                return new Response(JSON.stringify({ error: 'Faltan datos' }), { status: 400 });
+            }
+            
+            // Subtract the extra amount from daily_trivia_count so they can play more
+            await query(`
+                UPDATE users 
+                SET daily_trivia_count = COALESCE(daily_trivia_count, 0) - $1 
+                WHERE id = $2
+            `, [body.extraAmount, targetUserId]);
+
+            return new Response(JSON.stringify({ success: true }), { status: 200, headers: { "Content-Type": "application/json" } });
         }
 
         if (action === 'delete') {

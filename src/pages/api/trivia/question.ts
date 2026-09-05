@@ -1,12 +1,22 @@
 import type { APIRoute } from 'astro';
 import { query } from '../../../lib/db';
+import { jwtVerify } from 'jose';
 
-export const GET: APIRoute = async ({ url }) => {
+export const GET: APIRoute = async ({ url, cookies }) => {
     const userId = url.searchParams.get('userId');
     const isGuest = url.searchParams.get('isGuest') === 'true';
-
-    if (!isGuest && !userId) {
-        return new Response(JSON.stringify({ error: "User ID is required" }), { status: 400 });
+    if (!isGuest) {
+        if (!userId) {
+            return new Response(JSON.stringify({ error: "User ID is required" }), { status: 400 });
+        }
+        const token = cookies.get('auth_token')?.value;
+        if (!token) return new Response(JSON.stringify({ error: 'No autorizado' }), { status: 401 });
+        try {
+            const secret = new TextEncoder().encode(import.meta.env.JWT_SECRET || process.env.JWT_SECRET);
+            await jwtVerify(token, secret);
+        } catch (e) {
+            return new Response(JSON.stringify({ error: 'Sesión expirada' }), { status: 401 });
+        }
     }
 
     try {
@@ -59,7 +69,7 @@ export const GET: APIRoute = async ({ url }) => {
             const sqlRandomQuestion = `
                 SELECT id, pregunta, opcion_a, opcion_b, opcion_c, opcion_d, reward
                 FROM preguntas
-                WHERE id NOT IN (SELECT pregunta_id FROM user_trivia_answers WHERE user_id = $1)
+                WHERE id NOT IN (SELECT pregunta_id FROM user_trivia_answers WHERE user_id = $1 AND pregunta_id IS NOT NULL)
                 ORDER BY RANDOM()
                 LIMIT 1;
             `;
@@ -67,7 +77,7 @@ export const GET: APIRoute = async ({ url }) => {
             const questionRes = await query(sqlRandomQuestion, [userId]);
 
             if (questionRes.rowCount === 0) {
-                return new Response(JSON.stringify({ empty: true, message: "¡Ya respondiste todas las trivias disponibles!" }), { status: 200 });
+                return new Response(JSON.stringify({ empty: true, message: "Has respondido todas las preguntas disponibles del reto bartimeo" }), { status: 200 });
             }
 
             selectedQ = questionRes.rows[0];

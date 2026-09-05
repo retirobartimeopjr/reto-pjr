@@ -1,9 +1,10 @@
 import type { APIRoute } from 'astro';
-import { query } from '../../../lib/db';
+import { query, pool } from '../../../lib/db';
 import crypto from 'crypto';
 import { jwtVerify } from 'jose';
 
 export const POST: APIRoute = async ({ request, cookies }) => {
+    let client;
     try {
         const body = await request.json();
         const { preguntaId, respuesta, isPractice, isGuest } = body;
@@ -27,27 +28,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
             return new Response(JSON.stringify({ error: "Missing required fields" }), { status: 400 });
         }
 
-        // 1. Verificar límite diario antes de hacer nada (solo si no es práctica y no es guest)
-        if (!isPractice && !isGuest) {
-            const limitRes = await query(`
-                SELECT daily_trivia_count, last_trivia_date 
-                FROM users 
-                WHERE id = $1
-            `, [userId]);
-            
-            if (limitRes.rowCount > 0) {
-                const user = limitRes.rows[0];
-                const nowBogota = new Date(new Date().toLocaleString("en-US", {timeZone: "America/Bogota"}));
-                const lastDate = user.last_trivia_date ? new Date(user.last_trivia_date) : null;
-                const isToday = lastDate && (lastDate.getFullYear() === nowBogota.getFullYear() && lastDate.getMonth() === nowBogota.getMonth() && lastDate.getDate() === nowBogota.getDate());
-                
-                if (isToday && user.daily_trivia_count >= 10) {
-                    return new Response(JSON.stringify({ error: "Límite diario de 10 preguntas alcanzado." }), { status: 429 });
-                }
-            }
-        }
-
-        // 2. Verificar la pregunta en Postgres
+        // 1. Verificar la pregunta en Postgres
         const preguntaRes = await query('SELECT respuesta_correcta, reward FROM preguntas WHERE id = $1', [parseInt(preguntaId)]);
 
         if (preguntaRes.rowCount === 0) {
@@ -61,12 +42,12 @@ export const POST: APIRoute = async ({ request, cookies }) => {
         // 2. Validar Respuesta
         const isCorrect = String(respuesta).trim() === String(correctAnswer).trim();
 
-        // Si es guest, simplemente retornamos sin guardar nada
-        if (isGuest) {
+        // Si es guest o práctica, simplemente retornamos sin guardar nada
+        if (isGuest || isPractice) {
             return new Response(JSON.stringify({
                 success: true,
                 isCorrect: isCorrect,
-                reward: 0,
+                reward: (isCorrect && !isPractice) ? reward : 0,
                 correctAnswer: correctAnswer,
                 dailyCount: 0
             }), {
@@ -75,38 +56,55 @@ export const POST: APIRoute = async ({ request, cookies }) => {
             });
         }
 
-        // 3. Guardar la respuesta (con restricción Unique para evitar trampas)
+        // 3. Transacción estricta para guardar y actualizar conteo
         const answerId = crypto.randomUUID();
         let newCount = 1;
 
-        if (!isPractice) {
-            try {
-                await query(`
-                    INSERT INTO user_trivia_answers (id, user_id, pregunta_id, respuesta_enviada, is_correct, snapshot_reward)
-                    VALUES ($1, $2, $3, $4, $5, $6)
-                `, [answerId, userId, parseInt(preguntaId), respuesta, isCorrect, isCorrect ? reward : 0]);
-            } catch (err: any) {
-                if (err.code === '23505') {
-                     return new Response(JSON.stringify({
-                        error: "Ya has respondido esta pregunta anteriormente."
-                    }), { status: 409 });
-                }
-                throw err;
-            }
+        client = await pool.connect();
+        await client.query('BEGIN');
 
-            // 4. Actualizar el conteo diario del usuario usando magia de SQL (UPDATE + RETURNING)
-            const updateRes = await query(`
+        try {
+            // Actualizar límite primero, verificando matemáticamente en la base de datos
+            const updateRes = await client.query(`
                 UPDATE users 
                 SET daily_trivia_count = CASE 
-                        WHEN last_trivia_date = (CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')::DATE THEN daily_trivia_count + 1 
+                        WHEN last_trivia_date = (CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')::DATE THEN COALESCE(daily_trivia_count, 0) + 1 
                         ELSE 1 
                     END,
                     last_trivia_date = (CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')::DATE
                 WHERE id = $1
+                  AND (
+                    last_trivia_date IS NULL OR
+                    last_trivia_date != (CURRENT_TIMESTAMP AT TIME ZONE 'America/Bogota')::DATE OR
+                    COALESCE(daily_trivia_count, 0) < 10
+                  )
                 RETURNING daily_trivia_count;
             `, [userId]);
 
-            newCount = updateRes.rows[0]?.daily_trivia_count || 1;
+            if (updateRes.rowCount === 0) {
+                await client.query('ROLLBACK');
+                return new Response(JSON.stringify({ error: "Has alcanzado el límite diario de 10 preguntas." }), { status: 429 });
+            }
+
+            newCount = updateRes.rows[0].daily_trivia_count;
+
+            // Insertar respuesta
+            await client.query(`
+                INSERT INTO user_trivia_answers (id, user_id, pregunta_id, respuesta_enviada, is_correct, snapshot_reward)
+                VALUES ($1, $2, $3, $4, $5, $6)
+            `, [answerId, userId, parseInt(preguntaId), respuesta, isCorrect, isCorrect ? reward : 0]);
+
+            await client.query('COMMIT');
+        } catch (err: any) {
+            await client.query('ROLLBACK');
+            if (err.code === '23505') { // Unique violation
+                 return new Response(JSON.stringify({
+                    error: "Ya has respondido esta pregunta anteriormente."
+                }), { status: 409 });
+            }
+            throw err;
+        } finally {
+            client.release();
         }
 
         // 5. Retornar resultado al cliente

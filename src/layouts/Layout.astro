@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions'
+import SessionWatcher from '../components/SessionWatcher';
 import '../styles/global.css'
 
 interface Props {
@@ -101,9 +102,40 @@ const { title } = Astro.props
   </head>
   <body class="bg-[#640010] text-white overflow-x-hidden">
     <!-- Persistent Background Music -->
-    <audio id="bg-music" src="/song.mp3" preload="auto" transition:persist loop></audio>
+    <audio id="bg-music" src="/Wii%20Sports%20Resort%20(Remix).mp3" preload="auto" transition:persist loop></audio>
+    <script>
+      document.addEventListener('astro:page-load', () => {
+        const bgMusic = document.getElementById('bg-music') as HTMLAudioElement;
+        if (!bgMusic || bgMusic.dataset.volumeHandled) return;
+        
+        bgMusic.dataset.volumeHandled = "true";
+        bgMusic.volume = 0.7; // Start at 70%
+
+        let hasMuted = false;
+        
+        bgMusic.addEventListener('timeupdate', () => {
+          // Apagar y mutear exactamente en el segundo 2.8
+          if (bgMusic.currentTime >= 2.7 && !hasMuted) {
+            hasMuted = true;
+            bgMusic.volume = 0.0;
+            bgMusic.pause();
+            bgMusic.currentTime = 0; // Reiniciar por si deciden desmutear luego
+          }
+        });
+
+        bgMusic.addEventListener('play', () => {
+          // Si le dan play manualmente y estaba en 0, lo devolvemos al 70%
+          if (bgMusic.volume === 0) {
+            bgMusic.volume = 0.7;
+          }
+        });
+      });
+    </script>
 
     <slot />
+    
+    <!-- Global Session & Version Watcher -->
+    <SessionWatcher client:load />
   </body>
 </html>
 
